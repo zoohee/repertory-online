@@ -1,0 +1,32 @@
+server:
+  port: 8000
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+        - id: community
+          uri: lb://COMMUNITY
+          predicates:
+            - Path=/community/**
+        - id: dance-service
+          uri: lb://DANCE
+          predicates:
+            - Path=/dance/**
+        - id: project
+          uri: lb://PROJECT
+          predicates:
+            - Path=/project/**
+        - id: member
+          uri: lb://MEMBER
+          predicates:
+            - Path=/member/**
