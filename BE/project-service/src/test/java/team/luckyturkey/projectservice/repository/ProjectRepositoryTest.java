@@ -9,9 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import team.luckyturkey.projectservice.document.Project;
 import team.luckyturkey.projectservice.repository.project.ProjectRepository;
 
-import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
