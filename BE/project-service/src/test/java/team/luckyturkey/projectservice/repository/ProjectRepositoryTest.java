@@ -75,4 +75,40 @@ public class ProjectRepositoryTest {
                 .isEqualTo(foundFreeze.get());
 
     }
+
+    @Test
+    void update(){
+        Project windmillProject = Project.builder()
+                .projectDate(ZonedDateTime.now().toInstant())
+                .userId(1L)
+                .projectName("windmill project")
+                .projectThumbnailUrl("s3//windmill.video")
+                .sourceList(List.of(1L, 2L, 3L, 4L))
+                .build();
+
+
+        Project savedWindmill = projectRepository.saveWithSequence(windmillProject);
+
+        Project changedWindmill = Project.builder()
+                .id(savedWindmill.getId())
+                .sourceList(List.of(5L, 6L, 7L))
+                .build();
+
+        Project modifiedProject = projectRepository.findByModify(changedWindmill);
+        Optional<Project> foundWindmill = projectRepository.findById(savedWindmill.getId());
+
+        Assertions.assertThat(modifiedProject)
+                .usingRecursiveComparison()
+                .ignoringFields("projectDate")
+                .isEqualTo(foundWindmill.get());
+
+        Assertions.assertThat(windmillProject)
+                .usingRecursiveComparison()
+                .ignoringFields("projectDate")
+                .ignoringFields("sourceList")
+                .isEqualTo(foundWindmill.get());
+
+        Assertions.assertThat(foundWindmill.get().getSourceList())
+                .isEqualTo(List.of(5L, 6L, 7L));
+    }
 }
