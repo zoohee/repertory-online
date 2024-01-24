@@ -1,18 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface MemberState {
+  isLogged: boolean;
+}
+
+interface LoginPayLoad {
+  memberLoginId: string;
+  memberLoginPassword: string;
+}
+
+const initialState: MemberState = {
+  isLogged: false,
+};
 export const counterSlice = createSlice({
   name: 'member',
-  initialState: {
-    isLogged: false,
-  },
+  initialState,
   reducers: {
-    login: (state, action) => {
+    login: (state, action: PayloadAction<LoginPayLoad>) => {
       console.log(`[Before] : ${state.isLogged}`);
       if (
         action.payload.memberLoginId === 'ssafy' &&
         action.payload.memberLoginPassword === '1234'
       ) {
-        state.value = true;
+        state.isLogged = true;
         console.log('[Login Successed]');
       } else {
         console.log('[Login Failed]');
@@ -21,9 +31,8 @@ export const counterSlice = createSlice({
     },
     logout: (state) => {
       console.log(`[Before] : ${state.isLogged}`);
-      state.value = false;
-      console.log(`[After] : ${state.value}`);
-      return 'Return Fail...';
+      state.isLogged = false;
+      console.log(`[After] : ${state.isLogged}`);
     },
   },
 });
