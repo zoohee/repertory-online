@@ -15,7 +15,6 @@
 #        service-url:
 #            defaultZone: http://127.0.0.1:8761/eureka
 
-
 spring:
   data:
     mongodb:
@@ -30,3 +29,6 @@ logging:
     org.springframework.data.mongodb: debug
     web: debug
 
+server:
+  servlet:
+    context-path: /project
