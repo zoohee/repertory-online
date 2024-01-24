@@ -29,10 +29,10 @@ dependencies {
 
     //web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
 //    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     //mongo db
-//    implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     //lombok
@@ -43,6 +43,9 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    //aop
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 dependencyManagement {
