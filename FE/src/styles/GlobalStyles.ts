@@ -28,6 +28,11 @@ const GlobalStyles = createGlobalStyle`
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
+    html, body, #root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
     body {
         line-height: 1;
     }
@@ -65,6 +70,9 @@ const GlobalStyles = createGlobalStyle`
       --rp-black: #0d0d0d;
       --rp-white: #fafafa;
       --rp-yellow: #fee800;
+      --rp-grey-500: #444549;
+      --rp-grey-800: #1c1d22;
+      --rp-orange: #ffac00;
     }
 
 `;
