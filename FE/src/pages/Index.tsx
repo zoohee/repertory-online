@@ -65,7 +65,7 @@ export default function HomePage() {
         <Link to="/signup">Sign Up</Link>
       </GridBox>
       <GridBox column={2} row={3}>
-        <Link to="/project">Create</Link>
+        <Link to="/projects">Create</Link>
       </GridBox>
       <GridBox column={2} row={4}>
         <Link to="/community">Community</Link>
