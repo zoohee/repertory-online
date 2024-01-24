@@ -15,3 +15,18 @@
 #        service-url:
 #            defaultZone: http://127.0.0.1:8761/eureka
 
+
+spring:
+  data:
+    mongodb:
+      username: lucky
+      password: turkey
+      host: localhost
+      port: 27017
+      database: testdb
+      authentication-database: admin
+logging:
+  level:
+    org.springframework.data.mongodb: debug
+    web: debug
+
