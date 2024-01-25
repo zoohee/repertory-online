@@ -1,7 +1,104 @@
-import React from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { debounce } from 'lodash';
+import { useDispatch } from 'react-redux';
+import Input from '../components/common/Input';
+import Button from '../components/common/Button';
+import { login, logout } from '../Redux/authentication';
+const Wrapper = styled.div`
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: rgba(23, 23, 23, 0.8);
+  width: 480px;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Title = styled.div`
+  margin: 30px;
+  font-size: 2rem;
+  color: #fafafa;
+`;
+
+const SignUpMsg = styled.div`
+  box-sizing: border-box;
+  list-style-type: none;
+  width: 100%;
+  color: #919191;
+  display: flex;
+  justify-content: right;
+  font-size: 0.6rem;
+`;
+const SignUp = styled(SignUpMsg)`
+  width: 76%;
+  display: flex;
+  justify-content: flex-end;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Login = () => {
-  return <h1>Login</h1>;
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [isIdValid, setIsIdValid] = useState(false);
+  const [isPwValid, setIsPwValid] = useState(false);
+  const [idValidationMsg, setIdValidationMsg] = useState('');
+  const [pwValidationMsg, setPwValidationMsg] = useState('');
+  const dispatch = useDispatch();
+
+  const onChangeId = debounce((e: { target: { value: string } }) => {
+    const input = e.target.value;
+    setId(input);
+    setIsIdValid(input.length >= 9 && input.length <= 16);
+    setIdValidationMsg(idValidationMsg ? '' : 'Invalid Id');
+  }, 500);
+
+  const onChangePw = debounce((e: { target: { value: string } }) => {
+    const input = e.target.value;
+    setPw(input);
+    const pwRegex =
+      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
+    setIsPwValid(pwRegex.test(input));
+    setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
+  }, 500);
+
+  const onClickLogin = () => {
+    const LoginData = {
+      memberLoginId: id,
+      memberLoginPassword: pw,
+    };
+
+    dispatch(login(LoginData));
+  };
+  return (
+    <>
+      <Wrapper>
+        <Title>Login</Title>
+        <Input
+          name='login'
+          action='login'
+          inputtype='ID'
+          onChange={onChangeId}
+        />
+        <Input
+          name='password'
+          action='login'
+          inputtype='PASSWORD'
+          onChange={onChangePw}
+        />
+        <SignUp>Forgot Password?</SignUp>
+        <Button btntype='submit' buttonText='LOGIN' onClick={onClickLogin} />
+        <Button
+          btntype='google'
+          buttonText='Google Login'
+          onClick={onClickLogin}
+        />
+        <SignUp>Sign up</SignUp>
+      </Wrapper>
+    </>
+  );
 };
 
 export default Login;
