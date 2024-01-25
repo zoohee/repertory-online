@@ -29,13 +29,17 @@ const NavItem = styled.button`
   }}
 `;
 
-const ListNavigator = ({ children, navItems }) => {
+const ListNavigator = ({ children, navItems, clickNav }) => {
   return (
     <Wrapper margin="48px 0 0">
       <Nav>
         {navItems.map((item, idx) => {
           return (
-            <NavItem key={idx} clicked={item.clicked}>
+            <NavItem
+              key={idx}
+              clicked={item.clicked}
+              onClick={() => clickNav(item.name)}
+            >
               {item.name}
             </NavItem>
           );
