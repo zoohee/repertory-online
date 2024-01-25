@@ -21,7 +21,10 @@ import team.luckyturkey.projectservice.controller.requestdto.ProjectUpdateReques
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 @Slf4j
@@ -60,8 +63,6 @@ public class StompWebSocketTest {
         StompSessionHandler handler = new AbstractTestSessionHandler(failure) {
             @Override
             public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-
-
                 /**
                  * @deprecated : 아래 코드는 사용자가 구독한 Topic에 대해 올바르게 subscribe가 되었는지 확인하는 코드입니다.
                  *          하지만, 현재 서비스에는 사용자가 구독하는 시나리오가 없기 때문에, 사용하지 않는 테스트 입니다.
@@ -103,7 +104,6 @@ public class StompWebSocketTest {
                 }
                 catch (Throwable t) {
                     failure.set(t);
-                    latch.countDown();
                 }
                 finally {
                     latch.countDown();
@@ -115,10 +115,14 @@ public class StompWebSocketTest {
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
         log.info("now connecting...");
-        stompClient.connectAsync("ws://localhost:{port}/project", headers, handler, port);
+        stompClient.connectAsync("ws://localhost:{port}/project/connection", headers, handler, port);
         log.info("connecting done...");
 
-        if (failure.get() != null) {
+        if (!latch.await(5, TimeUnit.SECONDS)) {
+            fail("time out");
+        }
+        else if (failure.get() != null) {
+            fail(failure.get());
             throw new AssertionError("", failure.get());
         }
     }
