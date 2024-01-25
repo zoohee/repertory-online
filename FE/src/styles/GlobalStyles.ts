@@ -61,5 +61,11 @@ const GlobalStyles = createGlobalStyle`
     button{
         font-family: 'YdestreetL', sans-serif
     }
+    :root {
+      --rp-black: #0d0d0d;
+      --rp-white: #fafafa;
+      --rp-yellow: #fee800;
+    }
+
 `;
 export default GlobalStyles;
