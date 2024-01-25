@@ -8,7 +8,7 @@ import Sources from '@/pages/Sources';
 const Container = styled.div`
   display: flex;
   background-color: var(--rp-grey-800);
-  height: 100%;
+  min-height: 100%;
 `;
 
 const SidebarPage = () => {
