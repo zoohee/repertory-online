@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { fontSize } from '@/styles/font';
+
 const GridContainer = styled.div`
   background-color: var(--rp-black);
   padding-bottom: 10rem;
@@ -21,8 +23,7 @@ const GridBox = styled.div`
 
   a {
     font-family: 'YdestreetB';
-    font-size: 1.5rem;
-    color: var(--rp-white);
+    ${fontSize.l}
     text-decoration-line: none;
   }
 
