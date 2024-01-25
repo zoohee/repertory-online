@@ -70,7 +70,9 @@ const GlobalStyles = createGlobalStyle`
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
         font-style: normal;
     }
-
+    button:hover {
+        cursor: pointer;
+    }
     :root {
       --rp-black: #0d0d0d;
       --rp-white: #fafafa;
