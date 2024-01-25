@@ -32,9 +32,9 @@ const Detail = styled.div`
 const DanceList = ({ list, column }) => {
   return (
     <Dances column={column}>
-      {list.map((item) => {
+      {list.map((item, idx) => {
         return (
-          <Dance>
+          <Dance key={idx}>
             <Image src={item.imageUrl}></Image>
             <Title>{item.title}</Title>
             <Detail>{item.detail}</Detail>
