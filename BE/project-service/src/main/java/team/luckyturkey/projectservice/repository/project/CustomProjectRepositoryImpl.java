@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import team.luckyturkey.projectservice.document.Project;
 import team.luckyturkey.projectservice.repository.SequenceGenerator;
 
+import java.util.List;
+
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 import static org.springframework.data.mongodb.core.query.Update.update;
@@ -24,9 +26,9 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository{
     }
 
     @Override
-    public Project findByModify(Project project) {
-        return mongoTemplate.findAndModify(query(where("_id").is(project.getId())),
-                update("sourceList", project.getSourceList()),
+    public Project findAndModify(Long projectId, List<Long> sourceIdList) {
+        return mongoTemplate.findAndModify(query(where("_id").is(projectId)),
+                update("sourceList", sourceIdList),
                 FindAndModifyOptions.options().returnNew(true),
                 Project.class);
     }

@@ -94,7 +94,7 @@ public class ProjectRepositoryTest {
                 .sourceList(List.of(5L, 6L, 7L))
                 .build();
 
-        Project modifiedProject = projectRepository.findByModify(changedWindmill);
+        Project modifiedProject = projectRepository.findAndModify(changedWindmill.getId(), changedWindmill.getSourceList());
         Optional<Project> foundWindmill = projectRepository.findById(savedWindmill.getId());
 
         Assertions.assertThat(modifiedProject)
