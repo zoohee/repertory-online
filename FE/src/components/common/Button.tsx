@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Symbol from '../../images/GoogleSymbol.png';
+import Symbol from '/images/GoogleSymbol.png';
 import { ButtonHTMLAttributes } from 'react';
 const buttonStyles = {
   default: css`

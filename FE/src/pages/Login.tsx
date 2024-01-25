@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { debounce } from 'lodash';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import { login } from '../store/reducers/member';
+import { login, logout } from '../Redux/authentication';
 const Wrapper = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
@@ -40,15 +40,13 @@ const SignUp = styled(SignUpMsg)`
 `;
 
 const Login = () => {
-  const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [isIdValid, setIsIdValid] = useState(false);
   const [isPwValid, setIsPwValid] = useState(false);
   const [idValidationMsg, setIdValidationMsg] = useState('');
   const [pwValidationMsg, setPwValidationMsg] = useState('');
-
-  // const isLogged = useSelector((state) => state.member.isLogged);
+  const dispatch = useDispatch();
 
   const onChangeId = debounce((e: { target: { value: string } }) => {
     const input = e.target.value;
@@ -71,11 +69,8 @@ const Login = () => {
       memberLoginId: id,
       memberLoginPassword: pw,
     };
-    if (isIdValid && isPwValid) {
-      dispatch(login(LoginData));
-    } else {
-      console.log('errer');
-    }
+
+    dispatch(login(LoginData));
   };
   return (
     <>
