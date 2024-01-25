@@ -11,17 +11,24 @@ const Container = styled.div`
   min-height: 100%;
 `;
 
+const Main = styled.main`
+  padding: 0 32px;
+  width: calc(100% - 240px);
+  display: flex;
+  flex-direction: column;
+`;
+
 const SidebarPage = () => {
   return (
-    <>
-      <Container>
-        <SideBar />
+    <Container>
+      <SideBar />
+      <Main>
         <Routes>
           <Route path="/projects" element={<Projects />} />
           <Route path="/sources" element={<Sources />} />
         </Routes>
-      </Container>
-    </>
+      </Main>
+    </Container>
   );
 };
 
