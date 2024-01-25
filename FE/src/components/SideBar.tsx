@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import ProfileImage from '@/components/Image';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/SidebarNavigator';
 
-const Bar = styled.div`
+const Aside = styled.aside`
   background-color: var(--rp-black);
   width: 240px;
   display: flex;
@@ -24,7 +24,7 @@ const Logout = styled.button`
 
 const SideBar = () => {
   return (
-    <Bar>
+    <Aside>
       <Link to="/" style={{ margin: '48px' }}>
         <img src="images/logo.svg" alt="logo" style={{ height: '52px' }} />
       </Link>
@@ -32,7 +32,7 @@ const SideBar = () => {
       <div style={{ margin: '16px' }}>loginUserName</div>
       <Logout>Log Out</Logout>
       <Navigation/>
-    </Bar>
+    </Aside>
   );
 };
 

@@ -2,8 +2,6 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { primaryFont } from '@/styles/font';
-
 const Accordion = styled.button`
   background-color: transparent;
   text-align: left;
@@ -14,7 +12,7 @@ const Accordion = styled.button`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.nav`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   * {
