@@ -25,6 +25,8 @@ public class Project {
     private Instant projectDate;
     private Long userId;
     private List<Long> sourceList;
+
+    @Setter
     private String projectThumbnailUrl;
 
 }
