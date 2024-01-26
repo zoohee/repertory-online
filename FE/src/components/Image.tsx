@@ -6,6 +6,7 @@ const ImageContainer = styled.div`
       return css`
         height: ${props.size}px;
         width: ${props.size}px;
+        aspect-ratio: 1 / 1;
       `;
     }
     return css`
