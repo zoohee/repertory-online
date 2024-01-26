@@ -13,13 +13,14 @@ const GlobalStyles = createGlobalStyle`
     article, aside, canvas, details, embed, 
     figure, figcaption, footer, header, hgroup, 
     menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
+    time, mark, audio, video, input, svg, button {
         margin: 0;
         padding: 0;
         border: 0;
         font-size: 100%;
         font: inherit;
         font-family: 'YdestreetL', sans-serif;
+        color: var(--rp-white);
         vertical-align: baseline;
         box-sizing: border-box;
     }
@@ -27,6 +28,11 @@ const GlobalStyles = createGlobalStyle`
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
         display: block;
+    }
+    html, body, #root {
+        width: 100%;
+        height: 100%;
+        margin: 0;
     }
     body {
         line-height: 1;
@@ -58,13 +64,31 @@ const GlobalStyles = createGlobalStyle`
         src: url('/fonts/YdeStreetB.otf') format('opentype'),
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
+<<<<<<< FE/src/styles/GlobalStyles.ts
     button, input{
         font-family: 'YdestreetL', sans-serif
+    }
+=======
+    button, input{
+        font-family: 'YdestreetL', sans-serif
+    }
+    @font-face {
+        font-family: 'Pretendard';
+        src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-style: normal;
+    }
+    button:hover {
+        cursor: pointer;
+>>>>>>> FE/src/styles/GlobalStyles.ts
     }
     :root {
       --rp-black: #0d0d0d;
       --rp-white: #fafafa;
       --rp-yellow: #fee800;
+      --rp-grey-300: #b7b7ad;
+      --rp-grey-500: #444549;
+      --rp-grey-800: #1c1d22;
+      --rp-orange: #ffac00;
     }
 
 `;
