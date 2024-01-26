@@ -82,6 +82,9 @@ const GlobalStyles = createGlobalStyle`
       --rp-grey-800: #1c1d22;
       --rp-orange: #ffac00;
     }
+    .grey-300 {
+        color: var(--rp-grey-300);
+    }
 
 `;
 export default GlobalStyles;

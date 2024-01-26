@@ -3,7 +3,8 @@ import { useState } from 'react';
 import ListNavigator, { Navigation } from '@/components/ListNavigator';
 import Wrapper from '@/components/Wrapper';
 import SearchBar from '@/components/SearchBar';
-import SourceList from '@/components/DanceList';
+import SourceList from '@/components/dance/DanceList';
+import Dance from '@/components/dance/Dance';
 
 const NAVIGATION: Navigation[] = [
   new Navigation('My Sources', true),
@@ -48,7 +49,15 @@ const SourcesPage = () => {
         <SearchBar></SearchBar>
         {/* TODO: 프로젝트 생성 버튼 */}
       </Wrapper>
-      <SourceList list={DUMMY_LIST} column={4} />
+      <SourceList column={4}>
+        {DUMMY_LIST.map((item, idx) => {
+          return (
+            <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
+              <div className="grey-300">{item.detail}</div>
+            </Dance>
+          );
+        })}
+      </SourceList>
     </>
   );
 };

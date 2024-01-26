@@ -23,6 +23,9 @@ const fontSize = {
   l: css`
     font-size: 1.2rem;
   `,
+  xl: css`
+    font-size: 1.5rem;
+  `,
 };
 
 export { primaryFont, secondaryFont, fontSize };
