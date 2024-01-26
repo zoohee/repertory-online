@@ -13,6 +13,7 @@ const Aside = styled.aside`
 `;
 
 const Logout = styled.button`
+  margin-bottom: 48px;
   color: var(--rp-grey-500);
   background-color: transparent;
   border: 0;

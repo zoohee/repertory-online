@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Accordion = styled.button`
+  min-width: 130px;
   background-color: transparent;
   text-align: left;
   margin: 16px 0;
@@ -35,21 +36,19 @@ const Panel = styled(Accordion)`
 const Navigation = () => {
   const [workspaceToggle, setWorkspaceToggle] = useState(true);
 
-  const handleWorkspaceClick = () => {
+  const handleClickWorkspace = () => {
     setWorkspaceToggle((prev) => !prev);
   };
 
   return (
     <Container>
-      <Accordion onClick={handleWorkspaceClick}>Workspace</Accordion>
+      <Accordion onClick={handleClickWorkspace}>Workspace</Accordion>
       <Link to="/projects">
         <Panel visible={workspaceToggle}>Projects</Panel>
       </Link>
-      <Accordion>
-        <Link to="/sources">
-          <Panel visible={workspaceToggle}>Sources</Panel>
-        </Link>
-      </Accordion>
+      <Link to="/sources">
+        <Panel visible={workspaceToggle}>Sources</Panel>
+      </Link>
 
       <Link to="/community">
         <Accordion>Community</Accordion>
