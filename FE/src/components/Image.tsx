@@ -27,7 +27,15 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Image = ({ size, src, isRound }) => {
+const Image = ({
+  size,
+  src,
+  isRound,
+}: {
+  size: number;
+  src: string;
+  isRound: boolean;
+}) => {
   return (
     <ImageContainer size={size} isRound={isRound}>
       <img src={src} alt="profile-image" />
