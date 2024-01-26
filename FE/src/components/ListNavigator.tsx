@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { primaryFont, fontSize } from '@/styles/font';
 import Wrapper from '@/components/Wrapper';
+import { ReactNode } from 'react';
 
 const Nav = styled.nav`
   width: 100%;
@@ -29,7 +30,27 @@ const NavItem = styled.button`
   }}
 `;
 
-const ListNavigator = ({ children, navItems, clickNav }) => {
+class Navigation {
+  name: string;
+  clicked: boolean;
+
+  constructor(name: string, clicked: boolean) {
+    this.name = name;
+    this.clicked = clicked;
+  }
+}
+
+export { Navigation };
+
+const ListNavigator = ({
+  children,
+  navItems,
+  onClickNav,
+}: {
+  children?: ReactNode;
+  navItems: Navigation[];
+  onClickNav?: (navName: string) => void;
+}) => {
   return (
     <Wrapper margin="48px 0 0">
       <Nav>
@@ -38,7 +59,11 @@ const ListNavigator = ({ children, navItems, clickNav }) => {
             <NavItem
               key={idx}
               clicked={item.clicked}
-              onClick={() => clickNav(item.name)}
+              onClick={() => {
+                if (onClickNav) {
+                  onClickNav(item.name);
+                }
+              }}
             >
               {item.name}
             </NavItem>

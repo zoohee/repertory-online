@@ -1,5 +1,5 @@
 import Wrapper from '@/components/Wrapper';
-import ListNavigator from '@/components/ListNavigator';
+import ListNavigator, { Navigation } from '@/components/ListNavigator';
 import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/DanceList';
 
@@ -16,7 +16,7 @@ const DUMMY_LIST = [
   },
 ];
 
-const NAVIGATION = [{ name: 'My projects', clicked: true }];
+const NAVIGATION = [new Navigation('My projects', true)];
 
 const ProjectsPage = () => {
   return (
