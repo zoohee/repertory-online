@@ -26,10 +26,20 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository{
     }
 
     @Override
-    public Project findAndModify(Long projectId, List<Long> sourceIdList) {
+    public Project findAndUpdateSourceList(Long projectId, List<Long> sourceIdList) {
         return mongoTemplate.findAndModify(query(where("_id").is(projectId)),
                 update("sourceList", sourceIdList),
                 FindAndModifyOptions.options().returnNew(true),
                 Project.class);
     }
+
+    @Override
+    public Project findAndUpdateDetails(Project project) {
+        return mongoTemplate.findAndModify(query(where("_id").is(project.getId())),
+                update("projectName", project.getProjectName()),
+                FindAndModifyOptions.options().returnNew(true),
+                Project.class);
+    }
+
+
 }
