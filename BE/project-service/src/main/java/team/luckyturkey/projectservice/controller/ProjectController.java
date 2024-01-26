@@ -8,9 +8,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import team.luckyturkey.projectservice.controller.requestdto.PatchProjectRequestDto;
 import team.luckyturkey.projectservice.controller.requestdto.ProjectUpdateRequestDto;
-import team.luckyturkey.projectservice.controller.requestdto.SaveProjectRequestDto;
 import team.luckyturkey.projectservice.document.Project;
 import team.luckyturkey.projectservice.service.ProjectService;
 
@@ -18,13 +18,20 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 @Slf4j
-@RestController
 @RequiredArgsConstructor
 @Controller
+//todo: userid 기반, 해당 사용자의 프로젝트 목록을 모두 가져오는 api 개발 필요
 public class ProjectController {
 
 
     private final ProjectService projectService;
+
+    @Deprecated
+    @GetMapping("/test")
+    public ResponseEntity<String> test(){
+        return ResponseEntity.ok("hello");
+    }
+
     /**
      * @author  Sungho Lee
      * @param   projectId Long
@@ -64,17 +71,27 @@ public class ProjectController {
 
     @ResponseBody
     @PostMapping
-    public ResponseEntity<Long> saveProject(
-            @RequestBody SaveProjectRequestDto saveProjectRequestDto
+    public ResponseEntity<Long> postProject(
+            @RequestPart String projectName,
+            @RequestPart MultipartFile projectThumbnail
     ){
         //todo: user id 삽입 기능 필요
         Project project = Project.builder()
-                .projectName(saveProjectRequestDto.getProjectName())
+                .projectName(projectName)
                 .projectDate(Instant.now())
                 .sourceList(new ArrayList<>())
                 .build();
 
-        Long projectId = projectService.saveProject(project, saveProjectRequestDto.getProjectThumbnail());
+        Long projectId = projectService.saveProject(project, projectThumbnail);
+        return ResponseEntity.ok(projectId);
+    }
+
+    @ResponseBody
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<Long> deleteProject(
+            @PathVariable Long projectId
+    ){
+        projectService.deleteProject(projectId);
         return ResponseEntity.ok(projectId);
     }
 }
