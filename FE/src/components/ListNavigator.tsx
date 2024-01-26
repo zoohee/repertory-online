@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { primaryFont, fontSize } from '@/styles/font';
+import { fontSize } from '@/styles/font';
 import Wrapper from '@/components/Wrapper';
 import { ReactNode } from 'react';
 
@@ -10,7 +10,6 @@ const Nav = styled.nav`
 `;
 
 const NavItem = styled.button`
-  ${primaryFont.bold}
   ${fontSize.l}
   padding: 16px;
   background-color: transparent;
