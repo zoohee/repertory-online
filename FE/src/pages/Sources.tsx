@@ -53,7 +53,7 @@ const SourcesPage = () => {
         {DUMMY_LIST.map((item, idx) => {
           return (
             <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
-              <div className="grey-300">{item.detail}</div>
+              <div className="text-secondary">{item.detail}</div>
             </Dance>
           );
         })}

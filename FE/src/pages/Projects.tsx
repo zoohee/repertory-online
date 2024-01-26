@@ -31,7 +31,7 @@ const ProjectsPage = () => {
         {DUMMY_LIST.map((item, idx) => {
           return (
             <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
-              <p className="grey-300">{item.detail}</p>
+              <p className="text-secondary">{item.detail}</p>
             </Dance>
           );
         })}

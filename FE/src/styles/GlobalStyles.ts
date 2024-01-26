@@ -35,7 +35,7 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
     }
     body {
-        line-height: 1;
+        line-height: 16px;
     }
     ol, ul {
         list-style: none;
@@ -77,13 +77,16 @@ const GlobalStyles = createGlobalStyle`
       --rp-black: #0d0d0d;
       --rp-white: #fafafa;
       --rp-yellow: #fee800;
-      --rp-grey-300: #b7b7ad;
+      --rp-grey-300: #aaa;
       --rp-grey-500: #444549;
       --rp-grey-800: #1c1d22;
       --rp-orange: #ffac00;
+      --text-secondary-dark-mode: #aaa;
+      --text-secondary: #606060;
+
     }
-    .grey-300 {
-        color: var(--rp-grey-300);
+    .text-secondary {
+        color: var(--text-secondary-dark-mode);
     }
 
 `;
