@@ -29,7 +29,17 @@ const Detail = styled.div`
   margin-top: none;
 `;
 
-const DanceList = ({ list, column }) => {
+const DanceList = ({
+  list,
+  column,
+}: {
+  list: {
+    imageUrl: string;
+    title: string;
+    detail: string;
+  }[];
+  column: number;
+}) => {
   return (
     <Dances column={column}>
       {list.map((item, idx) => {
