@@ -1,4 +1,4 @@
-package team.luckyturkey.projectservice.cofiguration;
+package team.luckyturkey.projectservice.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @Slf4j
 @Aspect
 @Component
-public class LogAopConfig {
+public class LogAOP {
 
     private final ThreadLocal<Deque<Long>> callStack = ThreadLocal.withInitial(ArrayDeque::new);
     private final ThreadLocal<String> traceId = new ThreadLocal<>();
@@ -95,8 +95,6 @@ public class LogAopConfig {
 
     // 함수 호출 depth에 따라 들여쓰기 생성
     private String getIndentation(int depth) {
-        StringBuilder indentation = new StringBuilder();
-        indentation.append("| ".repeat(Math.max(0, depth - 1)));
-        return indentation.toString();
+        return "| ".repeat(Math.max(0, depth - 1));
     }
 }
