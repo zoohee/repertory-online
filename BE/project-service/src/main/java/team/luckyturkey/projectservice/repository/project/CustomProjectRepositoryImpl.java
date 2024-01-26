@@ -41,5 +41,9 @@ public class CustomProjectRepositoryImpl implements CustomProjectRepository{
                 Project.class);
     }
 
-
+    @Override
+    public List<Project> findByUserId(Long userId) {
+        return mongoTemplate.find(query(where("userId").is(userId)),
+                Project.class);
+    }
 }

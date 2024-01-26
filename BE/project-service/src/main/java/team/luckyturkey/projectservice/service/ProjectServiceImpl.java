@@ -34,13 +34,23 @@ public class ProjectServiceImpl implements ProjectService {
         /**
          * todo: S3에 썸네일 업로드
          * maybe like
-         *
          * String url = S3Client.upload(projectThumbnail);
          * project.setProjectThumbnailUrl(url);
-         *
-         *
          * */
 
+        //this is for test
+        project.setProjectThumbnailUrl(projectThumbnail.getName());
+
         return projectRepository.saveWithSequence(project).getId();
+    }
+
+    @Override
+    public void deleteProject(Long projectId) {
+        projectRepository.deleteById(projectId);
+    }
+
+    @Override
+    public List<Project> getProjectList(Long userId) {
+        return projectRepository.findByUserId(userId);
     }
 }
