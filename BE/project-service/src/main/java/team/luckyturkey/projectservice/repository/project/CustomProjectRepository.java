@@ -13,4 +13,6 @@ public interface CustomProjectRepository {
     //일부 설정 변경 (현재는 이름만)
     Project findAndUpdateDetails(Project project);
 
+    List<Project> findByUserId(Long userId);
+
 }

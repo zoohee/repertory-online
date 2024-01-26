@@ -12,4 +12,8 @@ public interface ProjectService {
     void updateProjectSetting(Project project);
 
     Long saveProject(Project project, MultipartFile projectThumbnail);
+
+    void deleteProject(Long projectId);
+
+    List<Project> getProjectList(Long userId);
 }
