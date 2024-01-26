@@ -64,7 +64,14 @@ const GlobalStyles = createGlobalStyle`
         src: url('/fonts/YdeStreetB.otf') format('opentype'),
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
-
+<<<<<<< FE/src/styles/GlobalStyles.ts
+    button, input{
+        font-family: 'YdestreetL', sans-serif
+    }
+=======
+    button, input{
+        font-family: 'YdestreetL', sans-serif
+    }
     @font-face {
         font-family: 'Pretendard';
         src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -72,6 +79,7 @@ const GlobalStyles = createGlobalStyle`
     }
     button:hover {
         cursor: pointer;
+>>>>>>> FE/src/styles/GlobalStyles.ts
     }
     :root {
       --rp-black: #0d0d0d;

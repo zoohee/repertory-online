@@ -4,32 +4,30 @@ import {
   PayloadAction,
   configureStore,
 } from '@reduxjs/toolkit';
-import { LoginData, LoginState } from './Types';
+import { LoginData, memberState } from './Types';
 
-const initialMemberState: LoginState = {
-  token: null,
+const initialMemberState: memberState = {
+  token: localStorage.getItem('token'),
+  memberName: null,
+  memberProfile: null,
 };
 export const setLoginData = createSlice({
   name: 'authentication',
   initialState: initialMemberState,
   reducers: {
     login: (state, action: PayloadAction<LoginData | null>) => {
-      console.log(state.token);
       if (
         action.payload?.memberLoginId === 'ssafy' &&
         action.payload?.memberLoginPassword === '1234'
       ) {
-        state.token = 'tmp';
-        console.log('Success');
-        console.log(state.token);
+        localStorage.setItem('token', 'Token');
       } else {
         console.log('Fail');
         console.log(state.token);
       }
     },
     logout: (state) => {
-      console.log(state.token);
-      state.token = null;
+      localStorage.removeItem('token');
     },
   },
 });

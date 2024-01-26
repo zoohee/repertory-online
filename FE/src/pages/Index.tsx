@@ -1,8 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+<<<<<<< FE/src/pages/Index.tsx
+import { React, useEffect } from 'react';
+import { UseSelector, useSelector } from 'react-redux';
+import { memberState } from '@/Redux/Types';
+import { fontSize } from '@/styles/font';
+=======
 
 import { fontSize } from '@/styles/font';
 
+>>>>>>> FE/src/pages/Index.tsx
 const GridContainer = styled.div`
   background-color: var(--rp-black);
   padding-bottom: 10rem;
@@ -53,23 +60,32 @@ const ImageBox = styled.div`
 `;
 
 export default function HomePage() {
+  const memberName = useSelector((state: memberState) => state.memberName);
+
+  useEffect(() => {
+    console.log(memberName);
+  }, [memberName]);
   return (
     <GridContainer>
-      <Logo src="images/logo.svg" alt="logo" />
+      <Logo src='images/logo.svg' alt='logo' />
       <ImageBox>
-        <img src="images/index.jpg" alt="image" />
+        <img src='images/index.jpg' alt='image' />
       </ImageBox>
       <GridBox column={4} row={1}>
-        <Link to="/login">Log In</Link>
+        <Link to='/login'>Log In</Link>
       </GridBox>
       <GridBox column={5} row={1}>
-        <Link to="/signup">Sign Up</Link>
+        <Link to='/signup'>Sign Up</Link>
       </GridBox>
       <GridBox column={2} row={3}>
+<<<<<<< FE/src/pages/Index.tsx
+        <Link to='/project'>Create</Link>
+=======
         <Link to="/projects">Create</Link>
+>>>>>>> FE/src/pages/Index.tsx
       </GridBox>
       <GridBox column={2} row={4}>
-        <Link to="/community">Community</Link>
+        <Link to='/community'>Community</Link>
       </GridBox>
     </GridContainer>
   );
