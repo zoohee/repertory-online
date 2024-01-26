@@ -58,7 +58,7 @@ const GlobalStyles = createGlobalStyle`
         src: url('/fonts/YdeStreetB.otf') format('opentype'),
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
-    button{
+    button, input{
         font-family: 'YdestreetL', sans-serif
     }
     :root {

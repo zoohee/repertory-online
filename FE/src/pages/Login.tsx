@@ -1,10 +1,32 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 import { useDispatch } from 'react-redux';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
-import { login, logout } from '../Redux/authentication';
+const FormWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  z-index: 1000;
+  /* width: 400px; */
+  min-height: 300px;
+  align-items: center;
+  justify-content: center;
+`;
+const Overlay = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  /* background: rgba(0, 0, 0, 0.5); */
+  z-index: 999;
+`;
 const Wrapper = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
@@ -48,23 +70,25 @@ const Login = () => {
   const [pwValidationMsg, setPwValidationMsg] = useState('');
   const dispatch = useDispatch();
 
-  const onChangeId = debounce((e: { target: { value: string } }) => {
+  const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
     setId(input);
     setIsIdValid(input.length >= 9 && input.length <= 16);
     setIdValidationMsg(idValidationMsg ? '' : 'Invalid Id');
-  }, 500);
+  };
 
-  const onChangePw = debounce((e: { target: { value: string } }) => {
+  const onChangePw = (e: { target: { value: string } }) => {
     const input = e.target.value;
     setPw(input);
     const pwRegex =
       /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
     setIsPwValid(pwRegex.test(input));
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
-  }, 500);
+  };
 
   const onClickLogin = () => {
+    console.log(id);
+    console.log(pw);
     const LoginData = {
       memberLoginId: id,
       memberLoginPassword: pw,
@@ -74,29 +98,37 @@ const Login = () => {
   };
   return (
     <>
-      <Wrapper>
-        <Title>Login</Title>
-        <Input
-          name='login'
-          action='login'
-          inputtype='ID'
-          onChange={onChangeId}
-        />
-        <Input
-          name='password'
-          action='login'
-          inputtype='PASSWORD'
-          onChange={onChangePw}
-        />
-        <SignUp>Forgot Password?</SignUp>
-        <Button btntype='submit' buttonText='LOGIN' onClick={onClickLogin} />
-        <Button
-          btntype='google'
-          buttonText='Google Login'
-          onClick={onClickLogin}
-        />
-        <SignUp>Sign up</SignUp>
-      </Wrapper>
+      <Overlay>
+        <FormWrapper>
+          <Wrapper>
+            <Title>Login</Title>
+            <Input
+              name='login'
+              action='login'
+              inputtype='normal'
+              onChange={onChangeId}
+            />
+            <Input
+              name='password'
+              action='login'
+              inputtype='password'
+              onChange={onChangePw}
+            />
+            <SignUp>Forgot Password?</SignUp>
+            <Button
+              btntype='submit'
+              buttonText='LOGIN'
+              onClick={onClickLogin}
+            />
+            <Button
+              btntype='google'
+              buttonText='Google Login'
+              onClick={onClickLogin}
+            />
+            <SignUp>Sign up</SignUp>
+          </Wrapper>
+        </FormWrapper>
+      </Overlay>
     </>
   );
 };

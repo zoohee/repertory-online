@@ -3,6 +3,8 @@ export interface LoginData {
   memberLoginPassword: string;
 }
 
-export interface LoginState {
+export interface memberState {
+  memberName: string | null;
+  memberProfile: string | null;
   token: string | null;
 }
