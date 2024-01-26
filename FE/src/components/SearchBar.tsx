@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { primaryFont, secondaryFont } from '@/styles/font';
+import { boxShadow } from '@/styles/shadow';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  border: solid 2px var(--rp-white);
+  padding: 4px;
+  ${boxShadow}
   border-radius: 5px;
 `;
 
@@ -33,8 +35,12 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
 
+  svg {
+    color: var(--rp-grey-300);
+  }
+
   svg:hover {
-    color: var(--rp-yellow);
+    color: var(--rp-white);
   }
 `;
 

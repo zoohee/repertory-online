@@ -44,7 +44,7 @@ const SourcesPage = () => {
   return (
     <>
       <ListNavigator navItems={navItems} onClickNav={handleClickNav} />
-      <Wrapper margin="16px">
+      <Wrapper margin="24px">
         <SearchBar></SearchBar>
         {/* TODO: 프로젝트 생성 버튼 */}
       </Wrapper>

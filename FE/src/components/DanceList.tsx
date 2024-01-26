@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 import { fontSize } from '@/styles/font';
+import { boxShadow } from '@/styles/shadow';
 import Image from '@/components/Image';
 
 const Dances = styled.ul`
+  padding: 0 16px;
   width: 100%;
   display: grid;
   grid-template-columns: ${(props) => `repeat(${props.column}, 1fr)`};
@@ -13,7 +15,7 @@ const Dances = styled.ul`
 const Dance = styled.li`
   width: 100%;
   border-radius: 10px;
-  border: solid 1px var(--rp-black);
+  ${boxShadow}
   overflow: hidden;
 `;
 
