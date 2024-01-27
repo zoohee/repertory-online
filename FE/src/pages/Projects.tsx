@@ -1,5 +1,5 @@
 import Wrapper from '@/components/Wrapper';
-import ListNavigator, { Navigation } from '@/components/ListNavigator';
+import TabButtons, { Tab } from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceList';
 import Dance from '@/components/dance/Dance';
@@ -17,12 +17,12 @@ const DUMMY_LIST = [
   },
 ];
 
-const NAVIGATION = [new Navigation('My projects', true)];
+const TABS = [new Tab('My projects', true)];
 
 const ProjectsPage = () => {
   return (
     <>
-      <ListNavigator navItems={NAVIGATION} />
+      <TabButtons tabs={TABS} />
       <Wrapper margin="24px">
         <SearchBar></SearchBar>
         {/* TODO: 프로젝트 생성 버튼 */}

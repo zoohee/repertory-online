@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-import ListNavigator, { Navigation } from '@/components/ListNavigator';
+import TabButtons, { Tab } from '@/components/common/Tab';
 import Wrapper from '@/components/Wrapper';
 import SearchBar from '@/components/SearchBar';
 import SourceList from '@/components/dance/DanceList';
 import Dance from '@/components/dance/Dance';
 
-const NAVIGATION: Navigation[] = [
-  new Navigation('My Sources', true),
-  new Navigation('Cloned Sources', false),
+const TABS: Tab[] = [
+  new Tab('My Sources', true),
+  new Tab('Cloned Sources', false),
 ];
 
 const DUMMY_LIST = [
@@ -25,17 +25,14 @@ const DUMMY_LIST = [
 ];
 
 const SourcesPage = () => {
-  const [navItems, setNavItems] = useState<Navigation[]>(NAVIGATION);
+  const [tabs, setTabs] = useState<Tab[]>(TABS);
 
-  const handleClickNav = (navName: string) => {
-    setNavItems(
-      navItems.map((item) => {
-        let clicked = false;
-        if (item.name == navName) {
-          clicked = true;
-        }
+  const handleClickTab = (clickedTabName: string) => {
+    setTabs(
+      tabs.map((tab) => {
+        const clicked: boolean = tab.name == clickedTabName;
         return {
-          ...item,
+          ...tab,
           clicked,
         };
       })
@@ -44,7 +41,7 @@ const SourcesPage = () => {
 
   return (
     <>
-      <ListNavigator navItems={navItems} onClickNav={handleClickNav} />
+      <TabButtons tabs={tabs} onClickTab={handleClickTab} />
       <Wrapper margin="24px">
         <SearchBar></SearchBar>
         {/* TODO: 프로젝트 생성 버튼 */}
