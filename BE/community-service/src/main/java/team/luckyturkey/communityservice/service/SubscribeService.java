@@ -26,7 +26,6 @@ public class SubscribeService {
         }
 
         if (subscribeRepository.existsByMemberIdAndFollowingMemberId(memberId, selectedMemberId)) {
-            // 예외 처리 또는 적절한 응답 반환
             throw new IllegalStateException("Subscription already exists");
         }
         
