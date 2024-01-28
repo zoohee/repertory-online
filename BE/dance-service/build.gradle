@@ -31,7 +31,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	// mysql
-	implementation 'com.mysql:mysql-connector-j:8.2.0'
+//	implementation 'com.mysql:mysql-connector-j:8.2.0'
+	runtimeOnly 'com.h2database:h2'
 
 	// redis for cache
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
