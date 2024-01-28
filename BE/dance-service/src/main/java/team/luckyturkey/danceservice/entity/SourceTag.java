@@ -5,7 +5,6 @@ import lombok.*;
 import team.luckyturkey.danceservice.entity.id.SourceTagPK;
 
 @Entity
-@IdClass(SourceTagPK.class)
 @Getter
 @Builder
 @ToString
@@ -13,12 +12,16 @@ import team.luckyturkey.danceservice.entity.id.SourceTagPK;
 @AllArgsConstructor
 public class SourceTag {
 
-    @Id
+    @Setter
+    @EmbeddedId
+    private SourceTagPK id;
+
+    @MapsId("sourceId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "source_id")
     private Source source;
 
-    @Id
+    @MapsId("tagId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tag_id")
     private Tag tag;
