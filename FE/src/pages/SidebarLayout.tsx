@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-import SideBar from '@/components/SideBar';
+import SideBar from '@/components/sidebar/Sidebar';
 
 const Container = styled.div`
   display: flex;
   background-color: var(--rp-grey-800);
-  min-height: 100%;
 `;
 
 const Main = styled.main`
