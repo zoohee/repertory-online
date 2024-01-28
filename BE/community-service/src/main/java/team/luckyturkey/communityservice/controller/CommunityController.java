@@ -19,7 +19,7 @@ public class CommunityController {
     @PostMapping("/subscribe")
     public void subscribe(@RequestBody Map<String, Long> data) {
         // TODO: Request Header jwt에서 memberId 받아 오기
-        Long memberId = 1L;
+        Long memberId = 5678L;
         Long selectedMemberId = data.get("selectedMemberId");
 
         subscribeService.subscribe(memberId, selectedMemberId);
@@ -27,7 +27,8 @@ public class CommunityController {
 
     @GetMapping("/subscribers")
     public int getSubscribers() {
-        int subscribersCount = 0;
-        return subscribersCount;
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 1234L;
+        return subscribeService.getSubscribers(memberId);
     }
 }

@@ -33,8 +33,8 @@ public class SubscribeServiceTest {
     public void subscribe() {
         // given
         Subscribe s = Subscribe.builder().
-                memberId(2L)
-                .followingMemberId(3L)
+                memberId(5678L)
+                .followingMemberId(1234L)
                 .subscribeDate(new Date())
                 .build();
 
@@ -50,8 +50,8 @@ public class SubscribeServiceTest {
     public void existsByMemberIdAndFollowingMemberId() {
         // given
         Subscribe s = Subscribe.builder().
-                memberId(1L)
-                .followingMemberId(2L)
+                memberId(5678L)
+                .followingMemberId(1234L)
                 .subscribeDate(new Date())
                 .build();
         // when
@@ -59,5 +59,17 @@ public class SubscribeServiceTest {
 
         // then
         assertTrue(result);
+    }
+
+    @Test
+    public void getSubscribers() throws Exception {
+        // given
+        Long selectedMemberId = 1234L;
+
+        // when
+        int result = subscribeService.getSubscribers(selectedMemberId);
+
+        // then
+        assertEquals(1, result);
     }
 }

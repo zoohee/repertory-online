@@ -16,7 +16,11 @@ public class SubscribeService {
     private final SubscribeRepository subscribeRepository;
 
     public int getSubscribers(Long followingMemberId) {
-        return subscribeRepository.countByFollowingMemberId(followingMemberId);
+        int subscribersCount = subscribeRepository.countByFollowingMemberId(followingMemberId);
+        if (subscribersCount < 0) {
+            throw new IllegalStateException("Invalid subscriber count");
+        }
+        return subscribersCount;
     }
 
     @Transactional
