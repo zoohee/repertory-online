@@ -7,16 +7,13 @@ import lombok.*;
 import java.io.Serializable;
 
 @ToString
+@Embeddable
 @Getter
 @Setter
-@Embeddable
 @NoArgsConstructor
-@EqualsAndHashCode
-public class SourceTagPK implements Serializable {
+@AllArgsConstructor
+public class    SourceDetailPK implements Serializable {
 
-    @Column (name = "source_id")
+    @Column(name = "source_id")
     private Long sourceId;
-
-    @Column (name = "tag_id")
-    private Long tagId;
 }
