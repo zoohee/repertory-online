@@ -3,6 +3,7 @@ package team.luckyturkey.communityservice.controller;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
 
 @RestController
@@ -10,6 +11,7 @@ import team.luckyturkey.communityservice.service.SubscribeService;
 public class CommunityController {
 
     private final SubscribeService subscribeService;
+    private final LikeService likeService;
 
     @GetMapping("/test")
     public String test() {
@@ -39,5 +41,10 @@ public class CommunityController {
         Long selectedMemberId = data.get("selectedMemberId");
 
         subscribeService.unsubscribe(memberId, selectedMemberId);
+    }
+
+    @PatchMapping("/source/{sourceId}/like")
+    public Long likeSource(@PathVariable("sourceId") Long feedId) {
+        return likeService.insertLikeCache(feedId);
     }
 }
