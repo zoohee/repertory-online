@@ -20,7 +20,8 @@ public class TagController {
     /**
      * todo: get user id from jwt
      * */
-    private final Long TEST_USER_ID = 1L;
+    @Value("${test.environment.userId}")
+    private Long TEST_USER_ID;
 
     @PostMapping
     public ResponseEntity<Long> postTag(
