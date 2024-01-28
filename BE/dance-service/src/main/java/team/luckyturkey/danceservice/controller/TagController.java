@@ -1,6 +1,7 @@
 package team.luckyturkey.danceservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
