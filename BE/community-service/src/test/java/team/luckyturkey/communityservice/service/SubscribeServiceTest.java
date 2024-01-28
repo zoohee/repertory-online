@@ -15,6 +15,7 @@ import team.luckyturkey.communityservice.repository.SubscribeRepository;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -71,5 +72,18 @@ public class SubscribeServiceTest {
 
         // then
         assertEquals(1, result);
+    }
+
+    @Test
+    public void unsubscribe() throws Exception {
+        // given
+        Long memberId = 5678L;
+        Long selectedMemberId = 1234L;
+
+        // when
+        subscribeService.unsubscribe(memberId, selectedMemberId);
+
+        // then
+        assertFalse(subscribeRepository.existsByMemberIdAndFollowingMemberId(memberId, selectedMemberId));
     }
 }

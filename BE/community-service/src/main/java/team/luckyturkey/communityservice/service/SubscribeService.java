@@ -42,4 +42,14 @@ public class SubscribeService {
         Subscribe s = subscribeRepository.save(subscribe);
         return s;
     }
+
+    @Transactional
+    public void unsubscribe(Long memberId, Long selectedMemberId) {
+
+        if (subscribeRepository.existsByMemberIdAndFollowingMemberId(memberId, selectedMemberId)) {
+            subscribeRepository.deleteByMemberIdAndFollowingMemberId(memberId, selectedMemberId);
+        } else {
+            throw new IllegalStateException("ID must exist");
+        }
+    }
 }

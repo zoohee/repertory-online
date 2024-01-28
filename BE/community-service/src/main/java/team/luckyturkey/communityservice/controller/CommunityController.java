@@ -31,4 +31,13 @@ public class CommunityController {
         Long memberId = 1234L;
         return subscribeService.getSubscribers(memberId);
     }
+
+    @DeleteMapping("/subscribe")
+    public void unsubscribe(@RequestBody Map<String, Long> data) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+        Long selectedMemberId = data.get("selectedMemberId");
+
+        subscribeService.unsubscribe(memberId, selectedMemberId);
+    }
 }
