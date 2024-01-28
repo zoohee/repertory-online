@@ -18,6 +18,5 @@ public class Tag {
     private Long id;
 
     private String tagName;
-    private Long userId;
-
+    private Long memberId;
 }
