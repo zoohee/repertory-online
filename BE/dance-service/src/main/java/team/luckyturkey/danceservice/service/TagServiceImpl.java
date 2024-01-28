@@ -3,6 +3,7 @@ package team.luckyturkey.danceservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
 import team.luckyturkey.danceservice.entity.Tag;
 import team.luckyturkey.danceservice.repository.jpa.SourceTagRepository;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
@@ -17,7 +18,12 @@ public class TagServiceImpl implements TagService{
 
     @Transactional
     @Override
-    public Long saveTag(Tag tag) {
+    public Long saveTag(PostTagRequest postTagRequest, Long memberId) {
+        Tag tag = Tag.builder()
+                    .tagName(postTagRequest.getTagName())
+                    .memberId(memberId)
+                    .build();
+
         return tagRepository.save(tag).getId();
     }
 

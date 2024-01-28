@@ -31,11 +31,7 @@ public class TagController {
         /**
          * todo: get user id from jwt
          * */
-        Tag tag = Tag.builder()
-                    .memberId(TEST_USER_ID)
-                    .tagName(postTagRequest.getTagName())
-                    .build();
-        Long tagId = tagService.saveTag(tag);
+        Long tagId = tagService.saveTag(postTagRequest, TEST_USER_ID);
         return ResponseEntity.ok(tagId);
     }
 
