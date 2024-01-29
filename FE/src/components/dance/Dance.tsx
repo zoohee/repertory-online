@@ -19,7 +19,6 @@ const Title = styled.div`
 
 const Detail = styled.div`
   display: flex;
-  ${fontSize.s}
   margin: 16px;
   margin-top: none;
 `;

@@ -20,6 +20,9 @@ const fontSize = {
   s: css`
     font-size: 0.8rem;
   `,
+  m: css`
+    font-size: 1rem;
+  `,
   l: css`
     font-size: 1.2rem;
   `,

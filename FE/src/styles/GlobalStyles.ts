@@ -78,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
     }
     :root {
       --rp-black: #0d0d0d;
-      --rp-white: #fafafa;
+      --rp-white: #f1f1f1;
       --rp-yellow: #fee800;
       --rp-grey-300: #aaa;
       --rp-grey-500: #444549;
@@ -87,6 +87,7 @@ const GlobalStyles = createGlobalStyle`
       --rp-orange: #ffac00;
       --background-dark-mode: #1e1e20;
       --sidebar-background-dark-mode: #272829;
+      --text-primary-dark-mode: #f1f1f1;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;
 

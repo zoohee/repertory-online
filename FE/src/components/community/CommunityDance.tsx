@@ -1,27 +1,20 @@
-import styled from 'styled-components';
-
 import Dance from '@/components/dance/Dance';
-import Thumbnail from '@/components/Image';
 import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
-
-const UserBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-left: 8px;
-  justify-content: center;
-`;
+import UserProfile from '@/components/UserProfile';
+import Text from '@/components/common/Text';
 
 const CommunityDance = ({ item }) => {
   return (
     <Dance imageUrl={item.imageUrl} title={item.title}>
-      <Thumbnail size={40} isRound={true} src="images/index.jpg" />
-
-      <UserBox>
-        <div className="text-secondary">{item.userName}</div>
-        <div className="text-secondary">구독자수 / 업로드 날짜</div>
-      </UserBox>
+      <UserProfile imageSize={40} imageSrc="images/index.jpg">
+        <Text size="s" color="s">
+          {item.userName}
+        </Text>
+        <Text size="s" color="s">
+          구독자수 / 업로드 날짜
+        </Text>
+      </UserProfile>
 
       {item.isSource && <Download count={item.like} />}
 
