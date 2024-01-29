@@ -5,7 +5,7 @@ import { boxShadow } from '@/styles/shadow';
 import { fontSize } from '@/styles/font';
 import Thumbnail from '@/components/Image';
 
-const Box = styled.li`
+const Box = styled.div`
   width: 100%;
   border-radius: 10px;
   ${boxShadow}
@@ -24,15 +24,13 @@ const Detail = styled.div`
   margin-top: none;
 `;
 
-const Dance = ({
-  children,
-  imageUrl,
-  title,
-}: {
+interface Props {
   children: ReactNode;
   imageUrl: string;
   title: string;
-}) => {
+}
+
+const Dance = ({ children, imageUrl, title }: Props) => {
   return (
     <Box>
       <Thumbnail src={imageUrl}></Thumbnail>
