@@ -1,4 +1,4 @@
-package team.luckyturkey.danceservice.entity;
+package team.luckyturkey.danceservice.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

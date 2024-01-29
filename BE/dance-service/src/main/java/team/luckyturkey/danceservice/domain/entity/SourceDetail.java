@@ -1,9 +1,9 @@
-package team.luckyturkey.danceservice.entity;
+package team.luckyturkey.danceservice.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import team.luckyturkey.danceservice.entity.id.SourceDetailPK;
+import team.luckyturkey.danceservice.domain.entity.id.SourceDetailPK;
 
 @Entity
 @Getter

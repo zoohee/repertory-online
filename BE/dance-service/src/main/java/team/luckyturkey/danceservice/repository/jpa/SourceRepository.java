@@ -2,7 +2,7 @@ package team.luckyturkey.danceservice.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import team.luckyturkey.danceservice.entity.Source;
+import team.luckyturkey.danceservice.domain.entity.Source;
 
 import java.util.List;
 import java.util.Optional;
