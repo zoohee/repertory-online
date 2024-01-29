@@ -1,7 +1,7 @@
 package team.luckyturkey.danceservice.repository.cache;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,25 +15,27 @@ import java.util.*;
 
 @Slf4j
 @Repository
-//@DependsOn("dbSeeder")
-public class RedisTagCacheRepository implements CacheTagRepository {
+public class RedisTagCacheRepository implements CacheTagRepository, InitializingBean {
 
 
     private final RedisTemplate<String, String> redisTemplate;
     private final HashOperations<String, Long, List<Long>> opsHash;
-
-    @Autowired
-    public RedisTagCacheRepository(
-            RedisTemplate<String, String> redisTemplate,
-            TagRepository tagRepository,
-            SourceTagRepository tagSourceRepository
-//            DBSeeder dbSeeder
+    private final TagRepository tagRepository;
+    private final SourceTagRepository sourceTagRepository;
+    public RedisTagCacheRepository(RedisTemplate<String, String> redisTemplate,
+                                   TagRepository tagRepository,
+                                   SourceTagRepository sourceTagRepository
     ) {
         this.redisTemplate = redisTemplate;
         this.opsHash = redisTemplate.opsForHash();
-        cacheTagData(redisTemplate, tagRepository, tagSourceRepository);
+        this.sourceTagRepository = sourceTagRepository;
+        this.tagRepository = tagRepository;
     }
 
+    @Override
+    public void afterPropertiesSet() {
+        cacheTagData(redisTemplate, tagRepository, sourceTagRepository);
+    }
 
     //시작시 데이터들을 불러와 캐싱하는 과정
     private void cacheTagData(
@@ -43,17 +45,21 @@ public class RedisTagCacheRepository implements CacheTagRepository {
     ) {
         List<Tag> tagList = tagRepository.findAll();
 
+        Map<Tag, List<Source>> tagSourceMap = new HashMap<>();
+
+        //특정 tag가 붙은 source들을 불러온다.
+        for(Tag tag: tagList){
+            tagSourceMap.put(tag, sourceTagRepository.findSourceListByTagId(tag.getId()));
+        }
+
         //파이프라이닝을 통한 비동기 처리
         redisTemplate.executePipelined((RedisCallback<?>) connection -> {
             //태그 별로 쿼리가 진행 되어야 한다. (hput 연산)
             for(Tag tag: tagList){
-                //특정 tag가 붙은 source들을 불러온다.
-                List<Source> sourceList = sourceTagRepository.findSourceListByTagId(tag.getId());
-
 
                 //tag 안에 userid를 필드로 삼아, source 들을 분류해야 한다.
                 Map<Long, List<Long>>  userSourceMap = new HashMap<>();
-                for(Source source: sourceList){
+                for(Source source: tagSourceMap.get(tag)){
                     if(!userSourceMap.containsKey(source.getMemberId())) userSourceMap.put(source.getMemberId(), new ArrayList<>());
                     userSourceMap.get(source.getMemberId()).add(source.getId());
                 }
