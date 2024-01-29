@@ -41,11 +41,9 @@ const SourcesPage = () => {
 
   return (
     <>
-      <TabButtons tabs={tabs} onClickTab={handleClickTab} />
-      <Wrapper margin="24px">
-        <SearchBar></SearchBar>
-        {/* TODO: 프로젝트 생성 버튼 */}
-      </Wrapper>
+      <TabButtons tabs={tabs} margin="48px 0 0" onClickTab={handleClickTab} />
+      <SearchBar></SearchBar>
+      {/* TODO: 프로젝트 생성 버튼 */}
       <SourceList column={4}>
         {DUMMY_LIST.map((item, idx) => {
           return (

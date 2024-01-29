@@ -42,11 +42,12 @@ export class Tab {
 
 interface Props {
   children?: ReactNode;
+  margin: string;
   tabs: Tab[];
   onClickTab?: (navName: string) => void;
 }
 
-const TabComponent = ({ children, tabs, onClickTab }: Props) => {
+const TabComponent = ({ children, margin, tabs, onClickTab }: Props) => {
   const tabButtons = tabs.map((tab, idx) => {
     return (
       <li>
@@ -66,7 +67,7 @@ const TabComponent = ({ children, tabs, onClickTab }: Props) => {
   });
 
   return (
-    <Wrapper as="nav" margin="48px 0 0">
+    <Wrapper as="nav" margin={margin}>
       <Tabs>{tabButtons}</Tabs>
       {children}
     </Wrapper>

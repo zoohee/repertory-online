@@ -22,11 +22,9 @@ const TABS = [new Tab('My projects', true)];
 const ProjectsPage = () => {
   return (
     <>
-      <TabButtons tabs={TABS} />
-      <Wrapper margin="24px">
-        <SearchBar></SearchBar>
-        {/* TODO: 프로젝트 생성 버튼 */}
-      </Wrapper>
+      <TabButtons tabs={TABS} margin="48px 0 0" />
+      <SearchBar></SearchBar>
+      {/* TODO: 프로젝트 생성 버튼 */}
       <ProjectList column={3}>
         {DUMMY_LIST.map((item, idx) => {
           return (
