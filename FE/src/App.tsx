@@ -5,6 +5,7 @@ import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
 import SourcesPage from '@/pages/Sources';
 import CommunityPage from '@/pages/Community';
+import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from './pages/CommunityLayout';
 
 const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
           {
             path: '/community',
             element: <CommunityPage />,
+          },
+          {
+            path: '/community/r/:Id',
+            element: <CommunityDetailPage />,
           },
         ],
       },
