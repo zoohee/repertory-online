@@ -11,9 +11,9 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
-const Like = ({ count, clicked }: { count: number, clicked: boolean }) => {
-    return (
-        <Button>
+const Like = ({ count, clicked }: { count: number; clicked: boolean }) => {
+  return (
+    <Button>
       {clicked && <FavoriteIcon style={{ color: 'red' }} />}
       {!clicked && <FavoriteBorderIcon />}
       <div>{count}</div>
