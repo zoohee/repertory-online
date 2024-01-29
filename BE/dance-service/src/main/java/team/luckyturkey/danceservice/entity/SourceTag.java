@@ -7,7 +7,6 @@ import team.luckyturkey.danceservice.entity.id.SourceTagPK;
 @Entity
 @Getter
 @Builder
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class SourceTag {

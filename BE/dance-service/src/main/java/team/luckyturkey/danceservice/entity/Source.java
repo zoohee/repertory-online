@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@ToString
+@ToString(exclude = {"sourceTagList"})
 @Entity
 @Getter
 @Builder
@@ -24,10 +26,51 @@ public class Source{
     private SourceDetail sourceDetail;
 
 // todo: 이거 해결 해!!!!
-//    @OneToMany(mappedBy = "source", orphanRemoval = true, cascade = CascadeType.ALL)
-//    private List<SourceTag> tagList = new ArrayList<>();
+    @OneToMany(mappedBy = "source", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<SourceTag> sourceTagList = new ArrayList<>();
 
     private String sourceUrl;
     private Long memberId;
     private LocalDateTime sourceDate;
+
+    public String getSourceName() {
+        return sourceDetail.getSourceName();
+    }
+
+    public int getSourceLength() {
+        return sourceDetail.getSourceLength();
+    }
+
+    public boolean isSourceIsOpen() {
+        return sourceDetail.isSourceIsOpen();
+    }
+
+    public int getSourceCount() {
+        return sourceDetail.getSourceCount();
+    }
+
+    public String getSourceStart() {
+        return sourceDetail.getSourceStart();
+    }
+
+    public String getSourceEnd() {
+        return sourceDetail.getSourceEnd();
+    }
+
+    public List<SourceTag> getSourceTagList() {
+        if(this.sourceTagList == null) sourceTagList = new ArrayList<>();
+        return sourceTagList;
+    }
+
+    public List<Tag> getTagList(){
+        if(this.sourceTagList == null) {
+            this.sourceTagList = new ArrayList<>();
+        }
+
+        List<Tag> result = new ArrayList<>();
+        for(SourceTag sourceTag: sourceTagList){
+            result.add(sourceTag.getTag());
+        }
+        return result;
+    }
 }

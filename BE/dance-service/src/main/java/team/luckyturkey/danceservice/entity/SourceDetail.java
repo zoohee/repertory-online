@@ -30,4 +30,5 @@ public class SourceDetail {
     private int sourceCount;
     private String sourceStart;
     private String sourceEnd;
+
 }

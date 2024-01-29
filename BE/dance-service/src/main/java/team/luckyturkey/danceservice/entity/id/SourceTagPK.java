@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Setter
 @Embeddable
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class SourceTagPK implements Serializable {
 
