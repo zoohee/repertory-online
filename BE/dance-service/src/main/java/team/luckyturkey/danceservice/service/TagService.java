@@ -1,7 +1,7 @@
 package team.luckyturkey.danceservice.service;
 
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
-import team.luckyturkey.danceservice.entity.Tag;
+import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface TagService {
 
     void deleteTag(Long tagId);
 
-    List<Tag> getTagList(Long userId);
+    List<StandardTagResponse> getTagList(Long userId);
 }
