@@ -25,14 +25,14 @@ const Detail = styled.div`
 
 interface Props {
   children: ReactNode;
-  imageUrl: string;
+  thumbnail: string;
   title: string;
 }
 
-const Dance = ({ children, imageUrl, title }: Props) => {
+const Dance = ({ children, thumbnail, title }: Props) => {
   return (
     <Box>
-      <Thumbnail src={imageUrl}></Thumbnail>
+      <Thumbnail src={thumbnail}></Thumbnail>
       <Title>{title}</Title>
       <Detail>{children}</Detail>
     </Box>

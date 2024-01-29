@@ -47,7 +47,7 @@ const SourcesPage = () => {
       <SourceList column={4}>
         {DUMMY_LIST.map((item, idx) => {
           return (
-            <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
+            <Dance key={idx} thumbnail={item.imageUrl} title={item.title}>
               <div className="text-secondary">{item.detail}</div>
             </Dance>
           );

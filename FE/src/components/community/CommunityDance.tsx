@@ -6,7 +6,7 @@ import Text from '@/components/common/Text';
 
 const CommunityDance = ({ item }) => {
   return (
-    <Dance imageUrl={item.imageUrl} title={item.title}>
+    <Dance thumbnail={item.imageUrl} title={item.title}>
       <UserProfile imageSize={40} imageSrc="images/index.jpg">
         <Text size="s" color="s">
           {item.userName}

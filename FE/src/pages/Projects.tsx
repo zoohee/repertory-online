@@ -28,7 +28,7 @@ const ProjectsPage = () => {
       <ProjectList column={3}>
         {DUMMY_LIST.map((item, idx) => {
           return (
-            <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
+            <Dance key={idx} thumbnail={item.imageUrl} title={item.title}>
               <p className="text-secondary">{item.detail}</p>
             </Dance>
           );
