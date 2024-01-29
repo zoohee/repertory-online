@@ -5,7 +5,7 @@ import Thumbnail from '@/components/Image';
 import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 
-const Box = styled.div`
+const UserBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -18,10 +18,10 @@ const CommunityDance = ({ item }) => {
     <Dance imageUrl={item.imageUrl} title={item.title}>
       <Thumbnail size={40} isRound={true} src="images/index.jpg" />
 
-      <Box>
+      <UserBox>
         <div className="text-secondary">{item.userName}</div>
         <div className="text-secondary">구독자수 / 업로드 날짜</div>
-      </Box>
+      </UserBox>
 
       {item.isSource && <Download count={item.like} />}
 
