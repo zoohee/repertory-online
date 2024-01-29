@@ -5,8 +5,10 @@ import ProfileImage from '@/components/Image';
 import Navigation from '@/components/sidebar/Navigation';
 
 const Aside = styled.aside`
+  margin: 16px;
+  border-radius: 10px;
   min-height: 100vh;
-  background-color: var(--rp-black);
+  background-color: var(--sidebar-background-dark-mode);
   width: 240px;
   display: flex;
   flex-direction: column;

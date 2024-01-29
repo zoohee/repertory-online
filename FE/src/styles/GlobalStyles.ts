@@ -79,8 +79,10 @@ const GlobalStyles = createGlobalStyle`
       --rp-yellow: #fee800;
       --rp-grey-300: #aaa;
       --rp-grey-500: #444549;
-      --rp-grey-800: #1c1d22;
+      --rp-grey-800: #1e1e20;
+      --rp-grey-700: #272829;
       --rp-orange: #ffac00;
+      --sidebar-background-dark-mode: #272829;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;
 

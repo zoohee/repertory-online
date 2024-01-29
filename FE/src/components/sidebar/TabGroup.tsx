@@ -9,7 +9,7 @@ export const Tab = styled.li`
 
   &:hover {
     border-radius: 10px;
-    background-color: #272727;
+    background-color: #353637;
   }
 
   &:active {
