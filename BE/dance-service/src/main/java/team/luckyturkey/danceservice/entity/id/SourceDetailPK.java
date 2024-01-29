@@ -7,13 +7,14 @@ import lombok.*;
 import java.io.Serializable;
 
 @ToString
-@Embeddable
 @Getter
 @Setter
+@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class    SourceDetailPK implements Serializable {
+@EqualsAndHashCode
+public class SourceDetailPK implements Serializable {
 
-    @Column(name = "source_id")
+    @Column
     private Long sourceId;
 }

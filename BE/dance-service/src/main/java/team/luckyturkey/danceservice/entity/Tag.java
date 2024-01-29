@@ -1,15 +1,15 @@
 package team.luckyturkey.danceservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Builder
-@ToString
+@ToString(exclude = {"sourceTagList"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Tag {
@@ -17,6 +17,14 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.REMOVE)
+    private List<SourceTag> sourceTagList = new ArrayList<>();
+
     private String tagName;
     private Long memberId;
+
+    public List<SourceTag> getSourceTagList() {
+        if(this.sourceTagList == null) this.sourceTagList = new ArrayList<>();
+        return sourceTagList;
+    }
 }
