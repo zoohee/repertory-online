@@ -1,4 +1,4 @@
-package team.luckyturkey.danceservice.entity.id;
+package team.luckyturkey.danceservice.domain.entity.id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -13,8 +13,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class SourceDetailPK implements Serializable {
+public class SourceTagPK implements Serializable {
 
-    @Column
+    @Column (name = "source_id")
     private Long sourceId;
+
+    @Column (name = "tag_id")
+    private Long tagId;
 }

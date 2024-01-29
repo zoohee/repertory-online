@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
-import team.luckyturkey.danceservice.entity.Tag;
+import team.luckyturkey.danceservice.domain.entity.Tag;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
 
 import java.util.ArrayList;

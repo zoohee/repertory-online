@@ -1,4 +1,4 @@
-package team.luckyturkey.danceservice.entity;
+package team.luckyturkey.danceservice.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
