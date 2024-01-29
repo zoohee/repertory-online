@@ -1,22 +1,22 @@
 # this is for MSA env. will be added before merge
-#server:
-#  port: 0
-#
-#spring:
-#  application:
-#    name: dance
-#
-#eureka:
-#  instance:
-#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://127.0.0.1:8761/eureka
+server:
+  port: 0
+  servlet:
+    context-path: /dance
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
 
 spring:
-
+  application:
+    name: dance
 # for production
 #  datasource:
 #    url: jdbc:mysql://127.0.0.1:3306/ssafy_web_db
@@ -33,14 +33,9 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   jooq:
     sql-dialect: org.hibernate.dialect.H2Dialect
-
-server:
-  servlet:
-    context-path: /dance
-
 
 redis:
   host: localhost
