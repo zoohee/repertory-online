@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ size?: number; isRound?: boolean }>`
   ${(props) => {
     if (props.size) {
       return css`
         height: ${props.size}px;
         width: ${props.size}px;
+        aspect-ratio: 1 / 1;
       `;
     }
     return css`
@@ -27,15 +28,13 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Image = ({
-  size,
-  src,
-  isRound,
-}: {
-  size: number;
+interface Props {
+  size?: number;
   src: string;
-  isRound: boolean;
-}) => {
+  isRound?: boolean;
+}
+
+const Image = ({ size, src, isRound }: Props) => {
   return (
     <ImageContainer size={size} isRound={isRound}>
       <img src={src} alt="profile-image" />

@@ -1,7 +1,8 @@
 import Wrapper from '@/components/Wrapper';
-import ListNavigator, { Navigation } from '@/components/ListNavigator';
+import TabButtons, { Tab } from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
-import ProjectList from '@/components/DanceList';
+import ProjectList from '@/components/dance/DanceGridBox';
+import Dance from '@/components/dance/Dance';
 
 const DUMMY_LIST = [
   {
@@ -16,17 +17,23 @@ const DUMMY_LIST = [
   },
 ];
 
-const NAVIGATION = [new Navigation('My projects', true)];
+const TABS = [new Tab('My projects', true)];
 
 const ProjectsPage = () => {
   return (
     <>
-      <ListNavigator navItems={NAVIGATION} />
-      <Wrapper margin="24px">
-        <SearchBar></SearchBar>
-        {/* TODO: 프로젝트 생성 버튼 */}
-      </Wrapper>
-      <ProjectList list={DUMMY_LIST} column={3} />
+      <TabButtons tabs={TABS} margin="48px 0 0" />
+      <SearchBar></SearchBar>
+      {/* TODO: 프로젝트 생성 버튼 */}
+      <ProjectList column={3}>
+        {DUMMY_LIST.map((item, idx) => {
+          return (
+            <Dance key={idx} imageUrl={item.imageUrl} title={item.title}>
+              <p className="text-secondary">{item.detail}</p>
+            </Dance>
+          );
+        })}
+      </ProjectList>
     </>
   );
 };

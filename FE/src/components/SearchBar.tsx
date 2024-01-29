@@ -5,6 +5,9 @@ import { primaryFont, secondaryFont } from '@/styles/font';
 import { boxShadow } from '@/styles/shadow';
 
 const Wrapper = styled.div`
+  width: 480px;
+  margin: 24px;
+  background-color: var(--background-dark-mode);
   display: flex;
   align-items: center;
   padding: 4px;
@@ -13,6 +16,7 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
+  width: 100%;
   margin: 4px;
   background-color: transparent;
   ${secondaryFont.light}
