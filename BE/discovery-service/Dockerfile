@@ -1,4 +1,4 @@
-FROM khipu/openjdk17-alpine
+FROM openjdk:17-jdk
 
 ADD ./build/libs/*.jar app.jar
 
