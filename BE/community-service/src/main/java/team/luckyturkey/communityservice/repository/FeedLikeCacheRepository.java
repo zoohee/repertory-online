@@ -25,18 +25,18 @@ public class FeedLikeCacheRepository implements LikeCacheRepository{
     }
 
     @Override
-    public Long increaseLike(Long sourceId) {
-        return opsValue.increment(sourceId);
+    public Long increaseLike(Long feedId) {
+        return opsValue.increment(feedId);
     }
 
     @Override
-    public Long decreaseLike(Long sourceId) {
-        return opsValue.decrement(sourceId);
+    public Long decreaseLike(Long feedId) {
+        return opsValue.decrement(feedId);
     }
 
     @Override
-    public Long findBySourceId(Long sourceId) {
-        return opsValue.get(sourceId);
+    public Long findByFeedId(Long feedId) {
+        return opsValue.get(feedId);
     }
 
     @Override
