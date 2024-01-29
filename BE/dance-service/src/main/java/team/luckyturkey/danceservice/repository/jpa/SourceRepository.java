@@ -15,6 +15,6 @@ public interface SourceRepository extends JpaRepository<Source, Long> {
     @Query("select s from Source s join fetch s.sourceDetail where s.sourceDetail.sourceName like %:keyword%")
     List<Source> findBySourceNameLike(String keyword);
 
-    @Query("select s from Source s join fetch s.sourceDetail")
+    @Query("select s from Source s join fetch s.sourceDetail where s.id = :sourceId")
     Optional<Source> findByIdWithDetail(Long sourceId);
 }
