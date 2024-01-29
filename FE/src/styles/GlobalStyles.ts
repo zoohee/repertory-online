@@ -36,6 +36,7 @@ const GlobalStyles = createGlobalStyle`
     }
     body {
         line-height: 16px;
+        background-color: var(--background-dark-mode);
     }
     ol, ul {
         list-style: none;
@@ -82,6 +83,7 @@ const GlobalStyles = createGlobalStyle`
       --rp-grey-800: #1e1e20;
       --rp-grey-700: #272829;
       --rp-orange: #ffac00;
+      --background-dark-mode: #1e1e20;
       --sidebar-background-dark-mode: #272829;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;

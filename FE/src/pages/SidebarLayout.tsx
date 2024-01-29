@@ -5,7 +5,6 @@ import SideBar from '@/components/sidebar/Sidebar';
 
 const Container = styled.div`
   display: flex;
-  background-color: var(--rp-grey-800);
 `;
 
 const Main = styled.main`
