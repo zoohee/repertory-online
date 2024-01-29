@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-<<<<<<< FE/src/pages/Index.tsx
-import { React, useEffect } from 'react';
-import { UseSelector, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { memberState } from '@/Redux/Types';
-import { fontSize } from '@/styles/font';
-=======
 
 import { fontSize } from '@/styles/font';
 
->>>>>>> FE/src/pages/Index.tsx
 const GridContainer = styled.div`
   background-color: var(--rp-black);
   padding-bottom: 10rem;
@@ -78,11 +74,7 @@ export default function HomePage() {
         <Link to='/signup'>Sign Up</Link>
       </GridBox>
       <GridBox column={2} row={3}>
-<<<<<<< FE/src/pages/Index.tsx
-        <Link to='/project'>Create</Link>
-=======
         <Link to="/projects">Create</Link>
->>>>>>> FE/src/pages/Index.tsx
       </GridBox>
       <GridBox column={2} row={4}>
         <Link to='/community'>Community</Link>

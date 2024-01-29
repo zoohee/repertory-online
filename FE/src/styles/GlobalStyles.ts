@@ -65,11 +65,6 @@ const GlobalStyles = createGlobalStyle`
         src: url('/fonts/YdeStreetB.otf') format('opentype'),
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
-<<<<<<< FE/src/styles/GlobalStyles.ts
-    button, input{
-        font-family: 'YdestreetL', sans-serif
-    }
-=======
     button, input{
         font-family: 'YdestreetL', sans-serif
     }
@@ -80,7 +75,6 @@ const GlobalStyles = createGlobalStyle`
     }
     button:hover {
         cursor: pointer;
->>>>>>> FE/src/styles/GlobalStyles.ts
     }
     :root {
       --rp-black: #0d0d0d;
