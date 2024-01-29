@@ -1,7 +1,7 @@
 import Wrapper from '@/components/Wrapper';
 import TabButtons, { Tab } from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
-import ProjectList from '@/components/dance/DanceList';
+import ProjectList from '@/components/dance/DanceGridBox';
 import Dance from '@/components/dance/Dance';
 
 const DUMMY_LIST = [

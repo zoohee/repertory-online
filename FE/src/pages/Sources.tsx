@@ -3,7 +3,7 @@ import { useState } from 'react';
 import TabButtons, { Tab } from '@/components/common/Tab';
 import Wrapper from '@/components/Wrapper';
 import SearchBar from '@/components/SearchBar';
-import SourceList from '@/components/dance/DanceList';
+import SourceList from '@/components/dance/DanceGridBox';
 import Dance from '@/components/dance/Dance';
 
 const TABS: Tab[] = [
