@@ -61,4 +61,21 @@ public class CommunityController {
         likeService.insertLikeLog(likeLog);
         return likeService.insertLikeCache(feedId);
     }
+
+    @DeleteMapping("/source/{feedId}/like")
+    public Long cancelLikeSource(@PathVariable("feedId") Long feedId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        LikeLog likeLog = LikeLog.builder()
+                .memberId(memberId)
+                .feedId(feedId)
+                .likeActive(0)
+                .timestamp(new Date())
+                .build();
+
+        // TODO: DB 저장은 비동기 처리
+        likeService.insertLikeLog(likeLog);
+        return likeService.cancelLikeCache(feedId);
+    }
 }

@@ -28,4 +28,9 @@ public class LikeService {
         log.info(String.valueOf(likeLog.getId()));
         return likeLogRepository.save(likeLog);
     }
+
+    @Transactional
+    public Long cancelLikeCache(Long feedId) {
+        return feedLikeCacheRepository.decreaseLike(feedId);
+    }
 }
