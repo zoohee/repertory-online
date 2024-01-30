@@ -8,8 +8,8 @@ import Text, { TextStyle } from '@/components/common/Text';
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   margin-left: 8px;
+  margin-right: 24px;
   justify-content: center;
 `;
 
@@ -39,7 +39,11 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
           to={`/community/m/${member.id}`}
           style={{ textDecorationLine: 'none' }}
         >
-          <Text size={textStyle.size} color={textStyle.color}>
+          <Text
+            size={textStyle.size}
+            color={textStyle.color}
+            style={{ marginBottom: '4px' }}
+          >
             {member.name}
           </Text>
         </Link>
