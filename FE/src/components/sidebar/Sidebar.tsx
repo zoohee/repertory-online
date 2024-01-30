@@ -5,11 +5,12 @@ import ProfileImage from '@/components/common/Image';
 import Navigation from '@/components/sidebar/Navigation';
 
 const Aside = styled.aside`
-  margin: 16px;
+  position: fixed;
+  margin: var(--sidebar-margin);
   border-radius: 10px;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-background-dark-mode);
-  width: 240px;
+  width: var(--sidebar);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,9 +30,9 @@ const SideBar = () => {
   return (
     <Aside>
       <Link to="/" style={{ margin: '48px' }}>
-        <img src="images/logo.svg" alt="logo" style={{ height: '52px' }} />
+        <img src="/images/logo.svg" alt="logo" style={{ height: '52px' }} />
       </Link>
-      <ProfileImage size={160} isRound={true} src="images/index.jpg" />
+      <ProfileImage size={160} isRound={true} src="/images/index.jpg" />
       <div style={{ margin: '16px' }}>loginUserName</div>
       <Logout>Log Out</Logout>
       <Navigation />

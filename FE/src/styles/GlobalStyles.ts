@@ -90,6 +90,8 @@ const GlobalStyles = createGlobalStyle`
       --text-primary-dark-mode: #f1f1f1;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;
+      --sidebar: 240px;
+      --sidebar-margin: 16px;
 
     }
     .text-secondary {
