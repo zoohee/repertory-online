@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import ProfileImage from '@/components/Image';
+import ProfileImage from '@/components/common/Image';
 import Navigation from '@/components/sidebar/Navigation';
 
 const Aside = styled.aside`

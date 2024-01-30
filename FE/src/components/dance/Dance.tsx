@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { boxShadow } from '@/styles/shadow';
 import { fontSize } from '@/styles/font';
-import Thumbnail from '@/components/Image';
+import Thumbnail from '@/components/common/Image';
 
 const Box = styled.div`
   width: 100%;

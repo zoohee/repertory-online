@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ProfileImage from '@/components/Image';
+import ProfileImage from '@/components/common/Image';
 import Text, { TextStyle } from '@/components/common/Text';
 
 const Box = styled.div`
