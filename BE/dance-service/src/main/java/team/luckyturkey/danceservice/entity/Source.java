@@ -1,26 +1,76 @@
 package team.luckyturkey.danceservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@ToString(exclude = {"sourceTagList"})
 @Entity
 @Getter
 @Builder
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 public class Source{
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
+    @OneToOne(mappedBy = "source", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private SourceDetail sourceDetail;
+
+// todo: 이거 해결 해!!!!
+    @OneToMany(mappedBy = "source", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<SourceTag> sourceTagList = new ArrayList<>();
+
     private String sourceUrl;
     private Long memberId;
-    private Date sourceDate;
+    private LocalDateTime sourceDate;
+
+    public String getSourceName() {
+        return sourceDetail.getSourceName();
+    }
+
+    public int getSourceLength() {
+        return sourceDetail.getSourceLength();
+    }
+
+    public boolean isSourceIsOpen() {
+        return sourceDetail.isSourceIsOpen();
+    }
+
+    public int getSourceCount() {
+        return sourceDetail.getSourceCount();
+    }
+
+    public String getSourceStart() {
+        return sourceDetail.getSourceStart();
+    }
+
+    public String getSourceEnd() {
+        return sourceDetail.getSourceEnd();
+    }
+
+    public List<SourceTag> getSourceTagList() {
+        if(this.sourceTagList == null) sourceTagList = new ArrayList<>();
+        return sourceTagList;
+    }
+
+    public List<Tag> getTagList(){
+        if(this.sourceTagList == null) {
+            this.sourceTagList = new ArrayList<>();
+        }
+
+        List<Tag> result = new ArrayList<>();
+        for(SourceTag sourceTag: sourceTagList){
+            result.add(sourceTag.getTag());
+        }
+        return result;
+    }
 }

@@ -6,5 +6,8 @@ import team.luckyturkey.danceservice.entity.Tag;
 import java.util.List;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
-    List<Tag> findByUserId(Long userId);
+    List<Tag> findByMemberId(Long userId);
+    boolean existsTagByTagNameAndMemberId(String tagName, Long memberId);
+    Tag findByTagNameAndMemberId(String tagName, Long memberId);
+
 }

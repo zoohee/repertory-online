@@ -1,10 +1,11 @@
 package team.luckyturkey.danceservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
-import team.luckyturkey.danceservice.entity.Tag;
+import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 import team.luckyturkey.danceservice.service.TagService;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class TagController {
     /**
      * todo: get user id from jwt
      * */
-    private final Long TEST_USER_ID = 1L;
+    @Value("${test.environment.userId}")
+    private Long TEST_USER_ID;
 
     @PostMapping
     public ResponseEntity<Long> postTag(
@@ -29,23 +31,19 @@ public class TagController {
         /**
          * todo: get user id from jwt
          * */
-        Tag tag = Tag.builder()
-                    .userId(TEST_USER_ID)
-                    .tagName(postTagRequest.getTagName())
-                    .build();
-        Long tagId = tagService.saveTag(tag);
+        Long tagId = tagService.saveTag(postTagRequest, TEST_USER_ID);
         return ResponseEntity.ok(tagId);
     }
 
     @GetMapping
-    public ResponseEntity<List<Tag>> getTagList(
+    public ResponseEntity<List<StandardTagResponse>> getTagList(
 
     ){
         /**
          * this is only for dummy
          * todo: get user id from jwt
          * */
-        List<Tag> tagList = tagService.getTagList(TEST_USER_ID);
+        List<StandardTagResponse> tagList = tagService.getTagList(TEST_USER_ID);
         return ResponseEntity.ok(tagList);
     }
 
