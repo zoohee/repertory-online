@@ -1,18 +1,18 @@
 # this is for MSA env. will be added before merge
 server:
-  port: 0
+#  port: 0
   servlet:
     context-path: /dance
-
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+#
+#eureka:
+#  instance:
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+#    prefer-ip-address: true
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://127.0.0.1:8761/eureka
 
 spring:
   application:
@@ -33,9 +33,18 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   jooq:
     sql-dialect: org.hibernate.dialect.H2Dialect
+
+  data:
+    mongodb:
+      username: lucky
+      password: turkey
+      host: localhost
+      port: 27017
+      database: testdb
+      authentication-database: admin
 
 redis:
   host: localhost
@@ -52,5 +61,5 @@ logging:
 #todo: should be delete
 test:
   environment:
-    userId: 1
+    memberId: 1
     sourceUrl: s3//testurl/
