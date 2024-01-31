@@ -29,3 +29,13 @@ logging:
     org.springframework.data.mongodb: debug
     web: debug
 
+eureka:
+    instance:
+        instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+        prefer-ip-address: true
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+

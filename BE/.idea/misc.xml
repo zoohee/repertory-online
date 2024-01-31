@@ -6,10 +6,11 @@
     <file type="web" url="file://$PROJECT_DIR$/community-service" />
     <file type="web" url="file://$PROJECT_DIR$/dance-service" />
     <file type="web" url="file://$PROJECT_DIR$/discovery-service" />
+    <file type="web" url="file://$PROJECT_DIR$/member-service" />
     <file type="web" url="file://$PROJECT_DIR$/project-service" />
     <file type="web" url="file://$PROJECT_DIR$/user-service" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+    <output url="file://$PROJECT_DIR$/discovery-service/out" />
   </component>
 </project>
