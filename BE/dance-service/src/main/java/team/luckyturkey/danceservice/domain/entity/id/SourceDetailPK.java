@@ -15,6 +15,5 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class SourceDetailPK implements Serializable {
 
-    @Column
     private Long sourceId;
 }
