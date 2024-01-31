@@ -22,12 +22,11 @@ const LikeCount = styled.div`
 
 interface Props {
   likeCount: number;
-  onClick: () => void;
 }
 
-const CommunityHover = ({ likeCount, onClick }: Props) => {
+const CommunityHover = ({ likeCount }: Props) => {
   return (
-    <Hover onClick={onClick}>
+    <Hover>
       <FavoriteIcon />
       <LikeCount>{likeCount}</LikeCount>
     </Hover>

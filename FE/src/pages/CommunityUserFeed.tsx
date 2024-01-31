@@ -6,6 +6,7 @@ import Follow from '@/components/community/FollowL';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/FeedItem';
 import Wrapper from '@/components/Wrapper';
+import CommunityHover from '@/components/feed/CommunityHover';
 
 const Container = styled.div`
   display: flex;
@@ -38,19 +39,27 @@ const CommunityUserFeedPage = () => {
         </Text>
       </Wrapper>
       <DanceGridBox column={3}>
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
-        <FeedItem />
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
+        <FeedItem>
+          <CommunityHover likeCount={123} />
+        </FeedItem>
       </DanceGridBox>
     </Container>
   );
