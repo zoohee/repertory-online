@@ -1,10 +1,14 @@
 package team.luckyturkey.communityservice.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.LikeLog;
+import team.luckyturkey.communityservice.service.FeedService;
 import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
 
@@ -14,6 +18,7 @@ public class CommunityController {
 
     private final SubscribeService subscribeService;
     private final LikeService likeService;
+    private final FeedService feedService;
 
     @GetMapping("/test")
     public String test() {
@@ -78,4 +83,18 @@ public class CommunityController {
         likeService.insertLikeLog(likeLog);
         return likeService.cancelLikeCache(feedId);
     }
+
+
+    @GetMapping("/feed/{page}/{pageSize}")
+    public List<Feed> getUserFeedList(@PathVariable("page") int page,
+                                      @PathVariable("pageSize") int pageSize) {
+        return new ArrayList<>();
+    }
+
+    @PostMapping("/feed")
+    public void insertFeed(@RequestBody Feed feed) {
+        feedService.insertFeed(feed);
+    }
+
+
 }
