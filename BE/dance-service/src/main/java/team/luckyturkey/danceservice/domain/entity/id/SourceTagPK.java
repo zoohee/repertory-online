@@ -15,9 +15,6 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class SourceTagPK implements Serializable {
 
-    @Column (name = "source_id")
     private Long sourceId;
-
-    @Column (name = "tag_id")
     private Long tagId;
 }
