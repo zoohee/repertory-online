@@ -91,7 +91,10 @@ const GlobalStyles = createGlobalStyle`
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;
       --sidebar: 240px;
-      --sidebar-margin: 16px;
+      --sidebar-margin: 12px;
+      --searchbar-height: 40px;
+      --searchbar-width: 480px;
+      --searchbar-community-padding: 12px;
 
     }
     .text-secondary {
