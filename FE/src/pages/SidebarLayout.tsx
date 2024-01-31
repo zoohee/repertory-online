@@ -9,7 +9,9 @@ const Container = styled.div`
 
 const Main = styled.main`
   padding: 0 32px;
-  min-width: calc(100% - 240px);
+  margin-left: calc(var(--sidebar) + var(--sidebar-margin) * 2);
+  margin-bottom: 48px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

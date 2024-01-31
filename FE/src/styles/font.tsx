@@ -20,11 +20,15 @@ const fontSize = {
   s: css`
     font-size: 0.8rem;
   `,
+  m: css`
+    font-size: 1rem;
+  `,
   l: css`
     font-size: 1.2rem;
   `,
   xl: css`
     font-size: 1.5rem;
+    line-height: 24px;
   `,
 };
 

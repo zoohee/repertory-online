@@ -5,8 +5,8 @@ import { primaryFont, secondaryFont } from '@/styles/font';
 import { boxShadow } from '@/styles/shadow';
 
 const Wrapper = styled.div`
-  width: 480px;
-  margin: 24px;
+  height: var(--searchbar-height);
+  width: var(--searchbar-width);
   background-color: var(--background-dark-mode);
   display: flex;
   align-items: center;
