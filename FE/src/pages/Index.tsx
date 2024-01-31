@@ -17,7 +17,7 @@ const GridContainer = styled.div`
   height: 100%;
 `;
 
-const GridBox = styled.div`
+const GridBox = styled.div<{ column: number; row: number }>`
   margin-right: 32px;
   grid-column: ${(props) => props.column};
   grid-row: ${(props) => props.row};
