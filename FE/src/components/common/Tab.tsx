@@ -20,7 +20,7 @@ const TabButton = styled.button<{ clicked: boolean }>`
       return css`
         border-bottom: solid 1px var(--rp-white);
         &:hover {
-          cursor: none;
+          cursor: default;
         }
       `;
     }
