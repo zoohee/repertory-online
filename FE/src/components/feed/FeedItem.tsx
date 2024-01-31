@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Image from '@/components/common/Image';
 import FeedItemModal from '@/components/feed/FeedItemModal';
@@ -10,6 +10,17 @@ const Box = styled.li`
   div {
     height: 100%;
   }
+`;
+
+const Hover = styled.div<{ hovering: boolean }>`
+  position: absolute;
+  ${({ hovering }) => {
+    if (!hovering) {
+      return css`
+        visibility: hidden;
+      `;
+    }
+  }}
 `;
 
 const FeedItem = ({ children }: { children: ReactNode }) => {
@@ -30,9 +41,10 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
 
   return (
     <Box onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      <div onClick={handleClick}>
-        <Image src="/images/index.jpg">{isHovering && children}</Image>
-      </div>
+      <Hover onClick={handleClick} hovering={isHovering}>
+        {children}
+      </Hover>
+      <Image src="/images/index.jpg"></Image>
       <FeedItemModal
         open={isOpen}
         onClose={() => {

@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Hover = styled.div`
-  position: absolute;
   width: 100%;
   height: 100%;
   aspect-ratio: 1 / 1;
