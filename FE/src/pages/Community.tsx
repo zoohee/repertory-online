@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import TabButtons, { Tab } from '@/components/common/Tab';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import CommunityDance from '@/components/community/CommunityDance';
 
@@ -41,23 +39,7 @@ const DUMMY_LIST = [
   },
 ];
 
-const TABS = [new Tab('Repertory', true), new Tab('Source', false)];
-
 const CommunityPage = () => {
-  const [tabs, setTabs] = useState<Tab[]>(TABS);
-
-  const handleClickTab = (clickedTabName: string) => {
-    setTabs(
-      tabs.map((tab) => {
-        const clicked: boolean = tab.name == clickedTabName;
-        return {
-          ...tab,
-          clicked,
-        };
-      })
-    );
-  };
-
   const navigate = useNavigate();
 
   const navigateHandler = (id: number) => {
@@ -67,7 +49,6 @@ const CommunityPage = () => {
   return (
     <>
       {/* TODO: 검색창 넣기 */}
-      <TabButtons tabs={tabs} margin="0 0 24px" onClickTab={handleClickTab} />
       <DanceGridBox column={3}>
         {DUMMY_LIST.map((item) => {
           return (
