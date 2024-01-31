@@ -3,6 +3,7 @@ package team.luckyturkey.danceservice.domain.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class Source{
     @JsonManagedReference
     private SourceDetail sourceDetail;
 
-// todo: 이거 해결 해!!!!
     @OneToMany(mappedBy = "source", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<SourceTag> sourceTagList = new ArrayList<>();
 
