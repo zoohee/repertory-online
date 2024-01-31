@@ -8,7 +8,7 @@ import TabGroup, {
 import url from '@/url';
 
 const Tabs = styled.ul`
-width: 160px;
+  width: 160px;
   *:hover {
     cursor: pointer;
   }
