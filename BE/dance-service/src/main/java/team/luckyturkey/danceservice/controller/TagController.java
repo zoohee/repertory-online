@@ -21,8 +21,8 @@ public class TagController {
     /**
      * todo: get user id from jwt
      * */
-    @Value("${test.environment.userId}")
-    private Long TEST_USER_ID;
+    @Value("${test.environment.memberId}")
+    private Long TEST_MEMBER_ID;
 
     @PostMapping
     public ResponseEntity<Long> postTag(
@@ -31,7 +31,7 @@ public class TagController {
         /**
          * todo: get user id from jwt
          * */
-        Long tagId = tagService.saveTag(postTagRequest, TEST_USER_ID);
+        Long tagId = tagService.saveTag(postTagRequest, TEST_MEMBER_ID);
         return ResponseEntity.ok(tagId);
     }
 
@@ -43,7 +43,7 @@ public class TagController {
          * this is only for dummy
          * todo: get user id from jwt
          * */
-        List<StandardTagResponse> tagList = tagService.getTagList(TEST_USER_ID);
+        List<StandardTagResponse> tagList = tagService.getTagList(TEST_MEMBER_ID);
         return ResponseEntity.ok(tagList);
     }
 

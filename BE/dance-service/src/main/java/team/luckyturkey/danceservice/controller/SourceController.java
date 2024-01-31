@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/source")
 public class SourceController {
 
-    @Value("${test.environment.userId}")
+    @Value("${test.environment.memberId}")
     private Long TEST_MEMBER_ID;
 
 

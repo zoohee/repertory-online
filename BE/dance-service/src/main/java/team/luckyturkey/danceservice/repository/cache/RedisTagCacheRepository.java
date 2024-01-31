@@ -6,8 +6,8 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
-import team.luckyturkey.danceservice.entity.Source;
-import team.luckyturkey.danceservice.entity.Tag;
+import team.luckyturkey.danceservice.domain.entity.Source;
+import team.luckyturkey.danceservice.domain.entity.Tag;
 import team.luckyturkey.danceservice.repository.jpa.SourceTagRepository;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
 

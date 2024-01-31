@@ -1,7 +1,7 @@
 package team.luckyturkey.danceservice.repository.jpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import team.luckyturkey.danceservice.entity.Tag;
+import team.luckyturkey.danceservice.domain.entity.Tag;
 
 import java.util.List;
 

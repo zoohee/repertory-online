@@ -1,7 +1,8 @@
-package team.luckyturkey.danceservice.entity;
+package team.luckyturkey.danceservice.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
 
 import java.util.ArrayList;
 import java.util.List;

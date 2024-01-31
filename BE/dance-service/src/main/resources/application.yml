@@ -18,24 +18,31 @@ spring:
   application:
     name: dance
 # for production
-#  datasource:
-#    url: jdbc:mysql://127.0.0.1:3306/ssafy_web_db
-#    username: root
-#    password: ssafy
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#  jooq:
-#    sql-dialect: org.hibernate.dialect.MySQLDialect
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
-    password:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/community?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+
+# for test
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/test
+#    username: sa
+#    password:
   jpa:
     hibernate:
       ddl-auto: update
   jooq:
     sql-dialect: org.hibernate.dialect.H2Dialect
+
+  data:
+    mongodb:
+      username: lucky
+      password: turkey
+      host: localhost
+      port: 27017
+      database: testdb
+      authentication-database: admin
 
 redis:
   host: localhost
@@ -52,5 +59,6 @@ logging:
 #todo: should be delete
 test:
   environment:
-    userId: 1
-    sourceUrl: s3//testurl/
+    memberId: 1
+    sourceUrl: s3//test-source-url/
+    repertoryUrl: s3//test-repertory-url/

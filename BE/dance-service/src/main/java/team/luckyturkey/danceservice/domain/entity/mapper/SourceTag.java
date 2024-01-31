@@ -1,8 +1,10 @@
-package team.luckyturkey.danceservice.entity;
+package team.luckyturkey.danceservice.domain.entity.mapper;
 
 import jakarta.persistence.*;
 import lombok.*;
-import team.luckyturkey.danceservice.entity.id.SourceTagPK;
+import team.luckyturkey.danceservice.domain.entity.Source;
+import team.luckyturkey.danceservice.domain.entity.Tag;
+import team.luckyturkey.danceservice.domain.entity.id.SourceTagPK;
 
 @Entity
 @Getter
