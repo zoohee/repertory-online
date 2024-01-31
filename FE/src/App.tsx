@@ -6,7 +6,8 @@ import ProjectsPage from '@/pages/Projects';
 import SourcesPage from '@/pages/Sources';
 import CommunityPage from '@/pages/Community';
 import CommunityDetailPage from '@/pages/CommunityDetail';
-import CommunityLayout from './pages/CommunityLayout';
+import CommunityLayout from '@/pages/CommunityLayout';
+import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 
 const router = createBrowserRouter([
   {
@@ -30,12 +31,16 @@ const router = createBrowserRouter([
         element: <CommunityLayout />,
         children: [
           {
-            path: '/community',
+            index: true,
             element: <CommunityPage />,
           },
           {
             path: '/community/r/:Id',
             element: <CommunityDetailPage />,
+          },
+          {
+            path: '/community/m/:userId',
+            element: <CommunityUserFeedPage />,
           },
         ],
       },
