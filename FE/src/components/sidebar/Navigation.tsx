@@ -6,10 +6,6 @@ import TabGroup, {
   TabLink,
 } from '@/components/sidebar/TabGroup';
 
-const Nav = styled.nav`
-  margin: 48px auto;
-`
-
 const Tabs = styled.ul`
 width: 160px;
   *:hover {
@@ -24,7 +20,7 @@ const WORKSPACE = [
 
 const Navigation = () => {
   return (
-    <Nav>
+    <nav>
       <Tabs>
         <TabGroup groupName="Workspace" tabGroup={WORKSPACE} />
         <Tab>
@@ -32,7 +28,7 @@ const Navigation = () => {
         </Tab>
         <TabGroup groupName={'My Page'} tabGroup={[]} />
       </Tabs>
-    </Nav>
+    </nav>
   );
 };
 
