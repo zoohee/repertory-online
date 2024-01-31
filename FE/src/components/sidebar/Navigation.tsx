@@ -5,6 +5,7 @@ import TabGroup, {
   Tab,
   TabLink,
 } from '@/components/sidebar/TabGroup';
+import url from '@/url';
 
 const Tabs = styled.ul`
 width: 160px;
@@ -14,8 +15,8 @@ width: 160px;
 `;
 
 const WORKSPACE = [
-  new SidebarTab('Projects', '/projects'),
-  new SidebarTab('Sources', '/sources'),
+  new SidebarTab('Projects', url.projects),
+  new SidebarTab('Sources', url.sources),
 ];
 
 const Navigation = () => {
@@ -24,7 +25,7 @@ const Navigation = () => {
       <Tabs>
         <TabGroup groupName="Workspace" tabGroup={WORKSPACE} />
         <Tab>
-          <TabLink path="/community">Community</TabLink>
+          <TabLink path={url.community}>Community</TabLink>
         </Tab>
         <TabGroup groupName={'My Page'} tabGroup={[]} />
       </Tabs>

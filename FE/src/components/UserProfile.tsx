@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import URL from '@/url';
 import ProfileImage from '@/components/common/Image';
 import Text, { TextStyle } from '@/components/common/Text';
 
@@ -27,7 +28,7 @@ interface Props {
 const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
   return (
     <>
-      <Link to={`/community/m/${member.id}`}>
+      <Link to={`${URL.communityFeed}/${member.id}`}>
         <ProfileImage
           size={imageSize}
           isRound={true}
@@ -36,7 +37,7 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
       </Link>
       <Box>
         <Link
-          to={`/community/m/${member.id}`}
+          to={`${URL.communityFeed}/${member.id}`}
           style={{ textDecorationLine: 'none' }}
         >
           <Text
