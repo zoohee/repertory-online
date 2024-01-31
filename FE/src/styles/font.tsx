@@ -28,6 +28,7 @@ const fontSize = {
   `,
   xl: css`
     font-size: 1.5rem;
+    line-height: 24px;
   `,
 };
 
