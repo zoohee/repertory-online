@@ -12,7 +12,7 @@ import team.luckyturkey.danceservice.controller.responsedto.StandardSourceRespon
 import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 import team.luckyturkey.danceservice.domain.entity.Source;
 import team.luckyturkey.danceservice.domain.entity.SourceDetail;
-import team.luckyturkey.danceservice.domain.entity.SourceTag;
+import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
 import team.luckyturkey.danceservice.domain.entity.Tag;
 import team.luckyturkey.danceservice.domain.entity.id.SourceDetailPK;
 import team.luckyturkey.danceservice.domain.entity.id.SourceTagPK;
