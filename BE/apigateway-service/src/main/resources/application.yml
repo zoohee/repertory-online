@@ -2,6 +2,8 @@ server:
   port: 8000
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
@@ -18,7 +20,7 @@ spring:
           uri: lb://COMMUNITY
           predicates:
             - Path=/community/**
-        - id: dance-service
+        - id: dance
           uri: lb://DANCE
           predicates:
             - Path=/dance/**
