@@ -19,15 +19,20 @@ const WORKSPACE = [
   new SidebarTab('Sources', url.sources),
 ];
 
+const MYPAGE = [
+  new SidebarTab('Feed', url.myFeed),
+  new SidebarTab('Following', url.Following),
+];
+
 const Navigation = () => {
   return (
-    <nav>
+    <nav style={{ height: 'calc(48px * 7)' }}>
       <Tabs>
         <TabGroup groupName="Workspace" tabGroup={WORKSPACE} />
         <Tab>
           <TabLink path={url.community}>Community</TabLink>
         </Tab>
-        <TabGroup groupName={'My Page'} tabGroup={[]} />
+        <TabGroup groupName={'My Page'} tabGroup={MYPAGE} />
       </Tabs>
     </nav>
   );
