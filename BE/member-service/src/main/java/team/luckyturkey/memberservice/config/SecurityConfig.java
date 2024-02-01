@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import team.luckyturkey.memberservice.jwt.JWTFilter;
 import team.luckyturkey.memberservice.jwt.JWTUtil;
 import team.luckyturkey.memberservice.jwt.LoginFilter;
+import team.luckyturkey.memberservice.service.CustomOAuth2MemberService;
 
 import java.util.Collections;
 
@@ -23,12 +25,15 @@ import java.util.Collections;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final CustomOAuth2MemberService customOAuth2MemberService;
+
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil){
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomOAuth2MemberService customOAuth2MemberService){
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
+        this.customOAuth2MemberService = customOAuth2MemberService;
     }
 
     //AuthenticationManager Bean 등록
@@ -78,10 +83,17 @@ public class SecurityConfig {
         http
                 .httpBasic((auth) -> auth.disable());
 
+        http
+                //나중에 뒤에 유저 디테일 서비스를 등록하면 람다메서드 구현
+                .oauth2Login((oauth2) -> oauth2
+                        //등록한 유저 디테일 서비스를 등록해주는 엔드포인트
+                        .userInfoEndpoint((userInfoEndpointConfig) ->
+                                userInfoEndpointConfig.userService(customOAuth2MemberService)));
+
         //인가작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/**","/login","/","/join", "/member/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/**","/login","/","/join", "/member/**", "/swagger-ui/**", "/v3/api-docs/**","/oauth2/**").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
 

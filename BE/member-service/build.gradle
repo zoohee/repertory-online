@@ -47,6 +47,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	//Oauth2
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	//mustache
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
 	//jdbc
 //	runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -71,6 +77,8 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+
 }
 
 dependencyManagement {

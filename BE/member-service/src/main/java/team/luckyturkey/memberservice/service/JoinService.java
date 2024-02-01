@@ -55,6 +55,7 @@ public class JoinService {
         data.setMemberRole("ROLE_ADMIN");
         //유저 네임과 패스워드를 요청받아서 넣을거임
 
+
         memberRepository.save(data);
         return JoinRequestStatus.JOIN_SUCCESS;
 
