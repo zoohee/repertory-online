@@ -7,7 +7,7 @@ import { boxShadow } from '@/styles/shadow';
 const Wrapper = styled.div`
   height: var(--searchbar-height);
   width: var(--searchbar-width);
-  background-color: var(--background-dark-mode);
+  background-color: var(--background-color);
   display: flex;
   align-items: center;
   padding: 4px;

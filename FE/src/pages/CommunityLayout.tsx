@@ -10,7 +10,7 @@ const FixedBox = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
-  background-color: var(--background-dark-mode);
+  background-color: var(--background-color);
 `;
 
 const Container = styled.div`

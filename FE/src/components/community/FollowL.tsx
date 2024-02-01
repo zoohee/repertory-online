@@ -37,7 +37,7 @@ const Container = styled.div`
   align-items: center;
   margin: 0 16px;
   * {
-    color: var(--background-dark-mode);
+    color: var(--background-color);
   }
 `;
 

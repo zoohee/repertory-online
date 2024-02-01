@@ -37,7 +37,7 @@ const Container = styled.div`
   align-items: center;
   margin: 0 12px;
   * {
-    color: var(--background-dark-mode);
+    color: var(--background-color);
   }
 `;
 
@@ -45,7 +45,7 @@ const Icon = (followed: boolean) => {
   if (!followed) {
     return (
       <>
-        <PersonAddIcon style={{ marginRight: '8px' }} fontSize='s' />
+        <PersonAddIcon style={{ marginRight: '8px' }} fontSize="small" />
         <Text size="s" color="p" style={{ width: '5rem' }}>
           follow
         </Text>
@@ -54,7 +54,7 @@ const Icon = (followed: boolean) => {
   }
   return (
     <>
-      <PersonIcon style={{ marginRight: '8px' }} fontSize='s' />
+      <PersonIcon style={{ marginRight: '8px' }} fontSize="small" />
       <Text size="s" color="p" style={{ width: '5rem' }}>
         following
       </Text>

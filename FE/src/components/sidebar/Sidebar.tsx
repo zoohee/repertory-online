@@ -12,11 +12,12 @@ const Container = styled.div`
 `;
 
 const Aside = styled(Container)`
+  z-index: 10;
   position: fixed;
   margin: var(--sidebar-margin);
   border-radius: 10px;
   min-height: calc(100vh - var(--sidebar-margin) * 2);
-  background-color: var(--sidebar-background-dark-mode);
+  background-color: var(--sidebar-color);
   width: var(--sidebar);
   justify-content: space-evenly;
 `;

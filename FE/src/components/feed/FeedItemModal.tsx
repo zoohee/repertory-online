@@ -13,7 +13,7 @@ const Close = styled(CloseIcon)`
 `;
 
 const Modal = styled.dialog`
-  background-color: var(--background-dark-mode);
+  background-color: var(--background-color);
   border: none;
   border-radius: 10px;
   width: 90%;
