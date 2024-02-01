@@ -12,10 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class SourceRepertoryPK implements Serializable {
-    private Long repertoryId;
-    private Long sourceId;
+public class CloneSourceDetailPK implements Serializable {
+    private Long cloneSourceId;
 }
-
-
-//

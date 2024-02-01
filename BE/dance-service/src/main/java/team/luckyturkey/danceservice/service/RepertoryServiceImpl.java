@@ -10,12 +10,13 @@ import team.luckyturkey.danceservice.controller.requestdto.PatchRepertoryStatusR
 import team.luckyturkey.danceservice.controller.requestdto.PostRepertoryRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardRepertoryResponse;
 import team.luckyturkey.danceservice.domain.document.Repertory;
-import team.luckyturkey.danceservice.event.RepertoryDeleteEvent;
+import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //todo: S3 should be integreted
 //todo: when repertory is open status -> send request to community service to add row to feed table?
@@ -66,9 +67,6 @@ public class RepertoryServiceImpl implements RepertoryService{
         return repertoryToStandardResponse(savedRepertory);
     }
 
-
-
-
     @Override
     public List<StandardRepertoryResponse> getRepertoryList(Long memberId) {
         List<Repertory> repertoryList = repertoryRepository.findByMemberId(memberId);
@@ -87,7 +85,7 @@ public class RepertoryServiceImpl implements RepertoryService{
     public Long deleteRepertory(Long repertoryId) {
         Repertory deletedRepertory = repertoryRepository.findAndDeleteById(repertoryId);
         try {
-            applicationEventPublisher.publishEvent(new RepertoryDeleteEvent(deletedRepertory));
+            applicationEventPublisher.publishEvent(new RepertoryDeletedEvent(deletedRepertory));
         }catch (Exception e){
             repertoryRepository.save(deletedRepertory);
         }
@@ -106,7 +104,7 @@ public class RepertoryServiceImpl implements RepertoryService{
 
     @Override
     public Long modifyRepertoryStatus(Long repertoryId, PatchRepertoryStatusRequest patchRepertoryStatusRequest) {
-        Repertory modifiedRepertory = repertoryRepository.findAndUpdateIsRepertoryOpen(repertoryId,  patchRepertoryStatusRequest.getIsOpen());
+        Repertory modifiedRepertory = repertoryRepository.findAndUpdateIsRepertoryOpen(repertoryId,  patchRepertoryStatusRequest.getIsAvailable());
 
         return modifiedRepertory.getId();
     }
@@ -122,12 +120,20 @@ public class RepertoryServiceImpl implements RepertoryService{
         return response;
     }
 
-    private StandardRepertoryResponse repertoryToStandardResponse(Repertory savedRepertory) {
+    @Override
+    public StandardRepertoryResponse getRepertory(Long repertoryId) {
+        Repertory repertory = repertoryRepository.findById(repertoryId)
+                                            .orElseThrow(() -> new IllegalArgumentException("no such repertory"));
+
+        return repertoryToStandardResponse(repertory);
+    }
+
+    private StandardRepertoryResponse repertoryToStandardResponse(Repertory repertory) {
         return StandardRepertoryResponse.builder()
-                .repertoryId(savedRepertory.getId())
-                .repertoryName(savedRepertory.getRepertoryName())
-                .repertoryUrl(savedRepertory.getRepertoryUrl())
-                .repertoryThumbnailUrl(savedRepertory.getRepertoryThumbnailUrl())
+                .repertoryId(repertory.getId())
+                .repertoryName(repertory.getRepertoryName())
+                .repertoryUrl(repertory.getRepertoryUrl())
+                .repertoryThumbnailUrl(repertory.getRepertoryThumbnailUrl())
                 .build();
     }
 

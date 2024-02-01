@@ -3,19 +3,27 @@ package team.luckyturkey.danceservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
+import team.luckyturkey.danceservice.api.CommunityApi;
 import team.luckyturkey.danceservice.controller.requestdto.PatchSourceRequest;
+import team.luckyturkey.danceservice.controller.requestdto.PatchSourceStatusRequest;
 import team.luckyturkey.danceservice.controller.requestdto.PostSourceRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
 import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 import team.luckyturkey.danceservice.domain.entity.Source;
 import team.luckyturkey.danceservice.domain.entity.SourceDetail;
-import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
 import team.luckyturkey.danceservice.domain.entity.Tag;
 import team.luckyturkey.danceservice.domain.entity.id.SourceDetailPK;
 import team.luckyturkey.danceservice.domain.entity.id.SourceTagPK;
+import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
+import team.luckyturkey.danceservice.event.SourceDisabledEvent;
+import team.luckyturkey.danceservice.event.SourceEnabledEvent;
 import team.luckyturkey.danceservice.repository.jpa.SourceDetailRepository;
 import team.luckyturkey.danceservice.repository.jpa.SourceRepository;
 import team.luckyturkey.danceservice.repository.jpa.SourceTagRepository;
@@ -24,6 +32,8 @@ import team.luckyturkey.danceservice.repository.jpa.TagRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static team.luckyturkey.danceservice.domain.FeedType.SOURCE;
 
 /**todo: 캐시와 결합 crud
  * */
@@ -35,6 +45,8 @@ public class SourceServiceImpl implements SourceService{
     private final SourceDetailRepository sourceDetailRepository;
     private final TagRepository tagRepository;
     private final SourceTagRepository sourceTagRepository;
+    private final ApplicationEventPublisher eventPublisher;
+    private final CommunityApi communityApi;
 
     @Value("${test.environment.sourceUrl}")
     private String TEST_SOURCE_URL;
@@ -81,7 +93,7 @@ public class SourceServiceImpl implements SourceService{
         SourceDetail sourceDetail = SourceDetail.builder()
                                         .id(new SourceDetailPK())
                                         .sourceCount(0)
-                                        .sourceIsOpen(false)
+                                        .isSourceOpen(false)
                                         .sourceStart(postSourceRequest.getStart())
                                         .sourceEnd(postSourceRequest.getEnd())
                                         .sourceName(postSourceRequest.getSourceName())
@@ -137,6 +149,40 @@ public class SourceServiceImpl implements SourceService{
     @Override
     public void deleteSource(Long sourceId) {
         sourceRepository.deleteById(sourceId);
+    }
+
+    @Transactional
+    @Override
+    public Long updateSourceStatus(Long sourceId, PatchSourceStatusRequest patchSourceStatusRequest, Long memberId) {
+        //rdb -> caches
+        SourceDetail sourceDetail = sourceDetailRepository.findById(sourceId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid sourceId: " + sourceId));
+
+        boolean newStatus = patchSourceStatusRequest.isAvailable();
+
+        sourceDetail.setSourceOpen(newStatus);
+
+        Source source = sourceDetail.getSource();
+        List<Tag> tagList = source.getTagList();
+
+        List<String> tagNameList = tagList.stream()
+                .map(Tag::getTagName)
+                .toList();
+
+        ResponseEntity<Void> response = communityApi.postFeed(sourceId, SOURCE);
+        if(response.getStatusCode() != HttpStatus.OK){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        //tagName list, source id, member id
+        try {
+            if(newStatus) eventPublisher.publishEvent(new SourceEnabledEvent(tagNameList, sourceId, memberId));
+            else eventPublisher.publishEvent(new SourceDisabledEvent(tagNameList, sourceId, memberId));
+        } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+
+        return sourceDetail.getId().getSourceId();
     }
 
     private StandardSourceResponse sourceToStandardResponse(Source source){

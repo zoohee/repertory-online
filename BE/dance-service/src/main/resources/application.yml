@@ -55,6 +55,9 @@ logging:
     team.luckyturkey.danceservice: debug
     org.springframework.data.redis: debug
 
+api:
+  community:
+    url: http://localhost:8001/community
 #only for test environment
 #todo: should be delete
 test:

@@ -5,6 +5,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class PatchRepertoryStatusRequest {
-    private Boolean isAvailable;
+public class PostCloneRequest {
+    private Long originId;
+    private Long memberId;
 }

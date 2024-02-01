@@ -7,6 +7,6 @@ import team.luckyturkey.danceservice.domain.document.Repertory;
 
 @Getter
 @AllArgsConstructor
-public class RepertoryDeleteEvent {
+public class RepertoryDeletedEvent {
     private Repertory repertory;
 }
