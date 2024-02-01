@@ -3,7 +3,8 @@ package team.luckyturkey.memberservice.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import team.luckyturkey.memberservice.JoinRequestStatus;
+import team.luckyturkey.memberservice.Status.JoinRequestStatus;
+import team.luckyturkey.memberservice.Status.MemberAuthorityStatus;
 import team.luckyturkey.memberservice.dto.JoinRequestDto;
 import team.luckyturkey.memberservice.entity.Member;
 import team.luckyturkey.memberservice.repository.MemberRepository;
@@ -52,7 +53,7 @@ public class JoinService {
         data.setMemberName(memberName);
         data.setMemberEmail(memberEmail);
         //유저 롤 일단 나중에 고치기
-        data.setMemberRole("ROLE_ADMIN");
+        data.setMemberRole(MemberAuthorityStatus.ROLE_REGISTERED_USER.toString());
         //유저 네임과 패스워드를 요청받아서 넣을거임
 
 

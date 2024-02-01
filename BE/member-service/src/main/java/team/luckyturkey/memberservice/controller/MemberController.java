@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import team.luckyturkey.memberservice.JoinRequestStatus;
+import team.luckyturkey.memberservice.Status.JoinRequestStatus;
 import team.luckyturkey.memberservice.dto.JoinRequestDto;
 import team.luckyturkey.memberservice.entity.Member;
 import team.luckyturkey.memberservice.service.JoinService;
