@@ -53,7 +53,7 @@ public class JoinService {
         data.setMemberName(memberName);
         data.setMemberEmail(memberEmail);
         //유저 롤 일단 나중에 고치기
-        data.setMemberRole(MemberAuthorityStatus.ROLE_REGISTERED_USER.toString());
+        data.setMemberRole(MemberAuthorityStatus.ROLE_REGISTERED_MEMBER.getAuthority());
         //유저 네임과 패스워드를 요청받아서 넣을거임
 
 
