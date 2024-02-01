@@ -63,12 +63,12 @@ public class SubscribeServiceTest {
     }
 
     @Test
-    public void getSubscribers() throws Exception {
+    public void getSubscribersCount() throws Exception {
         // given
         Long selectedMemberId = 1234L;
 
         // when
-        int result = subscribeService.getSubscribers(selectedMemberId);
+        int result = subscribeService.getSubscribersCount(selectedMemberId);
 
         // then
         assertEquals(1, result);

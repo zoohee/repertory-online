@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/community-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/community-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dance-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dance-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/member-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/member-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/project-service.main.iml" />
     </modules>
   </component>
 </project>
