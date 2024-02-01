@@ -1,18 +1,6 @@
-import styled from 'styled-components';
-
-import TabGroup, {
-  SidebarTab,
-  Tab,
-  TabLink,
-} from '@/components/sidebar/TabGroup';
+import TabGroup, { SidebarTab } from '@/components/sidebar/TabLinkGroup';
+import TabLink from '@/components/sidebar/TabLink';
 import url from '@/url';
-
-const Tabs = styled.ul`
-  width: 160px;
-  *:hover {
-    cursor: pointer;
-  }
-`;
 
 const WORKSPACE = [
   new SidebarTab('Projects', url.projects),
@@ -25,15 +13,15 @@ const MYPAGE = [
 ];
 
 const Navigation = () => {
+  const tabCount = 3 + WORKSPACE.length + MYPAGE.length;
+  const navHeight = `calc(var(--sidebar-nav-height) * ${tabCount})`;
   return (
-    <nav style={{ height: 'calc(48px * 7)' }}>
-      <Tabs>
+    <nav style={{ height: `${navHeight}`, width: '100%', padding: '0 16px' }}>
+      <ul>
         <TabGroup groupName="Workspace" tabGroup={WORKSPACE} />
-        <Tab>
-          <TabLink path={url.community}>Community</TabLink>
-        </Tab>
+        <TabLink path={url.community}>Community</TabLink>
         <TabGroup groupName={'My Page'} tabGroup={MYPAGE} />
-      </Tabs>
+      </ul>
     </nav>
   );
 };
