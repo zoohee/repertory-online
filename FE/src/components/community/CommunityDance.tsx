@@ -21,7 +21,7 @@ const CommunityDance = ({ item }) => {
       <div style={{ display: 'flex' }}>
         {item.isSource && <Download count={item.like} />}
 
-        <Like liked={item.clicked} likeCount={item.like} />
+        <Like liked={item.clicked} likeCount={item.like} disable />
       </div>
     </Dance>
   );
