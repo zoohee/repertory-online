@@ -39,7 +39,7 @@ public class FeedService {
     // 구독한 사람들의 피드를 최신순으로 불러 오는 함수
     public List<Feed> getFeeds(List<Long> followingList, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return feedRepository.findPostsByFollowingList(followingList, pageable);
+        return feedRepository.findFeedsByFollowingList(followingList, pageable);
     }
 
     // 피드의 상세 정보를 불러 오는 함수
@@ -71,5 +71,10 @@ public class FeedService {
             feedDetailResponseList.add(feedDetailResponse);
         }
         return feedDetailResponseList;
+    }
+
+    public List<Feed> getAllFeeds(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return feedRepository.findFeedsAll(pageable);
     }
 }

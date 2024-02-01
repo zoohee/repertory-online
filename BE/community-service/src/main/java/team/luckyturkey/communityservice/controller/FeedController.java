@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ public class FeedController {
     private final SubscribeService subscribeService;
     private final FeedService feedService;
 
-    @GetMapping("/{page}/{pageSize}")
-    public List<FeedDetailResponse> getUserFeedList(@PathVariable("page") int page,
+    @GetMapping("/subscribe/{page}/{pageSize}")
+    public List<FeedDetailResponse> getUserSubscribeFeedList(@PathVariable("page") int page,
                                                     @PathVariable("pageSize") int pageSize) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
@@ -33,7 +34,14 @@ public class FeedController {
         return feedService.getFeedsAndDetail(feeds);
     }
 
-    @PostMapping("/feed")
+    @GetMapping("/{page}/{pageSize}")
+    public List<FeedDetailResponse> getUserFeedList(@PathVariable("page") int page,
+                                                    @PathVariable("pageSize") int pageSize) {
+        List<Feed> feeds = feedService.getAllFeeds(page, pageSize);
+        return feedService.getFeedsAndDetail(feeds);
+    }
+
+    @PostMapping("/")
     public void insertFeed(@RequestBody Feed feed) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 1234L;
@@ -65,6 +73,5 @@ public class FeedController {
                 .feedDate(originDto.getFeedDate())
                 .build();
     }
-
-
+    
 }
