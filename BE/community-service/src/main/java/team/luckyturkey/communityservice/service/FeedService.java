@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import team.luckyturkey.communityservice.client.DanceServiceClient;
+import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.entity.Feed;
+import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 
@@ -15,6 +18,7 @@ import team.luckyturkey.communityservice.repository.FeedRepository;
 public class FeedService {
 
     private final FeedRepository feedRepository;
+    private final DanceServiceClient danceServiceClient;
 
     @Transactional
     public Feed insertFeed(Feed feed) {
@@ -24,4 +28,11 @@ public class FeedService {
         return feedRepository.save(feed);
     }
 
+    public Feed getFeedDetail(Long feedId) {
+        return feedRepository.getFeedById(feedId);
+    }
+
+    public OriginDto getOriginDto(Long originId, FeedType feedType) {
+        return danceServiceClient.getOriginDetail(originId, feedType);
+    }
 }

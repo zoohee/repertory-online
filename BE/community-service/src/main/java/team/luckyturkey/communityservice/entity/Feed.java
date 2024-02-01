@@ -18,8 +18,8 @@ public class Feed {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long originId;
-    private int feedType;
+    private FeedType feedType;
     private Long likeCount;
     private Long downloadCount;
-    private int feedDisable;
+    private Boolean feedDisable;
 }
