@@ -7,6 +7,7 @@ import team.luckyturkey.communityservice.entity.Subscribe;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,7 +16,7 @@ public class SubscribeService {
 
     private final SubscribeRepository subscribeRepository;
 
-    public int getSubscribers(Long followingMemberId) {
+    public int getSubscribersCount(Long followingMemberId) {
         int subscribersCount = subscribeRepository.countByFollowingMemberId(followingMemberId);
         if (subscribersCount < 0) {
             throw new IllegalStateException("Invalid subscriber count");
@@ -51,5 +52,9 @@ public class SubscribeService {
         } else {
             throw new IllegalStateException("ID must exist");
         }
+    }
+
+    public List<Long> getFollowingList(Long memberId) {
+        return subscribeRepository.findFollowingListByMemberId(memberId);
     }
 }

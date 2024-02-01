@@ -11,6 +11,8 @@ import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -27,6 +29,8 @@ public class FeedService {
         log.info(feed.toString());
         return feedRepository.save(feed);
     }
+
+//    public List<Feed> getFeeds()
 
     public Feed getFeedDetail(Long feedId) {
         return feedRepository.getFeedById(feedId);

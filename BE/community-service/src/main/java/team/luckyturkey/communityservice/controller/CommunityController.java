@@ -40,7 +40,7 @@ public class CommunityController {
     public int getSubscribers() {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 1234L;
-        return subscribeService.getSubscribers(memberId);
+        return subscribeService.getSubscribersCount(memberId);
     }
 
     @DeleteMapping("/subscribe")
@@ -90,6 +90,8 @@ public class CommunityController {
     @GetMapping("/feed/{page}/{pageSize}")
     public List<Feed> getUserFeedList(@PathVariable("page") int page,
                                       @PathVariable("pageSize") int pageSize) {
+
+
         return new ArrayList<>();
     }
 

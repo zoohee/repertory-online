@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
-//    List<Feed> getFeedsByPage(int page, int pageNum);
     Feed getFeedById(Long id);
 }
