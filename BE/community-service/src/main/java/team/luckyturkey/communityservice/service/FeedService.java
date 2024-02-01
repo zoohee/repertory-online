@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.communityservice.client.DanceServiceClient;
 import team.luckyturkey.communityservice.dto.OriginDto;
+import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,5 +50,26 @@ public class FeedService {
     // dance server에서 소스 or 레퍼토리 정보 가져오는 함수
     public OriginDto getOriginDto(Long originId, FeedType feedType) {
         return danceServiceClient.getOriginDetail(originId, feedType);
+    }
+
+    public List<FeedDetailResponse> getFeedsAndDetail(List<Feed> feeds) {
+        List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
+        for (Feed feed : feeds) {
+            OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
+            FeedDetailResponse feedDetailResponse = FeedDetailResponse.builder()
+                    .feedId(feed.getId())
+                    .feedType(feed.getFeedType())
+                    .likeCount(feed.getLikeCount())
+                    .downloadCount(feed.getDownloadCount())
+                    .feedDisable(feed.getFeedDisable())
+                    .originId(feed.getOriginId())
+                    .memberId(originDto.getMemberId())
+                    .feedName(originDto.getFeedName())
+                    .feedUrl(originDto.getFeedUrl())
+                    .feedDate(originDto.getFeedDate())
+                    .build();
+            feedDetailResponseList.add(feedDetailResponse);
+        }
+        return feedDetailResponseList;
     }
 }

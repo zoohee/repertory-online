@@ -1,6 +1,5 @@
 package team.luckyturkey.communityservice.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -88,12 +87,14 @@ public class CommunityController {
 
 
     @GetMapping("/feed/{page}/{pageSize}")
-    public List<Feed> getUserFeedList(@PathVariable("page") int page,
+    public List<FeedDetailResponse> getUserFeedList(@PathVariable("page") int page,
                                       @PathVariable("pageSize") int pageSize) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
         List<Long> followingList = subscribeService.getFollowingList(memberId);
-        return feedService.getFeeds(followingList, page, pageSize);
+        List<Feed> feeds = feedService.getFeeds(followingList, page, pageSize);
+        // TODO: Need DanceServiceClient Test
+        return feedService.getFeedsAndDetail(feeds);
     }
 
     @PostMapping("/feed")
@@ -110,7 +111,7 @@ public class CommunityController {
 
     @GetMapping("/feed/{feedId}/detail")
     public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
-
+        // TODO: Need DanceServiceClient Test
         Feed feed = feedService.getFeedDetail(feedId);
         Long originId = feed.getOriginId();
         OriginDto originDto = feedService.getOriginDto(originId, feed.getFeedType());
