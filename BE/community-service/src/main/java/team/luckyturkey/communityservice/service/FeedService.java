@@ -77,4 +77,11 @@ public class FeedService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return feedRepository.findFeedsAll(pageable);
     }
+
+    public void setFeedPublic(Feed feed, boolean feedDisable) {
+        Long originId = feed.getOriginId();
+        feed = feedRepository.getFeedByOriginId(originId);
+        feedRepository.updateFeedDisableById(feed.getId(), feedDisable);
+    }
+
 }

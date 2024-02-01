@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,5 +74,14 @@ public class FeedController {
                 .feedDate(originDto.getFeedDate())
                 .build();
     }
-    
+
+    @PostMapping("/disable")
+    public void setFeedPublic(@RequestBody Feed feed) {
+        feedService.setFeedPublic(feed, true);
+    }
+
+    @PatchMapping("/disable")
+    public void setFeedPrivate(@RequestBody Feed feed) {
+        feedService.setFeedPublic(feed, false);
+    }
 }
