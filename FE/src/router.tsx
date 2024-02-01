@@ -10,6 +10,7 @@ import CommunityPage from '@/pages/Community';
 import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
+import MyfeedPage from '@/pages/MyFeed';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
             element: <CommunityUserFeedPage />,
           },
         ],
+      },
+      {
+        path: URL.myFeed,
+        element: <MyfeedPage />,
       },
     ],
   },
