@@ -4,7 +4,7 @@ import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
 import Follow from '@/components/community/FollowL';
 import DanceGridBox from '@/components/dance/DanceGridBox';
-import FeedItem from '@/components/feed/FeedItem';
+import FeedItem from '@/components/feed/CommunityFeedItem';
 import Wrapper from '@/components/Wrapper';
 import CommunityHover from '@/components/feed/CommunityHover';
 
