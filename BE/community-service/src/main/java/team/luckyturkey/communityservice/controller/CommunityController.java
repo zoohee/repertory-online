@@ -90,22 +90,27 @@ public class CommunityController {
     @GetMapping("/feed/{page}/{pageSize}")
     public List<Feed> getUserFeedList(@PathVariable("page") int page,
                                       @PathVariable("pageSize") int pageSize) {
-
-
-        return new ArrayList<>();
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+        List<Long> followingList = subscribeService.getFollowingList(memberId);
+        return feedService.getFeeds(followingList, page, pageSize);
     }
 
     @PostMapping("/feed")
     public void insertFeed(@RequestBody Feed feed) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 1234L;
+
+        feed.setMemberId(memberId);
         feed.setLikeCount(0L);
         feed.setDownloadCount(0L);
+
         feedService.insertFeed(feed);
     }
 
     @GetMapping("/feed/{feedId}/detail")
     public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
 
-        System.out.println(feedId);
         Feed feed = feedService.getFeedDetail(feedId);
         Long originId = feed.getOriginId();
         OriginDto originDto = feedService.getOriginDto(originId, feed.getFeedType());
@@ -123,6 +128,5 @@ public class CommunityController {
                 .feedDate(originDto.getFeedDate())
                 .build();
     }
-
 
 }

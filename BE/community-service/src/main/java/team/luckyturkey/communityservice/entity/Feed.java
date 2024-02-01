@@ -18,6 +18,7 @@ public class Feed {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long originId;
+    private Long memberId;
     private FeedType feedType;
     private Long likeCount;
     private Long downloadCount;
