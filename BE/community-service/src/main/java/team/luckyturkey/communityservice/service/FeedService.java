@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.communityservice.client.DanceServiceClient;
 import team.luckyturkey.communityservice.dto.OriginDto;
+import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
@@ -84,4 +85,15 @@ public class FeedService {
         feedRepository.updateFeedDisableById(feed.getId(), feedDisable);
     }
 
+    public void cloneSource(Long feedId, Long memberId) {
+        Feed feed = feedRepository.getFeedById(feedId);
+        Long originId = feed.getOriginId();
+
+        feedRepository.incrementDownloadCount(feedId);
+        SourceCloneRequest sourceCloneRequest = SourceCloneRequest.builder()
+                .originId(originId)
+                .memberId(memberId)
+                .build();
+        danceServiceClient.cloneSource(sourceCloneRequest);
+    }
 }
