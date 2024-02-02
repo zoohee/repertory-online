@@ -12,16 +12,16 @@ import team.luckyturkey.memberservice.dto.GoogleResponse;
 import team.luckyturkey.memberservice.dto.NaverResponse;
 import team.luckyturkey.memberservice.dto.OAuth2Response;
 import team.luckyturkey.memberservice.entity.Member;
-import team.luckyturkey.memberservice.repository.MemberRepository;
+import team.luckyturkey.memberservice.repository.OAuthMeberRepository;
 
 @Slf4j
 @Service
 public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
 
-    private final MemberRepository memberRepository;
+    private final OAuthMeberRepository oAuthMeberRepository;
 
-    public CustomOAuth2MemberService (MemberRepository memberRepository){
-        this.memberRepository = memberRepository;
+    public CustomOAuth2MemberService (OAuthMeberRepository oAuthMeberRepository){
+        this.oAuthMeberRepository = oAuthMeberRepository;
     }
 
     @Override
@@ -52,11 +52,11 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
         //todo : 적절한 아이디 가져오는 로직으로 수정
         String memberLoginId = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
 
-        Member existData = memberRepository.findByMemberLoginId(memberLoginId);
+        Member existData = oAuthMeberRepository.findByMemberLoginId(memberLoginId);
 
 
         String memberRole = null;
-        if(existData == null){
+        if(existData == null){ //처음 로그인 한 경우
 
             Member member = new Member();
 
@@ -64,12 +64,16 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
             member.setMemberEmail(oAuth2Response.getEmail());
             member.setMemberRole(MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority());
 
-            memberRepository.save(member);
+            //insert query
+            oAuthMeberRepository.save(member);
             memberRole = MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority();
-        }else{
+        }else{ //원래 있던 멤버인 경우
+            //멤버 롤 가져오기
             memberRole = existData.getMemberRole();
             //새로 받은 데이터로 업데이트
             existData.setMemberEmail(oAuth2Response.getEmail());
+
+            oAuthMeberRepository.save(existData);
 
 
         }
