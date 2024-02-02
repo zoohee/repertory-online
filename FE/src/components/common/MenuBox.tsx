@@ -1,22 +1,24 @@
 import { ReactNode } from 'react';
-import styled, { RuleSet } from 'styled-components';
+import styled from 'styled-components';
 
 interface Props {
-  css: RuleSet;
   children: ReactNode;
 }
 
-const List = styled.menu<Props>`
+const List = styled.menu`
   display: flex;
   flex-direction: column;
   border-radius: var(--border-radius-small);
   padding: 8px;
   background-color: var(--menu-color);
-  ${({ css }) => css}
+  position: absolute;
+  top: calc(var(--button-square) / 2 + var(--button-square-margin));
+  right: calc(var(--button-square) / 2 + var(--button-square-margin));
+  z-index: 2;
 `;
 
-const Menu = ({ css, children }: Props) => {
-  return <List css={css}>{children}</List>;
+const MenuList = ({ children }: Props) => {
+  return <List>{children}</List>;
 };
 
-export default Menu;
+export default MenuList;

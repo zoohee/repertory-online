@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,19 +9,6 @@ import MoreButton from '@/components/common/More';
 import MenuBox from '@/components/common/MenuBox';
 import MenuButton, { Menu } from '@/components/common/MenuButton';
 import Text from '@/components/common/Text';
-
-const menuStyle = css`
-  position: absolute;
-  top: calc(var(--button-square) / 2 + var(--button-square-margin));
-  right: calc(var(--button-square) / 2 + var(--button-square-margin));
-  z-index: 2;
-`;
-
-const moreButtonStyle = css`
-  position: absolute;
-  top: var(--button-square-margin);
-  right: var(--button-square-margin);
-`;
 
 const Hover = styled.div`
   z-index: 1;
@@ -48,7 +35,14 @@ const menus = [
 const MyFeedHover = () => {
   const [clicked, setClicked] = useState(false);
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (clicked) {
+      e.stopPropagation();
+      setClicked((prev) => !prev);
+    }
+  };
+
+  const handleClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setClicked((prev) => !prev);
   };
@@ -57,7 +51,7 @@ const MyFeedHover = () => {
     <MenuButton
       name={menu.name}
       onClick={(e) => {
-        handleClick(e);
+        handleClickButton(e);
         menu.request();
       }}
     >
@@ -67,9 +61,9 @@ const MyFeedHover = () => {
 
   return (
     <Hover onClick={handleClick}>
-      <MoreButton onClick={handleClick} css={moreButtonStyle} />
+      <MoreButton onClick={handleClickButton} />
       {clicked && (
-        <MenuBox css={menuStyle}>
+        <MenuBox>
           <MenuButton name="공개로 변경">
             <LockOpenIcon fontSize="small" />
           </MenuButton>
