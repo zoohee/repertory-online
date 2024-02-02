@@ -5,6 +5,9 @@ import PersonIcon from '@mui/icons-material/Person';
 
 import Text from '@/components/common/Text';
 
+import axios from 'axios';
+import { API } from '@/url';
+
 const Button = styled.button<{ isFollowed: boolean }>`
   ${({ isFollowed }) => {
     if (!isFollowed) {
@@ -62,7 +65,7 @@ const Icon = (followed: boolean) => {
   );
 };
 
-const Follow = ({ isFollowed }: { isFollowed: boolean }) => {
+const Follow = ({ isFollowed, id }: { isFollowed: boolean; id: number }) => {
   const [followed, setFollowed] = useState(isFollowed);
 
   const handleClick = () => {
@@ -70,6 +73,16 @@ const Follow = ({ isFollowed }: { isFollowed: boolean }) => {
       // 언팔 api 보내기
     } else {
       // 팔로우 api 보내기
+      axios
+        .post(`${API.follow}`, { selectedMemberId: id }, {
+          withCredentials: true
+        })
+        .then((response) => {
+          console.log('성공');
+        })
+        .catch((error) => {
+          console.log('실패');
+        });
     }
     setFollowed((prev) => !prev);
   };
