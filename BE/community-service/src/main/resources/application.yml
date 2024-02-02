@@ -36,3 +36,7 @@ eureka:
 #jasypt:
 #  encryptor:
 #    bean: jasyptEncryptorAES
+
+api:
+  dance:
+    url: http://i10a707.p.ssafy.io:8000/dance
