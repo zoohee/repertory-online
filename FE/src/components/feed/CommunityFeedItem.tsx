@@ -1,19 +1,24 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 import Image from '@/components/common/Image';
 import FeedItemModal from '@/components/feed/FeedItemModal';
-import CommunityHover from '@/components/feed/CommunityHover';
 
 const Box = styled.li`
   position: relative;
   aspect-ratio: 1 / 1;
-  div {
+  & > div {
     height: 100%;
   }
 `;
 
-const FeedItem = () => {
+const Hover = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+`;
+
+const FeedItem = ({ children }: { children: ReactNode }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,9 +36,8 @@ const FeedItem = () => {
 
   return (
     <Box onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      <Image src="/images/index.jpg">
-        {isHovering && <CommunityHover likeCount={123} onClick={handleClick} />}
-      </Image>
+      {isHovering && <Hover onClick={handleClick}>{children}</Hover>}
+      <Image src="/images/index.jpg"></Image>
       <FeedItemModal
         open={isOpen}
         onClose={() => {

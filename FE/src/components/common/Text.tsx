@@ -13,9 +13,20 @@ export class TextStyle {
 }
 
 const Text = styled.div<TextStyle>`
+  max-height: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
   ${({ size }) => {
     if (size === 's') {
       return fontSize.s;
+    }
+    if (size === 'l') {
+      return fontSize.l;
     }
     if (size === 'xl') {
       return fontSize.xl;
@@ -23,11 +34,14 @@ const Text = styled.div<TextStyle>`
     return fontSize.m;
   }};
 
-  ${({ color }) => {
-    if (color === 's') {
-      return 'color: var(--text-secondary-dark-mode)';
+  color: ${({ color }) => {
+    if (color === 'r') {
+      return 'var(--color-red)';
     }
-    return 'color: var(--text-primary-dark-mode)';
+    if (color === 's') {
+      return 'var(--text-secondary-dark-mode)';
+    }
+    return 'var(--text-primary-dark-mode)';
   }};
 `;
 

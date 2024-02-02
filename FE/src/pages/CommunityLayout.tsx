@@ -10,10 +10,11 @@ const FixedBox = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
-  background-color: var(--background-dark-mode);
+  background-color: var(--background-color);
 `;
 
 const Container = styled.div`
+  width: 100%;
   margin-top: calc(
     var(--searchbar-height) + var(--searchbar-community-padding) * 2
   );
