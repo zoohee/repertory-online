@@ -1,18 +1,14 @@
 package team.luckyturkey.memberservice.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class AuthMemberController {
-
-
-    @GetMapping("/main")
-    public String mainPage(){
-        return "main";
+    @GetMapping("/login/OAuth")
+    public String loginPage(){
+        return "oauth-login";
     }
-    @GetMapping("/my")
-    public String myPage(){
-        return "my";
-    }
+
 }

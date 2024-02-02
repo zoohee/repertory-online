@@ -1,37 +1,39 @@
 server:
-  port: 0
+#  port: 0/
   servlet:
     context-path: /member
 
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+#eureka:
+#  instance:
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+#    prefer-ip-address: true
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
 
 spring:
   application:
     name: member
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/community?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://repertory.online:3306/member?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-name: google
-            client-id: 369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com
-            client-secret: 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
-            redirect-uri: http://localhost:8080/login/oauth2/code/google #todo : 리다이렉트 uri 바꾸기, 구글에서도
-            authorization-grant-type: authorization_code
-            scope: profile,email #openId 값 넘어오지만 굳이 안받음
+
+
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-name: google
+#            client-id: 369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com
+#            client-secret: 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
+#            redirect-uri: http://localhost:8080/member/login/oauth2/code/google #todo : 리다이렉트 uri 바꾸기, 구글에서도
+#            authorization-grant-type: authorization_code
+#            scope: profile,email #openId 값 넘어오지만 굳이 안받음
 
 
 

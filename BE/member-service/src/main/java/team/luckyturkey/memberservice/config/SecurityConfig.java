@@ -3,6 +3,7 @@ package team.luckyturkey.memberservice.config;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -17,6 +18,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import team.luckyturkey.memberservice.jwt.JWTFilter;
 import team.luckyturkey.memberservice.jwt.JWTUtil;
 import team.luckyturkey.memberservice.jwt.LoginFilter;
+import team.luckyturkey.memberservice.oauth2.CustomClientRegistrationRepo;
+import team.luckyturkey.memberservice.oauth2.CustomOAuth2AuthorizedClientService;
 import team.luckyturkey.memberservice.service.CustomOAuth2MemberService;
 
 import java.util.Collections;
@@ -27,13 +30,19 @@ public class SecurityConfig {
 
     private final CustomOAuth2MemberService customOAuth2MemberService;
 
+    private final CustomClientRegistrationRepo customClientRegistrationRepo;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
+    private final JdbcTemplate jdbcTemplate;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomOAuth2MemberService customOAuth2MemberService){
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomOAuth2MemberService customOAuth2MemberService, CustomClientRegistrationRepo customClientRegistrationRepo, CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService, JdbcTemplate jdbcTemplate){
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
         this.customOAuth2MemberService = customOAuth2MemberService;
+        this.customClientRegistrationRepo = customClientRegistrationRepo;
+        this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     //AuthenticationManager Bean 등록
@@ -59,7 +68,7 @@ public class SecurityConfig {
 
                         CorsConfiguration configuration = new CorsConfiguration();
 
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); //허용할 포트 번호
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173")); //허용할 포트 번호
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -86,7 +95,10 @@ public class SecurityConfig {
         http
                 //나중에 뒤에 유저 디테일 서비스를 등록하면 람다메서드 구현
                 .oauth2Login((oauth2) -> oauth2
+                        .loginPage("/login/OAuth")//로그인 페이지 경로를 재 매핑
                         //등록한 유저 디테일 서비스를 등록해주는 엔드포인트
+                        .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())//커스텀한 oauth
+                        .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
                         .userInfoEndpoint((userInfoEndpointConfig) ->
                                 userInfoEndpointConfig.userService(customOAuth2MemberService)));
 
