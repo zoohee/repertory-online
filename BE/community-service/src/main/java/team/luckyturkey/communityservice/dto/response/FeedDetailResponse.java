@@ -1,9 +1,7 @@
 package team.luckyturkey.communityservice.dto.response;
 
 import lombok.Builder;
-import lombok.Data;
 import team.luckyturkey.communityservice.entity.FeedType;
-
 import java.util.Date;
 
 @Builder
