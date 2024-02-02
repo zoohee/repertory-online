@@ -9,13 +9,13 @@ import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
 import team.luckyturkey.communityservice.entity.FeedType;
 
-@FeignClient(name = "dance")
+@FeignClient(name = "${api.dance.url}")
 public interface DanceServiceClient {
 
-    @GetMapping("/dance/detail/{originId}/{feedType}")
+    @GetMapping("/detail/{originId}/{feedType}")
     OriginDto getOriginDetail(@PathVariable("originId") Long originId,
                               @PathVariable("feedType") FeedType feedType);
 
-    @PostMapping("/dance/source/clone")
+    @PostMapping("/source/clone")
     void cloneSource(@RequestBody SourceCloneRequest sourceCloneRequest);
 }
