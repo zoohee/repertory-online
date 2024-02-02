@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
+import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
@@ -50,6 +51,15 @@ public class CommunityController {
         subscribeService.unsubscribe(memberId, selectedMemberId);
     }
 
+    @PostMapping("/subscribe/list")
+    public List<SubscriberResponse> getFollowingList() {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        List<Long> followingList = subscribeService.getFollowingList(memberId);
+        return subscribeService.getFollowingDetailList(followingList);
+    }
+
     @PatchMapping("/source/{feedId}/like")
     public Long likeSource(@PathVariable("feedId") Long feedId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
@@ -83,10 +93,6 @@ public class CommunityController {
         likeService.insertLikeLog(likeLog);
         return likeService.cancelLikeCache(feedId);
     }
-
-
-
-
 
 
 }
