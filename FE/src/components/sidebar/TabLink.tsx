@@ -26,6 +26,9 @@ const Link = styled(NavLink)`
 
   &.active {
     color: var(--rp-yellow);
+    svg {
+      color: var(--rp-yellow);
+    }
   }
 `;
 
