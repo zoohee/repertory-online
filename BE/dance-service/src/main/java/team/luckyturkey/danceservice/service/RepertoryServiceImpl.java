@@ -10,7 +10,7 @@ import team.luckyturkey.danceservice.controller.requestdto.PatchRepertoryStatusR
 import team.luckyturkey.danceservice.controller.requestdto.PostRepertoryRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardRepertoryResponse;
 import team.luckyturkey.danceservice.domain.document.Repertory;
-import team.luckyturkey.danceservice.event.RepertoryDeleteEvent;
+import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryRepository;
 
@@ -66,9 +66,6 @@ public class RepertoryServiceImpl implements RepertoryService{
         return repertoryToStandardResponse(savedRepertory);
     }
 
-
-
-
     @Override
     public List<StandardRepertoryResponse> getRepertoryList(Long memberId) {
         List<Repertory> repertoryList = repertoryRepository.findByMemberId(memberId);
@@ -87,7 +84,7 @@ public class RepertoryServiceImpl implements RepertoryService{
     public Long deleteRepertory(Long repertoryId) {
         Repertory deletedRepertory = repertoryRepository.findAndDeleteById(repertoryId);
         try {
-            applicationEventPublisher.publishEvent(new RepertoryDeleteEvent(deletedRepertory));
+            applicationEventPublisher.publishEvent(new RepertoryDeletedEvent(deletedRepertory));
         }catch (Exception e){
             repertoryRepository.save(deletedRepertory);
         }
@@ -106,13 +103,13 @@ public class RepertoryServiceImpl implements RepertoryService{
 
     @Override
     public Long modifyRepertoryStatus(Long repertoryId, PatchRepertoryStatusRequest patchRepertoryStatusRequest) {
-        Repertory modifiedRepertory = repertoryRepository.findAndUpdateIsRepertoryOpen(repertoryId,  patchRepertoryStatusRequest.getIsOpen());
+        Repertory modifiedRepertory = repertoryRepository.findAndUpdateIsRepertoryOpen(repertoryId,  patchRepertoryStatusRequest.getIsAvailable());
 
         return modifiedRepertory.getId();
     }
 
     @Override
-    public List<StandardRepertoryResponse> searchByName(String keyword) {
+    public List<StandardRepertoryResponse> searchRepertory(String keyword) {
         List<Repertory> repertoryList = repertoryRepository.findByRepertoryNameContaining(keyword);
         List<StandardRepertoryResponse> response = new ArrayList<>();
 
@@ -122,12 +119,31 @@ public class RepertoryServiceImpl implements RepertoryService{
         return response;
     }
 
-    private StandardRepertoryResponse repertoryToStandardResponse(Repertory savedRepertory) {
+    @Override
+    public StandardRepertoryResponse getRepertory(Long repertoryId) {
+        Repertory repertory = repertoryRepository.findById(repertoryId)
+                                            .orElseThrow(() -> new IllegalArgumentException("no such repertory"));
+
+        return repertoryToStandardResponse(repertory);
+    }
+
+    @Override
+    public List<StandardRepertoryResponse> getRepertoriesBySources(List<Long> sourceIdList) {
+        List<Repertory> repertoryList = repertoryRepository.findAllById(sourceIdList);
+        List<StandardRepertoryResponse> responseList = new ArrayList<>();
+
+        for(Repertory source: repertoryList) {
+            responseList.add(repertoryToStandardResponse(source));
+        }
+        return responseList;
+    }
+
+    private StandardRepertoryResponse repertoryToStandardResponse(Repertory repertory) {
         return StandardRepertoryResponse.builder()
-                .repertoryId(savedRepertory.getId())
-                .repertoryName(savedRepertory.getRepertoryName())
-                .repertoryUrl(savedRepertory.getRepertoryUrl())
-                .repertoryThumbnailUrl(savedRepertory.getRepertoryThumbnailUrl())
+                .repertoryId(repertory.getId())
+                .repertoryName(repertory.getRepertoryName())
+                .repertoryUrl(repertory.getRepertoryUrl())
+                .repertoryThumbnailUrl(repertory.getRepertoryThumbnailUrl())
                 .build();
     }
 

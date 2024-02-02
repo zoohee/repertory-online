@@ -3,29 +3,25 @@ package team.luckyturkey.danceservice.domain.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import team.luckyturkey.danceservice.domain.entity.id.SourceDetailPK;
+import team.luckyturkey.danceservice.domain.entity.id.CloneSourceDetailPK;
 
+@ToString(exclude = {"cloneSource"})
 @Entity
 @Getter
 @Builder
-@ToString(exclude = "source")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
-public class SourceDetail {
+public class CloneSourceDetail {
+
+    @Setter @EmbeddedId
+    private CloneSourceDetailPK cloneSourceDetailPK;
 
     @Setter
-    @EmbeddedId
-    private SourceDetailPK id;
-
-    @Setter
-    @MapsId("sourceId")
+    @MapsId("cloneSourceId")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "source_id")
+    @JoinColumn(name = "clone_source_id")
     @JsonBackReference
-    private Source source;
-
-    @Setter
-    private boolean isSourceOpen;
+    private CloneSource cloneSource;
 
     private String sourceName;
     private int sourceLength;
