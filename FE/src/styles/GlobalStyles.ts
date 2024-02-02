@@ -108,9 +108,6 @@ const GlobalStyles = createGlobalStyle`
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
     }
-    .text-secondary {
-        color: var(--text-secondary-dark-mode);
-    }
     .red {
         color: var(--color-red);
     }

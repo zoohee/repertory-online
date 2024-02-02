@@ -1,10 +1,9 @@
 import { useState } from 'react';
 
 import TabButtons, { Tab } from '@/components/common/Tab';
-import Wrapper from '@/components/Wrapper';
 import SearchBar from '@/components/SearchBar';
 import SourceList from '@/components/dance/DanceGridBox';
-import Dance from '@/components/dance/Dance';
+import SourceItem from '@/components/dance/Source';
 
 const TABS: Tab[] = [
   new Tab('My Sources', true),
@@ -46,11 +45,7 @@ const SourcesPage = () => {
       {/* TODO: 프로젝트 생성 버튼 */}
       <SourceList column={4}>
         {DUMMY_LIST.map((item, idx) => {
-          return (
-            <Dance key={idx} thumbnail={item.imageUrl} title={item.title}>
-              <div className="text-secondary">{item.detail}</div>
-            </Dance>
-          );
+          return <SourceItem key={idx} source={item} />;
         })}
       </SourceList>
     </>
