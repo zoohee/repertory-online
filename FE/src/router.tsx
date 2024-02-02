@@ -11,6 +11,7 @@ import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
+import FollowingPage from '@/pages/Following';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: URL.myFeed,
         element: <MyfeedPage />,
+      },
+      {
+        path: URL.Following,
+        element: <FollowingPage />,
       },
     ],
   },
