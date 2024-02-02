@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.danceservice.controller.requestdto.PostCloneRequest;
-import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
+import team.luckyturkey.danceservice.controller.responsedto.CloneSourceResponse;
 import team.luckyturkey.danceservice.domain.entity.CloneSource;
 import team.luckyturkey.danceservice.domain.entity.CloneSourceDetail;
 import team.luckyturkey.danceservice.domain.entity.Source;
@@ -15,6 +15,7 @@ import team.luckyturkey.danceservice.repository.jpa.SourceRepository;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -64,6 +65,23 @@ public class CloneServiceImpl implements CloneService{
         cloneSourceRepository.save(cloneSource);
     }
 
+    @Override
+    public List<CloneSourceResponse> getCloneSourceList(Long memberId) {
+        List<CloneSource> cloneSourceList = cloneSourceRepository.findByMemberId(memberId);
+        List<CloneSourceResponse> response = new ArrayList<>();
+
+        for(CloneSource source: cloneSourceList){
+            response.add(mapToStandardResponse(source));
+        }
+        return response;
+    }
+
+    @Transactional
+    @Override
+    public void deleteCloneSource(Long cloneSourceId) {
+        cloneSourceRepository.deleteById(cloneSourceId);
+    }
+
     // 이거 필요 없는데...?
     // 대충 태그 값이 클론한 사용자도 가질 수 있게 삽입하는 연산들...
     private void modifyTagList(List<Tag> tagList, Long memberId){
@@ -81,9 +99,9 @@ public class CloneServiceImpl implements CloneService{
         }
     }
 
-    @Deprecated
-    private StandardSourceResponse mapToStandardResponse(CloneSource cloneSource){
-        return StandardSourceResponse.builder()
+    private CloneSourceResponse mapToStandardResponse(CloneSource cloneSource){
+
+        return CloneSourceResponse.builder()
                 .sourceId(cloneSource.getId())
                 .memberId(cloneSource.getMemberId())
                 .sourceName(cloneSource.getSourceName())
@@ -92,7 +110,7 @@ public class CloneServiceImpl implements CloneService{
                 .sourceLength(cloneSource.getSourceLength())
                 .sourceCount(cloneSource.getSourceCount())
                 .sourceUrl(cloneSource.getSourceUrl())
-                .tagList(null)
+                .tagNameList(cloneSource.getTagName())
                 .build();
     }
 }
