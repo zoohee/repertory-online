@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import team.luckyturkey.danceservice.controller.requestdto.PatchSourceRequest;
+import team.luckyturkey.danceservice.controller.requestdto.PatchSourceStatusRequest;
 import team.luckyturkey.danceservice.controller.requestdto.PostSourceRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
 import team.luckyturkey.danceservice.service.SourceService;
@@ -64,6 +65,17 @@ public class SourceController {
     ){
         Long updatedSource = sourceService.updateSource(sourceId, patchSourceRequest, TEST_MEMBER_ID);
         return ResponseEntity.ok().body(updatedSource);
+    }
+
+    @PatchMapping("/{sourceId}/status")
+    public ResponseEntity<Long> patchSourceStatus(
+            @PathVariable Long sourceId,
+            @RequestBody PatchSourceStatusRequest patchSourceStatusRequest
+    ){
+        Long memberId = TEST_MEMBER_ID;
+        Long patchedSourceId = sourceService.updateSourceStatus(sourceId, patchSourceStatusRequest, memberId);
+
+        return ResponseEntity.ok(patchedSourceId);
     }
 
     @DeleteMapping("/{sourceId}")

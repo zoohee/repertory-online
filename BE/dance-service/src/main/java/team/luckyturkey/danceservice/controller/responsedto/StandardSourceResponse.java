@@ -9,7 +9,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StandardSourceResponse {
+
     private Long sourceId;
+    private Long memberId;
     private String sourceName;
     private String sourceStart;
     private String sourceEnd;

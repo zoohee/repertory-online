@@ -16,9 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Source{
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -42,7 +41,7 @@ public class Source{
     }
 
     public boolean isSourceIsOpen() {
-        return sourceDetail.isSourceIsOpen();
+        return sourceDetail.isSourceOpen();
     }
 
     public int getSourceCount() {

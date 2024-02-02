@@ -29,17 +29,17 @@ public class RedisConfig {
         template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
-
+        template.setEnableTransactionSupport(true);
         return template;
     }
 
-    @Bean(name = "longRedisTemplate")
-    public RedisTemplate<Long, Long> redisLongTemplate(RedisConnectionFactory redisConnectionFactory){
-        RedisTemplate<Long, Long> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
-        template.setKeySerializer(new GenericToStringSerializer<>(Long.class));
-        template.setValueSerializer(new GenericToStringSerializer<>(Long.class));
-
-        return template;
-    }
+//    @Bean(name = "longRedisTemplate")
+//    public RedisTemplate<Long, Long> redisLongTemplate(RedisConnectionFactory redisConnectionFactory){
+//        RedisTemplate<Long, Long> template = new RedisTemplate<>();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        template.setKeySerializer(new GenericToStringSerializer<>(Long.class));
+//        template.setValueSerializer(new GenericToStringSerializer<>(Long.class));
+//
+//        return template;
+//    }
 }

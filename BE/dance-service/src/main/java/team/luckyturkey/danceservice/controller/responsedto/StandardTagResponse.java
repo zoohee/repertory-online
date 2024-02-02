@@ -9,5 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class StandardTagResponse {
     private Long tagId;
+    private Long memberId;
     private String tagName;
 }

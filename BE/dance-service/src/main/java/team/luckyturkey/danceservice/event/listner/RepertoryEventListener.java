@@ -8,7 +8,7 @@ import team.luckyturkey.danceservice.domain.document.Repertory;
 import team.luckyturkey.danceservice.domain.entity.Source;
 import team.luckyturkey.danceservice.domain.entity.id.SourceRepertoryPK;
 import team.luckyturkey.danceservice.domain.entity.mapper.SourceRepertory;
-import team.luckyturkey.danceservice.event.RepertoryDeleteEvent;
+import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.jpa.SourceRepertoryRepository;
 
@@ -24,7 +24,7 @@ public class RepertoryEventListener {
 
     @Transactional(REQUIRES_NEW)
     @EventListener
-    public void RepertorySavedEventListener(RepertorySavedEvent event){
+    public void repertorySavedEventListener(RepertorySavedEvent event){
         Repertory savedRepertory = event.getRepertory();
         List<Long> sourceIdList = savedRepertory.getSourceList();
 
@@ -41,7 +41,7 @@ public class RepertoryEventListener {
 
     @Transactional(REQUIRES_NEW)
     @EventListener
-    public void RepertoryDeletedEventListener(RepertoryDeleteEvent event){
+    public void repertoryDeletedEventListener(RepertoryDeletedEvent event){
         Repertory deletedRepertory = event.getRepertory();
         sourceRepertoryRepository.deleteByIdRepertoryId(deletedRepertory.getId());
     }

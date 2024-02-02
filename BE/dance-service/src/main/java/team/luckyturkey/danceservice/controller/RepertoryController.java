@@ -53,7 +53,7 @@ public class RepertoryController {
     public ResponseEntity<List<StandardRepertoryResponse>> searchRepertoryWithName(
             @RequestParam String keyword
     ){
-        List<StandardRepertoryResponse> response = repertoryService.searchByName(keyword);
+        List<StandardRepertoryResponse> response = repertoryService.searchRepertory(keyword);
         return ResponseEntity.ok(response);
     }
 
