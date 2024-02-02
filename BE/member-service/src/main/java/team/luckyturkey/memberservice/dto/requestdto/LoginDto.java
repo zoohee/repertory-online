@@ -1,4 +1,4 @@
-package team.luckyturkey.memberservice.dto;
+package team.luckyturkey.memberservice.dto.requestdto;
 
 import lombok.Getter;
 import lombok.Setter;

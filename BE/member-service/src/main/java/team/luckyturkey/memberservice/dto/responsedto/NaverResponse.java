@@ -1,8 +1,10 @@
-package team.luckyturkey.memberservice.dto;
+package team.luckyturkey.memberservice.dto.responsedto;
+
+import team.luckyturkey.memberservice.dto.OAuth2Response;
 
 import java.util.Map;
 
-public class NaverResponse implements OAuth2Response{
+public class NaverResponse implements OAuth2Response {
 
     private final Map<String, Object> attribute;
 
@@ -34,5 +36,10 @@ public class NaverResponse implements OAuth2Response{
     @Override
     public String getName() {
         return attribute.get("name").toString();
+    }
+
+    @Override
+    public String getPicture() {
+        return attribute.get("picture").toString();
     }
 }
