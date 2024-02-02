@@ -25,4 +25,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query("UPDATE Feed f SET f.feedDisable = :feedDisable WHERE f.id = :feedId")
     void updateFeedDisableById(Long feedId, boolean feedDisable);
 
+    @Modifying
+    @Query("UPDATE Feed f SET f.downloadCount = f.downloadCount + 1 WHERE f.id = :feedId")
+    int incrementDownloadCount(Long feedId);
 }

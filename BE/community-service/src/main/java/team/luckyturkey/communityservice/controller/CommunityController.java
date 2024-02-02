@@ -20,6 +20,7 @@ public class CommunityController {
 
     private final SubscribeService subscribeService;
     private final LikeService likeService;
+    private final FeedService feedService;
 
     @GetMapping("/test")
     public String test() {
@@ -94,5 +95,12 @@ public class CommunityController {
         return likeService.cancelLikeCache(feedId);
     }
 
+    @PostMapping("/community/source/{feedId}/clone")
+    public void cloneSource(@PathVariable("feedId") Long feedId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        feedService.cloneSource(feedId, memberId);
+    }
 
 }
