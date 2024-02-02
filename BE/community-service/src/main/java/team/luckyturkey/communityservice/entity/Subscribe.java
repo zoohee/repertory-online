@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.entity;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Subscribe {
-    @Id
-    private Long memberId;
-    private Long followingMemberId;
+    @EmbeddedId
+    private SubscribePK id;
     private Date subscribeDate;
 }
