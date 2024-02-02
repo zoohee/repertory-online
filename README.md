@@ -1,6 +1,6 @@
 # Project : Repertory (Bboy repertory making tool)
 
-### team : Lucky Turkey(A707)
+### team : Lucky Turkey(A707) // 브랜치별로 나눠서 개발중입니다. 브랜치 살펴봐주시면 감사하겠습니다
 
 ---
 
