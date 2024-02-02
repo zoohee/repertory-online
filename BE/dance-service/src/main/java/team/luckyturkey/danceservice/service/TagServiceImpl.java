@@ -1,11 +1,13 @@
 package team.luckyturkey.danceservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 import team.luckyturkey.danceservice.domain.entity.Tag;
+import team.luckyturkey.danceservice.event.TagDeletedEvent;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 public class TagServiceImpl implements TagService{
 
     private final TagRepository tagRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional
     @Override
@@ -41,7 +44,15 @@ public class TagServiceImpl implements TagService{
     @Transactional
     @Override
     public void deleteTag(Long tagId) {
-        tagRepository.deleteById(tagId);
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new IllegalStateException("Tag not exist"));
+
+        tagRepository.delete(tag);
+        try {
+            eventPublisher.publishEvent(new TagDeletedEvent(tag.getTagName(), tag.getMemberId()));
+        } catch (Exception e){
+            tagRepository.save(tag);
+        }
     }
 
     private StandardTagResponse tagToStandardResponse(Tag tag){

@@ -12,7 +12,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
 spring:
   application:
@@ -20,7 +20,7 @@ spring:
 # for production
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/community?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://repertory.online:3306/dance?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
 
@@ -31,7 +31,7 @@ spring:
 #    password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   jooq:
     sql-dialect: org.hibernate.dialect.H2Dialect
 
@@ -57,7 +57,8 @@ logging:
 
 api:
   community:
-    url: http://localhost:8001/community
+    url: http://repertory.online:8000/community
+
 #only for test environment
 #todo: should be delete
 test:

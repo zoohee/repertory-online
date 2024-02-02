@@ -11,6 +11,8 @@ import java.util.List;
 public interface SourceService {
     List<StandardSourceResponse> getMySourceList(Long memberId);
 
+    List<StandardSourceResponse> getSourceList(List<Long> sourceIdList);
+
     List<StandardSourceResponse> searchSource(String keyword);
 
     StandardSourceResponse getSource(Long sourceId);
