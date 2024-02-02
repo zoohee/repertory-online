@@ -26,8 +26,9 @@ interface Props {
 }
 
 const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
+  const marginBottom = textStyle.size === 's' ? '4px' : '8px';
   return (
-    <>
+    <div style={{ display: 'flex' }}>
       <Link to={`${URL.communityFeed}/${member.id}`}>
         <ProfileImage
           size={imageSize}
@@ -43,14 +44,14 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
           <Text
             size={textStyle.size}
             color={textStyle.color}
-            style={{ marginBottom: '4px' }}
+            style={{ marginBottom: `${marginBottom}` }}
           >
             {member.name}
           </Text>
         </Link>
         {children}
       </Box>
-    </>
+    </div>
   );
 };
 

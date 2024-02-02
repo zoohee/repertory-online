@@ -67,7 +67,7 @@ const TabComponent = ({ children, margin, tabs, onClickTab }: Props) => {
   });
 
   return (
-    <Wrapper as="nav" margin={margin}>
+    <Wrapper as="nav" margin={margin} style={{width: '100%'}}>
       <Tabs>{tabButtons}</Tabs>
       {children}
     </Wrapper>

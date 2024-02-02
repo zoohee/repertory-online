@@ -25,6 +25,9 @@ const Text = styled.div<TextStyle>`
     if (size === 's') {
       return fontSize.s;
     }
+    if (size === 'l') {
+      return fontSize.l;
+    }
     if (size === 'xl') {
       return fontSize.xl;
     }

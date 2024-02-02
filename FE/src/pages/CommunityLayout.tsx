@@ -14,6 +14,7 @@ const FixedBox = styled.div`
 `;
 
 const Container = styled.div`
+  width: 100%;
   margin-top: calc(
     var(--searchbar-height) + var(--searchbar-community-padding) * 2
   );

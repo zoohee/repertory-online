@@ -5,18 +5,30 @@ const GridBox = styled.ul<{ column: number }>`
   padding: 0 16px;
   width: 100%;
   display: grid;
-  grid-template-columns: ${({ column }) =>
-    `repeat(max(${column - 3}, 1), 1fr)`};
-  grid-gap: 16px;
+  grid-template-columns: repeat(
+    var(--grid-column),
+    calc(
+      (100% - var(--grid-gap) * (var(--grid-column) - 1)) / var(--grid-column)
+    )
+  );
+  grid-gap: var(--grid-gap);
 
+  --grid-gap: 16px;
+  --grid-column: ${({ column }) => {
+    const size = column - 3;
+    if (size > 0) {
+      return size;
+    }
+    return 1;
+  }};
   @media (min-width: 640px) {
-    grid-template-columns: ${({ column }) => `repeat(${column - 2}, 1fr)`};
+    --grid-column: ${({ column }) => column - 2};
   }
   @media (min-width: 768px) {
-    grid-template-columns: ${({ column }) => `repeat(${column - 1}, 1fr)`};
+    --grid-column: ${({ column }) => column - 1};
   }
   @media (min-width: 1024px) {
-    grid-template-columns: ${({ column }) => `repeat(${column}, 1fr)`};
+    --grid-column: ${({ column }) => column};
   }
 `;
 
