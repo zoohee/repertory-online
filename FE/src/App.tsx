@@ -8,11 +8,11 @@ import CommunityPage from '@/pages/Community';
 import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
-
+import Repertory from '@/pages/Repertory';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Index />,
+    element: <Repertory />,
   },
   {
     path: '/',
