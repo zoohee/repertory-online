@@ -39,7 +39,7 @@ spring:
     mongodb:
       username: lucky
       password: turkey
-      host: localhost
+      host: repertory.online
       port: 27017
       database: testdb
       authentication-database: admin
