@@ -17,6 +17,10 @@ eureka:
 spring:
   application:
     name: dance
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 # for production
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
@@ -24,11 +28,6 @@ spring:
     username: root
     password: 1234
 
-# for test
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/test
-#    username: sa
-#    password:
   jpa:
     hibernate:
       ddl-auto: create
