@@ -1,10 +1,22 @@
 import styled, { css } from 'styled-components';
 import Symbol from '/images/GoogleSymbol.png';
 import { ButtonHTMLAttributes } from 'react';
-const buttonStyles = {
+
+export const buttonStyles = {
   default: css`
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--rp-yellow);
+    color: var(--background-color);
+    * {
+      color: var(--background-color);
+    }
+
+    &:hover {
+      background-color: var(--rp-orange);
+      color: var(--rp-white);
+      * {
+        color: var(--rp-white);
+      }
+    }
   `,
   submit: css`
     color: #0d0d0d;

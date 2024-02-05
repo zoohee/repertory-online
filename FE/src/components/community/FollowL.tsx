@@ -2,65 +2,44 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
-
-import Text from '@/components/common/Text';
-
+import { buttonStyles } from '@/components/common/Button';
 import axios from 'axios';
 import { API } from '@/url';
 
 const Button = styled.button<{ isFollowed: boolean }>`
   ${({ isFollowed }) => {
     if (!isFollowed) {
-      return css`
-        background-color: var(--rp-yellow);
-
-        &:hover {
-          background-color: var(--rp-orange);
-          * {
-            color: var(--rp-white);
-          }
-        }
-      `;
+      return buttonStyles.default;
     }
     return css`
       background-color: var(--text-secondary-dark-mode);
 
       &:hover {
         background-color: var(--rp-white);
+        * {
+          color: var(--background-color);
+        }
       }
     `;
   }}
-  border-radius: 20px;
-  height: 2rem;
-`;
-
-const Container = styled.div`
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0 16px;
-  * {
-    color: var(--background-color);
-  }
 `;
 
 const Icon = (followed: boolean) => {
-  if (!followed) {
-    return (
-      <>
-        <PersonAddIcon style={{ marginRight: '8px' }} />
-        <Text size="m" color="p" style={{ width: '6rem' }}>
-          follow
-        </Text>
-      </>
-    );
-  }
+  const IconStyle = {
+    marginRight: 'var(--button-icon-margin)',
+  };
+
+  const text = followed ? 'following' : 'follow';
+
   return (
     <>
-      <PersonIcon style={{ marginRight: '8px' }} />
-      <Text size="m" color="p" style={{ width: '6rem' }}>
-        following
-      </Text>
+      {!followed && <PersonAddIcon style={IconStyle} />}
+      {followed && <PersonIcon style={IconStyle} />}
+      <div style={{ width: '6rem' }}>{text}</div>
     </>
   );
 };
@@ -89,7 +68,7 @@ const Follow = ({ isFollowed, id }: { isFollowed: boolean; id: number }) => {
 
   return (
     <Button onClick={handleClick} isFollowed={followed}>
-      <Container>{Icon(followed)}</Container>
+      {Icon(followed)}
     </Button>
   );
 };
