@@ -14,6 +14,7 @@ import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
+import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
 
@@ -40,11 +41,13 @@ public class FeedService {
     // 구독한 사람들의 피드를 최신순으로 불러 오는 함수
     public List<Feed> getFeeds(List<Long> followingList, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        List<Feed> feeds = feedRepository.findFeedsByFollowingList(followingList, pageable);
         return feedRepository.findFeedsByFollowingList(followingList, pageable);
     }
 
     // 피드의 상세 정보를 불러 오는 함수
     public Feed getFeedDetail(Long feedId) {
+        Feed feed = feedRepository.getFeedById(feedId);
         return feedRepository.getFeedById(feedId);
     }
 

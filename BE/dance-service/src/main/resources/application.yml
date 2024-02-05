@@ -15,6 +15,9 @@ eureka:
       defaultZone: http://repertory.online:8761/eureka
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
   application:
     name: dance
   servlet:
@@ -30,7 +33,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   jooq:
     sql-dialect: org.hibernate.dialect.H2Dialect
 

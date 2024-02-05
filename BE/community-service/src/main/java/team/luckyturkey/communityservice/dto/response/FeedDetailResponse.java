@@ -1,10 +1,14 @@
 package team.luckyturkey.communityservice.dto.response;
 
-import lombok.Builder;
+import lombok.*;
 import team.luckyturkey.communityservice.entity.FeedType;
 import java.util.Date;
 
+@ToString
+@Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeedDetailResponse {
     private Long feedId;
     private FeedType feedType;
