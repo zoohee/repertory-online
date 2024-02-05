@@ -5,9 +5,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
 import team.luckyturkey.memberservice.Status.MemberAuthorityStatus;
-import team.luckyturkey.memberservice.dto.requestdto.JoinRequestDto;
-import team.luckyturkey.memberservice.entity.Member;
-import team.luckyturkey.memberservice.repository.MemberRepository;
+import team.luckyturkey.memberservice.member.dto.requestdto.JoinRequestDto;
+import team.luckyturkey.memberservice.member.entity.Member;
+import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
 @Service
 public class JoinService {
