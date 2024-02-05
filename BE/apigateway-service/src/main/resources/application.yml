@@ -1,5 +1,7 @@
 server:
   port: 8000
+  servlet:
+    context-path: /
 
 eureka:
   instance:
@@ -8,7 +10,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
 spring:
   application:
@@ -29,6 +31,7 @@ spring:
               - POST
               - DELETE
               - OPTIONS
+              - PATCH
       routes:
         - id: community
           uri: lb://COMMUNITY
@@ -46,3 +49,20 @@ spring:
           uri: lb://MEMBER
           predicates:
             - Path=/member/**
+
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /community/v3/api-docs
+        name: Community
+
+openapi:
+  service:
+    url: http://repertory.online:8000
