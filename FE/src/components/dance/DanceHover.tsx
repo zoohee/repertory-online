@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import MoreButton from '@/components/common/More';
-import MenuList from '@/components/common/MenuBox';
+import MenuList from '@/components/common/MenuList';
 import MenuButton, { Menu } from '@/components/common/MenuButton';
 
 const Hover = styled.div`
