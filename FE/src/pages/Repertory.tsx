@@ -189,6 +189,7 @@ const RepertoryPage = () => {
           </Btn>
           <Btn onClick={() => com.feedSetPublic(1, 0)}>GET/feedSetPublic</Btn>
           <Btn onClick={() => com.feedSetPrivate(1, 0)}>GET/feedSetPrivate</Btn>
+          <Btn onClick={com.getSubscribersList}>GET/getSubscribersList</Btn>
         </Wrapper>
       </Container>
       <div>
