@@ -1,5 +1,6 @@
 # will be used in MSA environment
-
+server:
+  port: 0
 
 eureka:
     instance:
@@ -14,23 +15,25 @@ eureka:
 spring:
   application:
     name: project
-
   data:
     mongodb:
       username: lucky
       password: turkey
-      host: localhost
+      host: i10a707.p.ssafy.io
       port: 27017
-      database: testdb
-      authentication-database: admin
-
-server:
-  port: 0
-  servlet:
-    context-path: /project
 
 logging:
   level:
     org.springframework.data.mongodb: debug
     web: debug
+
+eureka:
+    instance:
+        instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+        prefer-ip-address: true
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://i10a707.p.ssafy.io:8761/eureka
 

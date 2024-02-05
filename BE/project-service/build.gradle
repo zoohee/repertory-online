@@ -29,8 +29,6 @@ dependencies {
 
     //web
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    //eureka
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
     //mongo db
