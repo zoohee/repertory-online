@@ -2,9 +2,9 @@ package team.luckyturkey.memberservice.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import team.luckyturkey.memberservice.dto.LoginDto;
-import team.luckyturkey.memberservice.entity.Member;
-import team.luckyturkey.memberservice.repository.MemberRepository;
+import team.luckyturkey.memberservice.member.dto.requestdto.LoginDto;
+import team.luckyturkey.memberservice.member.entity.Member;
+import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
 @Service
 public class LoginService {

@@ -5,9 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import team.luckyturkey.memberservice.dto.CustomMemberDetails;
-import team.luckyturkey.memberservice.entity.Member;
-import team.luckyturkey.memberservice.repository.MemberRepository;
+import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
+import team.luckyturkey.memberservice.member.entity.Member;
+import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
 @Slf4j
 @Service
