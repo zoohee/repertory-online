@@ -2,9 +2,10 @@ package team.luckyturkey.projectservice.document;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -12,15 +13,22 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document
+@Document(collection = "project")
 public class Project {
 
+    @Transient
+    public static final String SEQUENCE_NAME = "project_sequence";
+
     @Id
-    private Long _id;
+    @Setter
+    private Long id;
+
     private String projectName;
-    private Date projectDate;
+    private Instant projectDate;
     private Long userId;
     private List<Long> sourceList;
+
+    @Setter
     private String projectThumbnailUrl;
 
 }
