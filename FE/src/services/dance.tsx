@@ -114,6 +114,17 @@ const postTag = async (tag: string) => {
   return response;
 };
 
+// 태그 삭제
+const deleteTag = async (tagId: number, tagName: string) => {
+  const response = await $axios().delete(`/dance/tag/${tagId}`, {
+    params: {
+      tagName,
+    },
+  });
+  console.log(response.data);
+  return response;
+};
+
 // 소스 공개상태 변경 => CORS
 const patchSourceIsAvailable = async (
   sourceId: number,
@@ -221,6 +232,7 @@ export {
   getMySourceClone,
   deleteMySourceClone,
   getTags,
+  deleteTag,
   postTag,
   patchSourceIsAvailable,
   getRepertoryByName,

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import * as dance from '@/services/dance';
+import * as com from '@/services/community';
 const Btn = styled.button`
   background-color: #4e4e4e;
   margin: 4px;
@@ -154,6 +155,11 @@ const RepertoryPage = () => {
         <Btn onClick={() => dance.patchRepertoryIsAvailable(1234, true)}>
           PATCH/patchSourceIsAvailable
         </Btn>
+        <Btn onClick={() => dance.deleteTag(123, 'test')}>
+          DELETE/delete tag
+        </Btn>
+        <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
+        <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
       </Wrapper>
       <div>
         {/* <input type="file" accept="image/*" onChange={onImageUpload}/> */}
