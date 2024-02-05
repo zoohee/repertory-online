@@ -221,6 +221,8 @@ const patchRepertoryIsAvailable = async (
   return response.status;
 };
 
+// const detectPose = async();
+
 export {
   communityTest,
   searchSourceName,

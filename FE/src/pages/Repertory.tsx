@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import * as dance from '@/services/dance';
 import * as com from '@/services/community';
+import * as member from '@/services/member';
 const Btn = styled.button`
   background-color: #4e4e4e;
   margin: 4px;
@@ -187,9 +188,17 @@ const RepertoryPage = () => {
           >
             GET/getUserFeed
           </Btn>
-          <Btn onClick={() => com.feedSetPublic(1, 0)}>GET/feedSetPublic</Btn>
-          <Btn onClick={() => com.feedSetPrivate(1, 0)}>GET/feedSetPrivate</Btn>
+          <Btn onClick={() => com.feedSetPublic(1234, 0)}>
+            GET/feedSetPublic
+          </Btn>
+          <Btn onClick={() => com.feedSetPrivate(1234, 0)}>
+            GET/feedSetPrivate
+          </Btn>
           <Btn onClick={com.getSubscribersList}>GET/getSubscribersList</Btn>
+        </Wrapper>
+        <Wrapper>
+          <Btn onClick={member.postMember}>Join</Btn>
+          <Btn onClick={member.loginMember}>Login</Btn>
         </Wrapper>
       </Container>
       <div>

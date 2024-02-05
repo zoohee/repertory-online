@@ -89,7 +89,7 @@ const feedSetPublic = async (originId: number, feedType: IFeedType) => {
     originId: originId,
     feedType: feedType,
   };
-  const response = await $axios().post('/community/feed/private', data);
+  const response = await $axios().post('/community/feed/disable', data);
   console.log(response);
   return response;
 };
@@ -99,7 +99,7 @@ const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
     originId: originId,
     feedType: feedType,
   };
-  const response = await $axios().patch('/community/feed', data);
+  const response = await $axios().patch('/community/feed/disable', data);
   console.log(response);
   return response;
 };
