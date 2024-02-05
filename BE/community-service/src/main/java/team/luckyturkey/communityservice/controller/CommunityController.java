@@ -52,14 +52,14 @@ public class CommunityController {
         subscribeService.unsubscribe(memberId, selectedMemberId);
     }
 
-    @PostMapping("/subscribe/list")
-    public List<SubscriberResponse> getFollowingList() {
-        // TODO: Request Header jwt에서 memberId 받아 오기
-        Long memberId = 5678L;
-
-        List<Long> followingList = subscribeService.getFollowingList(memberId);
-        return subscribeService.getFollowingDetailList(followingList);
-    }
+//    @PostMapping("/subscribe/list")
+//    public List<SubscriberResponse> getFollowingList() {
+//        // TODO: Request Header jwt에서 memberId 받아 오기
+//        Long memberId = 5678L;
+//
+//        List<Long> followingList = subscribeService.getFollowingList(memberId);
+//        return subscribeService.getFollowingDetailList(followingList);
+//    }
 
     @PatchMapping("/source/{feedId}/like")
     public Long likeSource(@PathVariable("feedId") Long feedId) {

@@ -31,7 +31,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
 #jasypt:
 #  encryptor:
@@ -39,4 +39,17 @@ eureka:
 
 api:
   dance:
-    url: http://i10a707.p.ssafy.io:8000/dance
+    url: http://repertory.online:8000/dance
+  member:
+    url: http://repertory.online:8000/member
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+openapi:
+  service:
+    # API Gateway 포트
+    url: http://repertory.online:8000
