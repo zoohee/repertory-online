@@ -7,7 +7,11 @@ import team.luckyturkey.communityservice.client.MemberServiceClient;
 import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
 import team.luckyturkey.communityservice.entity.Subscribe;
 import team.luckyturkey.communityservice.entity.SubscribePK;
+import team.luckyturkey.communityservice.exception.AlreadySubscribedException;
+import team.luckyturkey.communityservice.exception.InvalidDataException;
+import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
+import team.luckyturkey.communityservice.util.ErrorCode;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +27,7 @@ public class SubscribeService {
     public int getSubscribersCount(Long followingMemberId) {
         int subscribersCount = subscribeRepository.countByIdFollowingMemberId(followingMemberId);
         if (subscribersCount < 0) {
-            throw new IllegalStateException("Invalid subscriber count");
+            throw new InvalidDataException(ErrorCode.INTER_SERVER_ERROR);
         }
         return subscribersCount;
     }
@@ -31,23 +35,24 @@ public class SubscribeService {
     @Transactional
     public Subscribe subscribe(Long memberId, Long selectedMemberId) {
         if (memberId == null || selectedMemberId == null) {
-            throw new IllegalArgumentException("MemberId and selectedMemberId cannot be null");
+            throw new NullException(ErrorCode.DUPLICATE_DATA);
         }
 
         if (subscribeRepository.existsByIdIdAndIdFollowingMemberId(memberId, selectedMemberId)) {
-            throw new IllegalStateException("Subscription already exists");
+            throw new AlreadySubscribedException(ErrorCode.DUPLICATE_DATA);
         }
 
-        SubscribePK subscribePK = new SubscribePK();
-        subscribePK.setId(memberId);
-        subscribePK.setFollowingMemberId(selectedMemberId);
+        SubscribePK subscribePK = SubscribePK.builder()
+                .id(memberId)
+                .followingMemberId(selectedMemberId)
+                .build();
+
         Subscribe subscribe = Subscribe.builder()
                 .id(subscribePK)
                 .subscribeDate(new Date())
                 .build();
 
-        Subscribe s = subscribeRepository.save(subscribe);
-        return s;
+        return subscribeRepository.save(subscribe);
     }
 
     @Transactional
@@ -62,13 +67,11 @@ public class SubscribeService {
 
     public List<Long> getFollowingList(Long memberId) {
         // SubscribePK 객체 생성
-        SubscribePK subscribePK = new SubscribePK();
-        subscribePK.setId(memberId); // 예시로 5678L 값을 사용, 실제로는 원하는 값으로 설정
-
-        System.out.println(subscribeRepository.findFollowingListByIdId(memberId));
+        SubscribePK subscribePK = SubscribePK.builder().id(memberId).build();
         return subscribeRepository.findFollowingListByIdId(memberId);
     }
 
+    // TODO: member service에서 유저 정보 받아오기
     public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
         return memberServiceClient.getFollowingDetailList(followingList);
     }

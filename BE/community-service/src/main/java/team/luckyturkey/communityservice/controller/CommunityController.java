@@ -37,7 +37,7 @@ public class CommunityController {
     }
 
     @GetMapping("/subscribers")
-    public int getSubscribers() {
+    public int getSubscribersCount() {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 1234L;
         return subscribeService.getSubscribersCount(memberId);
