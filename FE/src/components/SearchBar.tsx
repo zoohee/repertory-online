@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { primaryFont, secondaryFont } from '@/styles/font';
-import { boxShadow } from '@/styles/shadow';
 
 const Wrapper = styled.div`
   height: var(--searchbar-height);
@@ -11,7 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 4px;
-  ${boxShadow}
+  box-shadow: var(--box-shadow);
   border-radius: 5px;
 `;
 
