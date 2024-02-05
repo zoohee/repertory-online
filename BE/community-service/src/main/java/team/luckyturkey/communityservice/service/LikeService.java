@@ -5,9 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.communityservice.entity.LikeLog;
+import team.luckyturkey.communityservice.exception.InvalidDataException;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
-import team.luckyturkey.communityservice.repository.LikeCacheRepository;
 import team.luckyturkey.communityservice.repository.LikeLogRepository;
+import team.luckyturkey.communityservice.util.ErrorCode;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,13 +25,17 @@ public class LikeService {
     }
 
     @Transactional
-    public LikeLog insertLikeLog(LikeLog likeLog) {
+    public void insertLikeLog(LikeLog likeLog) {
         log.info(String.valueOf(likeLog.getId()));
-        return likeLogRepository.save(likeLog);
+        likeLogRepository.save(likeLog);
     }
 
     @Transactional
     public Long cancelLikeCache(Long feedId) {
+        Long likeCount = feedLikeCacheRepository.decreaseLike(feedId);
+        if (likeCount < 0) {
+            throw new InvalidDataException(ErrorCode.INTER_SERVER_ERROR);
+        }
         return feedLikeCacheRepository.decreaseLike(feedId);
     }
 
