@@ -14,6 +14,7 @@ import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.service.FeedService;
+import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
 
 @RestController
@@ -23,6 +24,7 @@ public class FeedController {
 
     private final SubscribeService subscribeService;
     private final FeedService feedService;
+    private final LikeService likeService;
 
     @GetMapping("/subscribe/{page}/{pageSize}")
     public List<FeedDetailResponse> getUserSubscribeFeedList(@PathVariable("page") int page,
@@ -39,6 +41,9 @@ public class FeedController {
     public List<FeedDetailResponse> getUserFeedList(@PathVariable("page") int page,
                                                     @PathVariable("pageSize") int pageSize) {
         List<Feed> feeds = feedService.getAllFeeds(page, pageSize);
+        for (Feed feed : feeds) {
+            feed.setLikeCount(likeService.getFeedLikeCount(feed.getId()));
+        }
         return feedService.getFeedsAndDetail(feeds);
     }
 
@@ -60,11 +65,12 @@ public class FeedController {
         Feed feed = feedService.getFeedDetail(feedId);
         Long originId = feed.getOriginId();
         OriginDto originDto = feedService.getOriginDto(originId, feed.getFeedType());
+        Long likeCount = likeService.getFeedLikeCount(feedId);
 
         return FeedDetailResponse.builder()
                 .feedId(feedId)
                 .feedType(feed.getFeedType())
-                .likeCount(feed.getLikeCount())
+                .likeCount(likeCount)
                 .downloadCount(feed.getDownloadCount())
                 .feedDisable(feed.getFeedDisable())
                 .originId(originId)
