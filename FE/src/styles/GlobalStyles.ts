@@ -101,12 +101,21 @@ const GlobalStyles = createGlobalStyle`
       --searchbar-height: 40px;
       --searchbar-width: 480px;
       --searchbar-community-padding: 12px;
-      --button-square: 36px;
       --border-radius-small: 5px;
-      --button-square-margin: 12px;
       --menu-color: var(--rp-grey-700);
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
+      /* button */
+      --button-padding: 4px 16px;
+      --button-padding-small: 4px 12px;
+      --button-border-radius: 20px;
+      --button-icon-margin: 4px;
+
+      --button-square: 36px;
+      --button-square-margin: 12px;
+      /* font size */
+      --font-size-s: 0.8rem;
+      --font-size-l: 1.2rem;
     }
     .red {
         color: var(--color-red);
