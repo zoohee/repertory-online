@@ -12,7 +12,7 @@ import Repertory from '@/pages/Repertory';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Repertory />,
+    element: <Index />,
   },
   {
     path: '/',
