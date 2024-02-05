@@ -13,6 +13,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 30rem;
 `;
+const Container = styled.div`
+  display: flex;
+`;
 const RepertoryPage = () => {
   const [input, setInput] = useState();
   const [img, setImg] = useState();
@@ -111,56 +114,83 @@ const RepertoryPage = () => {
   };
   return (
     <>
-      <Wrapper>
-        <Btn onClick={dance.communityTest}>GET/communityTest-OK</Btn>
-        <Btn onClick={subscribeTest}>POST/subscribeTest-OK</Btn>
-        <Btn onClick={sourceTest}>POST/sourceTest-OK</Btn>
-        <Btn onClick={repertoryTest}>POST/repertoryTest-OK</Btn>
-        <Btn onClick={memberJoinTest}>POST/memberJoinTest</Btn>
-        <Btn onClick={idValidationTest}>POST/idValidationTest</Btn>
-        <Btn onClick={() => dance.searchSourceName('hi')}>
-          POST/searchSourceName
-        </Btn>
-        <Btn onClick={() => dance.fetchSourceInfo(123)}>
-          POST/fetchSourceInfo
-        </Btn>
-        <Btn onClick={() => dance.patchSource(16)}>PATCH/patchSource</Btn>
-        <Btn onClick={() => dance.deleteSource(16)}>DELETE/deleteSource</Btn>
-        <Btn onClick={dance.getMySource}>GET/getMySource</Btn>
-        <Btn onClick={dance.getMySourceClone}>GET/getMySourceClone</Btn>
-        <Btn onClick={() => dance.deleteMySourceClone(123)}>
-          DELETE/deleteMySourceClone
-        </Btn>
-        <Btn onClick={dance.getTags}>GET/getTags</Btn>
-        <Btn onClick={() => dance.postTag('test')}>POST/postTagTest</Btn>
-        <Btn onClick={() => dance.patchSourceIsAvailable(1234, true)}>
-          PATCH/patchSourceIsAvailable
-        </Btn>
-        <Btn onClick={() => dance.getRepertoryByName('hi')}>
-          GET/getRepertoryByName
-        </Btn>
-        <Btn
-          onClick={() =>
-            dance.getMyRepertory({
-              page: 1,
-              pageSize: 10,
-            })
-          }
-        >
-          GET/getMyRepertory
-        </Btn>
-        <Btn onClick={() => dance.deleteRepertory(1)}>
-          DELETE/deleteRepertory
-        </Btn>
-        <Btn onClick={() => dance.patchRepertoryIsAvailable(1234, true)}>
-          PATCH/patchSourceIsAvailable
-        </Btn>
-        <Btn onClick={() => dance.deleteTag(123, 'test')}>
-          DELETE/delete tag
-        </Btn>
-        <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
-        <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
-      </Wrapper>
+      <Container>
+        <Wrapper>
+          <Btn onClick={dance.communityTest}>GET/communityTest-OK</Btn>
+          <Btn onClick={subscribeTest}>POST/subscribeTest-OK</Btn>
+          <Btn onClick={sourceTest}>POST/sourceTest-OK</Btn>
+          <Btn onClick={repertoryTest}>POST/repertoryTest-OK</Btn>
+          <Btn onClick={memberJoinTest}>POST/memberJoinTest</Btn>
+          <Btn onClick={idValidationTest}>POST/idValidationTest</Btn>
+          <Btn onClick={() => dance.searchSourceName('hi')}>
+            POST/searchSourceName
+          </Btn>
+          <Btn onClick={() => dance.fetchSourceInfo(123)}>
+            POST/fetchSourceInfo
+          </Btn>
+          <Btn onClick={() => dance.patchSource(16)}>PATCH/patchSource</Btn>
+          <Btn onClick={() => dance.deleteSource(16)}>DELETE/deleteSource</Btn>
+          <Btn onClick={dance.getMySource}>GET/getMySource</Btn>
+          <Btn onClick={dance.getMySourceClone}>GET/getMySourceClone</Btn>
+          <Btn onClick={() => dance.deleteMySourceClone(123)}>
+            DELETE/deleteMySourceClone
+          </Btn>
+          <Btn onClick={dance.getTags}>GET/getTags</Btn>
+          <Btn onClick={() => dance.postTag('test')}>POST/postTagTest</Btn>
+          <Btn onClick={() => dance.patchSourceIsAvailable(1234, true)}>
+            PATCH/patchSourceIsAvailable
+          </Btn>
+          <Btn onClick={() => dance.getRepertoryByName('hi')}>
+            GET/getRepertoryByName
+          </Btn>
+          <Btn
+            onClick={() =>
+              dance.getMyRepertory({
+                page: 1,
+                pageSize: 10,
+              })
+            }
+          >
+            GET/getMyRepertory
+          </Btn>
+          <Btn onClick={() => dance.deleteRepertory(1)}>
+            DELETE/deleteRepertory
+          </Btn>
+          <Btn onClick={() => dance.patchRepertoryIsAvailable(1234, true)}>
+            PATCH/patchSourceIsAvailable
+          </Btn>
+          <Btn onClick={() => dance.deleteTag(123, 'test')}>
+            DELETE/delete tag
+          </Btn>
+        </Wrapper>
+        <Wrapper>
+          <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
+          <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
+          <Btn onClick={() => com.patchFeedLike(123)}>PATCH/patchFeedLike</Btn>
+          <Btn
+            onClick={() =>
+              com.getSubscribersFeed({
+                page: 1,
+                pageSize: 10,
+              })
+            }
+          >
+            GET/getSubscribersFeed
+          </Btn>
+          <Btn
+            onClick={() =>
+              com.getUserFeed({
+                page: 1,
+                pageSize: 10,
+              })
+            }
+          >
+            GET/getUserFeed
+          </Btn>
+          <Btn onClick={() => com.feedSetPublic(1, 0)}>GET/feedSetPublic</Btn>
+          <Btn onClick={() => com.feedSetPrivate(1, 0)}>GET/feedSetPrivate</Btn>
+        </Wrapper>
+      </Container>
       <div>
         {/* <input type="file" accept="image/*" onChange={onImageUpload}/> */}
         <input type='file' accept='video/*' onChange={onVideoUpload} />
