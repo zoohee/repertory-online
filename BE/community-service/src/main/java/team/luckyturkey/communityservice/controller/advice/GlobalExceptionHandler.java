@@ -16,12 +16,12 @@ import team.luckyturkey.communityservice.util.ErrorCode;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex){
-        log.error("handleException",ex);
-        ErrorResponse response = new ErrorResponse(ErrorCode.INTER_SERVER_ERROR);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleException(Exception ex){
+//        log.error("handleException",ex);
+//        ErrorResponse response = new ErrorResponse(ErrorCode.INTER_SERVER_ERROR);
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @ExceptionHandler(AlreadySubscribedException.class)
     public ResponseEntity<ErrorResponse> handleEmailDuplicateException(AlreadySubscribedException ex){
