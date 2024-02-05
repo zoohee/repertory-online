@@ -16,13 +16,17 @@ interface Props {
   likeCount: number;
   liked: boolean;
   // TODO: feedId 추가
+  disable?: boolean;
 }
 
-const Like = ({ likeCount, liked }: Props) => {
+const Like = ({ likeCount, liked, disable }: Props) => {
   const [isLiked, setIsLiked] = useState(liked);
   const [count, setCount] = useState(likeCount);
 
   const handleClick = () => {
+    if (disable) {
+      return
+    }
     if (isLiked) {
       // TODO: 좋아요 취소 api 보내기
       setCount((prevCount) => prevCount - 1);
@@ -34,8 +38,8 @@ const Like = ({ likeCount, liked }: Props) => {
   };
 
   return (
-    <Button onClick={handleClick}>
-      {isLiked && <FavoriteIcon style={{ color: 'red' }} />}
+    <Button as={disable ? 'div' : 'button'} onClick={handleClick}>
+      {isLiked && <FavoriteIcon className='red' />}
       {!isLiked && <FavoriteBorderIcon />}
       <div>{count}</div>
     </Button>

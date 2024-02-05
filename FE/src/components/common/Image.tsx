@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 const ImageContainer = styled.div<{ size?: number; isRound?: boolean }>`
@@ -33,13 +32,11 @@ interface Props {
   size?: number;
   src: string;
   isRound?: boolean;
-  children?: ReactNode;
 }
 
-const Image = ({ size, src, isRound, children }: Props) => {
+const Image = ({ size, src, isRound }: Props) => {
   return (
     <ImageContainer size={size} isRound={isRound}>
-      {children}
       <img src={src} alt="profile-image" />
     </ImageContainer>
   );
