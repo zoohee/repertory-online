@@ -17,7 +17,6 @@ const Wrapper = styled.div`
 const Input = styled.input`
   width: 100%;
   margin: 4px 8px;
-  background-color: transparent;
   ${secondaryFont.light}
   font-size: 1rem;
   border: 0;
@@ -33,7 +32,6 @@ const Input = styled.input`
 
 const Button = styled.button`
   margin-right: 4px;
-  background-color: transparent;
   border: none;
   display: flex;
   justify-content: center;

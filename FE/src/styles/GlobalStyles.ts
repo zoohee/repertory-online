@@ -66,7 +66,8 @@ const GlobalStyles = createGlobalStyle`
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
     button, input{
-        font-family: 'YdestreetL', sans-serif
+        font-family: 'YdestreetL', sans-serif;
+        background-color: transparent;
     }
     @font-face {
         font-family: 'Pretendard';

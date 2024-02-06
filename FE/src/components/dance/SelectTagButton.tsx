@@ -12,7 +12,6 @@ const Box = styled.div`
 const Button = styled.button`
   padding: 0 8px;
   border-radius: var(--border-radius-small);
-  background-color: transparent;
   text-align: center;
   height: 100%;
   &:hover {

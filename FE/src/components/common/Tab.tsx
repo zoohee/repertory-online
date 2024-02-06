@@ -13,7 +13,6 @@ const List = styled.ul`
 const Button = styled.button<{ $clicked: boolean }>`
   ${fontSize.l}
   padding: 16px;
-  background-color: transparent;
   border: 0;
   ${({ $clicked }) => {
     if ($clicked) {
