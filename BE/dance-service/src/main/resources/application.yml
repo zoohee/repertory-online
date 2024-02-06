@@ -20,6 +20,10 @@ spring:
       enabled: true
   application:
     name: dance
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 # for production
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
