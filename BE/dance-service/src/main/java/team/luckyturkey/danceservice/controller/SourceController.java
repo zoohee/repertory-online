@@ -40,9 +40,10 @@ public class SourceController {
     @PostMapping
     public ResponseEntity<StandardSourceResponse> postSource(
             @RequestPart(name = "postSource") PostSourceRequest postSourceRequest,
-            @RequestPart MultipartFile sourceVideo
+            @RequestPart MultipartFile sourceVideo,
+            @RequestPart MultipartFile sourceThumbnail
     ){
-        StandardSourceResponse response = sourceService.saveSource(postSourceRequest, sourceVideo, TEST_MEMBER_ID);
+        StandardSourceResponse response = sourceService.saveSource(postSourceRequest, sourceVideo, sourceThumbnail, TEST_MEMBER_ID);
         try {
             return ResponseEntity.created(new URI(response.getSourceUrl())).body(response);
         } catch (URISyntaxException e) {

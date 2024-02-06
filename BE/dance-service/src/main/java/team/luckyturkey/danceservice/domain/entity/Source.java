@@ -31,6 +31,7 @@ public class Source{
     private String sourceUrl;
     private Long memberId;
     private LocalDateTime sourceDate;
+    private String sourceThumbnailUrl;
 
     public String getSourceName() {
         return sourceDetail.getSourceName();
