@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import URL from '@/url';
 
 import Index from '@/pages/Index';
+import Login from '@/pages/Login';
+import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
 import SourcesPage from '@/pages/Sources';
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
+  },
+  {
+    path: URL.login,
+    element: <Login />,
+  },
+  {
+    path: URL.signUp,
+    element: <SignUp />,
   },
   {
     path: '/',
