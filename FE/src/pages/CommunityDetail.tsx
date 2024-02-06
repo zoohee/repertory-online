@@ -38,7 +38,7 @@ const CommunityDetailPage = () => {
       <Text size="xl" color="p" style={{ margin: '16px 0' }}>
         {dance.title}
       </Text>
-      <ChannelInfo margin="0">
+      <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
             imageSize={40}

@@ -17,7 +17,7 @@ const FollowingPage = () => {
     <>
       <TabButtons tabs={TABS} margin="48px 0 24px" />
       <ul>
-        <Wrapper as="li" margin="0 0 12px" style={{ width: '480px' }}>
+        <Wrapper as="li" $margin="0 0 12px" style={{ width: '480px' }}>
           <UserProfile
             imageSize={52}
             member={member}

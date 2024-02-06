@@ -2,62 +2,47 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
+import { buttonStyles } from '@/components/common/Button';
 
-import Text from '@/components/common/Text';
-
-const Button = styled.button<{ isFollowed: boolean }>`
-  ${({ isFollowed }) => {
-    if (!isFollowed) {
-      return css`
-        background-color: var(--rp-yellow);
-
-        &:hover {
-          background-color: var(--rp-orange);
-          * {
-            color: var(--rp-white);
-          }
-        }
-      `;
+const Button = styled.button<{ $isFollowed: boolean }>`
+  ${({ $isFollowed }) => {
+    if (!$isFollowed) {
+      return buttonStyles.default;
     }
     return css`
       background-color: var(--text-secondary-dark-mode);
 
       &:hover {
         background-color: var(--rp-white);
+        * {
+          color: var(--background-color);
+        }
       }
     `;
   }}
-  border-radius: 20px;
-  height: 1.6rem;
-`;
-
-const Container = styled.div`
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding-small);
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0 12px;
-  * {
-    color: var(--background-color);
-  }
 `;
 
 const Icon = (followed: boolean) => {
-  if (!followed) {
-    return (
-      <>
-        <PersonAddIcon style={{ marginRight: '8px' }} fontSize="small" />
-        <Text size="s" color="p" style={{ width: '5rem' }}>
-          follow
-        </Text>
-      </>
-    );
-  }
+  const IconStyle = {
+    marginRight: 'var(--button-icon-margin)',
+  };
+
+  const textStyle = {
+    width: '5rem',
+    fontSize: 'var(--font-size-s)',
+  };
+
+  const text = followed ? 'following' : 'follow';
+
   return (
     <>
-      <PersonIcon style={{ marginRight: '8px' }} fontSize="small" />
-      <Text size="s" color="p" style={{ width: '5rem' }}>
-        following
-      </Text>
+      {!followed && <PersonAddIcon style={IconStyle} fontSize="small" />}
+      {followed && <PersonIcon style={IconStyle} fontSize="small" />}
+      <div style={textStyle}>{text}</div>
     </>
   );
 };
@@ -75,8 +60,8 @@ const Follow = ({ isFollowed }: { isFollowed: boolean }) => {
   };
 
   return (
-    <Button onClick={handleClick} isFollowed={followed}>
-      <Container>{Icon(followed)}</Container>
+    <Button onClick={handleClick} $isFollowed={followed}>
+      {Icon(followed)}
     </Button>
   );
 };
