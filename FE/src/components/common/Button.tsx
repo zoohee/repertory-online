@@ -23,6 +23,18 @@ const buttonStyles = {
     }
   `,
 };
+
+const buttonSize = {
+  default: css`
+    width: 368px;
+  `,
+  s: css`
+    width: 160px;
+  `,
+  l: css`
+    width: 540px;
+  `,
+};
 const ButtonIcon = styled.img`
   margin-right: 8px;
   height: 1.5rem;
@@ -31,7 +43,9 @@ const ButtonIcon = styled.img`
 
 interface StyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   btntype?: 'default' | 'submit' | 'google';
+  btnsize?: 'default' | 's' | 'l';
 }
+
 interface ButtonProps extends StyledButtonProps {
   buttonText: string;
 }
@@ -48,6 +62,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   margin: 12px 0 12px 0;
   font-size: 1rem;
   ${(props) => buttonStyles[props.btntype || 'default']}
+  ${(props) => buttonSize[props.btnsize || 'default']}
 `;
 const Button: React.FC<ButtonProps> = ({
   btntype,
