@@ -25,11 +25,15 @@ import team.luckyturkey.danceservice.domain.entity.mapper.SourceTag;
 import team.luckyturkey.danceservice.event.SourceDisabledEvent;
 import team.luckyturkey.danceservice.event.SourceEnabledEvent;
 import team.luckyturkey.danceservice.event.SourceTagModifiedEvent;
+import team.luckyturkey.danceservice.exception.UploadFailedException;
 import team.luckyturkey.danceservice.repository.jpa.SourceDetailRepository;
 import team.luckyturkey.danceservice.repository.jpa.SourceRepository;
 import team.luckyturkey.danceservice.repository.jpa.SourceTagRepository;
 import team.luckyturkey.danceservice.repository.jpa.TagRepository;
+import team.luckyturkey.danceservice.util.ErrorCode;
+import team.luckyturkey.danceservice.util.S3Uploader;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,7 @@ public class SourceServiceImpl implements SourceService{
     private final SourceTagRepository sourceTagRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final CommunityApi communityApi;
+    private final S3Uploader s3Uploader;
 
     @Value("${test.environment.sourceUrl}")
     private String TEST_SOURCE_URL;
@@ -102,7 +107,7 @@ public class SourceServiceImpl implements SourceService{
 
     @Transactional
     @Override
-    public StandardSourceResponse saveSource(PostSourceRequest postSourceRequest, MultipartFile sourceVideo, Long memberId) {
+    public StandardSourceResponse saveSource(PostSourceRequest postSourceRequest, MultipartFile sourceVideo, MultipartFile sourceThumbnail, Long memberId) {
 
         SourceDetail sourceDetail = SourceDetail.builder()
                                         .id(new SourceDetailPK())
@@ -116,11 +121,27 @@ public class SourceServiceImpl implements SourceService{
 
         /** todo: video should be uploaded and url should be set in source obj
          * */
+        String sourceUrl = "";
+        try {
+            sourceUrl = s3Uploader.saveFile(sourceVideo);
+        } catch (IOException e) {
+            throw new UploadFailedException(ErrorCode.INTER_SERVER_ERROR);
+        }
+
+        String sourceThumbnailUrl = "";
+        try {
+            sourceThumbnailUrl = s3Uploader.saveFile(sourceThumbnail);
+        } catch (IOException e) {
+            throw new UploadFailedException(ErrorCode.INTER_SERVER_ERROR);
+        }
+
         Source source = Source.builder()
                             .memberId(memberId)
                             .sourceDetail(sourceDetail)
                             .sourceDate(LocalDateTime.now())
-                            .sourceUrl(TEST_SOURCE_URL + sourceVideo.getOriginalFilename())
+//                            .sourceUrl(sourceUrl + sourceVideo.getOriginalFilename())
+                            .sourceUrl(sourceUrl)
+                            .sourceThumbnailUrl(sourceThumbnailUrl)
                             .build();
 
         sourceDetail.setSource(source);
@@ -261,6 +282,7 @@ public class SourceServiceImpl implements SourceService{
                 .sourceLength(source.getSourceLength())
                 .sourceCount(source.getSourceCount())
                 .sourceUrl(source.getSourceUrl())
+                .sourceThumbnailUrl(source.getSourceThumbnailUrl())
                 .tagList(tagResponseList)
                 .build();
     }

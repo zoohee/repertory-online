@@ -17,7 +17,7 @@ public interface SourceService {
 
     StandardSourceResponse getSource(Long sourceId);
 
-    StandardSourceResponse saveSource(PostSourceRequest postSourceRequest, MultipartFile sourceVideo, Long userId);
+    StandardSourceResponse saveSource(PostSourceRequest postSourceRequest, MultipartFile sourceVideo, MultipartFile sourceThumbnail, Long userId);
 
     Long updateSource(Long sourceId, PatchSourceRequest patchSourceRequest, Long memberId);
 
