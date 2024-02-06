@@ -10,7 +10,6 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  margin-right: 24px;
   justify-content: center;
 `;
 
