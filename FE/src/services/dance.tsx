@@ -74,14 +74,14 @@ const deleteSource = async (sourceId: number) => {
 const getMySource = async () => {
   const response = await $axios().get(`/dance/source/mine`);
   console.log(response);
-  return response;
+  return response.data;
 };
 
 // 내가 클론 소스 조회 -OK
 const getMySourceClone = async () => {
   const response = await $axios().get(`/dance/clone`);
   console.log(response);
-  return response;
+  return response.data;
 };
 
 // 클론한 소스 삭제-OK
