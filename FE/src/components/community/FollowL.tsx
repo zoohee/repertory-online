@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import { buttonStyles } from '@/components/common/Button';
-import axios from 'axios';
-import { API } from '@/url';
+import { postSubscriber, deleteSubscriber } from '@/services/community';
 
 const Button = styled.button<{ $isFollowed: boolean }>`
   ${({ $isFollowed }) => {
@@ -17,7 +16,7 @@ const Button = styled.button<{ $isFollowed: boolean }>`
       &:hover {
         background-color: var(--rp-white);
         * {
-          color: var(--background-color);
+          color: var(--color-red);
         }
       }
     `;
@@ -28,47 +27,72 @@ const Button = styled.button<{ $isFollowed: boolean }>`
   align-items: center;
 `;
 
-const Icon = (followed: boolean) => {
+interface IconProps {
+  followed: boolean;
+  hover: boolean;
+}
+
+const Icon = ({ followed, hover }: IconProps) => {
   const IconStyle = {
     marginRight: 'var(--button-icon-margin)',
   };
 
-  const text = followed ? 'following' : 'follow';
+  const text = () => {
+    if (!followed) {
+      return 'follow';
+    }
+    if (hover) {
+      return 'unfollow';
+    }
+    return 'following';
+  };
 
   return (
     <>
       {!followed && <PersonAddIcon style={IconStyle} />}
       {followed && <PersonIcon style={IconStyle} />}
-      <div style={{ width: '6rem' }}>{text}</div>
+      <div style={{ width: '6rem' }}>{text()}</div>
     </>
   );
 };
 
-const Follow = ({ isFollowed, id }: { isFollowed: boolean; id: number }) => {
+interface Props {
+  isFollowed: boolean;
+  memberId: number;
+}
+
+const Follow = ({ isFollowed, memberId }: Props) => {
   const [followed, setFollowed] = useState(isFollowed);
+  const [hover, setHover] = useState(false);
+
+  const handleMouseOver = () => {
+    setHover(true);
+  };
+
+  const handleMouseOut = () => {
+    setHover(false);
+  };
 
   const handleClick = () => {
     if (followed) {
-      // 언팔 api 보내기
+      deleteSubscriber(memberId).then(() => {
+        setFollowed(false);
+      });
     } else {
-      // 팔로우 api 보내기
-      axios
-        .post(`${API.follow}`, { selectedMemberId: id }, {
-          withCredentials: true
-        })
-        .then((response) => {
-          console.log('성공');
-        })
-        .catch((error) => {
-          console.log('실패');
-        });
+      postSubscriber(memberId).then(() => {
+        setFollowed(true);
+      });
     }
-    setFollowed((prev) => !prev);
   };
 
   return (
-    <Button onClick={handleClick} $isFollowed={followed}>
-      {Icon(followed)}
+    <Button
+      onClick={handleClick}
+      $isFollowed={followed}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      <Icon followed={followed} hover={hover} />
     </Button>
   );
 };

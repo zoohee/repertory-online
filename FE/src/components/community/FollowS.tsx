@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import { buttonStyles } from '@/components/common/Button';
+import { postSubscriber, deleteSubscriber } from '@/services/community';
 
 const Button = styled.button<{ $isFollowed: boolean }>`
   ${({ $isFollowed }) => {
@@ -15,7 +16,7 @@ const Button = styled.button<{ $isFollowed: boolean }>`
       &:hover {
         background-color: var(--rp-white);
         * {
-          color: var(--background-color);
+          color: var(--color-red);
         }
       }
     `;
@@ -26,42 +27,77 @@ const Button = styled.button<{ $isFollowed: boolean }>`
   align-items: center;
 `;
 
-const Icon = (followed: boolean) => {
+interface IconProps {
+  followed: boolean;
+  hover: boolean;
+}
+
+const Text = styled.div`
+width: 5rem;
+font-size: var(--font-size-s);
+`;
+
+const Icon = ({ followed, hover }: IconProps) => {
   const IconStyle = {
     marginRight: 'var(--button-icon-margin)',
   };
 
-  const textStyle = {
-    width: '5rem',
-    fontSize: 'var(--font-size-s)',
+  const text = () => {
+    if (!followed) {
+      return 'follow';
+    }
+    if (hover) {
+      return 'unfollow';
+    }
+    return 'following';
   };
-
-  const text = followed ? 'following' : 'follow';
 
   return (
     <>
       {!followed && <PersonAddIcon style={IconStyle} fontSize="small" />}
       {followed && <PersonIcon style={IconStyle} fontSize="small" />}
-      <div style={textStyle}>{text}</div>
+      <Text>{text()}</Text>
     </>
   );
 };
 
-const Follow = ({ isFollowed }: { isFollowed: boolean }) => {
+interface Props {
+  isFollowed: boolean;
+  memberId: number;
+}
+
+const Follow = ({ isFollowed, memberId }: Props) => {
   const [followed, setFollowed] = useState(isFollowed);
+  const [hover, setHover] = useState(false);
+
+  const handleMouseOver = () => {
+    setHover(true);
+  };
+
+  const handleMouseOut = () => {
+    setHover(false);
+  };
 
   const handleClick = () => {
     if (followed) {
-      // 언팔 api 보내기
+      deleteSubscriber(memberId).then(() => {
+        setFollowed(false);
+      });
     } else {
-      // 팔로우 api 보내기
+      postSubscriber(memberId).then(() => {
+        setFollowed(true);
+      });
     }
-    setFollowed((prev) => !prev);
   };
 
   return (
-    <Button onClick={handleClick} $isFollowed={followed}>
-      {Icon(followed)}
+    <Button
+      onClick={handleClick}
+      $isFollowed={followed}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      <Icon followed={followed} hover={hover} />
     </Button>
   );
 };
