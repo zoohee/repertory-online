@@ -102,7 +102,9 @@ const RepertoryPage = () => {
 
   const poseTest = () => {
     const formData = new FormData();
-    formData.append('repertoryThumbnail', img);
+    formData.append('source', img);
+    console.log(formData);
+    console.log(img);
     project.detectPose(formData);
   };
 

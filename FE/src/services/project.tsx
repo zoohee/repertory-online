@@ -1,4 +1,4 @@
-import { $axios, $auth } from './config';
+import { $axios, $auth, $pose } from './config';
 
 // 프로젝트 목록 조회
 const getProjectsList = async () => {
@@ -27,7 +27,7 @@ const getProjectDetail = async (projectId: number) => {
 };
 // 포즈 라벨링
 const detectPose = async (formData: FormData) => {
-  const response = await $axios().post(`/pose/pose-detect`, formData, {
+  const response = await $pose().post(`/pose/pose-detect`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
