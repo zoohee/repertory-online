@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import team.luckyturkey.memberservice.Status.MemberAuthorityStatus;
 import team.luckyturkey.memberservice.auth.dto.OAuth2Attribute;
 import team.luckyturkey.memberservice.member.dto.responsedto.GoogleResponse;
 import team.luckyturkey.memberservice.member.dto.responsedto.NaverResponse;
@@ -16,6 +17,8 @@ import team.luckyturkey.memberservice.auth.dto.OAuth2Response;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.member.repository.OAuthMeberRepository;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -53,9 +56,10 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
         Map<String, Object> memberAttribute = oAuth2Attribute.convertToMap();
 
 
+        //OAuth2Response 의 빈 객체를 생성한다
         OAuth2Response oAuth2Response = null;
 
-
+        //registrationId에 따라서 맞는 response를 되돌려준다
         if(registrationId.equals("naver")){
 
             oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
@@ -71,8 +75,10 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
         //id만들어서 이미 회원가입한 회원인지 체크
         //로그인 아이디 가져오기
         String memberLoginId = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
+
+        //email을 통해 이미 가입한 회원인지 체크
         //사용자 email 정보를 가져온다
-        String memberEmail = (String) memberAttribute.get("email");
+        String memberEmail = oAuth2Response.getEmail();
 //        Member existData = oAuthMeberRepository.findByMemberLoginId(memberLoginId);
         Optional<Member> existData = Optional.ofNullable(oAuthMeberRepository.findByMemberEmail(memberEmail));
 
@@ -83,8 +89,34 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
 
         if(existData.isEmpty()) {
 
+            ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+
             //회원이 존재하지 않으면 memberAttribute의 exist값을 false로 넣어준다.
             memberAttribute.put("exist", false);
+
+            memberAttribute.put("memberLoginId", memberLoginId);
+            memberAttribute.put("memberEmail", oAuth2Response.getEmail());
+            memberAttribute.put("memberProfile",oAuth2Response.getPicture());
+            memberAttribute.put("memberJoinDate", String.valueOf(currentDateTime));
+
+            log.info("memberAttribute ={}", memberAttribute);
+
+            Member member = new Member();
+
+
+
+            member.setMemberName(oAuth2Response.getName()); // 추가: 이름 설정
+            log.info("member = {}", member);
+            member.setMemberLoginId(memberLoginId);
+            member.setMemberEmail(oAuth2Response.getEmail());
+            member.setMemberRole(MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority());
+            member.setMemberProfile(oAuth2Response.getPicture());
+            member.setMemberJoinDate(String.valueOf(currentDateTime)); // 수정: 가입 날짜 설정
+
+            log.info("member = {}", member);
+            //멤버 정보를 db에 저장
+            oAuthMeberRepository.save(member);
+            memberRole = MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority();
 
             return new DefaultOAuth2User(
                     // 회원의 권한(회원이 존재하지 않으므로 기본권한인 ROLE_USER를 넣어준다)
@@ -93,46 +125,35 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
                     memberAttribute, "email");
 
 
-//            Member member = new Member();
-//
-//            ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
-//
-//            member.setMemberName(oAuth2Response.getName()); // 추가: 이름 설정
-//            log.info("member = {}", member);
-//            member.setMemberLoginId(memberLoginId);
-//            member.setMemberEmail(oAuth2Response.getEmail());
-//            member.setMemberRole(MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority());
-//            member.setMemberProfile(oAuth2Response.getPicture());
-//            member.setMemberJoinDate(String.valueOf(currentDateTime)); // 수정: 가입 날짜 설정
-//
-//            log.info("member = {}", member);
-//            //insert query
-//            oAuthMeberRepository.save(member);
-//            log.info("hello world");
-//            memberRole = MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority();
+
 //        }else{ //원래 있던 멤버인 경우
         }
 
+            //멤버가 있으면
             memberAttribute.put("exist", true);
 
-            //회원의 권한과 회원속성, 속성이름을 사용해 DefaultOAuth2User 객체를 생성해 반환
-            return new DefaultOAuth2User(
-                    Collections.singleton(new SimpleGrantedAuthority("ROLE".concat(existData.get().getMemberRole()))),
-                    memberAttribute, "email");
+
 
             //멤버 롤 가져오기
-//            memberRole = existData.getMemberRole();
-//
-//            if (existData.getMemberJoinDate() == null) {
-//                existData.setMemberJoinDate(String.valueOf(ZonedDateTime.now(ZoneId.of("서버_시간대"))));
-//            }
-//            // 새로 받은 데이터로 업데이트
-//            existData.setMemberEmail(oAuth2Response.getEmail());
-//            existData.setMemberProfile(oAuth2Response.getPicture());
-//
-//            oAuthMeberRepository.save(existData);
-//
-//            log.info("login success!!!!!!!!!!!!!!!!!!!!!");
+            memberRole = existData.get().getMemberRole();
+
+            if (existData.get().getMemberJoinDate() == null) {
+                existData.get().setMemberJoinDate(String.valueOf(ZonedDateTime.now(ZoneId.of("서버_시간대"))));
+            }
+            // 새로 받은 데이터로 업데이트
+            existData.get().setMemberEmail(oAuth2Response.getEmail());
+            existData.get().setMemberProfile(oAuth2Response.getPicture());
+
+            // 데이터베이스에 업데이트
+            oAuthMeberRepository.save(existData.get());
+
+            log.info("login success!!!!!!!!!!!!!!!!!!!!!");
+
+
+        //회원의 권한과 회원속성, 속성이름을 사용해 DefaultOAuth2User 객체를 생성해 반환
+            return new DefaultOAuth2User(
+                Collections.singleton(new SimpleGrantedAuthority("ROLE".concat(existData.get().getMemberRole()))),
+                memberAttribute, "email");
 
 
         }

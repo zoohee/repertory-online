@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
-import team.luckyturkey.memberservice.member.dto.requestdto.JoinRequestDto;
+import team.luckyturkey.memberservice.member.dto.requestdto.*;
+import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.service.JoinService;
 import team.luckyturkey.memberservice.service.MemberService;
@@ -16,24 +17,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
-//    @GetMapping("/")
-//    public String mainP(){
-//
-//        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-//
-//        //세션에서 이름 가져오기
-//        SecurityContextHolder.getContext().getAuthentication().getName();
-//
-//        //세션에서 유저 롤 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-//        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-//        GrantedAuthority auth = iter.next();
-//        String role = auth.getAuthority();
-//
-//        return "Main Controller : "+ name +" " + role;
-//    }
 
 
     private final JoinService joinService;
@@ -48,6 +31,37 @@ public class MemberController {
         return memberList.isEmpty()
                 ? ResponseEntity.notFound().build()
                 : ResponseEntity.ok(memberList);
+    }
+
+
+
+    //회원 탈퇴
+    @DeleteMapping("/")
+    public ResponseEntity<?> quitMember(@RequestBody QuitMemberRequestDto quitMemberRequestDto){
+        String currentLoggedInMemberId = SecurityContextHolder.getContext().getAuthentication().getName();
+        //현재 로그인한 사용자 아이디 != 요청받은 아이디 라면 반환
+        if(!currentLoggedInMemberId.equals(quitMemberRequestDto.getMemberLoginId())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        memberService.quitMember(quitMemberRequestDto.getMemberLoginId());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //회원 정보 수정
+    @PatchMapping("/")
+    public ResponseEntity<?> updateMemberInfo(@RequestBody UpdateMemberRequestDto updateMemberRequestDto){
+
+        String currentLoggedInMemberId = SecurityContextHolder.getContext().getAuthentication().getName();
+        //현재 로그인한 사용자 아이디 != 요청받은 아이디 라면 반환
+        if(!currentLoggedInMemberId.equals(updateMemberRequestDto.getMemberLoginId())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        memberService.updateMember(updateMemberRequestDto);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/join")
@@ -71,18 +85,48 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //todo : 회원 탈퇴
-    //현재 로그인 사용자 == 탈퇴할 사용자
-    //토큰이 만료되지 않았어야함
+    @GetMapping("/id-validation")
+    public ResponseEntity<?> validateMemberLoginId(@RequestBody MemberLoginIdIsExistDto memberLoginIdIsExistDto){
+        if(memberService.memberLoginIdIsExist(memberLoginIdIsExistDto)){
+            return new ResponseEntity<>(HttpStatus.IM_USED);
+        }
 
-    //todo : 회원 정보 수정
-    //현재 로그인 사용자 == 수정할 사용자
-    //토큰이 만료되지 않았어야함
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
+    @GetMapping("/find-id")
+    public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
 
+        String id = memberService.findMemberLoginId(findMemberLoginIdDto);
+        if(id == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(id, HttpStatus.OK);
 
+    }
 
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
 
+        String id = memberInfoRequestDto.getMemberLoginId();
+        //유저 아이디로 검색해서 있는지부터 확인
+        Member Exist = memberService.getMemberByLoginId(id);
+
+        if(Exist == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        //있으면 인포 가져오기
+        MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto();
+
+        memberInfoResponseDto.setMemberName(Exist.getMemberName());
+        memberInfoResponseDto.setMemberEmail(Exist.getMemberEmail());
+        memberInfoResponseDto.setMemberJoinDate(Exist.getMemberJoinDate());
+        memberInfoResponseDto.setMemberProfile(Exist.getMemberProfile());
+        memberInfoResponseDto.setMemberRole(Exist.getMemberRole());
+
+        return new ResponseEntity<>(memberInfoResponseDto, HttpStatus.OK);
+
+    }
 
 
 

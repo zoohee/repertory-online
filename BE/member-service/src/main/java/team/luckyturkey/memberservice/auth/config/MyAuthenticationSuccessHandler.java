@@ -27,13 +27,13 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         // OAuth2User로 캐스팅하여 인증된 사용자 정보 가져오기
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         // 사용자 이메일을 가져온다.
-        String email = oAuth2User.getAttribute("email");
+        String memberEmail = oAuth2User.getAttribute("email");
         // 서비스 제공 플랫폼(GOOGLE, KAKAO, NAVER)이 어디인지 가져온다.
         String provider = oAuth2User.getAttribute("provider");
         String memberName = oAuth2User.getAttribute("name");
 
         // CustomOAuth2UserService에서 셋팅한 로그인한 회원 존재 여부를 가져온다.
-        boolean isExist = oAuth2User.getAttribute("exist");
+        boolean isExist = Boolean.TRUE.equals(oAuth2User.getAttribute("exist"));
         // OAuth2User로 부터 Role을 얻어온다.
         String memberRole = oAuth2User.getAuthorities().stream().
                 findFirst() // 첫번째 Role을 찾아온다.
@@ -43,7 +43,7 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         // 회원이 존재할경우
         if (isExist) {
             // 회원이 존재하면 jwt token 발행을 시작한다.
-            String token = jwtUtil.createJwt(memberName, memberRole, 6000*60*10L);
+            String token = jwtUtil.generateAccessToken(memberEmail, memberRole);
             log.info("jwtToken = {}", token);
 
             // accessToken을 쿼리스트링에 담는 url을 만들어준다.

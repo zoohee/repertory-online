@@ -25,8 +25,6 @@ spring:
     password: 1234
 
 
-
-
   jwt:
     secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb # 실제 서비스시에는 바꾸기
 
@@ -36,3 +34,8 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+
+redis:
+  host:
+  port:
+  password:
