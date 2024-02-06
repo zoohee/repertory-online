@@ -67,3 +67,13 @@ test:
     memberId: 1
     sourceUrl: s3//test-source-url/
     repertoryUrl: s3//test-repertory-url/
+
+cloud:
+  aws:
+    s3:
+      bucket: repertory
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWHZZMWNCD6BWMOM3
+      secretKey: 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
