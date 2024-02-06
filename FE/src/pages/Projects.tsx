@@ -24,7 +24,7 @@ const ProjectsPage = () => {
   return (
     <>
       <TabButtons tabs={TABS} margin="48px 0 0" />
-      <Wrapper margin="24px 0">
+      <Wrapper $margin="24px 0">
         <SearchBar></SearchBar>
         <CreateButton />
       </Wrapper>

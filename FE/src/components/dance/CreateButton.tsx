@@ -9,12 +9,13 @@ const Button = styled.button`
   border-radius: var(--button-border-radius);
   display: flex;
   align-items: center;
+  height: 36px;
 `;
 
 const CreateButton = () => {
   return (
     <Button>
-      <AddBoxIcon style={{marginRight: '4px'}}/>
+      <AddBoxIcon style={{ marginRight: '4px' }} />
       생성하기
     </Button>
   );

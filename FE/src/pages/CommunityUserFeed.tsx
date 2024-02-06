@@ -24,7 +24,7 @@ const CommunityUserFeedPage = () => {
         </Text>
       </div>
       <Follow isFollowed={false} />
-      <Wrapper margin="24px 0">
+      <Wrapper $margin="24px 0">
         <Text size="m" color="p" style={{ marginRight: '12px' }}>
           게시물
         </Text>

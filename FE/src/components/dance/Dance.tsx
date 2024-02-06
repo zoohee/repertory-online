@@ -28,7 +28,7 @@ const Dance = ({ children, thumbnail, title }: Props) => {
     <Box>
       <Thumbnail src={thumbnail}></Thumbnail>
       <Title>{title}</Title>
-      <Detail margin="0 16px 16px 16px">{children}</Detail>
+      <Detail $margin="0 16px 16px 16px">{children}</Detail>
     </Box>
   );
 };
