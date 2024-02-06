@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  margin: 4px;
+  margin: 4px 8px;
   background-color: transparent;
   ${secondaryFont.light}
   font-size: 1rem;
