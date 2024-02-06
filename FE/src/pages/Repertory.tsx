@@ -92,6 +92,7 @@ const RepertoryPage = () => {
       end: 'string',
     };
     const formData = new FormData();
+    formData.append('sourceThumbnail', img);
     formData.append('sourceVideo', input);
     formData.append(
       'postSource',
@@ -174,6 +175,8 @@ const RepertoryPage = () => {
           </Btn>
         </Wrapper>
         <Wrapper>
+          <Btn onClick={() => com.getFeedVideo(1)}>커뮤니티 동영상 조회</Btn>
+          <Btn onClick={() => com.saveFeed()}>피드 데이터 저장</Btn>
           <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
           <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
           <Btn onClick={() => com.patchFeedLike(123)}>PATCH/patchFeedLike</Btn>
