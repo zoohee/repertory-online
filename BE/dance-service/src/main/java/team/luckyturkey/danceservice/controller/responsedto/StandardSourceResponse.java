@@ -18,5 +18,6 @@ public class StandardSourceResponse {
     private int sourceLength;
     private int sourceCount;
     private String sourceUrl;
+    private String sourceThumbnailUrl;
     private List<StandardTagResponse> tagList;
 }
