@@ -30,12 +30,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 
 redis:
-  host:
-  port:
-  password:
+  host: localhost
+  port: 6379
+#  password:

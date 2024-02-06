@@ -2,6 +2,7 @@ package team.luckyturkey.memberservice.service;
 
 
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.member.dto.requestdto.FindMemberLoginIdDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.MemberLoginIdIsExistDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.UpdateMemberRequestDto;
+import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
@@ -44,7 +46,7 @@ public class MemberService {
     public  void updateMember(UpdateMemberRequestDto updateMemberRequestDto){
         String currentLoggedInUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Member member = memberRepository.findByMemberEamil(currentLoggedInUserEmail);
+        Member member = memberRepository.findByMemberEmail(currentLoggedInUserEmail);
 
         member.setMemberName(updateMemberRequestDto.getMemberName());
         member.setMemberPassword(bCryptPasswordEncoder.encode(updateMemberRequestDto.getMemberPassword()));
@@ -66,4 +68,19 @@ public class MemberService {
         return loginId;
     }
 
+    public List<MemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
+        List<MemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
+        for (Long id : followingList) {
+            Member m = memberRepository.findById(id);
+            if (m != null) {
+                MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto();
+                memberInfoResponseDto.setMemberName(m.getMemberName());
+                memberInfoResponseDto.setMemberProfile(m.getMemberProfile());
+                followingMemberInfoList.add(memberInfoResponseDto);
+            } else {
+                throw new RuntimeException();
+            }
+        }
+        return followingMemberInfoList;
+    }
 }

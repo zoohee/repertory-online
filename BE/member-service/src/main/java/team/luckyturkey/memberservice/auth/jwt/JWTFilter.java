@@ -6,10 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
@@ -19,6 +20,7 @@ import team.luckyturkey.memberservice.member.repository.MemberRepository;
 import java.io.IOException;
 
 @Slf4j
+@Component
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
@@ -102,7 +104,7 @@ public class JWTFilter extends OncePerRequestFilter {
         if (jwtUtil.verifyToken(atc)) {
 
             // AccessToken 내부의 payload에 있는 email로 user를 조회한다. 없다면 예외를 발생시킨다 -> 정상 케이스가 아님
-            Member findMember = memberRepository.findByMemberEamil(jwtUtil.getMemberEmail(atc));
+            Member findMember = memberRepository.findByMemberEmail(jwtUtil.getMemberEmail(atc));
 
 
             //UserDetails에 회원 정보 객체 담기
