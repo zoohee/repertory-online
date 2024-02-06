@@ -24,6 +24,7 @@ public class Member {
     private String memberProfile;
     private String memberRole;
 
+
 //    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 //    @JoinColumn(name = "member_role")
 //    private MemberRole memberRole;
