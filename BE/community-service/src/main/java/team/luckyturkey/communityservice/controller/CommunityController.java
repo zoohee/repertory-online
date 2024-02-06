@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,15 @@ public class CommunityController {
         subscribeService.unsubscribe(memberId, selectedMemberId);
     }
 
-//    @PostMapping("/subscribe/list")
-//    public List<SubscriberResponse> getFollowingList() {
-//        // TODO: Request Header jwt에서 memberId 받아 오기
-//        Long memberId = 5678L;
-//
-//        List<Long> followingList = subscribeService.getFollowingList(memberId);
+    @PostMapping("/subscribe/list")
+    public List<SubscriberResponse> getFollowingList() {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        List<Long> followingList = subscribeService.getFollowingList(memberId);
 //        return subscribeService.getFollowingDetailList(followingList);
-//    }
+        return new ArrayList<>();
+    }
 
     @PatchMapping("/source/{feedId}/like")
     public Long likeSource(@PathVariable("feedId") Long feedId) {

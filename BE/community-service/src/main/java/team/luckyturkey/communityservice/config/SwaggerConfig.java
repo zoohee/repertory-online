@@ -13,20 +13,20 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@OpenAPIDefinition
-@Configuration
-public class SwaggerConfig {
-
-    @Bean
-    public OpenAPI customOpenAPI(@Value("${openapi.service.url}") String url) {
-        return new OpenAPI()
-                .servers(List.of(new Server().url(url)))
-                .components(new Components().addSecuritySchemes("Bearer",
-                        new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
-                .addSecurityItem(new SecurityRequirement().addList("Bearer"))
-                .info(new Info().title("Repertory - team LuckyTurkey")
-                        .description("Community Service")
-                        .version("v0.0.1"));
-    }
-
-}
+//@OpenAPIDefinition
+//@Configuration
+//public class SwaggerConfig {
+//
+//    @Bean
+//    public OpenAPI customOpenAPI(@Value("${openapi.service.url}") String url) {
+//        return new OpenAPI()
+//                .servers(List.of(new Server().url(url)))
+//                .components(new Components().addSecuritySchemes("Bearer",
+//                        new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
+//                .addSecurityItem(new SecurityRequirement().addList("Bearer"))
+//                .info(new Info().title("Repertory - team LuckyTurkey")
+//                        .description("Community Service")
+//                        .version("v0.0.1"));
+//    }
+//
+//}
