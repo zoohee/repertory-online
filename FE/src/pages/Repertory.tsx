@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import * as dance from '@/services/dance';
 import * as com from '@/services/community';
 import * as member from '@/services/member';
+import * as project from '@/services/project';
 const Btn = styled.button`
   background-color: #4e4e4e;
   margin: 4px;
@@ -97,6 +98,12 @@ const RepertoryPage = () => {
       new Blob([JSON.stringify(data)], { type: 'application/json' })
     );
     dance.postSource(formData);
+  };
+
+  const poseTest = () => {
+    const formData = new FormData();
+    formData.append('repertoryThumbnail', img);
+    project.detectPose(formData);
   };
 
   const repertoryTest = () => {
@@ -199,6 +206,14 @@ const RepertoryPage = () => {
         <Wrapper>
           <Btn onClick={member.postMember}>Join</Btn>
           <Btn onClick={member.loginMember}>Login</Btn>
+          <Btn onClick={project.getProjectsList}>프로젝트 목록 조회</Btn>
+          <Btn onClick={() => project.patchProject(1)}>프로젝트 이름 수정</Btn>
+          <Btn onClick={() => project.postProject(2)}>프로젝트 생성</Btn>
+          <Btn onClick={() => project.deleteProject(3)}>프로젝트 삭제</Btn>
+          <Btn onClick={() => project.getProjectDetail(4)}>
+            프로젝트 정보 조회
+          </Btn>
+          <Btn onClick={poseTest}>포즈 라벨링</Btn>
         </Wrapper>
       </Container>
       <div>

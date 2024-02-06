@@ -1,5 +1,6 @@
 import { $axios } from './config';
 
+// 회원가입
 const postMember = async () => {
   const data = {
     memberLoginId: 'rlagudwls3469',
@@ -12,6 +13,7 @@ const postMember = async () => {
   return response;
 };
 
+// 로그인
 const loginMember = async () => {
   const params = {
     memberLoginId: 'rlagudwls3469',
