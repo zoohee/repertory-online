@@ -4,11 +4,9 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonIcon from '@mui/icons-material/Person';
 import { buttonStyles } from '@/components/common/Button';
 
-import Text from '@/components/common/Text';
-
-const Button = styled.button<{ isFollowed: boolean }>`
-  ${({ isFollowed }) => {
-    if (!isFollowed) {
+const Button = styled.button<{ $isFollowed: boolean }>`
+  ${({ $isFollowed }) => {
+    if (!$isFollowed) {
       return buttonStyles.default;
     }
     return css`
@@ -62,7 +60,7 @@ const Follow = ({ isFollowed }: { isFollowed: boolean }) => {
   };
 
   return (
-    <Button onClick={handleClick} isFollowed={followed}>
+    <Button onClick={handleClick} $isFollowed={followed}>
       {Icon(followed)}
     </Button>
   );

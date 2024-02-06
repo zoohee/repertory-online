@@ -6,9 +6,9 @@ import { buttonStyles } from '@/components/common/Button';
 import axios from 'axios';
 import { API } from '@/url';
 
-const Button = styled.button<{ isFollowed: boolean }>`
-  ${({ isFollowed }) => {
-    if (!isFollowed) {
+const Button = styled.button<{ $isFollowed: boolean }>`
+  ${({ $isFollowed }) => {
+    if (!$isFollowed) {
       return buttonStyles.default;
     }
     return css`
@@ -67,7 +67,7 @@ const Follow = ({ isFollowed, id }: { isFollowed: boolean; id: number }) => {
   };
 
   return (
-    <Button onClick={handleClick} isFollowed={followed}>
+    <Button onClick={handleClick} $isFollowed={followed}>
       {Icon(followed)}
     </Button>
   );
