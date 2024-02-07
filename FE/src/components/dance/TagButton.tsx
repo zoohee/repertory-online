@@ -38,7 +38,7 @@ const TagButton = ({ name }: Props) => {
 
   return (
     <Tag className={active} onClick={handleClick}>
-      {name}
+      {`#${name}`}
     </Tag>
   );
 };
