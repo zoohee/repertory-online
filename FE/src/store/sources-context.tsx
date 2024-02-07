@@ -1,6 +1,10 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+
+import { Tag } from '@/types';
+import { getTags } from '@/services/dance';
 
 interface SourcesContextType {
+  tags: Tag[];
   selectedTags: string[];
   selectTag: (tag: string) => void;
   unselectTag: (tag: string) => void;
@@ -15,6 +19,14 @@ interface Props {
 }
 
 const SourcesContextProvider = ({ children }: Props) => {
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    getTags().then((response) => {
+      setTags(response.data);
+    });
+  }, []);
+
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const selectTag = (tag: string) => {
@@ -30,6 +42,7 @@ const SourcesContextProvider = ({ children }: Props) => {
   };
 
   const value: SourcesContextType = {
+    tags,
     selectedTags,
     selectTag,
     unselectTag,

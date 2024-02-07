@@ -1,5 +1,7 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { sourcesContext } from '@/store/sources-context';
 import TagButton from '@/components/dance/TagButton';
 
 const List = styled.ul`
@@ -12,11 +14,15 @@ const List = styled.ul`
 `;
 
 const TagList = () => {
+  const { tags } = useContext(sourcesContext);
+
   return (
     <List>
-      <li>
-        <TagButton name={'Tag #1'} />
-      </li>
+      {tags.map((tag) => (
+        <li key={tag.tagId}>
+          <TagButton name={tag.tagName} />
+        </li>
+      ))}
     </List>
   );
 };
