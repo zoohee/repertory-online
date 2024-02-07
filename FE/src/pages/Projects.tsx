@@ -4,7 +4,7 @@ import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceGridBox';
 import ProjectItem from '@/components/dance/Project';
 import CreateButton from '@/components/dance/CreateButton';
-
+import { Link } from 'react-router-dom';
 const DUMMY_LIST = [
   {
     imageUrl: 'images/index.jpg',
@@ -23,10 +23,16 @@ const TABS = [new Tab('My projects', true)];
 const ProjectsPage = () => {
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 0" />
-      <Wrapper $margin="24px 0">
+      <TabButtons tabs={TABS} margin='48px 0 0' />
+      <Wrapper $margin='24px 0'>
         <SearchBar></SearchBar>
-        <CreateButton />
+        <Link
+          to='/workspace'
+          target='_blank'
+          style={{ textDecoration: 'none' }}
+        >
+          <CreateButton />
+        </Link>
       </Wrapper>
       {/* TODO: 프로젝트 생성 버튼 */}
       <ProjectList column={3}>
