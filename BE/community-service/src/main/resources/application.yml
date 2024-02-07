@@ -21,7 +21,7 @@ spring:
         show_sql: true
   data:
     redis:
-      host: i10a707.p.ssafy.io
+      host: redis
       port: 6379
 
 eureka:
