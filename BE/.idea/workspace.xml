@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/config/RedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +212,7 @@
       <workItem from="1706974793487" duration="66639000" />
       <workItem from="1707282964036" duration="86000" />
       <workItem from="1707283618336" duration="9057000" />
-      <workItem from="1707303909590" duration="4423000" />
+      <workItem from="1707303909590" duration="5378000" />
     </task>
     <servers />
   </component>
