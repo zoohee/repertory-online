@@ -1,3 +1,4 @@
+// import { MouseEvent } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -29,8 +30,8 @@ const Box = styled.div`
 `;
 
 const menus = [
-  new Menu('이름 수정', <EditIcon fontSize="small" />, () => {}),
-  new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
+  new Menu('이름 수정', <EditIcon fontSize='small' />, () => {}),
+  new Menu('삭제', <DeleteIcon fontSize='small' className='red' />, () => {}),
 ];
 
 const MyFeedHover = () => {
@@ -65,15 +66,15 @@ const MyFeedHover = () => {
       <MoreButton onClick={handleClickButton} />
       {clicked && (
         <MenuBox>
-          <MenuButton name="공개로 변경">
-            <LockOpenIcon fontSize="small" />
+          <MenuButton name='공개로 변경' onClick={() => {}}>
+            <LockOpenIcon fontSize='small' />
           </MenuButton>
 
           {menuItems}
         </MenuBox>
       )}
       <Box>
-        <Text size="l" color="p">
+        <Text size='l' color='p'>
           제목 입니다. 제목 입니다. 제목 입니다. 제목 입니다. sdfa sdfasaa as
           dfasdf asdfafasdfa
         </Text>

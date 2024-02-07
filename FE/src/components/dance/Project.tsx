@@ -8,18 +8,25 @@ import Dance from '@/components/dance/Dance';
 import Text from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '../common/MenuButton';
-
+interface IProject {
+  title: string;
+  imageUrl: string;
+  detail: string;
+}
+interface IProjectProps {
+  project: IProject;
+}
 const ListItem = styled.li`
   position: relative;
   cursor: pointer;
 `;
 
 const menus = [
-  new Menu('이름 수정', <EditIcon fontSize="small" />, () => {}),
-  new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
+  new Menu('이름 수정', <EditIcon fontSize='small' />, () => {}),
+  new Menu('삭제', <DeleteIcon fontSize='small' className='red' />, () => {}),
 ];
 
-const Project = ({ project }) => {
+const Project = ({ project }: IProjectProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -34,7 +41,7 @@ const Project = ({ project }) => {
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
       <Dance thumbnail={project.imageUrl} title={project.title}>
-        <Text size="s" color="s">
+        <Text size='s' color='s'>
           {project.detail}
         </Text>
       </Dance>

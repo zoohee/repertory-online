@@ -47,7 +47,7 @@ const MenuButton = ({ children, name, onClick }: Props) => {
     <ListItem>
       <Button onClick={onClick}>
         <IconBox>{children}</IconBox>
-        <Text size="s" color={textColor}>
+        <Text size='s' color={textColor}>
           {name}
         </Text>
       </Button>

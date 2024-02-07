@@ -3,8 +3,24 @@ import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
 import Text, { TextStyle } from '@/components/common/Text';
-
-const CommunityDance = ({ item }) => {
+// import { string } from 'prop-types';
+interface IMember {
+  id: number;
+  name: string;
+  profileImage: string;
+}
+interface IItem {
+  imageUrl: string;
+  member: IMember;
+  title: string;
+  isSource: boolean;
+  like: number;
+  clicked: boolean;
+}
+interface IItemProps {
+  item: IItem;
+}
+const CommunityDance = ({ item }: IItemProps) => {
   return (
     <Dance thumbnail={item.imageUrl} title={item.title}>
       <UserProfile
