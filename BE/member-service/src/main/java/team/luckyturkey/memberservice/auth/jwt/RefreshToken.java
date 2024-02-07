@@ -16,10 +16,10 @@ public class RefreshToken implements Serializable {
     @Id
     private String id;
 
+    private String refreshToken;
+
     @Indexed //findByAccessToken 가능 //이게 있어야 필드값으로 데이터 찾아올 수 있음
     private String accessToken;
-
-    private String refreshToken;
 
 
     public void updateAccessToken(String accessToken) {
