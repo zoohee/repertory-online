@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const GridBox = styled.ul<{ column: number }>`
+const GridBox = styled.ul<{ $column: number }>`
   padding: 0 16px;
   width: 100%;
   display: grid;
@@ -14,21 +14,21 @@ const GridBox = styled.ul<{ column: number }>`
   grid-gap: var(--grid-gap);
 
   --grid-gap: 16px;
-  --grid-column: ${({ column }) => {
-    const size = column - 3;
+  --grid-column: ${({ $column }) => {
+    const size = $column - 3;
     if (size > 0) {
       return size;
     }
     return 1;
   }};
   @media (min-width: 640px) {
-    --grid-column: ${({ column }) => column - 2};
+    --grid-column: ${({ $column }) => $column - 2};
   }
   @media (min-width: 768px) {
-    --grid-column: ${({ column }) => column - 1};
+    --grid-column: ${({ $column }) => $column - 1};
   }
   @media (min-width: 1024px) {
-    --grid-column: ${({ column }) => column};
+    --grid-column: ${({ $column }) => $column};
   }
 `;
 
@@ -38,7 +38,7 @@ interface Props {
 }
 
 const DanceGridBox = ({ children, column }: Props) => {
-  return <GridBox column={column}>{children}</GridBox>;
+  return <GridBox $column={column}>{children}</GridBox>;
 };
 
 export default DanceGridBox;

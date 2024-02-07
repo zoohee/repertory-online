@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-const ImageContainer = styled.div<{ size?: number; isRound?: boolean }>`
-  ${(props) => {
-    if (props.size) {
+const ImageContainer = styled.div<{ $size?: number; $isRound?: boolean }>`
+  ${({ $size }) => {
+    if ($size) {
       return css`
-        height: ${props.size}px;
-        width: ${props.size}px;
+        height: ${$size}px;
+        width: ${$size}px;
         aspect-ratio: 1 / 1;
       `;
     }
@@ -16,8 +16,8 @@ const ImageContainer = styled.div<{ size?: number; isRound?: boolean }>`
 
   img {
     object-fit: cover;
-    ${(props) => {
-      if (props.isRound) {
+    ${({ $isRound }) => {
+      if ($isRound) {
         return css`
           border-radius: 50%;
         `;
@@ -36,7 +36,7 @@ interface Props {
 
 const Image = ({ size, src, isRound }: Props) => {
   return (
-    <ImageContainer size={size} isRound={isRound}>
+    <ImageContainer $size={size} $isRound={isRound}>
       <img src={src} alt="profile-image" />
     </ImageContainer>
   );

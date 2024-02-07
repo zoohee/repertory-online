@@ -19,7 +19,9 @@ const Navigation = () => {
     <nav style={{ height: `${navHeight}`, width: '100%', padding: '0 16px' }}>
       <ul>
         <TabGroup groupName="Workspace" tabGroup={WORKSPACE} />
-        <TabLink path={url.community}>Community</TabLink>
+        <li>
+          <TabLink path={url.community}>Community</TabLink>
+        </li>
         <TabGroup groupName={'My Page'} tabGroup={MYPAGE} />
       </ul>
     </nav>

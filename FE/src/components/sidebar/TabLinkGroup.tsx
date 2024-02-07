@@ -9,10 +9,10 @@ export const ToggleButton = styled.button`
   width: 100%;
 `;
 
-const ListItem = styled.li<{ visible: boolean }>`
+const ListItem = styled.li<{ $visible: boolean }>`
   margin-left: 32px;
-  ${({ visible }) => {
-    if (!visible) {
+  ${({ $visible }) => {
+    if (!$visible) {
       return css`
         display: none;
       `;
@@ -52,7 +52,7 @@ const TabGroup = ({ groupName, tabGroup }: Props) => {
       </li>
       {tabGroup.map((tab, idx) => {
         return (
-          <ListItem key={idx} visible={toggle}>
+          <ListItem key={idx} $visible={toggle}>
             <TabLink path={tab.path}>{tab.name}</TabLink>
           </ListItem>
         );

@@ -5,13 +5,17 @@ import Text from '@/components/common/Text';
 import Follow from '@/components/community/FollowL';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/CommunityFeedItem';
-import Wrapper from '@/components/Wrapper';
 import CommunityHover from '@/components/feed/CommunityHover';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  margin: 24px 0;
 `;
 
 const CommunityUserFeedPage = () => {
@@ -24,7 +28,7 @@ const CommunityUserFeedPage = () => {
         </Text>
       </div>
       <Follow isFollowed={false} />
-      <Wrapper margin="24px 0">
+      <Wrapper>
         <Text size="m" color="p" style={{ marginRight: '12px' }}>
           게시물
         </Text>

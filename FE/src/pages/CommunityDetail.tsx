@@ -38,7 +38,7 @@ const CommunityDetailPage = () => {
       <Text size="xl" color="p" style={{ margin: '16px 0' }}>
         {dance.title}
       </Text>
-      <ChannelInfo margin="0">
+      <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
             imageSize={40}
@@ -49,7 +49,9 @@ const CommunityDetailPage = () => {
               구독자 수
             </Text>
           </UserProfile>
-          <Follow isFollowed={false} />
+          <div style={{ marginLeft: '24px' }}>
+            <Follow isFollowed={false} />
+          </div>
         </Wrapper>
         <Wrapper>
           {dance.isSource && <Download count={dance.like} />}
