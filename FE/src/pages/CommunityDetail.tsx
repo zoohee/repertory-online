@@ -35,22 +35,22 @@ const CommunityDetailPage = () => {
   return (
     <>
       <Video>영상 자리</Video>
-      <Text size="xl" color="p" style={{ margin: '16px 0' }}>
+      <Text size='xl' color='p' style={{ margin: '16px 0' }}>
         {dance.title}
       </Text>
-      <ChannelInfo $margin="0">
+      <ChannelInfo $margin='0'>
         <Wrapper>
           <UserProfile
             imageSize={40}
             member={dance.member}
             textStyle={new TextStyle('m', 'p')}
           >
-            <Text size="s" color="s">
+            <Text size='s' color='s'>
               구독자 수
             </Text>
           </UserProfile>
           <div style={{ marginLeft: '24px' }}>
-            <Follow isFollowed={false} />
+            <Follow isFollowed={false} memberId={123} />
           </div>
         </Wrapper>
         <Wrapper>
