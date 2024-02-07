@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { ChangeEvent, MutableRefObject, useRef } from 'react';
 import styled from 'styled-components';
 
 const HiddenInput = styled.input`
@@ -19,20 +19,21 @@ const UploadButton = styled.button`
 const UploadZone = styled.div``;
 
 const ProjectView = () => {
-  const fileInput = useRef<>(null);
+  const fileInput = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = () => {
-    fileInput.current.click();
+    if (fileInput.current) fileInput.current.click();
   };
 
-  const handleFileUpload = (event: any) => {
-    const file = event.target.files[0];
-    console.log(file);
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      console.log(file);
+    }
   };
   return (
     <>
-      <HiddenInput type='file' />
-      ref={fileInput} onChange={handleFileUpload}
+      <HiddenInput type='file' ref={fileInput} onChange={handleFileUpload} />
       <UploadZone>
         <UploadButton type='button' onClick={handleButtonClick}>
           +

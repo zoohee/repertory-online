@@ -107,7 +107,7 @@ const GlobalStyles = createGlobalStyle`
       --menu-color: var(--rp-grey-700);
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
-      --sidebar-project--width:340px;
+      --sidebar-project--width:540px;
     }
     .text-secondary {
         color: var(--text-secondary-dark-mode);

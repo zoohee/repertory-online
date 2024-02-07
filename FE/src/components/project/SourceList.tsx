@@ -1,12 +1,18 @@
 import { getMySource, getMySourceClone } from '@/services/dance';
 import { useQuery } from '@tanstack/react-query';
-
+import { List } from 'lodash';
+import Source from './Source';
 interface sourceInterface {
+  memberId: number;
+  sourceCount: number;
+  sourceId: number;
   sourceName: string;
-  sourceUrl: string;
   sourceStart: string;
   sourceEnd: string;
   sourceLength: string;
+  sourceUrl: string;
+  sourceThumbnailUrl: string;
+  tagList: List<string>;
 }
 const SourceList = () => {
   const { isLoading, data, isError, error } = useQuery<sourceInterface[]>({
@@ -24,11 +30,7 @@ const SourceList = () => {
           <h1>no data...</h1>
         ) : (
           data?.map((item: sourceInterface) => {
-            return (
-              <div>
-                {item.sourceName},{item.sourceUrl}
-              </div>
-            );
+            return <Source sourceInfo={item} />;
           })
         )}
       </div>

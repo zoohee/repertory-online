@@ -56,9 +56,9 @@ const ProjectPage = () => {
           <SourceList />
         </SourceWrapper>
         <EditWrapper>
-          {/* <ViewWarpper>
+          <ViewWarpper>
             <ProjectView />
-          </ViewWarpper> */}
+          </ViewWarpper>
           <WorkbenchWarpper>
             <Workbench></Workbench>
           </WorkbenchWarpper>
