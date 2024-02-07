@@ -1,4 +1,4 @@
-import { $axios, $auth } from './config';
+import { $axios } from './config';
 interface IPage {
   page: number;
   pageSize: number;

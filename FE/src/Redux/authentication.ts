@@ -28,6 +28,7 @@ export const setLoginData = createSlice({
     },
     logout: (state) => {
       localStorage.removeItem('token');
+      console.log(state);
     },
   },
 });

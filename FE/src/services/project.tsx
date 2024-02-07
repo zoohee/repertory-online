@@ -1,4 +1,4 @@
-import { $axios, $auth, $pose } from './config';
+import { $axios, $pose } from './config';
 
 // 프로젝트 목록 조회
 const getProjectsList = async () => {
