@@ -12,11 +12,16 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
-
+import ProjectPage from '@/pages/ProjectPage';
+import Repertory from '@/pages/Repertory';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
+  },
+  {
+    path: URL.workspace,
+    element: <ProjectPage />,
   },
   {
     path: '/',

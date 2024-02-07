@@ -74,12 +74,12 @@ const getSubscribersFeed = async ({ page, pageSize }: IPage) => {
   return response;
 };
 
-// 유저 피드목록 조회
+// 피드목록 조회
 const getUserFeed = async ({ page, pageSize }: IPage) => {
   const response = await $axios().get(`/community/feed/${page}/${pageSize}`, {
     params: { page, pageSize },
   });
-  console.log(response.data);
+  console.log(response);
   return response;
 };
 
@@ -89,7 +89,7 @@ const feedSetPublic = async (originId: number, feedType: IFeedType) => {
     originId: originId,
     feedType: feedType,
   };
-  const response = await $axios().post('/community/feed/private', data);
+  const response = await $axios().post('/community/feed/disable', data);
   console.log(response);
   return response;
 };
@@ -99,7 +99,7 @@ const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
     originId: originId,
     feedType: feedType,
   };
-  const response = await $axios().patch('/community/feed', data);
+  const response = await $axios().patch('/community/feed/disable', data);
   console.log(response);
   return response;
 };
@@ -118,7 +118,11 @@ const saveFeed = async (feedData: IfeedData) => {
   return response;
 };
 // 내가 구독한 유저 목록 조회
-
+const getSubscribersList = async () => {
+  const response = await $axios().get(`/community/subscribe/list`);
+  console.log(response.data);
+  return response;
+};
 // 유저 이름으로 검색
 
 export {
@@ -134,4 +138,5 @@ export {
   feedSetPrivate,
   getFeedVideo,
   saveFeed,
+  getSubscribersList,
 };

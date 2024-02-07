@@ -12,7 +12,7 @@ const CommunityDance = ({ item }) => {
         member={item.member}
         textStyle={new TextStyle('s', 's')}
       >
-        <Text size="s" color="s">
+        <Text size='s' color='s'>
           구독자수 / 업로드 날짜
         </Text>
       </UserProfile>

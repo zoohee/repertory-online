@@ -1,4 +1,5 @@
 const URL = {
+  workspace: '/workspace',
   projects: '/projects',
   sources: '/sources',
   community: '/community',
