@@ -1,10 +1,14 @@
 package team.luckyturkey.memberservice.auth.config;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,6 +18,10 @@ import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
 import team.luckyturkey.memberservice.auth.jwt.JwtExceptionFilter;
 import team.luckyturkey.memberservice.auth.jwt.LoginFilter;
 import team.luckyturkey.memberservice.service.CustomOAuth2MemberService;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -25,15 +33,38 @@ public class SecurityConfig {
     private final JWTFilter jwtFilter;
     private final JwtExceptionFilter jwtExceptionFilter;
     private final MyAuthenticationFailureHandler oAuth2LoginFailureHandler;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        //cors 설정
         http
-                .httpBasic((auth) -> auth.disable());
+                .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                        CorsConfiguration configuration = new CorsConfiguration();
+
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); //허용할 포트 번호
+                        configuration.setAllowedMethods(Collections.singletonList("*"));
+                        configuration.setAllowCredentials(true);
+                        configuration.setAllowedHeaders(Collections.singletonList("*"));
+                        configuration.setMaxAge(3600L); //허용을 유지할 시간
+
+                        configuration.setExposedHeaders(Collections.singletonList("Authorization")); //Authorization 헤더도 허용
+
+                        return configuration;
+                    }
+                })));
+
+        http
+                .httpBasic(AbstractHttpConfigurer::disable);
 
         //csrf disable
         http
-                .csrf((auth) -> auth.disable());
+                .csrf(AbstractHttpConfigurer::disable);
 
         //세션 stateless 상태로 설정
         http
@@ -45,7 +76,7 @@ public class SecurityConfig {
                 .oauth2Login((oauth2) -> oauth2
                         .failureHandler(oAuth2LoginFailureHandler)
                         .successHandler(oAuth2LoginSuccessHandler)
-                        // 로그인 페이지 경로를 재 매핑
+                        // 로그인 페이지 경로를 재 매핑 //얘는 작동함
                         .loginPage("/login/OAuth")
 //                        // 등록한 유저 디테일 서비스를 사용하기 위한 엔드포인트 설정
 //                        .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository()) // 커스텀한 OAuth 클라이언트 등록 정보 사용
@@ -66,10 +97,14 @@ public class SecurityConfig {
                         .anyRequest().authenticated());
 
 
+        //필터 추가 LoginFilter()는 인자를 받음 (AuthenticationManager() 메소드에 authenticationConfiguration 객체를 넣어야 함) 따라서 등록 필요
+        http
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+
         //JWTFilter 등록
         http
                 //로그인 필터 이전에 JWT필터가 작동함
-                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)
+                .addFilterBefore(jwtFilter, LoginFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JWTFilter.class);
 
         return http.build();
@@ -79,5 +114,11 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() { //password를 암호화해서 전송
 
         return new BCryptPasswordEncoder();
+    }
+
+    //AuthenticationManager Bean 등록
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }

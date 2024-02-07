@@ -24,6 +24,11 @@ public class MemberController {
     private final MemberService memberService;
 
 
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(){
+//        return new ResponseEntity<>(HttpStatus.FOUND);
+//    }
+
     @GetMapping("/") //멤버 전체 불러오기
     public ResponseEntity<List<Member>> getAllMembers() {
         List<Member> memberList = memberService.getAllMembers();
