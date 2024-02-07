@@ -23,9 +23,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    public MemberService(MemberRepository memberRepository){
-//        this.memberRepository = memberRepository;
-//    }
 
     public List<Member> getAllMembers(){
         return memberRepository.findAll();

@@ -36,6 +36,6 @@ spring:
 
 
 redis:
-  host: localhost
+  host: localhost #배포시 ec2주소 사용
   port: 6379
 #  password:
