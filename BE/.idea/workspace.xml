@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/entity/Member.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/repository/MemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/DanceServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/DanceServiceApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +211,7 @@
       <updated>1706974790603</updated>
       <workItem from="1706974793487" duration="66639000" />
       <workItem from="1707282964036" duration="86000" />
-      <workItem from="1707283618336" duration="2568000" />
+      <workItem from="1707283618336" duration="3724000" />
     </task>
     <servers />
   </component>

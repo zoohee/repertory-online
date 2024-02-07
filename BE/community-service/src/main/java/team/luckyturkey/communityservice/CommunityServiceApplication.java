@@ -8,9 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class CommunityServiceApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CommunityServiceApplication.class, args);
     }
-
 }
