@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         path: URL.sources,
         element: <SourcesPage />,
         loader: async () => {
-          return (await getMySource()).data;
+          return await getMySource();
         },
       },
       {
