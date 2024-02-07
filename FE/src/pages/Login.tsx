@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import Overlay from '@/components/Overlay';
+import { login } from '@/Redux/authentication';
 
 const Wrapper = styled.div`
   padding: 48px;
@@ -60,7 +61,7 @@ const Login = () => {
     const input = e.target.value;
     setPw(input);
     const pwRegex =
-      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
+      /^(?=.*[!@#$%^&*()_+{}\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
     setIsPwValid(pwRegex.test(input));
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
   };
