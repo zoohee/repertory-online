@@ -1,12 +1,12 @@
-#spring:
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          google:
-#            client-name: google
-#            client-id: 369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com
-#            client-secret: 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
-#            redirect-uri: http://localhost:8080/member/login/oauth2/code/google #todo : 리다이렉트 uri 바꾸기, 구글에서도
-#            authorization-grant-type: authorization_code
-#            scope: profile,email #openId 값 넘어오지만 굳이 안받음
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-name: google
+            client-id: 369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/member/login/oauth2/code/google #todo : 리다이렉트 uri 바꾸기, 구글에서도
+            authorization-grant-type: authorization_code
+            scope: profile,email #openId 값 넘어오지만 굳이 안받음

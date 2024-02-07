@@ -31,3 +31,9 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+redis:
+  host: localhost #배포시 ec2주소 사용
+  port: 6379
+#  password:

@@ -10,6 +10,7 @@ public class SocialClientRegistration {
 
     public ClientRegistration googleClientRegistration() {
 
+        //http://localhost:8080/member/oauth2/authorization/google 구글 로그인 페이지 url
         return ClientRegistration.withRegistrationId("google")
                 .clientId("369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com")
                 .clientSecret("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")

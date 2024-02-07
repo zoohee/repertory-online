@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
+import team.luckyturkey.memberservice.member.dto.GeneratedToken;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -26,20 +27,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private static final String SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY = "memberPassword";
 
 
-    //새로운 파라미터 생성
-    private String memberLoginIdParameter = SPRING_SECURITY_FORM_MEMBERLOGINID_KEY;
-    private String memberPasswordParameter = SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY;
-
-
     //아이디와 패스워드를 request에서 받아오기
     @Nullable
     protected String obtainMemberLoginId(HttpServletRequest request) {
-        return request.getParameter(this.memberLoginIdParameter);
+        //새로운 파라미터 생성
+        return request.getParameter(SPRING_SECURITY_FORM_MEMBERLOGINID_KEY);
     }
 
     @Nullable
     protected String obtainMemberPassword(HttpServletRequest request) {
-        return request.getParameter(this.memberPasswordParameter);
+        return request.getParameter(SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY);
     }
 
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil){
@@ -67,7 +64,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     }
 
-    //로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
+    //로그인 성공시 실행하는 메소드
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
@@ -82,14 +79,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
 
-
-
         String role = auth.getAuthority();
+        log.info("role = {}", role);
 
-        //토큰생성
-        String token = jwtUtil.createJwt(memberName, role, 6000*60*10L);
+        //토큰생성 access+refresh
+        GeneratedToken token = jwtUtil.generateToken(memberName, role);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        String accessToken = token.getAccessToken();
+        String refreshToken = token.getRefreshToken();
+        log.info("accessToken = {}", accessToken);
+        log.info("refreshToken = {}", refreshToken);
+
+        response.addHeader("Authorization", "Bearer " + accessToken);
 
     }
 

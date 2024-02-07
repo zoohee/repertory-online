@@ -3,6 +3,8 @@ package team.luckyturkey.memberservice.member.repository;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import team.luckyturkey.memberservice.member.dto.requestdto.UpdateMemberRequestDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 
 import java.util.Optional;
@@ -12,11 +14,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JPA �
     //JPA 구문 중 existBy가 있음
     Boolean existsByMemberLoginId(String memberLoginId);
 
-    //username을 받아 DB테이블에서 회원을 조회하는 메서드 작성
-//    Member findByMemberLoginId(String memberLoginId);
-    @Query("select m from Member m join fetch m.memberRole where m.memberLoginId = :memberLoginId")
+    Member findById(Long id);
+
     Member findByMemberLoginId(String memberLoginId);
 
-    //이런 쿼리가 피료한건 조인이 필요한 연산이거나
-    //너무 복잡한거
+    Member findByMemberEmail(String memberEmail);
+
+    void deleteMemberByMemberLoginId(String memberEmail);
+
+    String findMemberLoginIdByMemberEmail(String memberEmail);
+
 }

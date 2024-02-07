@@ -7,9 +7,6 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class JoinRequestDto {
+public class MemberLoginIdIsExistDto {
     private String memberLoginId;
-    private String memberPassword;
-    private String memberName;
-    private String memberEmail;
 }

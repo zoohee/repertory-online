@@ -7,7 +7,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import java.io.IOException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
