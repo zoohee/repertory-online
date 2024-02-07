@@ -1,13 +1,14 @@
-package team.luckyturkey.memberservice.member.controller;
+package team.luckyturkey.memberservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import team.luckyturkey.memberservice.Status.JoinRequestStatus;
-import team.luckyturkey.memberservice.member.dto.requestdto.JoinRequestDto;
-import team.luckyturkey.memberservice.member.entity.Member;
+import team.luckyturkey.memberservice.JoinRequestStatus;
+import team.luckyturkey.memberservice.dto.JoinRequestDto;
+import team.luckyturkey.memberservice.dto.response.MemberInfoResponseDto;
+import team.luckyturkey.memberservice.entity.Member;
 import team.luckyturkey.memberservice.service.JoinService;
 import team.luckyturkey.memberservice.service.MemberService;
 
@@ -79,9 +80,16 @@ public class MemberController {
     //현재 로그인 사용자 == 수정할 사용자
     //토큰이 만료되지 않았어야함
 
+    @GetMapping("/following")
+    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+        System.out.println(followingList);
+        return memberService.getFollowingMemberInfo(followingList);
+    }
 
-
-
+    @GetMapping("/memberinfo/{memberId}")
+    public MemberInfoResponseDto getMemberInfo(@PathVariable Long memberId) {
+        return memberService.getMemberInfo(memberId);
+    }
 
 
 
