@@ -16,9 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Source{
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
@@ -32,6 +31,7 @@ public class Source{
     private String sourceUrl;
     private Long memberId;
     private LocalDateTime sourceDate;
+    private String sourceThumbnailUrl;
 
     public String getSourceName() {
         return sourceDetail.getSourceName();
@@ -42,7 +42,7 @@ public class Source{
     }
 
     public boolean isSourceIsOpen() {
-        return sourceDetail.isSourceIsOpen();
+        return sourceDetail.isSourceOpen();
     }
 
     public int getSourceCount() {

@@ -24,9 +24,11 @@ public class SourceDetail {
     @JsonBackReference
     private Source source;
 
+    @Setter
+    private boolean isSourceOpen;
+
     private String sourceName;
     private int sourceLength;
-    private boolean sourceIsOpen;
     private int sourceCount;
     private String sourceStart;
     private String sourceEnd;

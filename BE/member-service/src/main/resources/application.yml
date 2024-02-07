@@ -1,32 +1,30 @@
 server:
-#  port: 0/
+  port: 0
   servlet:
     context-path: /member
 
-#eureka:
-#  instance:
-#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
-#    prefer-ip-address: true
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
 
 spring:
-  profiles:
-    include: oauth
   application:
     name: member
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://repertory.online:3306/member?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/member?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
 
 
   jwt:
-    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb # 실제 서비스시에는 바꾸기
+    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
 
   jpa:
     hibernate:

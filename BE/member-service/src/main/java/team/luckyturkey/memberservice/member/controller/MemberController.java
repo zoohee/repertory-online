@@ -1,4 +1,4 @@
-package team.luckyturkey.memberservice.member.controller;
+package team.luckyturkey.memberservice.controller;
 
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -6,10 +6,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< BE/member-service/src/main/java/team/luckyturkey/memberservice/member/controller/MemberController.java
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
 import team.luckyturkey.memberservice.member.dto.requestdto.*;
 import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
+=======
+import team.luckyturkey.memberservice.JoinRequestStatus;
+import team.luckyturkey.memberservice.dto.JoinRequestDto;
+import team.luckyturkey.memberservice.dto.response.MemberInfoResponseDto;
+import team.luckyturkey.memberservice.entity.Member;
+>>>>>>> BE/member-service/src/main/java/team/luckyturkey/memberservice/member/controller/MemberController.java
 import team.luckyturkey.memberservice.service.JoinService;
 import team.luckyturkey.memberservice.service.MemberService;
 
@@ -99,6 +106,7 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+<<<<<<< BE/member-service/src/main/java/team/luckyturkey/memberservice/member/controller/MemberController.java
     @GetMapping("/find-id")
     public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
 
@@ -110,9 +118,21 @@ public class MemberController {
 
     }
 
+
+
+    @GetMapping("/following")
+    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+        System.out.println(followingList);
+        return memberService.getFollowingMemberInfo(followingList);
+    }
+
+    @GetMapping("/memberinfo/{memberId}")
+    public MemberInfoResponseDto getMemberInfo(@PathVariable Long memberId) {
+        return memberService.getMemberInfo(memberId);
+    }
+
     @GetMapping("/userinfo")
     public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
-
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
         Member Exist = memberService.getMemberByLoginId(id);

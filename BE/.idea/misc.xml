@@ -9,7 +9,5 @@
     <file type="web" url="file://$PROJECT_DIR$/member-service" />
     <file type="web" url="file://$PROJECT_DIR$/project-service" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/discovery-service/out" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK" />
 </project>

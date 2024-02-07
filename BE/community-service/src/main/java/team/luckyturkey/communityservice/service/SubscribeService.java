@@ -3,10 +3,18 @@ package team.luckyturkey.communityservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
 import team.luckyturkey.communityservice.entity.Subscribe;
+import team.luckyturkey.communityservice.entity.SubscribePK;
+import team.luckyturkey.communityservice.exception.AlreadySubscribedException;
+import team.luckyturkey.communityservice.exception.InvalidDataException;
+import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
+import team.luckyturkey.communityservice.util.ErrorCode;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,28 +23,55 @@ public class SubscribeService {
 
     private final SubscribeRepository subscribeRepository;
 
-    public int getSubscribers(Long followingMemberId) {
-        return subscribeRepository.countByFollowingMemberId(followingMemberId);
+    public int getSubscribersCount(Long followingMemberId) {
+        int subscribersCount = subscribeRepository.countByIdFollowingMemberId(followingMemberId);
+        if (subscribersCount < 0) {
+            throw new InvalidDataException(ErrorCode.INTER_SERVER_ERROR);
+        }
+        return subscribersCount;
     }
 
     @Transactional
     public Subscribe subscribe(Long memberId, Long selectedMemberId) {
         if (memberId == null || selectedMemberId == null) {
-            throw new IllegalArgumentException("MemberId and selectedMemberId cannot be null");
+            throw new NullException(ErrorCode.DUPLICATE_DATA);
         }
 
-        if (subscribeRepository.existsByMemberIdAndFollowingMemberId(memberId, selectedMemberId)) {
-            // 예외 처리 또는 적절한 응답 반환
-            throw new IllegalStateException("Subscription already exists");
+        if (subscribeRepository.existsByIdIdAndIdFollowingMemberId(memberId, selectedMemberId)) {
+            throw new AlreadySubscribedException(ErrorCode.DUPLICATE_DATA);
         }
-        
-        Subscribe subscribe = Subscribe.builder().
-                memberId(memberId)
+
+        SubscribePK subscribePK = SubscribePK.builder()
+                .id(memberId)
                 .followingMemberId(selectedMemberId)
+                .build();
+
+        Subscribe subscribe = Subscribe.builder()
+                .id(subscribePK)
                 .subscribeDate(new Date())
                 .build();
 
-        Subscribe s = subscribeRepository.save(subscribe);
-        return s;
+        return subscribeRepository.save(subscribe);
     }
+
+    @Transactional
+    public void unsubscribe(Long memberId, Long selectedMemberId) {
+
+        if (subscribeRepository.existsByIdIdAndIdFollowingMemberId(memberId, selectedMemberId)) {
+            subscribeRepository.deleteByIdIdAndIdFollowingMemberId(memberId, selectedMemberId);
+        } else {
+            throw new IllegalStateException("ID must exist");
+        }
+    }
+
+    public List<Long> getFollowingList(Long memberId) {
+        // SubscribePK 객체 생성
+        SubscribePK subscribePK = SubscribePK.builder().id(memberId).build();
+        return subscribeRepository.findFollowingListByIdId(memberId);
+    }
+
+    // TODO: member service에서 유저 정보 받아오기
+//    public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
+//        return memberServiceClient.getFollowingDetailList(followingList);
+//    }
 }

@@ -1,5 +1,7 @@
 server:
   port: 8000
+  servlet:
+    context-path: /
 
 eureka:
   instance:
@@ -8,13 +10,28 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
 spring:
   application:
     name: apigateway
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 'http://localhost:5173'
+            allow-credentials: true # JWT 나 쿠키를 사용해 메시지를 보내야 할 경우 true
+            allowedHeaders: '*'
+            allowedMethods: # 메서드를 명시하지 않으면 안되는 경우도 있기 때문에 메서드는 명시해주는 편이 좋다고 한다.
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+              - PATCH
       routes:
         - id: community
           uri: lb://COMMUNITY

@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class StandardRepertoryResponse {
     private Long repertoryId;
+    private Long memberId;
     private String repertoryName;
     private String repertoryUrl;
     private String repertoryThumbnailUrl;

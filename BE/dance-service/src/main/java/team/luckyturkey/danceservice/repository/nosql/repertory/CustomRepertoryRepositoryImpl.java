@@ -21,7 +21,6 @@ public class CustomRepertoryRepositoryImpl implements CustomRepertoryRepository{
         repertory.setId(nextSequence);
 
         return mongoTemplate.save(repertory);
-
     }
 
     @Override
@@ -49,4 +48,5 @@ public class CustomRepertoryRepositoryImpl implements CustomRepertoryRepository{
         return mongoTemplate.findAndRemove(query(where("_id").is(repertoryId)),
                 Repertory.class);
     }
+
 }
