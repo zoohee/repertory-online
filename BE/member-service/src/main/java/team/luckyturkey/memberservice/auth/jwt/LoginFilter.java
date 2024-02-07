@@ -70,7 +70,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         CustomMemberDetails customMemberDetails = (CustomMemberDetails) authentication.getPrincipal();
 
-        String memberName = customMemberDetails.getUsername();
+        String memberLoginId = customMemberDetails.getUsername();
 
         //role 값 뽑아내기
         log.info("LoginFilter.successfulAuthentication() authentication = {}", authentication);
@@ -83,7 +83,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         log.info("role = {}", role);
 
         //토큰생성 access+refresh
-        GeneratedToken token = jwtUtil.generateToken(memberName, role);
+        GeneratedToken token = jwtUtil.generateToken(memberLoginId, role);
 
         String accessToken = token.getAccessToken();
         String refreshToken = token.getRefreshToken();

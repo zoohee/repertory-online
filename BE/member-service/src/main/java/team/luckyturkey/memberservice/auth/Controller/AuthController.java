@@ -2,6 +2,10 @@ package team.luckyturkey.memberservice.auth.Controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
 import team.luckyturkey.memberservice.member.repository.RefreshTokenRepository;
@@ -15,6 +19,16 @@ public class AuthController {
     private final RefreshTokenRepository tokenRepository;
     private final RefreshTokenService refreshTokenService;
     private final JWTUtil jwtUtil;
+
+    @GetMapping("/tokentest")
+    public ResponseEntity<?> test(@RequestHeader("Authorization") final String accessToken){
+        if(jwtUtil.isExpired(accessToken)){
+            return new ResponseEntity<>(HttpStatus.GATEWAY_TIMEOUT);
+        }
+
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 //    @PostMapping("token/logout")
 //    public ResponseEntity<StatusResponseDto> logout(@RequestHeader("Authorization") final String accessToken) {
