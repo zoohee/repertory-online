@@ -45,6 +45,10 @@ const Login = () => {
   const [pwValidationMsg, setPwValidationMsg] = useState('');
   const dispatch = useDispatch();
 
+  // tmp
+  console.log(isIdValid);
+  console.log(isPwValid);
+
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
     setId(input);
@@ -75,22 +79,22 @@ const Login = () => {
     <Overlay>
       <Wrapper>
         <Input
-          name="login"
-          action="login"
-          inputtype="ID"
+          name='login'
+          action='login'
+          inputtype='ID'
           onChange={onChangeId}
         />
         <Input
-          name="password"
-          action="login"
-          inputtype="password"
+          name='password'
+          action='login'
+          inputtype='password'
           onChange={onChangePw}
         />
         <SignUp>Forgot Password?</SignUp>
-        <Button btntype="submit" buttonText="LOGIN" onClick={onClickLogin} />
+        <Button btntype='submit' buttonText='LOGIN' onClick={onClickLogin} />
         <Button
-          btntype="google"
-          buttonText="Google Login"
+          btntype='google'
+          buttonText='Google Login'
           onClick={onClickLogin}
         />
         <SignUp>Sign up</SignUp>

@@ -15,19 +15,19 @@ const member = {
 const FollowingPage = () => {
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 24px" />
+      <TabButtons tabs={TABS} margin='48px 0 24px' />
       <ul>
-        <Wrapper as="li" $margin="0 0 12px" style={{ width: '480px' }}>
+        <Wrapper as='li' $margin='0 0 12px' style={{ width: '480px' }}>
           <UserProfile
             imageSize={52}
             member={member}
             textStyle={new TextStyle('l', 'p')}
           >
-            <Text size="m" color="s">
+            <Text size='m' color='s'>
               구독자 수
             </Text>
           </UserProfile>
-          <Follow isFollowed={true} id={123} />
+          <Follow isFollowed={true} memberId={123} />
         </Wrapper>
       </ul>
     </>

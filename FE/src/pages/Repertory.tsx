@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import * as dance from '@/services/dance';
@@ -19,24 +19,22 @@ const Container = styled.div`
   display: flex;
 `;
 const RepertoryPage = () => {
-  const [input, setInput] = useState();
-  const [img, setImg] = useState();
-  const onVideoUpload = (event) => {
+  const [input, setInput] = useState<File | undefined>();
+  const [img, setImg] = useState<File | undefined>();
+  const onVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setInput(event.target.files[0]);
     }
   };
 
-  const onImageUpload = (event) => {
+  const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setImg(event.target.files[0]);
     }
   };
 
-  const BASE_URL = 'http://i10a707.p.ssafy.io:8000';
-
   const memberJoinTest = () => {
-    const url = `${BASE_URL}/member/join`;
+    const url = `${import.meta.env.VITE_APP_BASE_URL}/member/join`;
     const data = {
       memberLoginId: 'rlagudwls3469',
       memberPassword: 'qwer1234!',
@@ -54,7 +52,7 @@ const RepertoryPage = () => {
   };
 
   const idValidationTest = () => {
-    const url = `${BASE_URL}/member/id-validation`;
+    const url = `${import.meta.env.VITE_APP_BASE_URL}/member/id-validation`;
     const data = {
       memberLoginId: 'rlagudwls3469',
     };
@@ -69,7 +67,7 @@ const RepertoryPage = () => {
   };
 
   const subscribeTest = () => {
-    const url = `${BASE_URL}/community/subscribe`;
+    const url = `${import.meta.env.VITE_APP_BASE_URL}/community/subscribe`;
     const data = {
       selectedMemberId: '23423098',
     };
@@ -84,43 +82,55 @@ const RepertoryPage = () => {
   };
 
   const sourceTest = () => {
-    const data = {
-      sourceName: 'string',
-      sourceLength: 0,
-      tagNameList: ['tag1', 'tag2'],
-      start: 'string',
-      end: 'string',
-    };
-    const formData = new FormData();
-    formData.append('sourceVideo', input);
-    formData.append(
-      'postSource',
-      new Blob([JSON.stringify(data)], { type: 'application/json' })
-    );
-    dance.postSource(formData);
+    if (img && input) {
+      const data = {
+        sourceName: 'string',
+        sourceLength: 0,
+        tagNameList: ['tag1', 'tag2'],
+        start: 'string',
+        end: 'string',
+      };
+      const formData = new FormData();
+      formData.append('sourceVideo', input);
+      formData.append(
+        'postSource',
+        new Blob([JSON.stringify(data)], { type: 'application/json' })
+      );
+      dance.postSource(formData);
+    } else {
+      console.log('No input');
+    }
   };
 
   const poseTest = () => {
-    const formData = new FormData();
-    formData.append('source', img);
-    console.log(formData);
-    console.log(img);
-    project.detectPose(formData);
+    if (img) {
+      const formData = new FormData();
+      formData.append('source', img);
+      console.log(formData);
+      console.log(img);
+      project.detectPose(formData);
+    } else {
+      console.log('No input');
+    }
   };
 
   const repertoryTest = () => {
-    const data = {
-      repertoryName: 'test',
-      sourceIdList: [123, 234, 345],
-    };
-    const formData = new FormData();
-    formData.append('repertoryThumbnail', img);
-    formData.append('repertoryVideo', input);
-    formData.append(
-      'postRepertoryRequest',
-      new Blob([JSON.stringify(data)], { type: 'application/json' })
-    );
-    dance.postRepertory(formData);
+    if (img && input) {
+      const data = {
+        repertoryName: 'test',
+        sourceIdList: [123, 234, 345],
+      };
+      const formData = new FormData();
+      formData.append('repertoryThumbnail', img);
+      formData.append('repertoryVideo', input);
+      formData.append(
+        'postRepertoryRequest',
+        new Blob([JSON.stringify(data)], { type: 'application/json' })
+      );
+      dance.postRepertory(formData);
+    } else {
+      console.log('No input');
+    }
   };
   return (
     <>
