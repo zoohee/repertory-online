@@ -21,7 +21,7 @@ const Source = ({ sourceInfo }: sourceProps) => {
   return (
     <>
       <Image size={140} src={sourceInfo.sourceThumbnailUrl}></Image>
-      <h1>{sourceInfo.sourceName}</h1>
+      {/* <h1>{sourceInfo.sourceName}</h1> */}
     </>
   );
 };

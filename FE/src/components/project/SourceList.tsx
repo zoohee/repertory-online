@@ -1,6 +1,7 @@
 import { getMySource, getMySourceClone } from '@/services/dance';
 import { useQuery } from '@tanstack/react-query';
 import { List } from 'lodash';
+import styled from 'styled-components';
 import Source from './Source';
 interface sourceInterface {
   memberId: number;
@@ -14,6 +15,20 @@ interface sourceInterface {
   sourceThumbnailUrl: string;
   tagList: List<string>;
 }
+const GridBox = styled.ul`
+  padding: 0 16px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    var(--grid-column),
+    calc(
+      (100% - var(--grid-gap) * (var(--grid-column) - 1)) / var(--grid-column)
+    )
+  );
+  grid-gap: var(--grid-gap);
+  --grid-gap: 12px;
+  --grid-column: 3;
+`;
 const SourceList = () => {
   const { isLoading, data, isError, error } = useQuery<sourceInterface[]>({
     queryKey: ['getMySource'],
@@ -25,15 +40,24 @@ const SourceList = () => {
   return (
     <>
       <h1>Sources</h1>
-      <div>
-        {data?.length === 0 ? (
-          <h1>no data...</h1>
-        ) : (
-          data?.map((item: sourceInterface) => {
+      {data?.length === 0 ? (
+        <h1>no data...</h1>
+      ) : (
+        <GridBox>
+          {data?.map((item: sourceInterface) => {
             return <Source sourceInfo={item} />;
-          })
-        )}
-      </div>
+          })}
+          {data?.map((item: sourceInterface) => {
+            return <Source sourceInfo={item} />;
+          })}
+          {data?.map((item: sourceInterface) => {
+            return <Source sourceInfo={item} />;
+          })}
+          {data?.map((item: sourceInterface) => {
+            return <Source sourceInfo={item} />;
+          })}
+        </GridBox>
+      )}
     </>
   );
 };
