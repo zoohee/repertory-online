@@ -33,10 +33,6 @@ eureka:
     service-url:
       defaultZone: http://repertory.online:8761/eureka
 
-#jasypt:
-#  encryptor:
-#    bean: jasyptEncryptorAES
-
 api:
   dance:
     url: http://repertory.online:8000/dance
