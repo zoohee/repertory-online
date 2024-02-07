@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.communityservice.client.DanceServiceClient;
+import team.luckyturkey.communityservice.client.MemberServiceClient;
+import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
@@ -29,6 +31,7 @@ public class FeedService {
 
     private final FeedRepository feedRepository;
     private final DanceServiceClient danceServiceClient;
+    private final MemberServiceClient memberServiceClient;
 
     @Transactional
     public Feed insertFeed(Feed feed) {
@@ -60,6 +63,7 @@ public class FeedService {
         List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
         for (Feed feed : feeds) {
             OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
+            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
             FeedDetailResponse feedDetailResponse = FeedDetailResponse.builder()
                     .feedId(feed.getId())
                     .feedType(feed.getFeedType())
@@ -71,6 +75,8 @@ public class FeedService {
                     .feedName(originDto.getFeedName())
                     .feedUrl(originDto.getFeedUrl())
                     .feedDate(originDto.getFeedDate())
+                    .memberName(memberDto.getMemberName())
+                    .memberProfile(memberDto.getMemberProfile())
                     .build();
             feedDetailResponseList.add(feedDetailResponse);
         }

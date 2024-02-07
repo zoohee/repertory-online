@@ -21,4 +21,7 @@ public class FeedDetailResponse {
     private String feedName;
     private String feedUrl;
     private Date feedDate;
+
+    private String memberName;
+    private String memberProfile;
 }
