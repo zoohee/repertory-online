@@ -7,20 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-<<<<<<< BE/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java
 import team.luckyturkey.memberservice.member.dto.requestdto.FindMemberLoginIdDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.MemberLoginIdIsExistDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.UpdateMemberRequestDto;
 import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.member.repository.MemberRepository;
-=======
-import team.luckyturkey.memberservice.dto.response.MemberInfoResponseDto;
-import team.luckyturkey.memberservice.entity.Member;
-import team.luckyturkey.memberservice.repository.MemberRepository;
->>>>>>> BE/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

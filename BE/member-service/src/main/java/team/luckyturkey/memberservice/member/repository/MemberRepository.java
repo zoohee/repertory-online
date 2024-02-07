@@ -1,10 +1,6 @@
 package team.luckyturkey.memberservice.member.repository;
 
-import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-import team.luckyturkey.memberservice.member.dto.requestdto.UpdateMemberRequestDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 
 import java.util.Optional;
@@ -14,7 +10,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JPA �
     //JPA 구문 중 existBy가 있음
     Boolean existsByMemberLoginId(String memberLoginId);
 
-    Member findById(Long id);
+    Optional<Member> findById(Long id);
 
     Member findByMemberLoginId(String memberLoginId);
 
