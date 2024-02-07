@@ -3,6 +3,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import URL from '@/url';
 
 import Index from '@/pages/Index';
+import Login from '@/pages/Login';
+import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
 import SourcesPage from '@/pages/Sources';
@@ -13,13 +15,24 @@ import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
-import Repertory from '@/pages/Repertory';
+
+import { getMySource } from './services/dance';
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
   },
   {
+    path: URL.login,
+    element: <Login />,
+  },
+  {
+    path: URL.signUp,
+    element: <SignUp />,
+  },
+  {
+
     path: URL.workspace,
     element: <ProjectPage />,
   },
@@ -34,6 +47,9 @@ const router = createBrowserRouter([
       {
         path: URL.sources,
         element: <SourcesPage />,
+        loader: async () => {
+          return (await getMySource()).data;
+        },
       },
       {
         path: URL.community,

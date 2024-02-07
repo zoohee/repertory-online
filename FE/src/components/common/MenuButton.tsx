@@ -12,7 +12,6 @@ const Button = styled.button`
   width: 100%;
   padding: 8px;
   border-radius: var(--border-radius-small);
-  background-color: transparent;
   display: flex;
   align-items: center;
   &:hover {

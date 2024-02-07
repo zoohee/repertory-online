@@ -52,8 +52,8 @@ const CommunityPage = () => {
       <DanceGridBox column={3}>
         {DUMMY_LIST.map((item) => {
           return (
-            <ListContainer onClick={() => navigateHandler(item.id)}>
-              <CommunityDance key={item.id} item={item} />
+            <ListContainer key={item.id} onClick={() => navigateHandler(item.id)}>
+              <CommunityDance item={item} />
             </ListContainer>
           );
         })}

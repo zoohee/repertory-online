@@ -24,7 +24,6 @@ const Aside = styled(Container)`
 
 const Logout = styled.button`
   color: var(--rp-grey-500);
-  background-color: transparent;
   border: 0;
 
   &:hover {

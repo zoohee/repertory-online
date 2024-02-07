@@ -1,4 +1,6 @@
 const URL = {
+  login: '/login',
+  signUp: '/signup',
   workspace: '/workspace',
   projects: '/projects',
   sources: '/sources',
