@@ -47,15 +47,6 @@ const SourceList = () => {
           {data?.map((item: sourceInterface) => {
             return <Source sourceInfo={item} />;
           })}
-          {data?.map((item: sourceInterface) => {
-            return <Source sourceInfo={item} />;
-          })}
-          {data?.map((item: sourceInterface) => {
-            return <Source sourceInfo={item} />;
-          })}
-          {data?.map((item: sourceInterface) => {
-            return <Source sourceInfo={item} />;
-          })}
         </GridBox>
       )}
     </>

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import SourceList from '@/components/project/SourceList';
 import ProjectView from '@/components/project/ProjectView';
 import Workbench from '@/components/project/Workbench';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -51,19 +53,21 @@ const WorkbenchWarpper = styled.div`
 const ProjectPage = () => {
   return (
     <>
-      <Container>
-        <SourceWrapper>
-          <SourceList />
-        </SourceWrapper>
-        <EditWrapper>
-          <ViewWarpper>
-            <ProjectView />
-          </ViewWarpper>
-          <WorkbenchWarpper>
-            <Workbench></Workbench>
-          </WorkbenchWarpper>
-        </EditWrapper>
-      </Container>
+      <DndProvider backend={HTML5Backend}>
+        <Container>
+          <SourceWrapper>
+            <SourceList />
+          </SourceWrapper>
+          <EditWrapper>
+            <ViewWarpper>
+              <ProjectView />
+            </ViewWarpper>
+            <WorkbenchWarpper>
+              <Workbench></Workbench>
+            </WorkbenchWarpper>
+          </EditWrapper>
+        </Container>
+      </DndProvider>
     </>
   );
 };
