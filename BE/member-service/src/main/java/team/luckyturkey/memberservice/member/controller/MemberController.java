@@ -1,5 +1,6 @@
 package team.luckyturkey.memberservice.member.controller;
 
+import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,11 @@ public class MemberController {
     private final JoinService joinService;
     private final MemberService memberService;
 
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(){
+//        return new ResponseEntity<>(HttpStatus.FOUND);
+//    }
 
     @GetMapping("/") //멤버 전체 불러오기
     public ResponseEntity<List<Member>> getAllMembers() {
@@ -65,7 +71,7 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<?> joinProcess(JoinRequestDto joinRequestDto){
+    public ResponseEntity<?> joinProcess(@RequestBody JoinRequestDto joinRequestDto){
 
         JoinRequestStatus status = joinService.joinProcess(joinRequestDto);
 
@@ -74,7 +80,6 @@ public class MemberController {
             case ID_DUPLICATED -> new ResponseEntity<>(HttpStatus.CONFLICT);
             case JOIN_SUCCESS -> new ResponseEntity<>(HttpStatus.OK);
         };
-
     }
 
     @PostMapping("/logout")
@@ -125,9 +130,11 @@ public class MemberController {
         memberInfoResponseDto.setMemberRole(Exist.getMemberRole());
 
         return new ResponseEntity<>(memberInfoResponseDto, HttpStatus.OK);
-
     }
 
-
+    @GetMapping("/following")
+    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+        return memberService.getFollowingMemberInfo(followingList);
+    }
 
 }

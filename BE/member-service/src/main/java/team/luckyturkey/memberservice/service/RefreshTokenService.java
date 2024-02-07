@@ -1,19 +1,15 @@
 package team.luckyturkey.memberservice.service;
 
-
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import team.luckyturkey.memberservice.auth.jwt.RefreshToken;
-import team.luckyturkey.memberservice.member.repository.RefreshTokenRepository;
+
 
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
 
-    private final RefreshTokenRepository refreshTokenRepository;
-
+//    private final RefreshTokenRepository refreshTokenRepository;
+//
 //    @Transactional
 //    public void saveTokenInfo(String email, String refreshToken, String accessToken) {
 //

@@ -12,5 +12,4 @@ public class JoinRequestDto {
     private String memberPassword;
     private String memberName;
     private String memberEmail;
-
 }

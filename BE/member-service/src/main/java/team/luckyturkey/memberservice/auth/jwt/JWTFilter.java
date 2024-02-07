@@ -6,10 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
@@ -19,6 +20,7 @@ import team.luckyturkey.memberservice.member.repository.MemberRepository;
 import java.io.IOException;
 
 @Slf4j
+@Component
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
@@ -38,8 +40,6 @@ public class JWTFilter extends OncePerRequestFilter {
         //request에서 Authorization 헤더를 찾음
         String atc= request.getHeader("Authorization");
 
-//        //request Header에서 AccessToken  가져오기
-//        String atc = request.getHeader("Authorization");
 
         // 토큰 검사 생략(모두 허용 URL의 경우 토큰 검사 통과)
         if (!StringUtils.hasText(atc)) {
@@ -68,15 +68,6 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰 소멸 시간 검증 //얘는 jwtUtil에서 함
-//        if (jwtUtil.isExpired(token)) {
-//
-//            System.out.println("token expired");
-//            filterChain.doFilter(request, response);
-//
-//            //조건이 해당되면 메소드 종료 (필수)
-//            return;
-//        }
 
         //토큰이 유효성 검사를 모두 마치고 여기까지 내려오면
         //토큰에서 memberName과 memberRole 획득
@@ -102,7 +93,7 @@ public class JWTFilter extends OncePerRequestFilter {
         if (jwtUtil.verifyToken(atc)) {
 
             // AccessToken 내부의 payload에 있는 email로 user를 조회한다. 없다면 예외를 발생시킨다 -> 정상 케이스가 아님
-            Member findMember = memberRepository.findByMemberEamil(jwtUtil.getMemberEmail(atc));
+            Member findMember = memberRepository.findByMemberEmail(jwtUtil.getMemberEmail(atc));
 
 
             //UserDetails에 회원 정보 객체 담기
