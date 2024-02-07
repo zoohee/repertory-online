@@ -13,7 +13,7 @@ public class RedisConfig {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory(){
-        return new LettuceConnectionFactory("redis", 6379);
+        return new LettuceConnectionFactory("i10a707.p.ssafy.io", 6379);
     }
 
     @Bean
