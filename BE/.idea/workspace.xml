@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,7 +124,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.MemberServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ApigatewayServiceApplication (1)">
     <configuration name="ApigatewayServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="apigateway-service.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.apigatewayservice.ApigatewayServiceApplication" />
@@ -215,7 +209,7 @@
       <workItem from="1706974793487" duration="66639000" />
       <workItem from="1707282964036" duration="86000" />
       <workItem from="1707283618336" duration="9057000" />
-      <workItem from="1707303909590" duration="2006000" />
+      <workItem from="1707303909590" duration="2500000" />
     </task>
     <servers />
   </component>
