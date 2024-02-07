@@ -33,6 +33,6 @@ spring:
       ddl-auto: update
       
 redis:
-  host: redis #배포시 ec2주소 사용
+  host: i10a707.p.ssafy.io #배포시 ec2주소 사용
   port: 6379
 #  password:
