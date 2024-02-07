@@ -1,7 +1,6 @@
 package team.luckyturkey.memberservice.auth.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -9,6 +8,7 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import team.luckyturkey.memberservice.auth.jwt.RedisProperties;
 
 @Configuration
 @EnableRedisRepositories
@@ -17,26 +17,27 @@ public class RedisConfig {
 
     private final RedisProperties redisProperties;
 
+    // RedisConnectionFactory Bean을 생성하는 메서드
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
+        // Redis 연결 구성을 위한 RedisStandaloneConfiguration 생성
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+        // Redis 호스트, 포트 및 암호 설정
         redisStandaloneConfiguration.setHostName(redisProperties.getHost());
         redisStandaloneConfiguration.setPort(redisProperties.getPort());
         redisStandaloneConfiguration.setPassword(redisProperties.getPassword());
+        // LettuceConnectionFactory를 사용하여 RedisConnectionFactory 생성 및 반환
         return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
 
+    // RedisTemplate Bean을 생성하는 메서드
     @Bean
     public RedisTemplate<?, ?> redisTemplate() {
-
-        // redisTemplate 를 받아와서 set, get, delete 를 사용
+        // RedisTemplate 생성
         RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
-        /*
-         * setKeySerializer, setValueSerializer 설정
-         * redis-cli 을 통해 직접 데이터를 조회 시 알아볼 수 없는 형태로 출력되는 것을 방지
-         */
+        // Redis 연결 설정을 사용하여 RedisTemplate에 연결 설정
         redisTemplate.setConnectionFactory(redisConnectionFactory());
-
+        // RedisTemplate 반환
         return redisTemplate;
     }
 }
