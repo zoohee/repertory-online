@@ -13,11 +13,6 @@ public class LoginService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    public LoginService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
-//        this.memberRepository = memberRepository;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
-
 
 
     public void loginProcess(LoginDto loginDTO){

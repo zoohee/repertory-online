@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
+import team.luckyturkey.memberservice.member.dto.GeneratedToken;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -63,7 +64,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     }
 
-    //로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
+    //로그인 성공시 실행하는 메소드
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 
@@ -83,9 +84,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
 
         //토큰생성
-        String token = jwtUtil.generateAccessToken(memberName, role);
+        GeneratedToken token = jwtUtil.generateToken(memberName, role);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        String accessToken = token.getAccessToken();
+        String refreshToken = token.getRefreshToken();
+        log.info("accessToken = {}", accessToken);
+        log.info("refreshToken = {}", refreshToken);
+
+        response.addHeader("Authorization", "Bearer " + accessToken);
 
     }
 
