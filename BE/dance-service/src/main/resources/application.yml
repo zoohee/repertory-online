@@ -45,7 +45,7 @@ spring:
       authentication-database: admin
 
 redis:
-  host: redis
+  host: i10a707.p.ssafy.io
   port: 6379
 
 logging:
