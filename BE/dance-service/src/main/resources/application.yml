@@ -45,7 +45,7 @@ spring:
       authentication-database: admin
 
 redis:
-  host: repertory.online
+  host: redis
   port: 6379
 
 logging:
