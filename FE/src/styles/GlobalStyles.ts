@@ -106,6 +106,7 @@ const GlobalStyles = createGlobalStyle`
       --menu-color: var(--rp-grey-700);
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
+      --sidebar-project--width:340px;
       /* button */
       --button-padding: 4px 16px;
       --button-padding-small: 4px 12px;

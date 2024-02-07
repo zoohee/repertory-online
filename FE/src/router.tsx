@@ -14,6 +14,7 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
+import ProjectPage from '@/pages/ProjectPage';
 
 import { getMySource } from './services/dance';
 
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
   {
     path: URL.signUp,
     element: <SignUp />,
+  },
+  {
+
+    path: URL.workspace,
+    element: <ProjectPage />,
   },
   {
     path: '/',
