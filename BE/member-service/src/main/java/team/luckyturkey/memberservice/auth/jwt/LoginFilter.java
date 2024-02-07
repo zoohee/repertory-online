@@ -79,11 +79,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
 
-
-
         String role = auth.getAuthority();
+        log.info("role = {}", role);
 
-        //토큰생성
+        //토큰생성 access+refresh
         GeneratedToken token = jwtUtil.generateToken(memberName, role);
 
         String accessToken = token.getAccessToken();

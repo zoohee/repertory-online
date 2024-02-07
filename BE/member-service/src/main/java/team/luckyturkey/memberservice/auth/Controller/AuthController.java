@@ -1,19 +1,11 @@
 package team.luckyturkey.memberservice.auth.Controller;
 
-import com.nimbusds.oauth2.sdk.token.RefreshToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
-import team.luckyturkey.memberservice.member.dto.responsedto.StatusResponseDto;
-import team.luckyturkey.memberservice.member.dto.responsedto.TokenResponseStatusDto;
 import team.luckyturkey.memberservice.member.repository.RefreshTokenRepository;
 import team.luckyturkey.memberservice.service.RefreshTokenService;
-
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -21,7 +13,7 @@ import java.util.Optional;
 public class AuthController {
 
     private final RefreshTokenRepository tokenRepository;
-    private final RefreshTokenService tokenService;
+    private final RefreshTokenService refreshTokenService;
     private final JWTUtil jwtUtil;
 
 //    @PostMapping("token/logout")
