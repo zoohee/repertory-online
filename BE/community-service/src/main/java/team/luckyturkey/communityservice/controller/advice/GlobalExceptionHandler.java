@@ -1,6 +1,5 @@
 package team.luckyturkey.communityservice.controller.advice;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import team.luckyturkey.communityservice.dto.response.ErrorResponse;
 import team.luckyturkey.communityservice.exception.AlreadySubscribedException;
 import team.luckyturkey.communityservice.exception.InvalidDataException;
 import team.luckyturkey.communityservice.exception.NullException;
-import team.luckyturkey.communityservice.util.ErrorCode;
 
 @Slf4j
 @RestControllerAdvice
