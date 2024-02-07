@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/DanceServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/DanceServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,45 +70,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build apigateway-service.executor": "Run",
-    "Gradle.Build community-service.executor": "Run",
-    "Gradle.Build dance-service.executor": "Run",
-    "Gradle.Build discovery-service.executor": "Run",
-    "Gradle.Build member-service.executor": "Run",
-    "Gradle.Build project-service.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ApigatewayServiceApplication (1).executor": "Run",
-    "Spring Boot.ApigatewayServiceApplication.executor": "Run",
-    "Spring Boot.CommunityServiceApplication.executor": "Run",
-    "Spring Boot.DanceServiceApplication.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.MemberServiceApplication.executor": "Run",
-    "Spring Boot.ProjectServiceApplication.executor": "Run",
-    "git-widget-placeholder": "dev/BE",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SSAFY/Documents/GitHub/S10P12A707/BE/community-service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15415987",
-    "project.structure.side.proportion": "0.34566474",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build apigateway-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build community-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build dance-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build member-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build project-service.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApigatewayServiceApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApigatewayServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CommunityServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DanceServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MemberServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProjectServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev/BE&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Documents/GitHub/S10P12A707/BE/community-service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15415987&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.34566474&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\java\team\luckyturkey\danceservice\controller" />
@@ -211,7 +214,8 @@
       <updated>1706974790603</updated>
       <workItem from="1706974793487" duration="66639000" />
       <workItem from="1707282964036" duration="86000" />
-      <workItem from="1707283618336" duration="3724000" />
+      <workItem from="1707283618336" duration="9057000" />
+      <workItem from="1707303909590" duration="2006000" />
     </task>
     <servers />
   </component>
