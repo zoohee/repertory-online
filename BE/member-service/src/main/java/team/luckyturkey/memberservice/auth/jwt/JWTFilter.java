@@ -40,8 +40,6 @@ public class JWTFilter extends OncePerRequestFilter {
         //request에서 Authorization 헤더를 찾음
         String atc= request.getHeader("Authorization");
 
-//        //request Header에서 AccessToken  가져오기
-//        String atc = request.getHeader("Authorization");
 
         // 토큰 검사 생략(모두 허용 URL의 경우 토큰 검사 통과)
         if (!StringUtils.hasText(atc)) {
@@ -70,15 +68,6 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰 소멸 시간 검증 //얘는 jwtUtil에서 함
-//        if (jwtUtil.isExpired(token)) {
-//
-//            System.out.println("token expired");
-//            filterChain.doFilter(request, response);
-//
-//            //조건이 해당되면 메소드 종료 (필수)
-//            return;
-//        }
 
         //토큰이 유효성 검사를 모두 마치고 여기까지 내려오면
         //토큰에서 memberName과 memberRole 획득

@@ -26,20 +26,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private static final String SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY = "memberPassword";
 
 
-    //새로운 파라미터 생성
-    private String memberLoginIdParameter = SPRING_SECURITY_FORM_MEMBERLOGINID_KEY;
-    private String memberPasswordParameter = SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY;
-
-
     //아이디와 패스워드를 request에서 받아오기
     @Nullable
     protected String obtainMemberLoginId(HttpServletRequest request) {
-        return request.getParameter(this.memberLoginIdParameter);
+        //새로운 파라미터 생성
+        return request.getParameter(SPRING_SECURITY_FORM_MEMBERLOGINID_KEY);
     }
 
     @Nullable
     protected String obtainMemberPassword(HttpServletRequest request) {
-        return request.getParameter(this.memberPasswordParameter);
+        return request.getParameter(SPRING_SECURITY_FORM_MEMBERPASSWORD_KEY);
     }
 
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil){
