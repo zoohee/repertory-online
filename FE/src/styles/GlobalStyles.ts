@@ -122,6 +122,14 @@ const GlobalStyles = createGlobalStyle`
       --box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
         0 0 0 1px hsla(0, 0%, 0%, 0.05), 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
         0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+
+      /* text shadow */
+      --text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.2), 0 6px 24px rgba(0, 0, 0, 0.25);
+
+      /* homepage */
+      --homepage-padding: 48px;
+      --homepage-grid-row-size: 3rem;
     }
     .red {
         color: var(--color-red);
