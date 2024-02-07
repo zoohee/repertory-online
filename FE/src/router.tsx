@@ -15,7 +15,7 @@ import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
-
+import Repertory from '@/pages/Repertory';
 import { getMySource } from './services/dance';
 
 const router = createBrowserRouter([
@@ -28,11 +28,14 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: '/secretdoor',
+    element: <Repertory />,
+  },
+  {
     path: URL.signUp,
     element: <SignUp />,
   },
   {
-
     path: URL.workspace,
     element: <ProjectPage />,
   },
