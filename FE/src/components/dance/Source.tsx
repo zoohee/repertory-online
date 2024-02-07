@@ -7,7 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Dance from '@/components/dance/Dance';
 import Text from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
-import { Menu } from '../common/MenuButton';
+import { Menu } from '@/components/common/MenuButton';
+import { Source } from '@/types';
 
 const ListItem = styled.li`
   position: relative;
@@ -19,7 +20,11 @@ const menus = [
   new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
 ];
 
-const Source = ({ source }) => {
+interface Props {
+  source: Source;
+}
+
+const SourceItem = ({ source }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -33,13 +38,13 @@ const Source = ({ source }) => {
   return (
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
-      <Dance thumbnail={source.imageUrl} title={source.title}>
+      <Dance thumbnail={source.sourceThumbnailUrl} title={source.sourceName}>
         <Text size="s" color="s">
-          {source.detail}
+          {source.tagList.map((tag) => tag.tagName).join(', ')}
         </Text>
       </Dance>
     </ListItem>
   );
 };
 
-export default Source;
+export default SourceItem;

@@ -15,6 +15,8 @@ import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 
+import { getMySource } from './services/dance';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -39,6 +41,9 @@ const router = createBrowserRouter([
       {
         path: URL.sources,
         element: <SourcesPage />,
+        loader: async () => {
+          return (await getMySource()).data;
+        },
       },
       {
         path: URL.community,
