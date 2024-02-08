@@ -11,4 +11,7 @@ public class AuthMemberController {
         return "oauth-login";
     }
 
+    @GetMapping("/success")
+    public String successPage(){return "LoginSuccess"; }
+
 }
