@@ -29,7 +29,7 @@ const SourcesPage = () => {
             <SearchBar></SearchBar>
             <SelectTagButton />
           </div>
-          <CreateButton />
+          <CreateButton to="/" />
         </Wrapper>
         {isTagOpen && <TagList />}
       </Box>
