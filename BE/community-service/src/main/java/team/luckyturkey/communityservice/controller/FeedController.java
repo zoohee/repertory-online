@@ -1,6 +1,5 @@
 package team.luckyturkey.communityservice.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +56,8 @@ public class FeedController {
         feedService.insertFeed(feed);
     }
 
-    @GetMapping("/detail")
-    public FeedDetailResponse getFeedDetail(@RequestParam("id") int intFeedId) {
-        Long feedId = Long.valueOf(intFeedId);
+    @GetMapping("/detail/{feedId}")
+    public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
         System.out.println(feedId);
 
         Feed feed = feedService.getFeedDetail(feedId);

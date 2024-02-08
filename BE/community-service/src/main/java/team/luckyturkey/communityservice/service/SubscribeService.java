@@ -72,7 +72,6 @@ public class SubscribeService {
         return subscribeRepository.findFollowingListByIdId(memberId);
     }
 
-    // TODO: member service에서 유저 정보 받아오기
     public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
         return memberServiceClient.getFollowingDetailList(followingList);
     }
