@@ -13,19 +13,19 @@ public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    @Transactional
+    @Transactional //토큰을 redis에 저장
     public void saveTokenInfo(String memberName, String refreshToken, String accessToken) {
 
         RefreshToken refreshToken1 = new RefreshToken(memberName, refreshToken, accessToken);
 
         refreshTokenRepository.save(refreshToken1);
     }
-//
-//    @Transactional
-//    public void removeRefreshToken(String accessToken) {
-//        RefreshToken token = refreshTokenRepository.findByAccessToken(accessToken)
-//                .orElseThrow(IllegalArgumentException::new);
-//
-//        refreshTokenRepository.delete(token);
-//    }
+
+    @Transactional //토큰을 삭제 (로그아웃등)
+    public void removeRefreshToken(String accessToken) {
+        RefreshToken token = refreshTokenRepository.findByAccessToken(accessToken)
+                .orElseThrow(IllegalArgumentException::new);
+
+        refreshTokenRepository.delete(token);
+    }
 }
