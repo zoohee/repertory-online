@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import CommunityDance from '@/components/community/CommunityDance';
+import { Community } from '@/types';
+import URL from '@/url';
 
 const ListContainer = styled.li`
   &:hover {
@@ -10,49 +12,21 @@ const ListContainer = styled.li`
   }
 `;
 
-const DUMMY_LIST = [
-  {
-    id: 1,
-    imageUrl: 'images/index.jpg',
-    title: 'Source #1',
-    member: {
-      id: 1,
-      name: 'user1',
-      profileImage: '/images/index.jpg',
-    },
-    clicked: true,
-    like: 123,
-    isSource: true,
-  },
-  {
-    id: 2,
-    imageUrl: 'images/index.jpg',
-    title: 'Repertory #2',
-    member: {
-      id: 2,
-      name: 'user2',
-      profileImage: '/images/index.jpg',
-    },
-    clicked: false,
-    like: 456,
-    isSource: false,
-  },
-];
-
 const CommunityPage = () => {
+  const communityDanceList = useLoaderData() as Community[];
+
   const navigate = useNavigate();
 
   const navigateHandler = (id: number) => {
-    navigate(`/community/r/${id}`);
+    navigate(`${URL.communityDetail}/${id}`);
   };
 
   return (
     <>
-      {/* TODO: 검색창 넣기 */}
       <DanceGridBox column={3}>
-        {DUMMY_LIST.map((item) => {
+        {communityDanceList.map((item) => {
           return (
-            <ListContainer key={item.id} onClick={() => navigateHandler(item.id)}>
+            <ListContainer key={item.feedId} onClick={() => navigateHandler(item.feedId)}>
               <CommunityDance item={item} />
             </ListContainer>
           );
@@ -63,3 +37,10 @@ const CommunityPage = () => {
 };
 
 export default CommunityPage;
+
+import { getCommunityFeed } from '@/services/community';
+
+export const communityLoader = async () => {
+  const response = await getCommunityFeed({ page: 0, pageSize: 5 });
+  return response.data;
+}

@@ -27,4 +27,19 @@ export class Tab {
   }
 }
 
-export type { Tag, Source };
+interface Community {
+  downloadCount: number;
+  feedDate: string;
+  feedDisable: boolean;
+  feedId: number;
+  feedName: string;
+  feedType: string;
+  feedUrl: string;
+  likeCount: number;
+  memberId: number;
+  memberName: string;
+  memberProfile: string;
+  originId: number;
+}
+
+export type { Tag, Source, Community };

@@ -8,7 +8,7 @@ import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
 import SourcesPage, { sourceLoader } from '@/pages/Sources';
-import CommunityPage from '@/pages/Community';
+import CommunityPage, { communityLoader } from '@/pages/Community';
 import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
@@ -60,6 +60,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <CommunityPage />,
+            loader: communityLoader,
           },
           {
             path: `${URL.communityDetail}/:Id`,
