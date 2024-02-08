@@ -3,6 +3,7 @@ server:
   port: 0
   servlet:
     context-path: /project
+  host: repertory.online
 
 spring:
   application:
@@ -24,5 +25,5 @@ eureka:
         register-with-eureka: true
         fetch-registry: true
         service-url:
-            defaultZone: http://repertory.online:8761/eureka
+            defaultZone: http://${server.host}:8761/eureka
 

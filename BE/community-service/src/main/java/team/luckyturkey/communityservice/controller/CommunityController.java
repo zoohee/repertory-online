@@ -59,8 +59,7 @@ public class CommunityController {
         Long memberId = 5678L;
 
         List<Long> followingList = subscribeService.getFollowingList(memberId);
-//        return subscribeService.getFollowingDetailList(followingList);
-        return new ArrayList<>();
+        return subscribeService.getFollowingDetailList(followingList);
     }
 
     @PatchMapping("/source/{feedId}/like")
