@@ -85,6 +85,7 @@ public class FeedFacadeServiceImpl implements FeedFacadeService{
                 .feedName(sourceResponse.getSourceName())
                 .feedType(FeedType.SOURCE)
                 .feedUrl(sourceResponse.getSourceUrl())
+                .feedThumbnailUrl(sourceResponse.getSourceThumbnailUrl())
                 .build();
     }
 
@@ -95,6 +96,7 @@ public class FeedFacadeServiceImpl implements FeedFacadeService{
                 .feedName(repertoryResponse.getRepertoryName())
                 .feedType(FeedType.REPERTORY)
                 .feedUrl(repertoryResponse.getRepertoryUrl())
+                .feedThumbnailUrl(repertoryResponse.getRepertoryThumbnailUrl())
                 .build();
     }
 }

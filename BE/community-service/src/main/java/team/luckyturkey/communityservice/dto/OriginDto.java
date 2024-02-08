@@ -13,5 +13,6 @@ public class OriginDto {
     private Long memberId;
     private String feedName;
     private String feedUrl;
+    private String feedThumbnailUrl;
     private Date feedDate;
 }

@@ -16,9 +16,11 @@ import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
+import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
+import team.luckyturkey.communityservice.util.ErrorCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,11 @@ public class FeedService {
 
     // dance server에서 소스 or 레퍼토리 정보 가져오는 함수
     public OriginDto getOriginDto(Long originId, FeedType feedType) {
-        return danceServiceClient.getOriginDetail(originId, feedType);
+        OriginDto originDto = danceServiceClient.getOriginDetail(originId, feedType);
+        if (originDto == null) {
+            throw new NullException(ErrorCode.NOT_EXISTS_ERROR);
+        }
+        return originDto;
     }
 
     public List<FeedDetailResponse> getFeedsAndDetail(List<Feed> feeds) {
@@ -74,6 +80,7 @@ public class FeedService {
                     .memberId(originDto.getMemberId())
                     .feedName(originDto.getFeedName())
                     .feedUrl(originDto.getFeedUrl())
+                    .feedThumbnailUrl(originDto.getFeedThumbnailUrl())
                     .feedDate(originDto.getFeedDate())
                     .memberName(memberDto.getMemberName())
                     .memberProfile(memberDto.getMemberProfile())

@@ -24,6 +24,7 @@ public class CommunityController {
             @PathVariable FeedType feedType
     ){
         CommunityFeedResponse response = feedFacadeService.findFeed(originId, feedType);
+
         return ResponseEntity.ok(response);
     }
 
