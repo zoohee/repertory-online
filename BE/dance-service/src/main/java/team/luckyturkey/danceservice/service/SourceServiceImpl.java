@@ -119,27 +119,14 @@ public class SourceServiceImpl implements SourceService{
                                         .sourceLength(postSourceRequest.getSourceLength())
                                         .build();
 
-        /** todo: video should be uploaded and url should be set in source obj
-         * */
-        String sourceUrl = "";
-        try {
-            sourceUrl = s3Uploader.saveFile(sourceVideo);
-        } catch (IOException e) {
-            throw new UploadFailedException(ErrorCode.INTER_SERVER_ERROR);
-        }
-
-        String sourceThumbnailUrl = "";
-        try {
-            sourceThumbnailUrl = s3Uploader.saveFile(sourceThumbnail);
-        } catch (IOException e) {
-            throw new UploadFailedException(ErrorCode.INTER_SERVER_ERROR);
-        }
+        // S3 UPLOAD FILE
+        String sourceUrl = s3Uploader.uploadFile(sourceVideo);
+        String sourceThumbnailUrl = s3Uploader.uploadFile(sourceThumbnail);
 
         Source source = Source.builder()
                             .memberId(memberId)
                             .sourceDetail(sourceDetail)
                             .sourceDate(LocalDateTime.now())
-//                            .sourceUrl(sourceUrl + sourceVideo.getOriginalFilename())
                             .sourceUrl(sourceUrl)
                             .sourceThumbnailUrl(sourceThumbnailUrl)
                             .build();
