@@ -7,7 +7,7 @@ import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
-import SourcesPage from '@/pages/Sources';
+import SourcesPage, { sourceLoader } from '@/pages/Sources';
 import CommunityPage from '@/pages/Community';
 import CommunityDetailPage from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
@@ -16,7 +16,7 @@ import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
-import { getMySource } from './services/dance';
+import SourcesContextProvider from '@/store/sources-context';
 
 const router = createBrowserRouter([
   {
@@ -46,10 +46,12 @@ const router = createBrowserRouter([
       },
       {
         path: URL.sources,
-        element: <SourcesPage />,
-        loader: async () => {
-          return await getMySource();
-        },
+        element: (
+          <SourcesContextProvider>
+            <SourcesPage />
+          </SourcesContextProvider>
+        ),
+        loader: sourceLoader,
       },
       {
         path: URL.community,

@@ -43,7 +43,7 @@ interface Props {
   children?: ReactNode;
   margin: string;
   tabs: Tab[];
-  onClickTab?: (navName: string) => void;
+  onClickTab?: (tab: Tab) => void;
 }
 
 const Tabs = ({ children, margin, tabs, onClickTab }: Props) => {
@@ -53,7 +53,7 @@ const Tabs = ({ children, margin, tabs, onClickTab }: Props) => {
         $clicked={tab.clicked}
         onClick={() => {
           if (onClickTab) {
-            onClickTab(tab.name);
+            onClickTab(tab);
           }
         }}
       >

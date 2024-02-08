@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 
 import { sourcesContext } from '@/store/sources-context';
-import TagButton from '@/components/dance/TagButton';
+import TagButton from '@/components/dance/sources/TagButton';
 
 const List = styled.ul`
   margin-top: 12px;
@@ -19,8 +19,8 @@ const TagList = () => {
   return (
     <List>
       {tags.map((tag) => (
-        <li key={tag.tagId}>
-          <TagButton name={tag.tagName} />
+        <li key={tag}>
+          <TagButton name={tag} />
         </li>
       ))}
     </List>

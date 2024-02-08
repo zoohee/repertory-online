@@ -17,4 +17,14 @@ interface Source {
   tagList: Tag[];
 }
 
+export class Tab {
+  name: string;
+  clicked: boolean;
+
+  constructor(name: string, clicked: boolean) {
+    this.name = name;
+    this.clicked = clicked;
+  }
+}
+
 export type { Tag, Source };
