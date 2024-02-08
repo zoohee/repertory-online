@@ -87,6 +87,11 @@ public class SecurityConfig {
                         .userInfoEndpoint((userInfoEndpointConfig) ->
                                 userInfoEndpointConfig.userService(customOAuth2MemberService)));
 
+//        http
+//                .logout()
+//                        .logoutUrl("/logout")
+//                                .addLogoutHandler()
+
         //인가작업
        http
                 .authorizeHttpRequests((auth) -> auth
