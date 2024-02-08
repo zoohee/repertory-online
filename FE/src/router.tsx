@@ -14,10 +14,15 @@ import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
 import Repertory from '@/pages/Repertory';
+import Test from './pages/Test';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
+  },
+  {
+    path: '/test',
+    element: <Test />,
   },
   {
     path: URL.workspace,
