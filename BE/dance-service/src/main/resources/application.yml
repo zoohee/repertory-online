@@ -3,6 +3,7 @@ server:
   port: 0
   servlet:
     context-path: /dance
+  host: repertory.online
 
 eureka:
   instance:
@@ -12,7 +13,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://repertory.online:8761/eureka
+      defaultZone: http://${server.host}:8761/eureka
 
 spring:
   application:
@@ -57,7 +58,7 @@ logging:
 
 api:
   community:
-    url: http://repertory.online:8000/community
+    url: http://${server.host}:8000/community
 
 #only for test environment
 #todo: should be delete
@@ -71,6 +72,7 @@ cloud:
   aws:
     s3:
       bucket: repertory
+      base-url: http://repertory.s3.ap-northeast-2.amazonaws.com/
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
