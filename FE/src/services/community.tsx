@@ -75,7 +75,7 @@ const getSubscribersFeed = async ({ page, pageSize }: IPage) => {
 };
 
 // 피드목록 조회
-const getUserFeed = async ({ page, pageSize }: IPage) => {
+const getCommunityFeed = async ({ page, pageSize }: IPage) => {
   const response = await $axios().get(`/community/feed/${page}/${pageSize}`, {
     params: { page, pageSize },
   });
@@ -133,7 +133,7 @@ export {
   patchFeedNotLike,
   postSourceClone,
   getSubscribersFeed,
-  getUserFeed,
+  getCommunityFeed,
   feedSetPublic,
   feedSetPrivate,
   getFeedVideo,
