@@ -3,13 +3,9 @@ package team.luckyturkey.communityservice.controller;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import team.luckyturkey.communityservice.client.MemberServiceClient;
+import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
@@ -25,6 +21,7 @@ public class FeedController {
     private final SubscribeService subscribeService;
     private final FeedService feedService;
     private final LikeService likeService;
+    private final MemberServiceClient memberServiceClient;
 
     @GetMapping("/subscribe/{page}/{pageSize}")
     public List<FeedDetailResponse> getUserSubscribeFeedList(@PathVariable("page") int page,
@@ -60,13 +57,16 @@ public class FeedController {
         feedService.insertFeed(feed);
     }
 
-    @GetMapping("/feed/{feedId}/detail")
-    public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
-        // TODO: Need DanceServiceClient Test
+    @GetMapping("/detail")
+    public FeedDetailResponse getFeedDetail(@RequestParam("id") int intFeedId) {
+        Long feedId = Long.valueOf(intFeedId);
+        System.out.println(feedId);
+
         Feed feed = feedService.getFeedDetail(feedId);
         Long originId = feed.getOriginId();
         OriginDto originDto = feedService.getOriginDto(originId, feed.getFeedType());
         Long likeCount = likeService.getFeedLikeCount(feedId);
+        MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
 
         return FeedDetailResponse.builder()
                 .feedId(feedId)
@@ -79,6 +79,8 @@ public class FeedController {
                 .feedName(originDto.getFeedName())
                 .feedUrl(originDto.getFeedUrl())
                 .feedDate(originDto.getFeedDate())
+                .memberName(memberDto.getMemberName())
+                .memberProfile(memberDto.getMemberProfile())
                 .build();
     }
 

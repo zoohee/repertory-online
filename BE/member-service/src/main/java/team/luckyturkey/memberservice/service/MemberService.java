@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.member.dto.requestdto.FindMemberLoginIdDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.MemberLoginIdIsExistDto;
 import team.luckyturkey.memberservice.member.dto.requestdto.UpdateMemberRequestDto;
+import team.luckyturkey.memberservice.member.dto.responsedto.CommunityMemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.member.repository.MemberRepository;
@@ -65,16 +66,20 @@ public class MemberService {
         return loginId;
     }
 
-    public List<MemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
-        List<MemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
+    public List<CommunityMemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
+        List<CommunityMemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
         for (Long id : followingList) {
             Optional<Member> optionalMember = memberRepository.findById(id);
-//            System.out.println(optionalMember);
+
             if (optionalMember.isPresent()) {
                 Member member = optionalMember.get();
-                MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto();
-                memberInfoResponseDto.setMemberName(member.getMemberName());
-                memberInfoResponseDto.setMemberProfile(member.getMemberProfile());
+                CommunityMemberInfoResponseDto memberInfoResponseDto = CommunityMemberInfoResponseDto
+                        .builder()
+                        .memberId(member.getId())
+                        .memberProfile(member.getMemberProfile())
+                        .memberName(member.getMemberName())
+                        .build();
+
                 followingMemberInfoList.add(memberInfoResponseDto);
             } else {
                 // 해당 ID에 해당하는 회원이 없는 경우에 대한 처리

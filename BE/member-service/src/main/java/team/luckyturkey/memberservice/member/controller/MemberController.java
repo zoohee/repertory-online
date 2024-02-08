@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
 import team.luckyturkey.memberservice.member.dto.requestdto.*;
+import team.luckyturkey.memberservice.member.dto.responsedto.CommunityMemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.service.JoinService;
@@ -137,7 +138,7 @@ public class MemberController {
     }
 
     @GetMapping("/following")
-    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+    public List<CommunityMemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
         return memberService.getFollowingMemberInfo(followingList);
     }
 
