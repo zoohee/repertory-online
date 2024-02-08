@@ -15,7 +15,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
     Feed getFeedById(Long id);
     Feed getFeedByOriginId(Long originId);
-    @Query("SELECT f FROM Feed f WHERE f.memberId IN :followingList")
+    @Query("SELECT f FROM Feed f WHERE f.memberId IN :followingList AND f.memberId IS NOT NULL")
     List<Feed> findFeedsByFollowingList(List<Long> followingList, Pageable pageable);
     @Query("SELECT f FROM Feed f ORDER BY f.likeCount DESC, f.downloadCount DESC")
     List<Feed> findFeedsAll(Pageable pageable);

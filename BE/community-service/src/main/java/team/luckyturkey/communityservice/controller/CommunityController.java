@@ -53,7 +53,7 @@ public class CommunityController {
         subscribeService.unsubscribe(memberId, selectedMemberId);
     }
 
-    @PostMapping("/subscribe/list")
+    @GetMapping("/subscribe/list")
     public List<SubscriberResponse> getFollowingList() {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
