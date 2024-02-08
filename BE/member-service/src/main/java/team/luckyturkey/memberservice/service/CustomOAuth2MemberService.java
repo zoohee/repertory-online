@@ -89,6 +89,7 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
 
         if(existData.isEmpty()) {
 
+            //존재하지 않으면 현재 가진 정보를 받아서 회원가입 로직을 진행한다.
             ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
             //회원이 존재하지 않으면 memberAttribute의 exist값을 false로 넣어준다.
