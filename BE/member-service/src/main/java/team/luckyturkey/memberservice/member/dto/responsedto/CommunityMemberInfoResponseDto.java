@@ -12,4 +12,5 @@ public class CommunityMemberInfoResponseDto {
     private Long memberId;
     private String memberName;
     private String memberProfile;
+    
 }
