@@ -90,7 +90,7 @@ public class SecurityConfig {
        http
                 .authorizeHttpRequests((auth) -> auth
                         // 모든 경로("/", "/login", "/join", "/member/**", "/swagger-ui/**", "/v3/api-docs/**", "/oauth2/**")에 대한 접근 허용
-                        .requestMatchers("/login","/","/join", "/member/**", "/swagger-ui/**", "/v3/api-docs/**","/oauth2/**").permitAll()
+                        .requestMatchers("/**","/login/**","/login","/","/join", "/member/**", "/swagger-ui/**", "/v3/api-docs/**","/oauth2/**").permitAll()
                         // "/admin" 경로에 대한 접근은 "ADMIN" 역할을 가진 사용자만 허용
                         .requestMatchers("/admin").hasRole("ADMIN")
                         // 그 외의 모든 요청은 인증된 사용자에게만 허용

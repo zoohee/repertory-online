@@ -14,7 +14,7 @@ public class SocialClientRegistration {
         return ClientRegistration.withRegistrationId("google")
                 .clientId("369405807431-pki0r440oh137ckh7lmotdof8sat2eot.apps.googleusercontent.com")
                 .clientSecret("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")
-                .redirectUri("http://localhost:8080/member/login/oauth2/code/google") //redirect url 수정해야함 //여기로 접근하면 구글로그인이 돼
+                .redirectUri("http://localhost:8080/member/success") //redirect url 수정해야함 //여기로 접근하면 구글로그인이 돼
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .scope("profile", "email")
                 .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
