@@ -16,4 +16,5 @@ public class CommunityFeedResponse {
     private String feedName;
     private FeedType feedType;
     private String feedUrl;
+    private String feedThumbnailUrl;
 }
