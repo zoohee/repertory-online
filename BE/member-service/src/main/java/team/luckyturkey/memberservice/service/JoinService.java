@@ -2,10 +2,13 @@ package team.luckyturkey.memberservice.service;
 
 
 import java.util.Date;
+import java.util.regex.Pattern;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
+import team.luckyturkey.memberservice.Status.LoginValidationStatus;
 import team.luckyturkey.memberservice.Status.MemberAuthorityStatus;
 import team.luckyturkey.memberservice.member.dto.requestdto.JoinRequestDto;
 import team.luckyturkey.memberservice.member.entity.Member;
@@ -32,6 +35,8 @@ public class JoinService {
             return JoinRequestStatus.NULL_EXIST;
         }
 
+
+
         //유저 아이디로 중복체크
         Boolean isExist = memberRepository.existsByMemberLoginId(memberLoginId);
 
@@ -55,4 +60,47 @@ public class JoinService {
         return JoinRequestStatus.JOIN_SUCCESS;
 
     }
+
+    private static final String ID_REGEX = "^[a-zA-Z0-9_-]{5,20}$";
+
+    private static final String PASSWORD_REGEX = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,16}$";
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+    private static final String NAME_REGEX = "^[a-zA-Z가-힣0-9]{1,20}$";
+
+    // ID 유효성 검사를 위한 정규식 패턴
+    private static final Pattern ID_PATTERN = Pattern.compile(ID_REGEX);
+
+    // 비밀번호 유효성 검사를 위한 정규식 패턴
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
+
+    // 이름 유효성 검사를 위한 정규식 패턴
+    private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
+
+    // 이메일 유효성 검사를 위한 정규식 패턴
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
+
+    public static LoginValidationStatus validateJoinRequest(String memberLoginId, String memberPassword, String memberName, String memberEmail){
+        if (!ID_PATTERN.matcher(memberLoginId).matches()) {
+            return LoginValidationStatus.WRONG_FORM;
+        }
+
+        if (!PASSWORD_PATTERN.matcher(memberPassword).matches()) {
+            return LoginValidationStatus.WRONG_FORM;
+        }
+
+        if (!NAME_PATTERN.matcher(memberName).matches()) {
+            return LoginValidationStatus.WRONG_FORM;
+        }
+
+        if (!EMAIL_PATTERN.matcher(memberEmail).matches()) {
+            return LoginValidationStatus.WRONG_FORM;
+        }
+
+        // 모든 조건에 부합하면 유효한 회원가입 요청임을 알림
+        return LoginValidationStatus.VALID;
+    }
+
 }

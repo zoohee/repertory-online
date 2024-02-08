@@ -1,4 +1,4 @@
-package team.luckyturkey.memberservice.controller;
+package team.luckyturkey.memberservice.member.controller;
 
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +23,6 @@ public class MemberController {
     private final JoinService joinService;
     private final MemberService memberService;
 
-
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(){
-//        return new ResponseEntity<>(HttpStatus.FOUND);
-//    }
 
     @GetMapping("/") //멤버 전체 불러오기
     public ResponseEntity<List<Member>> getAllMembers() {
@@ -82,13 +77,14 @@ public class MemberController {
         };
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(){
-        // Spring Security에서 현재 인증 정보를 가져와 로그아웃 처리
-        SecurityContextHolder.clearContext();
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//로그아웃도 스프링 시큐리티 내장되어있음
+//    @PostMapping("/logout")
+//    public ResponseEntity<?> logout(){
+//        // Spring Security에서 현재 인증 정보를 가져와 로그아웃 처리
+//        SecurityContextHolder.clearContext();
+//
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     @GetMapping("/id-validation")
     public ResponseEntity<?> validateMemberLoginId(@RequestBody MemberLoginIdIsExistDto memberLoginIdIsExistDto){
