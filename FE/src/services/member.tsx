@@ -19,9 +19,22 @@ const loginMember = async () => {
     memberLoginId: 'rlagudwls3469',
     memberPassword: 'Qwer1234@',
   };
-  const response = await $axios().post('/member/join', params);
+  const response = await $axios().post('/member/login', params);
   console.log(response);
   return response;
 };
 
-export { postMember, loginMember };
+const formDataloginMember = async () => {
+  const data = new FormData();
+  data.append('memberLoginId', 'ssafy');
+  data.append('memberLoginId', 'ssafy');
+  const response = await $axios().post('/member/login', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  console.log(response);
+  return response;
+};
+
+export { postMember, loginMember, formDataloginMember };
