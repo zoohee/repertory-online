@@ -75,46 +75,65 @@ public class RedisTagCacheRepository implements CacheTagRepository, Initializing
         });
     }
 
+    // 키 값이 다른 스키마와 겹칠 수 있음을 인지
     @Override
-    public List<Long> findByTag(String tag) {
-        List<List<Long>> values = opsHash.values(tag);
+    public List<Long> findByTag(String tagName) {
+        Set<String> keys = redisTemplate.keys("*" + tagName + "*");
+        if(keys == null || keys.isEmpty()) return new ArrayList<>();
+
         List<Long> result = new ArrayList<>();
-        for(List<Long> value: values){
-            result.addAll(value);
+
+        for(String key: keys) {
+            List<List<Long>> values = opsHash.values(key);
+            for (List<Long> value : values) {
+                result.addAll(value);
+            }
         }
         return result;
     }
 
+    /***
+     * senario: user updates tags to sourceId (including saving new source)
+     * 아 시발 진짜 못해먹겠네...
+     * @param tagNameList
+     * @param memberId
+     * @param sourceId
+     */
     @Override
-    public void addSourceId(String tag, Long userId, Long sourceId) {
-        List<Long> sourceIdList = opsHash.get(tag, userId);
-        if(sourceIdList == null) sourceIdList = new ArrayList<>();
+    public void insertTagToSource(List<String> tagNameList, Long memberId, Long sourceId) {
+        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            for(String tagName : tagNameList) {
+                List<Long> sourceIdList = opsHash.get(tagName, memberId);
+                if (sourceIdList == null) sourceIdList = new ArrayList<>();
 
-        sourceIdList.add(sourceId);
-        opsHash.put(tag, userId, sourceIdList);
+                sourceIdList.add(sourceId);
+                opsHash.put(tagName, memberId, sourceIdList);
+            }
+            return null;
+        });
     }
 
     @Override
-    public void deleteTag(String tag, Long userId) {
-        opsHash.delete(tag, userId);
+    public void deleteTag(String tag, Long memberId) {
+        opsHash.delete(tag, memberId);
     }
 
     @Override
-    public void deleteTagFromSource(String tag, Long userId, Long sourceId) {
-        List<Long> longList = opsHash.get(tag, userId);
+    public void deleteTagFromSource(String tag, Long memberId, Long sourceId) {
+        List<Long> longList = opsHash.get(tag, memberId);
         Objects.requireNonNull(longList).remove(sourceId);
-        opsHash.put(tag, userId, longList);
+        opsHash.put(tag, memberId, longList);
     }
 
     @Override
-    public void deleteSourceId(List<String> tagList, Long userId, Long sourceId) {
+    public void deleteSourceId(List<String> tagList, Long memberId, Long sourceId) {
 
         redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
             for(String tag: tagList){
-                List<Long> sourceIdList = opsHash.get(tag, userId);
+                List<Long> sourceIdList = opsHash.get(tag, memberId);
                 boolean removed = Objects.requireNonNull(sourceIdList).remove(sourceId);
 
-                if (removed) opsHash.put(tag, userId, sourceIdList);
+                if (removed) opsHash.put(tag, memberId, sourceIdList);
 
             }
             return null;

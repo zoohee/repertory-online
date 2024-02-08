@@ -6,5 +6,5 @@ import lombok.ToString;
 @ToString
 @Getter
 public class PatchRepertoryStatusRequest {
-    private Boolean isOpen;
+    private Boolean isAvailable;
 }

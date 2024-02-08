@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
@@ -11,13 +12,6 @@
         <module name="member-service.test" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="community-service_main" target="17" />
-      <module name="community-service_test" target="17" />
-      <module name="member-service_main" target="17" />
-      <module name="member-service_test" target="17" />
-      <module name="project-service_main" target="17" />
-      <module name="project-service_test" target="17" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>

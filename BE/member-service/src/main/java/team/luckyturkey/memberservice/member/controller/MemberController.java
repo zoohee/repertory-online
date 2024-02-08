@@ -1,4 +1,4 @@
-package team.luckyturkey.memberservice.member.controller;
+package team.luckyturkey.memberservice.controller;
 
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -110,9 +110,13 @@ public class MemberController {
 
     }
 
+    @GetMapping("/memberinfo/{memberId}")
+    public MemberInfoResponseDto getMemberInfoById(@PathVariable Long memberId) {
+        return memberService.getMemberInfo(memberId);
+    }
+
     @GetMapping("/userinfo")
     public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
-
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
         Member Exist = memberService.getMemberByLoginId(id);

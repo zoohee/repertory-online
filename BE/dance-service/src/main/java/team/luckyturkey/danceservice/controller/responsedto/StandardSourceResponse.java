@@ -9,12 +9,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StandardSourceResponse {
+
     private Long sourceId;
+    private Long memberId;
     private String sourceName;
     private String sourceStart;
     private String sourceEnd;
     private int sourceLength;
     private int sourceCount;
     private String sourceUrl;
+    private String sourceThumbnailUrl;
     private List<StandardTagResponse> tagList;
 }

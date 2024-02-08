@@ -8,7 +8,7 @@ spring:
     name: community
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3307/community?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/community?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
   jpa:
@@ -18,6 +18,10 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+  data:
+    redis:
+      host: i10a707.p.ssafy.io
+      port: 6379
 
 eureka:
   instance:
@@ -27,8 +31,21 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
-#jasypt:
-#  encryptor:
-#    bean: jasyptEncryptorAES
+api:
+  dance:
+    url: http://repertory.online:8000/dance
+  member:
+    url: http://repertory.online:8000/member
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+openapi:
+  service:
+    # API Gateway 포트
+    url: http://repertory.online:8000

@@ -12,23 +12,23 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://i10a707.p.ssafy.io:8761/eureka
+      defaultZone: http://repertory.online:8761/eureka
 
 spring:
   application:
     name: dance
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
 # for production
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/community?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://repertory.online:3306/dance?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
 
-# for test
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/test
-#    username: sa
-#    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -39,13 +39,13 @@ spring:
     mongodb:
       username: lucky
       password: turkey
-      host: localhost
+      host: repertory.online
       port: 27017
       database: testdb
       authentication-database: admin
 
 redis:
-  host: localhost
+  host: i10a707.p.ssafy.io
   port: 6379
 
 logging:
@@ -55,6 +55,10 @@ logging:
     team.luckyturkey.danceservice: debug
     org.springframework.data.redis: debug
 
+api:
+  community:
+    url: http://repertory.online:8000/community
+
 #only for test environment
 #todo: should be delete
 test:
@@ -62,3 +66,13 @@ test:
     memberId: 1
     sourceUrl: s3//test-source-url/
     repertoryUrl: s3//test-repertory-url/
+
+cloud:
+  aws:
+    s3:
+      bucket: repertory
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWHZZMWNCD6BWMOM3
+      secretKey: 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
