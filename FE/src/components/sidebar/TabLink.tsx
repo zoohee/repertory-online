@@ -26,6 +26,9 @@ const Link = styled(NavLink)`
 
   &.active {
     color: var(--rp-yellow);
+    svg {
+      color: var(--rp-yellow);
+    }
   }
 `;
 
@@ -36,15 +39,13 @@ interface Props {
 
 export const TabLink = ({ children, path }: Props) => {
   return (
-    <li>
-      <Link
-        to={path}
-        className={({ isActive }) => (isActive ? 'active' : undefined)}
-      >
-        <TabIcon />
-        {children}
-      </Link>
-    </li>
+    <Link
+      to={path}
+      className={({ isActive }) => (isActive ? 'active' : undefined)}
+    >
+      <TabIcon />
+      {children}
+    </Link>
   );
 };
 

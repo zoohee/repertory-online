@@ -1,10 +1,22 @@
 import styled, { css } from 'styled-components';
 import Symbol from '/images/GoogleSymbol.png';
 import { ButtonHTMLAttributes } from 'react';
-const buttonStyles = {
+
+export const buttonStyles = {
   default: css`
-    background-color: #0d0d0d;
-    color: white;
+    background-color: var(--rp-yellow);
+    color: var(--background-color);
+    * {
+      color: var(--background-color);
+    }
+
+    &:hover {
+      background-color: var(--rp-orange);
+      color: var(--rp-white);
+      * {
+        color: var(--rp-white);
+      }
+    }
   `,
   submit: css`
     color: #0d0d0d;
@@ -23,6 +35,18 @@ const buttonStyles = {
     }
   `,
 };
+
+const buttonSize = {
+  default: css`
+    width: 368px;
+  `,
+  s: css`
+    width: 160px;
+  `,
+  l: css`
+    width: 540px;
+  `,
+};
 const ButtonIcon = styled.img`
   margin-right: 8px;
   height: 1.5rem;
@@ -31,7 +55,9 @@ const ButtonIcon = styled.img`
 
 interface StyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   btntype?: 'default' | 'submit' | 'google';
+  btnsize?: 'default' | 's' | 'l';
 }
+
 interface ButtonProps extends StyledButtonProps {
   buttonText: string;
 }
@@ -48,6 +74,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   margin: 12px 0 12px 0;
   font-size: 1rem;
   ${(props) => buttonStyles[props.btntype || 'default']}
+  ${(props) => buttonSize[props.btnsize || 'default']}
 `;
 const Button: React.FC<ButtonProps> = ({
   btntype,

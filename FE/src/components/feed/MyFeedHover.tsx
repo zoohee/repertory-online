@@ -6,7 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import MoreButton from '@/components/common/More';
-import MenuBox from '@/components/common/MenuBox';
+import MenuBox from '@/components/common/MenuList';
 import MenuButton, { Menu } from '@/components/common/MenuButton';
 import Text from '@/components/common/Text';
 
@@ -20,8 +20,9 @@ const Hover = styled.div`
 
 const Box = styled.div`
   background-color: rgba(30, 30, 32, 0.6);
-  height: 30%;
-  width: 100%;
+  height: calc(var(--font-size-l) * 2);
+  box-sizing: content-box;
+  width: calc(100% - 32px);
   padding: 16px;
   position: absolute;
   bottom: 0;
