@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 // import { debounce } from 'lodash';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
@@ -63,6 +63,10 @@ const SignUp = styled(SignUpMsg)`
 `;
 
 const Login = () => {
+  const isLoggedIn = LoginStore((state) => state.isLoggedin);
+  useEffect(() => {
+    if (isLoggedIn) BlockAccess()
+  }, []);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [isIdValid, setIsIdValid] = useState(false);
@@ -71,7 +75,6 @@ const Login = () => {
   const [pwValidationMsg, setPwValidationMsg] = useState('');
 
   const login = LoginStore((state)=>state.login);
-  const isLoggedIn = LoginStore((state)=>state.login);
   const navigate = useNavigate();
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
@@ -88,7 +91,7 @@ const Login = () => {
     setIsPwValid(pwRegex.test(input));
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
   };
-
+  
   const onClickLogin = async() => {
     const LoginData = {
       memberLoginId: id,
@@ -104,6 +107,10 @@ const Login = () => {
       navigate('/')
     }
   };
+
+  const BlockAccess=()=>{
+    navigate('/');
+  }
   return (
     <>
       <Overlay>
