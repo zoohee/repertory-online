@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { memberState } from '@/Redux/Types';
-
 import { fontSize } from '@/styles/font';
+import { LoginStore } from '@/store/LoginStore';
 
 const GridContainer = styled.div`
   background-color: var(--rp-black);
@@ -56,20 +54,24 @@ const ImageBox = styled.div`
 `;
 
 export default function HomePage() {
-  const memberName = useSelector((state: memberState) => state.memberName);
-
+  const isLoggedIn = LoginStore((state) => state.isLoggedin);
+  const logout = LoginStore((state)=> state.logout);
   useEffect(() => {
-    console.log(memberName);
-  }, [memberName]);
+    console.log(`[Login Status]: ${isLoggedIn ? 'Logged in ' : 'Logged Out'}`);
+  }, [isLoggedIn]);
   return (
     <GridContainer>
       <Logo src="images/logo.svg" alt="logo" />
       <ImageBox>
         <img src="images/index.jpg" alt="image" />
       </ImageBox>
-      <GridBox column={4} row={1}>
+      {isLoggedIn ? (<GridBox column={4} row={1}>
+        <div onClick={logout}>Log Out</div>
+      </GridBox>) : (<GridBox column={4} row={1}>
         <Link to="/login">Log In</Link>
-      </GridBox>
+      </GridBox>)}
+
+
       <GridBox column={5} row={1}>
         <Link to="/signup">Sign Up</Link>
       </GridBox>

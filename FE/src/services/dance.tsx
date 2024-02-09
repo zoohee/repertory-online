@@ -51,7 +51,7 @@ const patchSource = async (sourceId: number) => {
     start: 'end',
     end: 'start',
   };
-  const response = await $axios().patch(`/dance/source/${sourceId}`, {
+  const response = await $axios().patch(`/dance/source/${2}`, {
     params,
   });
   console.log(response);
@@ -63,7 +63,7 @@ const deleteSource = async (sourceId: number) => {
   const params = {
     sourceId: sourceId,
   };
-  const response = await $axios().delete(`/dance/source/${sourceId}`, {
+  const response = await $axios().delete(`/dance/source/${1}`, {
     params,
   });
   console.log(response);
@@ -116,7 +116,7 @@ const postTag = async (tag: string) => {
 
 // 태그 삭제
 const deleteTag = async (tagId: number, tagName: string) => {
-  const response = await $axios().delete(`/dance/tag/${tagId}`, {
+  const response = await $axios().delete(`/dance/tag/${2}`, {
     params: {
       tagName,
     },
@@ -131,9 +131,9 @@ const patchSourceIsAvailable = async (
   isAvailable: boolean
 ) => {
   const params = {
-    isAvailable: isAvailable,
+    isAvailable: false,
   };
-  const response = await $axios().patch(`/dance/source/${sourceId}/status`, {
+  const response = await $axios().post(`/dance/source/${2}/disable`, {
     params,
   });
   console.log(response.status);

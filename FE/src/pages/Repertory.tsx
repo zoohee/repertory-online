@@ -92,6 +92,7 @@ const RepertoryPage = () => {
       end: 'string',
     };
     const formData = new FormData();
+    formData.append('sourceThumbnail', img);
     formData.append('sourceVideo', input);
     formData.append(
       'postSource',
@@ -174,6 +175,8 @@ const RepertoryPage = () => {
           </Btn>
         </Wrapper>
         <Wrapper>
+          <Btn onClick={() => com.getFeedVideo(1)}>커뮤니티 동영상 조회</Btn>
+          <Btn onClick={() => com.saveFeed()}>피드 데이터 저장</Btn>
           <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
           <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
           <Btn onClick={() => com.patchFeedLike(123)}>PATCH/patchFeedLike</Btn>
@@ -206,8 +209,13 @@ const RepertoryPage = () => {
           <Btn onClick={com.getSubscribersList}>GET/getSubscribersList</Btn>
         </Wrapper>
         <Wrapper>
-          <Btn onClick={member.postMember}>Join</Btn>
-          <Btn onClick={member.loginMember}>Login</Btn>
+          {/* <Btn onClick={()=>member.postMember({
+            
+          })}>Join</Btn> */}
+          <Btn onClick={() => member.loginMember({
+            memberLoginId: 'ssafy',
+            memberPassword: 'ssafy'
+          })}>Login</Btn>
           <Btn onClick={project.getProjectsList}>프로젝트 목록 조회</Btn>
           <Btn onClick={() => project.patchProject(1)}>프로젝트 이름 수정</Btn>
           <Btn onClick={() => project.postProject(2)}>프로젝트 생성</Btn>
