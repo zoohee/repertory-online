@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 // import { debounce } from 'lodash';
-import { useDispatch } from 'react-redux';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
+import { LoginStore } from '@/store/LoginStore';
 const FormWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -68,7 +68,9 @@ const Login = () => {
   const [isPwValid, setIsPwValid] = useState(false);
   const [idValidationMsg, setIdValidationMsg] = useState('');
   const [pwValidationMsg, setPwValidationMsg] = useState('');
-  const dispatch = useDispatch();
+
+  const login = LoginStore((state)=>state.login);
+  const isLoggedIn = LoginStore((state)=>state.login);
 
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
@@ -86,15 +88,17 @@ const Login = () => {
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
   };
 
-  const onClickLogin = () => {
-    console.log(id);
-    console.log(pw);
+  const onClickLogin = async() => {
     const LoginData = {
       memberLoginId: id,
-      memberLoginPassword: pw,
+      memberPassword: pw,
     };
+    console.log(`${LoginData} try to login..`)
+    const success = await login(LoginData);
+    console.log(`[Login Status(before)]:${isLoggedIn}`);
+    console.log(`[Success?]:${success}`);
 
-    dispatch(login(LoginData));
+    console.log(`[Login Status(after)]:${isLoggedIn}`);
   };
   return (
     <>

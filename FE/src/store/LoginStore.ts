@@ -3,7 +3,7 @@ import { loginMember } from '@/services/member';
 
 type LoginState = {
     isLoggedin :boolean;
-    login : Promise<boolean>;
+    login: ({ memberLoginId, memberPassword }: ILoginData) =>Promise<boolean>;
     logout : ()=> void;
 }
 interface ILoginData {
@@ -14,8 +14,8 @@ interface ILoginData {
 export const LoginStore = create<LoginState>((set)=>{
     isLoggedin : Boolean(localStorage.getItem('token'))
 
-    login: ({ memberLoginId, memberPassword }: ILoginData)=>{
-        loginMember({memberLoginId,memberPassword}).then((res)=>{
+    login: async({ memberLoginId, memberPassword }: ILoginData)=>{
+        await loginMember({memberLoginId,memberPassword}).then((res)=>{
             if(res.status===200){
                 console.log(`[Login Store] : Login 200`);
                 const token = res.headers['authorization'];
