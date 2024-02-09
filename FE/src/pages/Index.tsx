@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { memberState } from '@/Redux/Types';
 
 import { fontSize } from '@/styles/font';
 
