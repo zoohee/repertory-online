@@ -13,10 +13,11 @@ import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import Repertory from '@/pages/Repertory';
+import Login from './pages/Login';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Repertory />,
+    element: <Index />,
   },
   {
     path: '/',
