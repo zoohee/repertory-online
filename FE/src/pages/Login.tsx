@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 import { LoginStore } from '@/store/LoginStore';
+import { useNavigate } from 'react-router-dom';
 const FormWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -71,7 +72,7 @@ const Login = () => {
 
   const login = LoginStore((state)=>state.login);
   const isLoggedIn = LoginStore((state)=>state.login);
-
+  const navigate = useNavigate();
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
     setId(input);
@@ -97,8 +98,11 @@ const Login = () => {
     const success = await login(LoginData);
     console.log(`[Login Status(before)]:${isLoggedIn}`);
     console.log(`[Success?]:${success}`);
-
     console.log(`[Login Status(after)]:${isLoggedIn}`);
+
+    if(success){
+      navigate('/')
+    }
   };
   return (
     <>
