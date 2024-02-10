@@ -16,6 +16,7 @@ import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.entity.LikeLog;
+import team.luckyturkey.communityservice.exception.NotExistsException;
 import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
@@ -103,6 +104,9 @@ public class FeedService {
 
     public void cloneSource(Long feedId, Long memberId) {
         Feed feed = feedRepository.getFeedById(feedId);
+        if (feed == null) {
+           throw new NotExistsException(ErrorCode.NOT_EXISTS_ERROR);
+        }
         Long originId = feed.getOriginId();
 
         feedRepository.incrementDownloadCount(feedId);
