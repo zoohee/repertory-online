@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { List } from 'lodash';
 import styled from 'styled-components';
 import Source from './Source';
+import { Title } from './Title';
 interface sourceInterface {
   memberId: number;
   sourceCount: number;
@@ -15,9 +16,14 @@ interface sourceInterface {
   sourceThumbnailUrl: string;
   tagList: List<string>;
 }
+const SourceListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 const GridBox = styled.ul`
   padding: 0 16px;
   width: 100%;
+  height : 90vh;
   display: grid;
   grid-template-columns: repeat(
     var(--grid-column),
@@ -35,20 +41,22 @@ const SourceList = () => {
     queryFn: getMySource,
   });
 
-  if (isLoading) return <>Loading...</>;
-  if (isError) return <>{error.message}...</>;
+  // if (isLoading) return <>Loading...</>;
+  // if (isError) return <>{error.message}...</>;
   return (
     <>
-      <h1>Sources</h1>
-      {data?.length === 0 ? (
-        <h1>no data...</h1>
-      ) : (
-        <GridBox>
-          {data?.map((item: sourceInterface) => {
-            return <Source sourceInfo={item} />;
-          })}
-        </GridBox>
-      )}
+    <Title title={'Source'} />
+     <SourceListWrapper>
+        {data?.length === 0 ? (
+          <h1>no data...</h1>
+        ) : (
+          <GridBox>
+            {data?.map((item: sourceInterface) => {
+              return <Source key={item.memberId} sourceInfo={item} />;
+            })}
+          </GridBox>
+        )}
+      </SourceListWrapper>
     </>
   );
 };
