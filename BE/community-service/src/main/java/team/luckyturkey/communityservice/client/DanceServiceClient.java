@@ -16,6 +16,6 @@ public interface DanceServiceClient {
     OriginDto getOriginDetail(@PathVariable("originId") Long originId,
                               @PathVariable("feedType") FeedType feedType);
 
-    @PostMapping("/source/clone")
+    @PostMapping("/clone")
     void cloneSource(@RequestBody SourceCloneRequest sourceCloneRequest);
 }
