@@ -1,22 +1,12 @@
 import { getMySource, getMySourceClone } from '@/services/dance';
 import { useQuery } from '@tanstack/react-query';
-import { List } from 'lodash';
 import styled from 'styled-components';
 import Source from './Source';
 import { Title } from './Title';
-interface sourceInterface {
-  memberId: number;
-  sourceCount: number;
-  sourceId: number;
-  sourceName: string;
-  sourceStart: string;
-  sourceEnd: string;
-  sourceLength: string;
-  sourceUrl: string;
-  sourceThumbnailUrl: string;
-  tagList: List<string>;
-}
+import { ISource } from '@/services/interface';
+
 const SourceListWrapper = styled.div`
+  overflow: scroll;
   display: flex;
   flex-direction: column;
 `
@@ -36,11 +26,26 @@ const GridBox = styled.ul`
   --grid-column: 3;
 `;
 const SourceList = () => {
-  const { isLoading, data, isError, error } = useQuery<sourceInterface[]>({
+  const { isLoading, data, isError, error } = useQuery<ISource[]>({
     queryKey: ['getMySource'],
     queryFn: getMySource,
   });
 
+  let tmp = [];
+  for (let i = 1; i <= 30; i++) {
+    tmp.push({
+      memberId: i,
+      sourceCount: i + 1,
+      sourceId: 1234 + i,
+      sourceName: 'Sample' + i,
+      sourceStart: 'pose' + i,
+      sourceEnd: 'pose' + (i + 1),
+      sourceLength: (20 + i).toString(),
+      sourceUrl: 'URL' + i,
+      sourceThumbnailUrl: '/public/images/mushroom.jpg',
+      tagList: ['good', 'awesome', 'perfect']
+    });
+  }
   // if (isLoading) return <>Loading...</>;
   // if (isError) return <>{error.message}...</>;
   return (
@@ -51,7 +56,7 @@ const SourceList = () => {
           <h1>no data...</h1>
         ) : (
           <GridBox>
-            {data?.map((item: sourceInterface) => {
+              {tmp?.map((item: ISource) => {
               return <Source key={item.memberId} sourceInfo={item} />;
             })}
           </GridBox>

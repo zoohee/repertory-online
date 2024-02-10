@@ -19,7 +19,7 @@ const UploadButton = styled.button`
 
 const ProjectViewWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   height : 60vh;
 `
 const UploadZone = styled.div``;
@@ -41,7 +41,6 @@ const ProjectView = () => {
     <>
       <Title title={'Project'} />
       <ProjectViewWrapper>
-
         <HiddenInput type='file' ref={fileInput} onChange={handleFileUpload} />
         <UploadZone>
           <UploadButton type='button' onClick={handleButtonClick}>
