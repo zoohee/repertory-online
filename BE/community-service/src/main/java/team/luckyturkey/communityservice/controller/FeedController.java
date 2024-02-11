@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.controller;
 
+import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
+import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
 import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
@@ -80,6 +82,40 @@ public class FeedController {
                 .memberName(memberDto.getMemberName())
                 .memberProfile(memberDto.getMemberProfile())
                 .build();
+    }
+
+    @PatchMapping("/{feedId}/like")
+    public Long likeSource(@PathVariable("feedId") Long feedId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        LikeLog likeLog = LikeLog.builder()
+                .memberId(memberId)
+                .feedId(feedId)
+                .likeActive(1)
+                .timestamp(new Date())
+                .build();
+
+        // TODO: DB 저장은 비동기 처리
+        likeService.insertLikeLog(likeLog);
+        return likeService.insertLikeCache(feedId);
+    }
+
+    @PatchMapping("/{feedId}/notlike")
+    public Long cancelLikeSource(@PathVariable("feedId") Long feedId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        LikeLog likeLog = LikeLog.builder()
+                .memberId(memberId)
+                .feedId(feedId)
+                .likeActive(0)
+                .timestamp(new Date())
+                .build();
+
+        // TODO: DB 저장은 비동기 처리
+        likeService.insertLikeLog(likeLog);
+        return likeService.cancelLikeCache(feedId);
     }
 
     @PostMapping("/disable")

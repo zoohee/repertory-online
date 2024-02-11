@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team.luckyturkey.communityservice.dto.response.ErrorResponse;
 import team.luckyturkey.communityservice.exception.AlreadySubscribedException;
 import team.luckyturkey.communityservice.exception.InvalidDataException;
+import team.luckyturkey.communityservice.exception.NotExistsException;
 import team.luckyturkey.communityservice.exception.NullException;
 
 @Slf4j
@@ -42,6 +43,14 @@ public class GlobalExceptionHandler {
         log.error("invalidDataException", ex);
         ErrorResponse response = new ErrorResponse(ex.getErrorCode());
         response.setMessage("The data in the database is invalid");
+        return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(NotExistsException.class)
+    public ResponseEntity<ErrorResponse> NotExistsException(NotExistsException ex){
+        log.error("notExistException", ex);
+        ErrorResponse response = new ErrorResponse(ex.getErrorCode());
+        response.setMessage("The feed does not exist");
         return new ResponseEntity<>(response, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
     }
 }
