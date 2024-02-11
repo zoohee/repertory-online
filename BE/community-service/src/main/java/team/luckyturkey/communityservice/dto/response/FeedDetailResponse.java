@@ -2,6 +2,8 @@ package team.luckyturkey.communityservice.dto.response;
 
 import lombok.*;
 import team.luckyturkey.communityservice.entity.FeedType;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @ToString
@@ -16,13 +18,15 @@ public class FeedDetailResponse {
     private Long downloadCount;
     private Boolean feedDisable;
 
+    // originDto
     private Long originId;
     private Long memberId;
     private String feedName;
     private String feedUrl;
     private String feedThumbnailUrl;
-    private Date feedDate;
+    private LocalDateTime feedDate;
 
+    // dancer
     private String memberName;
     private String memberProfile;
 }
