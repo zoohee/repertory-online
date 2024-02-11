@@ -10,4 +10,5 @@ public class DanceServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DanceServiceApplication.class, args);
 	}
+
 }
