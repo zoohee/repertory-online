@@ -13,7 +13,9 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
 `;
+
 interface sourceInterface {
   memberId: number;
   sourceCount: number;
@@ -42,18 +44,16 @@ const Workbench = () => {
   console.log('Is over: ', isOver); // 로깅
   console.log('Can drop: ', canDrop); // 로깅
   console.log(sources); // 로깅
+  
   return (
-    <>
-      <Wrapper ref={drop}>
-        <h1> Workbench</h1>
-        {
-          // 드롭한 아이템들을 리스트로 출력
-          sources.map((item: sourceInterface) => {
-            return <Source sourceInfo={item} />;
-          })
-        }
-      </Wrapper>
-    </>
+        <Wrapper ref={drop}>
+          {
+            // 드롭한 아이템들을 리스트로 출력
+            sources.map((item: sourceInterface) => {
+              return <Source sourceInfo={item} />;
+            })
+          }
+        </Wrapper>
   );
 };
 
