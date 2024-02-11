@@ -2,8 +2,7 @@ package team.luckyturkey.danceservice.controller.responsedto;
 
 import lombok.*;
 import team.luckyturkey.danceservice.domain.FeedType;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @ToString
 @Getter
@@ -17,4 +16,5 @@ public class CommunityFeedResponse {
     private FeedType feedType;
     private String feedUrl;
     private String feedThumbnailUrl;
+    private LocalDateTime feedDate;
 }
