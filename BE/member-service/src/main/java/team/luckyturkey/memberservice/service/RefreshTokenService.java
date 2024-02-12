@@ -40,7 +40,7 @@ public class RefreshTokenService {
 //    }
 //
 
-//comment: 씨발 좆같네
+
 //    public RefreshToken findToken(String accessToken){
 //        String id = refreshTokenRepository.findIdByAccessToken(accessToken)
 //                .orElseThrow(RuntimeException::new);
