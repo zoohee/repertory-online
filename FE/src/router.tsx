@@ -34,6 +34,10 @@ const router = createBrowserRouter([
     element: <Repertory />,
   },
   {
+    path: '/secretdoor',
+    element: <Repertory />,
+  },
+  {
     path: '/',
     element: <SidebarLayout />,
     children: [
