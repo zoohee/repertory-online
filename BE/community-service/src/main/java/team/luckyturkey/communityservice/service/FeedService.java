@@ -35,13 +35,14 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final DanceServiceClient danceServiceClient;
     private final MemberServiceClient memberServiceClient;
+    private final FeedLikeCacheRepository feedLikeCacheRepository;
 
     @Transactional
-    public Feed insertFeed(Feed feed) {
+    public void insertFeed(Feed feed) {
         feed.setDownloadCount(0L);
         feed.setLikeCount(0L);
-        log.info(feed.toString());
-        return feedRepository.save(feed);
+        feedRepository.save(feed);
+        feedLikeCacheRepository.setLikeCountToZero(feed.getId());
     }
 
     // 구독한 사람들의 피드를 최신순으로 불러 오는 함수
