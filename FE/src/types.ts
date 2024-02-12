@@ -33,6 +33,7 @@ interface Community {
   feedDisable: boolean;
   feedId: number;
   feedName: string;
+  feedThumbnailUrl: string;
   feedType: string;
   feedUrl: string;
   likeCount: number;

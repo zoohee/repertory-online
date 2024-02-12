@@ -11,7 +11,7 @@ interface Props {
 
 const Video = ({ src }: Props) => {
   return (
-    <Player controls autoPlay muted loop crossOrigin="anonymous">
+    <Player controls autoPlay muted loop crossOrigin="anonymous" key={src}>
       <source src={src} type="video/mp4" />
     </Player>
   );

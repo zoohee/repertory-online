@@ -1,11 +1,14 @@
-import { useRef, useEffect } from 'react';
-
+import { useRef, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+import { feedContext } from '@/store/feed-context';
+import Video from '@/components/common/Video';
+
 const Close = styled(CloseIcon)`
+  z-index: 100;
   position: absolute;
   right: 16px;
   top: 16px;
@@ -25,8 +28,8 @@ const Container = styled.div`
   justify-content: space-evenly;
 `;
 
-const Video = styled.div`
-  height: 200px;
+const ButtonBox = styled.div`
+  width: 40px;
 `;
 
 const Content = styled.div`
@@ -59,34 +62,40 @@ const Modal = styled.dialog`
   }
 `;
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-}
+const FeedItemModal = () => {
+  const { isModalOpen, closeModal, prevDance, nextDance, dances, index } =
+    useContext(feedContext);
 
-const FeedItemModal = ({ open, onClose }: Props) => {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (open) {
+    if (isModalOpen) {
       ref.current?.showModal();
     } else {
       ref.current?.close();
     }
-  }, [open]);
+  }, [isModalOpen]);
 
   return (
-    <Modal ref={ref} onClose={onClose}>
+    <Modal ref={ref} onClose={closeModal}>
       <Container>
-        <button>
-          <ArrowBackIosIcon fontSize="large" />
-        </button>
+        <ButtonBox>
+          {index !== 0 && (
+            <button onClick={prevDance}>
+              <ArrowBackIosIcon fontSize="large" />
+            </button>
+          )}
+        </ButtonBox>
         <Content>
-          <Close onClick={onClose} />
-          <Video />
+          <Close onClick={closeModal} />
+          <Video src={dances[index].feedUrl} />
         </Content>
-        <button>
-          <ArrowForwardIosIcon fontSize="large" />
-        </button>
+        <ButtonBox>
+          {index !== dances.length - 1 && (
+            <button onClick={nextDance}>
+              <ArrowForwardIosIcon fontSize="large" />
+            </button>
+          )}
+        </ButtonBox>
       </Container>
     </Modal>
   );

@@ -44,7 +44,7 @@ interface IconProps extends ButtonProps {
 const Text = styled.div<{ $size: string }>`
   margin-left: var(--button-icon-margin);
   ${({ $size }) => {
-    if ($size === 's') {
+    if ($size === 'small') {
       return css`
         width: 5rem;
         font-size: var(--font-size-s);

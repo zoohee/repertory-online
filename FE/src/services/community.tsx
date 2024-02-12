@@ -121,7 +121,12 @@ const getSubscribersList = async () => {
   console.log(response.data);
   return response;
 };
-// 유저 이름으로 검색
+// 유저 피드 프로필 조회
+const getFeedProfile = async (memberId: number) => {
+  const response = await $axios().get(`/community/feed/profile/${memberId}`);
+  console.log(response.data);
+  return response;
+};
 
 export {
   getSubscribersCount,
@@ -137,4 +142,5 @@ export {
   getFeedVideo,
   saveFeed,
   getSubscribersList,
+  getFeedProfile,
 };
