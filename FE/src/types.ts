@@ -42,4 +42,10 @@ interface Community {
   originId: number;
 }
 
-export type { Tag, Source, Community };
+interface Member {
+  memberId: number;
+  memberName: string;
+  memberProfile: string;
+}
+
+export type { Tag, Source, Community, Member };

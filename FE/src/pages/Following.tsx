@@ -1,37 +1,53 @@
+import { useLoaderData } from 'react-router-dom';
+import styled from 'styled-components';
+
 import UserProfile from '@/components/UserProfile';
-import Wrapper from '@/components/Wrapper';
-import TabButtons, { Tab } from '@/components/common/Tab';
+import TabButtons from '@/components/common/Tab';
 import Text, { TextStyle } from '@/components/common/Text';
 import Follow from '@/components/community/FollowL';
+import { Member, Tab } from '@/types';
+
+const ListItem = styled.li`
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 480px;
+`;
 
 const TABS = [new Tab('Following', true)];
 
-const member = {
-  id: 1,
-  name: '김싸피',
-  profileImage: '/images/index.jpg',
-};
-
 const FollowingPage = () => {
+  const members = useLoaderData() as Member[];
+
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 24px" />
+      <TabButtons tabs={TABS} margin="48px 0 32px" />
       <ul>
-        <Wrapper as="li" $margin="0 0 12px" style={{ width: '480px' }}>
-          <UserProfile
-            imageSize={52}
-            member={member}
-            textStyle={new TextStyle('l', 'p')}
-          >
-            <Text size="m" color="s">
-              구독자 수
-            </Text>
-          </UserProfile>
-          <Follow isFollowed={true} id={123} />
-        </Wrapper>
+        {members.map((member) => (
+          <ListItem key={member.memberId}>
+            <UserProfile
+              imageSize={52}
+              member={member}
+              textStyle={new TextStyle('l', 'p')}
+            >
+              <Text size="m" color="s">
+                구독자 수
+              </Text>
+            </UserProfile>
+            <Follow isFollowed={true} memberId={member.memberId} />
+          </ListItem>
+        ))}
       </ul>
     </>
   );
 };
 
 export default FollowingPage;
+
+import { getSubscribersList } from '@/services/community';
+
+export const followingLoader = async () => {
+  const response = await getSubscribersList();
+  return response.data;
+};

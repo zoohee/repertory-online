@@ -15,7 +15,7 @@ import CommunityDetailPage, {
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
-import FollowingPage from '@/pages/Following';
+import FollowingPage, { followingLoader } from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
@@ -83,6 +83,7 @@ const router = createBrowserRouter([
       {
         path: URL.Following,
         element: <FollowingPage />,
+        loader: followingLoader,
       },
     ],
   },
