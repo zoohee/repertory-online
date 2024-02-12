@@ -21,8 +21,8 @@ eureka:
 #  datasource:
 #    driver-class-name: org.mariadb.jdbc.Driver
 #    url: jdbc:mariadb://i10a707.p.ssafy.io:3407/member?characterEncoding=UTF-8&serverTimezone=UTC
-#    username: lucky
-#    password: turkey707
+#    username:
+#    password:
 
 spring:
   profiles:
@@ -31,12 +31,12 @@ spring:
     name: memeber
   datasource:
     url: jdbc:mariadb://localhost:3306/ssafy_web_db
-    username: ssafy
-    password: 1234
+    username:
+    password:
     driver-class-name: org.mariadb.jdbc.Driver
 
   jwt:
-    secret: jlaljkadfslahkjafdhiufadkjlyafuoiyudisghqjkbnjafdbuyoagdhjaadsfafs
+    secret: fasdjklhafsdoubiaogbdjflbhzxcobhuxviohxbnjklrbuisgyuafsdbhjqrbiosdsdv
 
   jpa:
     hibernate:
@@ -50,8 +50,7 @@ logging:
     org.springframework.security.oauth2: TRACE
 
 
-### git ignore test
-### test2
+
 redis:
 #  host: repertory.online #배포시 ec2주소 사용
   host: localhost
