@@ -14,8 +14,8 @@ import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -27,33 +27,73 @@ public class SearchService {
     private final FeedLikeCacheRepository feedLikeCacheRepository;
     private final MemberServiceClient memberServiceClient;
 
-    public List<FeedDetailResponse> searchSourceByName(String keyword) {
+    public List<FeedDetailResponse> searchFeedByName(String keyword) {
         List<OriginDto> sources = danceServiceClient.searchSource(keyword);
+        List<OriginDto> repertories = danceServiceClient.searchRepertory(keyword);
         List<FeedDetailResponse> feeds = new ArrayList<>();
 
         for (OriginDto s : sources) {
             Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
+            if (feed == null) { continue; }
+
+//            // 이미 존재하는 feedId인지 확인
+            boolean isExist = feeds.stream().anyMatch(f -> Objects.equals(f.getFeedId(), feed.getId()));
+            if (isExist) {
+                continue;
+            }
+
+            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
+            if (memberDto == null) {
+                continue;
+            }
+
+            // TODO: dance service query -> only public (disable=true)
+            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(s, feed, memberDto);
+            feeds.add(feedDetailResponse);
+        }
+
+        for (OriginDto s : repertories) {
+            Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
             MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
 
             // TODO: dance service query -> only public (disable=true)
-            FeedDetailResponse feedDetailResponse = FeedDetailResponse.builder()
-                    .feedId(feed.getId())
-                    .feedType(FeedType.SOURCE)
-                    .likeCount(feedLikeCacheRepository.findByFeedId(feed.getId()))
-                    .downloadCount(feed.getDownloadCount())
-                    .feedDisable(feed.getFeedDisable())
-                    .originId(s.getOriginId())
-                    .memberId(s.getMemberId())
-                    .feedName(s.getFeedName())
-                    .feedUrl(s.getFeedUrl())
-                    .feedThumbnailUrl(s.getFeedThumbnailUrl())
-                    .feedDate(s.getFeedDate())
-                    .memberName(memberDto.getMemberName())
-                    .memberProfile(memberDto.getMemberProfile())
-                    .build();
-
+            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(s, feed, memberDto);
             feeds.add(feedDetailResponse);
         }
+
+
+
+        feeds.sort((o1, o2) -> {
+            if (o1.getFeedDate() == null && o2.getFeedDate() == null) {
+                return 0;
+            } else if (o1.getFeedDate() == null) {
+                return 1;
+            } else if (o2.getFeedDate() == null) {
+                return -1;
+            }
+            return o2.getFeedDate().compareTo(o1.getFeedDate());
+        });
+
         return feeds;
     }
+
+    private FeedDetailResponse mapFeedDetailResponse(OriginDto s, Feed feed, MemberDto memberDto) {
+
+        return FeedDetailResponse.builder()
+                .feedId(feed.getId())
+                .feedType(FeedType.SOURCE)
+                .likeCount(feedLikeCacheRepository.findByFeedId(feed.getId()))
+                .downloadCount(feed.getDownloadCount())
+                .feedDisable(feed.getFeedDisable())
+                .originId(s.getOriginId())
+                .memberId(s.getMemberId())
+                .feedName(s.getFeedName())
+                .feedUrl(s.getFeedUrl())
+                .feedThumbnailUrl(s.getFeedThumbnailUrl())
+                .feedDate(s.getFeedDate())
+                .memberName(memberDto.getMemberName())
+                .memberProfile(memberDto.getMemberProfile())
+                .build();
+    }
+
 }

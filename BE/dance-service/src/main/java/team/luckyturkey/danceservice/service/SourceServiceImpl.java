@@ -271,6 +271,7 @@ public class SourceServiceImpl implements SourceService{
                 .sourceUrl(source.getSourceUrl())
                 .sourceThumbnailUrl(source.getSourceThumbnailUrl())
                 .tagList(tagResponseList)
+                .sourceDate(source.getSourceDate())
                 .build();
     }
 
