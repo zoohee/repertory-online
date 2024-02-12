@@ -1,6 +1,5 @@
 package team.luckyturkey.memberservice.auth.jwt;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,12 +14,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
 import team.luckyturkey.memberservice.member.entity.Member;
-import team.luckyturkey.memberservice.member.repository.MemberRepository;
-import team.luckyturkey.memberservice.member.repository.RefreshTokenRepository;
-import team.luckyturkey.memberservice.service.RefreshTokenService;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,9 +23,7 @@ import java.util.NoSuchElementException;
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
-    private final MemberRepository memberRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final RefreshTokenService refreshTokenService;
+
 
 
 
