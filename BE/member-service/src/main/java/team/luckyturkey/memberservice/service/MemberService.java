@@ -33,6 +33,11 @@ public class MemberService {
         return memberRepository.findByMemberLoginId(memberLoginId);
     }
 
+    public Member getMemberByEmail(String memberEmail){
+
+        return memberRepository.findByMemberEmail(memberEmail);
+    }
+
     @Transactional
     public void quitMember(String memberLoginId){
 

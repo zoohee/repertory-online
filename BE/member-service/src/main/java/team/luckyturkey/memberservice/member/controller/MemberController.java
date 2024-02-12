@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
+import team.luckyturkey.memberservice.auth.jwt.RefreshToken;
 import team.luckyturkey.memberservice.member.dto.requestdto.*;
 import team.luckyturkey.memberservice.member.dto.responsedto.MemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.service.JoinService;
 import team.luckyturkey.memberservice.service.MemberService;
+import team.luckyturkey.memberservice.service.RefreshTokenService;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class MemberController {
 
     private final JoinService joinService;
     private final MemberService memberService;
+    private final RefreshTokenService refreshTokenService;
 
 
     @GetMapping("/") //멤버 전체 불러오기
@@ -77,14 +80,6 @@ public class MemberController {
         };
     }
 
-//로그아웃도 스프링 시큐리티 내장되어있음
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logout(){
-//        // Spring Security에서 현재 인증 정보를 가져와 로그아웃 처리
-//        SecurityContextHolder.clearContext();
-//
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
     @GetMapping("/id-validation")
     public ResponseEntity<?> validateMemberLoginId(@RequestBody MemberLoginIdIsExistDto memberLoginIdIsExistDto){
@@ -135,6 +130,22 @@ public class MemberController {
     @GetMapping("/following")
     public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
         return memberService.getFollowingMemberInfo(followingList);
+    }
+
+    @GetMapping("/loginsuccess")
+    public ResponseEntity<String> handleLoginSuccess(@RequestParam("accessToken") String accessToken) {
+        // accessToken을 파라미터에서 받아옵니다.
+
+        // 작업 수행 후 응답을 헤더에 담아서 반환합니다.
+        String responseBody = "형진아 힘내";
+        //액세스 토큰으로 검색해서 리프레시토큰 가져오기
+        RefreshToken token = refreshTokenService.findToken(accessToken);
+        String refreshToken = token.getRefreshToken();
+
+        return ResponseEntity.ok()
+                .header("Authorization", accessToken)
+                .header("Refresh", refreshToken)// 원하는 헤더에 정보를 담아줍니다.
+                .body(responseBody);
     }
 
 }

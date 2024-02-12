@@ -1,5 +1,5 @@
 server:
-  port: 0
+#  port: 0
   servlet:
     context-path: /member
 
@@ -13,29 +13,45 @@ eureka:
     service-url:
       defaultZone: http://i10a707.p.ssafy.io:8761/eureka
 
+#spring:
+#  profiles:
+#    include: oauth
+#  application:
+#    name: member
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://i10a707.p.ssafy.io:3407/member?characterEncoding=UTF-8&serverTimezone=UTC
+#    username: lucky
+#    password: turkey707
+
 spring:
   profiles:
     include: oauth
   application:
-    name: member
+    name: memeber
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://i10a707.p.ssafy.io:3306/member?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
+    url: jdbc:mariadb://localhost:3306/ssafy_web_db
+    username: ssafy
     password: 1234
-
+    driver-class-name: org.mariadb.jdbc.Driver
 
   jwt:
-    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+    secret: jlaljkadfslahkjafdhiufadkjlyafuoiyudisghqjkbnjafdbuyoagdhjaadsfafs
 
   jpa:
     hibernate:
       ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+logging:
+  level:
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+    org.springframework.security.oauth2: TRACE
 
 
 redis:
-  host: repertory.online #배포시 ec2주소 사용 localhost
+#  host: repertory.online #배포시 ec2주소 사용
+  host: localhost
   port: 6379
-#  password:
+#  password: lucky

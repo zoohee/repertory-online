@@ -30,21 +30,25 @@ public class JWTUtil {
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public GeneratedToken generateToken(String memberLoginId, String memberRole) {
+
+    public GeneratedToken generateToken(long memberId, String memberLoginId, String memberRole) {
         // refreshToken과 accessToken을 생성한다.
-        String refreshToken = generateRefreshToken(memberLoginId, memberRole);
-        String accessToken = generateAccessToken(memberLoginId, memberRole);
+
+        String refreshToken = generateRefreshToken(memberId, memberLoginId, memberRole);
+        String accessToken = generateAccessToken(memberId,memberLoginId, memberRole);
 
         // 토큰을 Redis에 저장한다.
         refreshTokenService.saveTokenInfo(memberLoginId, refreshToken, accessToken);
         return new GeneratedToken(accessToken, refreshToken);
     }
 
-    public String generateRefreshToken(String memberLoginId, String memberRole) {
+    //RefreshToken 생성
+    public String generateRefreshToken(Long memberId, String memberLoginId, String memberRole) {
         // 토큰의 유효 기간을 밀리초 단위로 설정.
         long refreshPeriod = 1000L * 60L * 60L * 24L * 14; // 2주
 
         return Jwts.builder()
+                .claim("memberId", memberId)
                 .claim("memberLoginId", memberLoginId) //멤버 이름
                 .claim("memberRole", memberRole) //멤버 권한
                 // 발행일자를 넣는다.
@@ -56,12 +60,13 @@ public class JWTUtil {
                 .compact();
     }
 
-    //Create Token
-    public String generateAccessToken(String memberLoginId, String memberRole) {
+    //AccessToken 생성
+    public String generateAccessToken(Long memberId, String memberLoginId, String memberRole) {
 
-        long tokenPeriod = 1000L * 60L * 3L; // 30분
+        long tokenPeriod = 1000L * 60L * 1L; // 1분
 
         return Jwts.builder()
+                .claim("memberId", memberId)
                 .claim("memberLoginId", memberLoginId) //멤버 이름
                 .claim("memberRole", memberRole) //멤버 권한
                 .issuedAt(new Date(System.currentTimeMillis()))
@@ -79,7 +84,7 @@ public class JWTUtil {
             return !isExpired(token);
 
         } catch(Exception e) {
-
+            log.error(e.toString());
             return false;
         }
 
@@ -108,6 +113,9 @@ public class JWTUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
+    public Long getMemberId(String token) {
+        return  Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("memberId", Long.class);
+    }
 
 
 }
