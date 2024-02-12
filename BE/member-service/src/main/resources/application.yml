@@ -51,6 +51,7 @@ logging:
 
 
 ### git ignore test
+### test2
 redis:
 #  host: repertory.online #배포시 ec2주소 사용
   host: localhost
