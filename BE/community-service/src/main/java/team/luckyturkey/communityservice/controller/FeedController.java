@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -127,4 +128,17 @@ public class FeedController {
     public void setFeedPrivate(@RequestBody Feed feed) {
         feedService.setFeedPublic(feed, false);
     }
+
+    @GetMapping("/profile/{memberId}")
+    public List<FeedDetailResponse> getMyProfile(@PathVariable Long memberId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long myId = 5678L;
+
+        if (myId.equals(memberId)) {
+            return feedService.getFeedsByMyId(myId);
+        } else {
+            return feedService.getFeedsByMemberId(memberId);
+        }
+    }
+
 }
