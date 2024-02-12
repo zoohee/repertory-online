@@ -32,36 +32,11 @@ public class SearchService {
         List<OriginDto> repertories = danceServiceClient.searchRepertory(keyword);
         List<FeedDetailResponse> feeds = new ArrayList<>();
 
-        for (OriginDto s : sources) {
-            Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
-            if (feed == null) { continue; }
+        // source 정보 가져오기
+        feeds = getFeedDetailByOriginDto(sources, feeds);
 
-//            // 이미 존재하는 feedId인지 확인
-            boolean isExist = feeds.stream().anyMatch(f -> Objects.equals(f.getFeedId(), feed.getId()));
-            if (isExist) {
-                continue;
-            }
-
-            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
-            if (memberDto == null) {
-                continue;
-            }
-
-            // TODO: dance service query -> only public (disable=true)
-            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(s, feed, memberDto);
-            feeds.add(feedDetailResponse);
-        }
-
-        for (OriginDto s : repertories) {
-            Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
-            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
-
-            // TODO: dance service query -> only public (disable=true)
-            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(s, feed, memberDto);
-            feeds.add(feedDetailResponse);
-        }
-
-
+        // repertory 정보 가져오기
+        feeds = getFeedDetailByOriginDto(repertories, feeds);
 
         feeds.sort((o1, o2) -> {
             if (o1.getFeedDate() == null && o2.getFeedDate() == null) {
@@ -74,6 +49,28 @@ public class SearchService {
             return o2.getFeedDate().compareTo(o1.getFeedDate());
         });
 
+        return feeds;
+    }
+
+    private List<FeedDetailResponse> getFeedDetailByOriginDto(List<OriginDto> repertories, List<FeedDetailResponse> feeds) {
+        for (OriginDto s : repertories) {
+            Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
+            if (feed == null) { continue; }
+
+            // 이미 존재하는 feedId인지 확인
+            boolean isExist = feeds.stream().anyMatch(f -> Objects.equals(f.getFeedId(), feed.getId()));
+            if (isExist) {
+                continue;
+            }
+
+            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
+            if (memberDto == null) {
+                continue;
+            }
+
+            // TODO: dance service query -> only public (disable=true)
+            feeds.add(mapFeedDetailResponse(s, feed, memberDto));
+        }
         return feeds;
     }
 
