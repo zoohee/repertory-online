@@ -138,4 +138,9 @@ public class MemberController {
         return memberService.getFollowingMemberInfo(followingList);
     }
 
+    @GetMapping("/search/{keyword}")
+    public List<CommunityMemberInfoResponseDto> searchByMemberName(@PathVariable String keyword) {
+        return memberService.searchByMemberName(keyword);
+    }
+
 }

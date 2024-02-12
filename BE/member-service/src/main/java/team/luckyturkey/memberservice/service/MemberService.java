@@ -103,4 +103,20 @@ public class MemberService {
         }
         return memberInfoResponseDto;
     }
+
+    public List<CommunityMemberInfoResponseDto> searchByMemberName(String keyword) {
+        List<CommunityMemberInfoResponseDto> memberInfoList = new ArrayList<>();
+
+        List<Member> members = memberRepository.findByMemberNameLike(keyword);
+        for (Member m : members) {
+            CommunityMemberInfoResponseDto c = CommunityMemberInfoResponseDto.builder()
+                    .memberId(m.getId())
+                    .memberName(m.getMemberName())
+                    .memberProfile(m.getMemberProfile())
+                    .build();
+            memberInfoList.add(c);
+        }
+
+        return memberInfoList;
+    }
 }

@@ -18,4 +18,10 @@ public class SearchController {
         return searchService.searchFeedByName(keyword);
     }
 
+    @GetMapping("/dancer/{keyword}")
+    public List<FeedDetailResponse> searchFeedByDancerName(@PathVariable String keyword) {
+
+        return searchService.searchFeedByDancerName(keyword);
+    }
+
 }
