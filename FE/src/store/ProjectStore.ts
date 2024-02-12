@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 // import { persist } from 'zustand/middleware';
 import { ISource } from '@/services/interface';
+import { IRepertoryInfo } from '@/services/interface';
 type SourceState ={
     mySource : ISource[];
     clonedSource : ISource[];
@@ -11,6 +12,9 @@ type SourceState ={
     moveSource: (from: string, to: string, source: ISource) => void;
 }
 
+export const RepertoryStore = create<IRepertoryInfo>((set)=>({
+    
+}))
 
 export const SourceStore = create<SourceState>((set)=>({
     mySource :[],

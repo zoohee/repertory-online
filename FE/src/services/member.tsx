@@ -1,4 +1,4 @@
-import { $axios } from './config';
+import { $axios, $auth} from './config';
 
 interface ILoginData {
   memberLoginId : string,
@@ -28,7 +28,7 @@ const postMember = async ({ memberLoginId, memberPassword, memberName, memberEma
 const loginMember = async ({ memberLoginId, memberPassword }:ILoginData) => {
   const loginData = new FormData();
   loginData.append('memberLoginId', memberLoginId)
-  loginData.append('memberPassword', memberLoginId);
+  loginData.append('memberPassword', memberPassword);
   const response = await $axios().post('/member/login', loginData,{
     headers:{
       "Content-Type": 'multipart/form-data',
@@ -41,4 +41,26 @@ const loginMember = async ({ memberLoginId, memberPassword }:ILoginData) => {
   return response;
 };
 
-export { postMember, loginMember };
+const getIdValidation = async ( memberLoginId :string) => {
+  const params ={
+    memberLoginId : 'rlagudwls3469'
+  }
+  const response = await $axios().get('/member/id-validation', {params});
+  console.log(response);
+  console.log(response.data);
+  return response;
+};
+
+const logoutMember = (async ()=>{
+  const response = await $auth().post('/member/logout')
+  console.log(response)
+  console.log(localStorage.getItem('token'))
+  return response;
+})
+
+const getMemberInfo = async()=>{
+  const response = await $auth().get('/member/memberinfo')
+  console.log(response)
+  return response
+}
+export { postMember, loginMember, getIdValidation, logoutMember,getMemberInfo };

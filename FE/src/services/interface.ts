@@ -12,3 +12,11 @@ export interface ISource {
   sourceThumbnailUrl: string;
   tagList: List<string>;
 }
+
+export interface IRepertoryInfo{
+  repertoryName : string;
+  sourceList : List<number> // sourceId
+  // repertory : Multipart
+  // repertoryThumbnail : Multipart
+
+}
