@@ -3,17 +3,17 @@ import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
 import Text, { TextStyle } from '@/components/common/Text';
-import { Community } from '@/types';
+import { Community, Member } from '@/types';
 
 interface Props {
   item: Community;
 }
 
 const CommunityDance = ({ item }: Props) => {
-  const member = {
-    id: item.memberId,
-    name: item.memberName,
-    profileImage: item.memberProfile,
+  const member: Member = {
+    memberId: item.memberId,
+    memberName: item.memberName,
+    memberProfile: item.memberProfile,
   };
   return (
     <Dance thumbnail={'/images/index.jpg'} title={item.feedName}>

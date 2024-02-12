@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import URL from '@/url';
 import ProfileImage from '@/components/common/Image';
 import Text, { TextStyle } from '@/components/common/Text';
+import { Member } from '@/types';
 
 const Box = styled.div`
   display: flex;
@@ -19,11 +20,7 @@ const StyledLink = styled(Link)`
 interface Props {
   children: React.ReactNode;
   imageSize: number;
-  member: {
-    id: number;
-    name: string;
-    profileImage: string;
-  };
+  member: Member;
   textStyle: TextStyle;
 }
 
@@ -35,16 +32,19 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <Link to={`${URL.communityFeed}/${member.id}`} onClick={stopBubbling}>
+      <Link
+        to={`${URL.communityFeed}/${member.memberId}`}
+        onClick={stopBubbling}
+      >
         <ProfileImage
           size={imageSize}
           isRound={true}
-          src={member.profileImage}
+          src={member.memberProfile}
         />
       </Link>
       <Box>
         <StyledLink
-          to={`${URL.communityFeed}/${member.id}`}
+          to={`${URL.communityFeed}/${member.memberId}`}
           onClick={stopBubbling}
         >
           <Text
@@ -52,7 +52,7 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
             color={textStyle.color}
             style={{ marginBottom: `${marginBottom}` }}
           >
-            {member.name}
+            {member.memberName}
           </Text>
         </StyledLink>
         {children}

@@ -7,7 +7,7 @@ import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import Follow from '@/components/community/FollowS';
 import ChannelInfo from '@/components/Wrapper';
-import { Community } from '@/types';
+import { Community, Member } from '@/types';
 
 const Video = styled.video`
   width: 100%;
@@ -21,10 +21,10 @@ const Wrapper = styled.div`
 
 const CommunityDetailPage = () => {
   const dance = useLoaderData() as Community;
-  const member = {
-    id: dance.memberId,
-    name: dance.memberName,
-    profileImage: dance.memberProfile,
+  const member: Member = {
+    memberId: dance.memberId,
+    memberName: dance.memberName,
+    memberProfile: dance.memberProfile,
   };
   return (
     <>
