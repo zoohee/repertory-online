@@ -50,6 +50,7 @@ logging:
     org.springframework.security.oauth2: TRACE
 
 
+### git ignore test
 redis:
 #  host: repertory.online #배포시 ec2주소 사용
   host: localhost
