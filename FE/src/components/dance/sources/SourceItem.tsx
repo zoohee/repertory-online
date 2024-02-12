@@ -40,7 +40,7 @@ const SourceItem = ({ source }: Props) => {
       {isHovering && <DanceHover menus={menus} />}
       <Dance thumbnail={source.sourceThumbnailUrl} title={source.sourceName}>
         <Text size="s" color="s">
-          {source.tagList.map((tag) => tag.tagName).join(', ')}
+          {source.tagList.map((tag) => `#${tag.tagName}`).join(' ')}
         </Text>
       </Dance>
     </ListItem>

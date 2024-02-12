@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
+
+import { sourcesContext } from '@/store/sources-context';
 
 const Box = styled.div`
   border-radius: var(--border-radius-small);
@@ -23,23 +25,14 @@ const Button = styled.button`
   }
 `;
 
-interface Props {
-  openTagList: () => void;
-}
+const SelectTagButton = () => {
+  const { isTagOpen, openTag } = useContext(sourcesContext);
 
-const SelectTagButton = ({ openTagList }: Props) => {
-  const [clicked, setClicked] = useState(false);
-
-  const buttonStyle = clicked ? 'active' : undefined;
-
-  const handleClick = () => {
-    setClicked((prev) => !prev);
-    openTagList();
-  };
+  const buttonStyle = isTagOpen ? 'active' : undefined;
 
   return (
     <Box>
-      <Button onClick={handleClick} className={buttonStyle}>
+      <Button onClick={openTag} className={buttonStyle}>
         태그 선택
       </Button>
     </Box>

@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
-import SourcesContextProvider from '@/store/sources-context';
+import { sourcesContext } from '@/store/sources-context';
 
-import TabButtons, { Tab } from '@/components/common/Tab';
+import TabButtons from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
-import SourceList from '@/components/dance/SourceList';
+import SourceList from '@/components/dance/sources/SourceList';
 import Wrapper from '@/components/Wrapper';
 import CreateButton from '@/components/dance/CreateButton';
-import SelectTagButton from '@/components/dance/SelectTagButton';
-import TagList from '@/components/dance/TagList';
+import SelectTagButton from '@/components/dance/sources/SelectTagButton';
+import TagList from '@/components/dance/sources/TagList';
 
 const Box = styled.div`
   margin: 24px 0;
@@ -17,48 +17,33 @@ const Box = styled.div`
   width: 100%;
 `;
 
-const TABS: Tab[] = [
-  new Tab('My Sources', true),
-  new Tab('Cloned Sources', false),
-];
-
 const SourcesPage = () => {
-  const [tabs, setTabs] = useState<Tab[]>(TABS);
-
-  const handleClickTab = (clickedTabName: string) => {
-    setTabs(
-      tabs.map((tab) => {
-        const clicked: boolean = tab.name == clickedTabName;
-        return {
-          ...tab,
-          clicked,
-        };
-      })
-    );
-  };
-
-  const [isTagListOpen, setIsTagListOpen] = useState(false);
-
-  const handleOpenTag = () => {
-    setIsTagListOpen((prev) => !prev);
-  };
+  const { tabs, selectTab, isTagOpen } = useContext(sourcesContext);
 
   return (
-    <SourcesContextProvider>
-      <TabButtons tabs={tabs} margin="48px 0 0" onClickTab={handleClickTab} />
+    <>
+      <TabButtons tabs={tabs} margin="48px 0 0" onClickTab={selectTab} />
       <Box>
         <Wrapper $margin="0">
           <div style={{ display: 'flex' }}>
             <SearchBar></SearchBar>
-            <SelectTagButton openTagList={handleOpenTag} />
+            <SelectTagButton />
           </div>
-          <CreateButton />
+          <CreateButton to="/" />
         </Wrapper>
-        {isTagListOpen && <TagList />}
+        {isTagOpen && <TagList />}
       </Box>
       <SourceList />
-    </SourcesContextProvider>
+    </>
   );
 };
 
 export default SourcesPage;
+
+import { getMySource, getMySourceClone } from '@/services/dance';
+
+export const sourceLoader = async () => {
+  const mine = await getMySource();
+  const clone = await getMySourceClone();
+  return { mine, clone };
+};

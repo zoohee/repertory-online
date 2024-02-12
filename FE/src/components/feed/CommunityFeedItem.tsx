@@ -1,8 +1,8 @@
-import { ReactNode, useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import Image from '@/components/common/Image';
-import FeedItemModal from '@/components/feed/FeedItemModal';
+import { feedContext } from '@/store/feed-context';
 
 const Box = styled.li`
   position: relative;
@@ -18,9 +18,15 @@ const Hover = styled.div`
   width: 100%;
 `;
 
-const FeedItem = ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: React.ReactNode;
+  index: number;
+  src: string;
+}
+
+const FeedItem = ({ children, index, src }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const { selectDance, openModal } = useContext(feedContext);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -31,19 +37,14 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
   };
 
   const handleClick = () => {
-    setIsOpen((prev) => !prev);
+    selectDance(index);
+    openModal();
   };
 
   return (
     <Box onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <Hover onClick={handleClick}>{children}</Hover>}
-      <Image src="/images/index.jpg"></Image>
-      <FeedItemModal
-        open={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      />
+      <Image src={src}></Image>
     </Box>
   );
 };

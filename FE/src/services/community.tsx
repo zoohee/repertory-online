@@ -31,7 +31,7 @@ const deleteSubscriber = async (memberId: number) => {
   const data = {
     selectedMemberId: memberId,
   };
-  const response = await $axios().post('/community/subscribe', data);
+  const response = await $axios().delete('/community/subscribe', { data });
   console.log(response);
   return response;
 };
@@ -75,7 +75,7 @@ const getSubscribersFeed = async ({ page, pageSize }: IPage) => {
 };
 
 // 피드목록 조회
-const getUserFeed = async ({ page, pageSize }: IPage) => {
+const getCommunityFeed = async ({ page, pageSize }: IPage) => {
   const response = await $axios().get(`/community/feed/${page}/${pageSize}`, {
     params: { page, pageSize },
   });
@@ -105,9 +105,7 @@ const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
 };
 // 커뮤니티 동영상 조회
 const getFeedVideo = async (feedId: number) => {
-  const response = await $axios().get(`/community/feed/${feedId}/detail`, {
-    params: { feedId: feedId },
-  });
+  const response = await $axios().get(`/community/feed/detail/${feedId}`);
   console.log(response.data);
   return response;
 };
@@ -123,7 +121,12 @@ const getSubscribersList = async () => {
   console.log(response.data);
   return response;
 };
-// 유저 이름으로 검색
+// 유저 피드 프로필 조회
+const getFeedProfile = async (memberId: number) => {
+  const response = await $axios().get(`/community/feed/profile/${memberId}`);
+  console.log(response.data);
+  return response;
+};
 
 export {
   getSubscribersCount,
@@ -133,10 +136,11 @@ export {
   patchFeedNotLike,
   postSourceClone,
   getSubscribersFeed,
-  getUserFeed,
+  getCommunityFeed,
   feedSetPublic,
   feedSetPrivate,
   getFeedVideo,
   saveFeed,
   getSubscribersList,
+  getFeedProfile,
 };

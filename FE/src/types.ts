@@ -17,4 +17,36 @@ interface Source {
   tagList: Tag[];
 }
 
-export type { Tag, Source };
+export class Tab {
+  name: string;
+  clicked: boolean;
+
+  constructor(name: string, clicked: boolean) {
+    this.name = name;
+    this.clicked = clicked;
+  }
+}
+
+interface Community {
+  downloadCount: number;
+  feedDate: string;
+  feedDisable: boolean;
+  feedId: number;
+  feedName: string;
+  feedThumbnailUrl: string;
+  feedType: string;
+  feedUrl: string;
+  likeCount: number;
+  memberId: number;
+  memberName: string;
+  memberProfile: string;
+  originId: number;
+}
+
+interface Member {
+  memberId: number;
+  memberName: string;
+  memberProfile: string;
+}
+
+export type { Tag, Source, Community, Member };

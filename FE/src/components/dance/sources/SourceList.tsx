@@ -1,15 +1,11 @@
 import { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
 
-import { Source } from '@/types';
 import { sourcesContext } from '@/store/sources-context';
-import DanceGridBox from './DanceGridBox';
-import SourceItem from '@/components/dance/Source';
+import DanceGridBox from '@/components/dance/DanceGridBox';
+import SourceItem from '@/components/dance/sources/SourceItem';
 
 const SourceList = () => {
-  const sources = useLoaderData() as Source[];
-
-  const { selectedTags } = useContext(sourcesContext);
+  const { sources, selectedTags } = useContext(sourcesContext);
 
   const selectSource = () => {
     if (selectedTags.length === 0) {
