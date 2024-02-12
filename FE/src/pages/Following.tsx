@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import UserProfile from '@/components/UserProfile';
 import TabButtons from '@/components/common/Tab';
 import Text, { TextStyle } from '@/components/common/Text';
-import Follow from '@/components/community/FollowL';
+import Follow from '@/components/community/Follow';
 import { Member, Tab } from '@/types';
 
 const ListItem = styled.li`
@@ -35,7 +35,11 @@ const FollowingPage = () => {
                 구독자 수
               </Text>
             </UserProfile>
-            <Follow isFollowed={true} memberId={member.memberId} />
+            <Follow
+              $size="medium"
+              $followed={true}
+              memberId={member.memberId}
+            />
           </ListItem>
         ))}
       </ul>

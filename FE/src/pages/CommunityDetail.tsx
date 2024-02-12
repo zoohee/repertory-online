@@ -5,7 +5,7 @@ import UserProfile from '@/components/UserProfile';
 import Text, { TextStyle } from '@/components/common/Text';
 import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
-import Follow from '@/components/community/FollowS';
+import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
 import { Community, Member } from '@/types';
 
@@ -28,7 +28,7 @@ const CommunityDetailPage = () => {
   };
   return (
     <>
-      <Video controls autoPlay muted loop crossOrigin="anonymous" >
+      <Video controls autoPlay muted loop crossOrigin="anonymous">
         <source src={dance.feedUrl} type="video/mp4" />
       </Video>
       <Text size="xl" color="p" style={{ margin: '16px 0' }}>
@@ -46,11 +46,13 @@ const CommunityDetailPage = () => {
             </Text>
           </UserProfile>
           <div style={{ marginLeft: '24px' }}>
-            <Follow isFollowed={false} memberId={dance.memberId} />
+            <Follow $size="small" $followed={false} memberId={dance.memberId} />
           </div>
         </Wrapper>
         <Wrapper>
-          {dance.feedType == 'SOURCE' && <Download count={dance.downloadCount} />}
+          {dance.feedType == 'SOURCE' && (
+            <Download count={dance.downloadCount} />
+          )}
 
           <Like liked={false} likeCount={dance.likeCount} />
         </Wrapper>

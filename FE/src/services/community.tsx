@@ -31,7 +31,7 @@ const deleteSubscriber = async (memberId: number) => {
   const data = {
     selectedMemberId: memberId,
   };
-  const response = await $axios().post('/community/subscribe', data);
+  const response = await $axios().delete('/community/subscribe', { data });
   console.log(response);
   return response;
 };

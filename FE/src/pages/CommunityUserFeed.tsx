@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Image from '@/components/common/Image';
 import Text from '@/components/common/Text';
-import Follow from '@/components/community/FollowL';
+import Follow from '@/components/community/Follow';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/CommunityFeedItem';
 import CommunityHover from '@/components/feed/CommunityHover';
@@ -27,7 +27,7 @@ const CommunityUserFeedPage = () => {
           Dancer Name
         </Text>
       </div>
-      <Follow isFollowed={false} />
+      <Follow $size="medium" $followed={false} memberId={123} />
       <Wrapper>
         <Text size="m" color="p" style={{ marginRight: '12px' }}>
           게시물
