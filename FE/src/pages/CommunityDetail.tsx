@@ -8,15 +8,15 @@ import Like from '@/components/community/Like';
 import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
 import { Community, Member } from '@/types';
-
-const Video = styled.video`
-  width: 100%;
-  max-height: calc(100vh * 0.5);
-`;
+import Video from '@/components/common/Video';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Box = styled.div`
+  margin-left: 24px;
 `;
 
 const CommunityDetailPage = () => {
@@ -28,9 +28,7 @@ const CommunityDetailPage = () => {
   };
   return (
     <>
-      <Video controls autoPlay muted loop crossOrigin="anonymous">
-        <source src={dance.feedUrl} type="video/mp4" />
-      </Video>
+      <Video src={dance.feedUrl} />
       <Text size="xl" color="p" style={{ margin: '16px 0' }}>
         {dance.feedName}
       </Text>
@@ -45,9 +43,9 @@ const CommunityDetailPage = () => {
               구독자 수
             </Text>
           </UserProfile>
-          <div style={{ marginLeft: '24px' }}>
+          <Box>
             <Follow $size="small" $followed={false} memberId={dance.memberId} />
-          </div>
+          </Box>
         </Wrapper>
         <Wrapper>
           {dance.feedType == 'SOURCE' && (
