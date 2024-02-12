@@ -71,7 +71,9 @@ public class FeedService {
         List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
         for (Feed feed : feeds) {
             OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
+            if (originDto.getFeedName() == null) { continue; }
             MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
+//            if (memberDto.getMemberId() == null) { continue; }
             FeedDetailResponse feedDetailResponse = FeedDetailResponse.builder()
                     .feedId(feed.getId())
                     .feedType(feed.getFeedType())
@@ -79,7 +81,7 @@ public class FeedService {
                     .downloadCount(feed.getDownloadCount())
                     .feedDisable(feed.getFeedDisable())
                     .originId(feed.getOriginId())
-                    .memberId(originDto.getMemberId())
+                    .memberId(feed.getMemberId())
                     .feedName(originDto.getFeedName())
                     .feedUrl(originDto.getFeedUrl())
                     .feedThumbnailUrl(originDto.getFeedThumbnailUrl())
