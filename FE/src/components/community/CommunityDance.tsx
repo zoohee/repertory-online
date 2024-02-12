@@ -27,7 +27,7 @@ const CommunityDance = ({ item }: Props) => {
         </Text>
       </UserProfile>
       <div style={{ display: 'flex' }}>
-        {item.feedType === 'SOURCE' && <Download count={item.likeCount} />}
+        {item.feedType === 'SOURCE' && <Download count={item.downloadCount} />}
 
         <Like liked={false} likeCount={item.likeCount} disable />
       </div>
