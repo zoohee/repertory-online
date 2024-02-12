@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useLoaderData } from 'react-router-dom';
 
 import UserProfile from '@/components/UserProfile';
 import Text, { TextStyle } from '@/components/common/Text';
@@ -6,11 +7,11 @@ import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import Follow from '@/components/community/FollowS';
 import ChannelInfo from '@/components/Wrapper';
+import { Community } from '@/types';
 
-const Video = styled.div`
-  padding: 200px 200px;
-  height: 480px;
-  border: solid 1px white;
+const Video = styled.video`
+  width: 100%;
+  max-height: calc(100vh * 0.5);
 `;
 
 const Wrapper = styled.div`
@@ -19,30 +20,25 @@ const Wrapper = styled.div`
 `;
 
 const CommunityDetailPage = () => {
-  // TODO: axios로 받아오기
-  const dance = {
-    title: 'Dance Title',
-    isSource: false,
-    like: 123,
-    clicked: false,
-    member: {
-      id: 2,
-      name: 'user2',
-      profileImage: '/images/index.jpg',
-    },
+  const dance = useLoaderData() as Community;
+  const member = {
+    id: dance.memberId,
+    name: dance.memberName,
+    profileImage: dance.memberProfile,
   };
-
   return (
     <>
-      <Video>영상 자리</Video>
+      <Video controls autoPlay muted loop crossOrigin="anonymous" >
+        <source src={dance.feedUrl} type="video/mp4" />
+      </Video>
       <Text size="xl" color="p" style={{ margin: '16px 0' }}>
-        {dance.title}
+        {dance.feedName}
       </Text>
       <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
             imageSize={40}
-            member={dance.member}
+            member={member}
             textStyle={new TextStyle('m', 'p')}
           >
             <Text size="s" color="s">
@@ -50,13 +46,13 @@ const CommunityDetailPage = () => {
             </Text>
           </UserProfile>
           <div style={{ marginLeft: '24px' }}>
-            <Follow isFollowed={false} />
+            <Follow isFollowed={false} memberId={dance.memberId} />
           </div>
         </Wrapper>
         <Wrapper>
-          {dance.isSource && <Download count={dance.like} />}
+          {dance.feedType == 'SOURCE' && <Download count={dance.downloadCount} />}
 
-          <Like liked={dance.clicked} likeCount={dance.like} />
+          <Like liked={false} likeCount={dance.likeCount} />
         </Wrapper>
       </ChannelInfo>
     </>
@@ -64,3 +60,10 @@ const CommunityDetailPage = () => {
 };
 
 export default CommunityDetailPage;
+
+import { getFeedVideo } from '@/services/community';
+
+export const communityDetailLoader = async (feedId: number) => {
+  const response = await getFeedVideo(feedId);
+  return response.data;
+};

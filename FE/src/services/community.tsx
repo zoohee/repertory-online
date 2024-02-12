@@ -105,9 +105,7 @@ const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
 };
 // 커뮤니티 동영상 조회
 const getFeedVideo = async (feedId: number) => {
-  const response = await $axios().get(`/community/feed/${feedId}/detail`, {
-    params: { feedId: feedId },
-  });
+  const response = await $axios().get(`/community/feed/detail/${feedId}`);
   console.log(response.data);
   return response;
 };

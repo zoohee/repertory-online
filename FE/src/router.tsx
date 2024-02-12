@@ -9,7 +9,9 @@ import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
 import SourcesPage, { sourceLoader } from '@/pages/Sources';
 import CommunityPage, { communityLoader } from '@/pages/Community';
-import CommunityDetailPage from '@/pages/CommunityDetail';
+import CommunityDetailPage, {
+  communityDetailLoader,
+} from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
@@ -63,8 +65,10 @@ const router = createBrowserRouter([
             loader: communityLoader,
           },
           {
-            path: `${URL.communityDetail}/:Id`,
+            path: `${URL.communityDetail}/:feedId`,
             element: <CommunityDetailPage />,
+            loader: ({ params }) =>
+              communityDetailLoader(Number(params.feedId)),
           },
           {
             path: `${URL.communityFeed}/:userId`,
