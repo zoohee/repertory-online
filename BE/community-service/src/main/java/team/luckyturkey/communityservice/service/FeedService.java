@@ -119,4 +119,15 @@ public class FeedService {
                 .build();
         danceServiceClient.cloneSource(sourceCloneRequest);
     }
+
+    // 멤버 아이디로 피드 리스트 불러오는 함수
+    public List<FeedDetailResponse> getFeedsByMemberId(Long memberId) {
+        List<Feed> feeds = feedRepository.findPublicFeedsByMemberId(memberId);
+        return getFeedsAndDetail(feeds);
+    }
+
+    public List<FeedDetailResponse> getFeedsByMyId(Long myId) {
+        List<Feed> feeds = feedRepository.findFeedsByMemberId(myId);
+        return getFeedsAndDetail(feeds);
+    }
 }
