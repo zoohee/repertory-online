@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,8 +12,12 @@ const Box = styled.div`
   justify-content: center;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   imageSize: number;
   member: {
     id: number;
@@ -26,9 +29,13 @@ interface Props {
 
 const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
   const marginBottom = textStyle.size === 's' ? '4px' : '8px';
+  const stopBubbling = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <div style={{ display: 'flex' }}>
-      <Link to={`${URL.communityFeed}/${member.id}`}>
+      <Link to={`${URL.communityFeed}/${member.id}`} onClick={stopBubbling}>
         <ProfileImage
           size={imageSize}
           isRound={true}
@@ -36,9 +43,9 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
         />
       </Link>
       <Box>
-        <Link
+        <StyledLink
           to={`${URL.communityFeed}/${member.id}`}
-          style={{ textDecorationLine: 'none' }}
+          onClick={stopBubbling}
         >
           <Text
             size={textStyle.size}
@@ -47,7 +54,7 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
           >
             {member.name}
           </Text>
-        </Link>
+        </StyledLink>
         {children}
       </Box>
     </div>
