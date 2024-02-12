@@ -15,6 +15,7 @@ import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
 import Repertory from '@/pages/Repertory';
 import Test from './pages/Test';
+import Login from './pages/Login';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: URL.workspace,
     element: <ProjectPage />,
+  },
+  {
+    path: '/secretdoor',
+    element: <Repertory />,
   },
   {
     path: '/',

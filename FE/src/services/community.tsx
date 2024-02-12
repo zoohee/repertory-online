@@ -112,7 +112,12 @@ const getFeedVideo = async (feedId: number) => {
   return response;
 };
 // 피드 데이터 저장
-const saveFeed = async (feedData: IfeedData) => {
+const saveFeed = async () => {
+  const feedData: IfeedData = {
+    originId: 123,
+    feedType: 0,
+    feedDisable: 1,
+  };
   const response = await $axios().post(`/community/feed`, feedData);
   console.log(response.data);
   return response;

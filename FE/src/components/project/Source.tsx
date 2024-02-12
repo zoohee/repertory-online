@@ -1,22 +1,29 @@
 import { List } from 'lodash';
 import Image from '../common/Image';
 import { useDrag } from 'react-dnd';
-interface sourceInterface {
-  memberId: number;
-  sourceCount: number;
-  sourceId: number;
-  sourceName: string;
-  sourceStart: string;
-  sourceEnd: string;
-  sourceLength: string;
-  sourceUrl: string;
-  sourceThumbnailUrl: string;
-  tagList: List<string>;
+import styled from 'styled-components';
+import { ISource } from '@/services/interface';
+interface BoxProps {
+  width: string;
 }
+const Box = styled.div<BoxProps>`
+  background-color: white;
+  padding : 6px;
+  border-radius: 10px;
+  margin : 10px;
+  width: ${(props) => props.width};
+`
 interface sourceProps {
-  sourceInfo: sourceInterface;
+  target : string;
+  sourceInfo: ISource;
 }
-const Source = ({ sourceInfo }: sourceProps) => {
+const SourceLabel = styled.div`
+  display: flex;
+  flex-direction: column;
+  width : parent;
+  background-color: var(--background-color);
+`
+const Source = ({ sourceInfo, target }: sourceProps) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'source',
     item: sourceInfo,
@@ -25,12 +32,19 @@ const Source = ({ sourceInfo }: sourceProps) => {
     }),
   });
 
-  console.log('Is dragging: ', isDragging);
+  const boxWidth = target === 'workbench' ? `${sourceInfo.sourceLength * 60}px` : 'auto';
   return (
     <>
-      <div ref={drag}>
+      <Box ref={drag} width={boxWidth}>
         <Image size={140} src={sourceInfo.sourceThumbnailUrl} />
-      </div>
+        {target==='sourceList' && (
+          <SourceLabel>
+            <div>{sourceInfo.sourceName}</div>
+            <div>{sourceInfo.sourceStart}</div>
+            <div>{sourceInfo.sourceEnd}</div>
+          </SourceLabel>
+        )}
+      </Box>
     </>
   );
 };
