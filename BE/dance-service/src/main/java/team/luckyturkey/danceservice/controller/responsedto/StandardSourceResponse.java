@@ -1,6 +1,8 @@
 package team.luckyturkey.danceservice.controller.responsedto;
 
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ToString
@@ -9,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StandardSourceResponse {
-
     private Long sourceId;
     private Long memberId;
     private String sourceName;
@@ -20,4 +21,5 @@ public class StandardSourceResponse {
     private String sourceUrl;
     private String sourceThumbnailUrl;
     private List<StandardTagResponse> tagList;
+    private LocalDateTime sourceDate;
 }

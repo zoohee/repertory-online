@@ -1,5 +1,6 @@
 package team.luckyturkey.communityservice.client;
 
+import jakarta.ws.rs.Path;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,7 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
+import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.entity.FeedType;
+
+import java.util.List;
 
 @FeignClient(name="dance", url = "${api.dance.url}")
 public interface DanceServiceClient {
@@ -18,4 +22,10 @@ public interface DanceServiceClient {
 
     @PostMapping("/clone")
     void cloneSource(@RequestBody SourceCloneRequest sourceCloneRequest);
+
+    @GetMapping("/detail/source/{keyword}")
+    List<OriginDto> searchSource(@PathVariable String keyword);
+
+    @GetMapping("/detail/repertory/{keyword}")
+    List<OriginDto> searchRepertory(@PathVariable String keyword);
 }

@@ -1,7 +1,7 @@
 package team.luckyturkey.communityservice.repository;
 
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -20,6 +20,8 @@ public class FeedLikeCacheRepository implements LikeCacheRepository{
 
     public FeedLikeCacheRepository(@Qualifier("longRedisTemplate") RedisTemplate<Long, Long> redisTemplate) {
         // TODO: 로그 테이블을 읽고, redis에 삽입하는 연산이 필요합니다.
+
+        log.info(redisTemplate.toString());
         this.redisTemplate = redisTemplate;
         this.opsValue = redisTemplate.opsForValue();
     }
@@ -49,14 +51,16 @@ public class FeedLikeCacheRepository implements LikeCacheRepository{
             result = IntStream.range(0, length)
                     .boxed()
                     .collect(Collectors.toMap(sourceIdList::get, likeList::get));
-        }
-        else{
+        } else {
             result = new HashMap<>();
         }
-//        Map<Long, Long> result = new HashMap<>();
-//        for(int i = 0; i < length; i++){
-//            result.put(sourceIdList.get(i), (likeList.get(i) == null) ? -1 : likeList.get(i));
-//        }
+
         return result;
+    }
+
+    public void setLikeCountToZero(Long feedId) {
+        if (feedId != null) {
+            opsValue.setIfAbsent(feedId, 0L);
+        }
     }
 }

@@ -1,16 +1,10 @@
 package team.luckyturkey.communityservice.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import team.luckyturkey.communityservice.dto.OriginDto;
-import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
-import team.luckyturkey.communityservice.entity.Feed;
-import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
 import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
@@ -40,7 +34,7 @@ public class CommunityController {
     @GetMapping("/subscribers")
     public int getSubscribersCount() {
         // TODO: Request Header jwt에서 memberId 받아 오기
-        Long memberId = 1234L;
+        Long memberId = 5678L;
         return subscribeService.getSubscribersCount(memberId);
     }
 

@@ -24,6 +24,18 @@ public class FeedController {
     private final LikeService likeService;
     private final MemberServiceClient memberServiceClient;
 
+    @PostMapping
+    public void insertFeed(@RequestBody Feed feed) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 1234L;
+
+        feed.setMemberId(memberId);
+        feed.setLikeCount(0L);
+        feed.setDownloadCount(0L);
+
+        feedService.insertFeed(feed);
+    }
+
     @GetMapping("/subscribe/{page}/{pageSize}")
     public List<FeedDetailResponse> getUserSubscribeFeedList(@PathVariable("page") int page,
                                                     @PathVariable("pageSize") int pageSize) {
@@ -31,7 +43,7 @@ public class FeedController {
         Long memberId = 5678L;
         List<Long> followingList = subscribeService.getFollowingList(memberId);
         List<Feed> feeds = feedService.getFeeds(followingList, page, pageSize);
-        // TODO: Need DanceServiceClient Test
+
         return feedService.getFeedsAndDetail(feeds);
     }
 
@@ -44,18 +56,6 @@ public class FeedController {
         }
 
         return feedService.getFeedsAndDetail(feeds);
-    }
-
-    @PostMapping("/")
-    public void insertFeed(@RequestBody Feed feed) {
-        // TODO: Request Header jwt에서 memberId 받아 오기
-        Long memberId = 1234L;
-
-        feed.setMemberId(memberId);
-        feed.setLikeCount(0L);
-        feed.setDownloadCount(0L);
-
-        feedService.insertFeed(feed);
     }
 
     @GetMapping("/detail/{feedId}")
