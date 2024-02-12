@@ -15,6 +15,7 @@ public class SearchController {
 
     @GetMapping("/tag/{keyword}")
     public List<FeedDetailResponse> searchFeedByName(@PathVariable String keyword) {
-        return searchService.searchSourceByName(keyword);
+        return searchService.searchFeedByName(keyword);
     }
+
 }
