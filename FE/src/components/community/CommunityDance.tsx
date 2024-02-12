@@ -16,14 +16,14 @@ const CommunityDance = ({ item }: Props) => {
     memberProfile: item.memberProfile,
   };
   return (
-    <Dance thumbnail={'/images/index.jpg'} title={item.feedName}>
+    <Dance thumbnail={item.feedThumbnailUrl} title={item.feedName}>
       <UserProfile
         imageSize={40}
         member={member}
         textStyle={new TextStyle('s', 's')}
       >
         <Text size="s" color="s">
-          구독자수 / 업로드 날짜
+          {item.feedDate}
         </Text>
       </UserProfile>
       <div style={{ display: 'flex' }}>
