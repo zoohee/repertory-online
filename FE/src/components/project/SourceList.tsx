@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Source from './Source';
 import { Title } from './Title';
 import { ISource } from '@/services/interface';
-
+import { SetStateAction, useState } from 'react';
+import Tabs from '../common/Tab';
 const SourceListWrapper = styled.div`
   overflow: scroll;
   display: flex;
@@ -25,42 +26,97 @@ const GridBox = styled.ul`
   --grid-gap: 12px;
   --grid-column: 3;
 `;
+const TabWapper = styled.div`
+  width : 100%;
+  display: flex;
+  z-index: 1000;
+  /* position: fixed; */
+  justify-content: space-evenly;
+`
+const Tab = styled.div`
+  width : 50%;
+  z-index: 1000;
+  border-radius: 10px;
+  text-align: center;
+  padding : 1.4rem;
+    &:hover{
+      cursor: pointer;
+    }
+`
 const SourceList = () => {
-  const { isLoading, data, isError, error } = useQuery<ISource[]>({
-    queryKey: ['getMySource'],
-    queryFn: getMySource,
+  const [tabState, setTabState] = useState('mysource');
+
+  const { isLoading: isLoadingMySource, data: mySourceData, isError: isErrorMySource, error: mySourceError } = useQuery<ISource[]>({
+    queryKey: ['getMySource', tabState],
+    queryFn: () => tabState === 'mysource' ? getMySource() : getMySourceClone(),
   });
 
-  let tmp = [];
-  for (let i = 1; i <= 30; i++) {
-    tmp.push({
+  const handleTabClick = (tab: SetStateAction<string>) => {
+    setTabState(tab);
+  }
+  console.log(tabState)
+  let mySource = [];
+  let clonedSource = [];
+  for (let i = 1; i <= 10; i++) {
+    mySource.push({
       memberId: i,
       sourceCount: i + 1,
       sourceId: 1234 + i,
-      sourceName: 'Sample' + i,
+      sourceName: 'Source' + i,
       sourceStart: 'pose' + i,
       sourceEnd: 'pose' + (i + 1),
-      sourceLength: (20 + i).toString(),
+      sourceLength: 3 + 0.1 * i,
       sourceUrl: 'URL' + i,
-      sourceThumbnailUrl: '/public/images/mushroom.jpg',
+      sourceThumbnailUrl: '/images/pinky.jpg',
       tagList: ['good', 'awesome', 'perfect']
     });
   }
+  for (let i = 1; i <= 10; i++) {
+    clonedSource.push({
+      memberId: i,
+      sourceCount: i + 1,
+      sourceId: 1234 + i,
+      sourceName: 'Clone' + i,
+      sourceStart: 'pose' + i,
+      sourceEnd: 'pose' + (i + 1),
+      sourceLength: 3 + 0.1 * i,
+      sourceUrl: 'URL' + i,
+      sourceThumbnailUrl: '/images/mushroom.jpg',
+      tagList: ['good', 'awesome', 'perfect']
+    });
+  }
+
   // if (isLoading) return <>Loading...</>;
   // if (isError) return <>{error.message}...</>;
   return (
     <>
-    <Title title={'Source'} />
-     <SourceListWrapper>
-        {data?.length === 0 ? (
+      <Title title={'Source'} />
+        <TabWapper>
+          <Tab onClick={() => handleTabClick('mysource')} >My Source</Tab>
+          <Tab onClick={() => handleTabClick('clonedsource')}>Clone Source</Tab>
+        </TabWapper>
+        <SourceListWrapper>
+
+        {/* {mySourceData?.length === 0 ? (
           <h1>no data...</h1>
         ) : (
           <GridBox>
-              {tmp?.map((item: ISource) => {
-              return <Source key={item.memberId} sourceInfo={item} />;
+            {tmp?.map((item: ISource) => {
+              return <Source key={item.memberId} sourceInfo={item} target={'sourceList'} />;
             })}
           </GridBox>
-        )}
+        )} */}
+        <GridBox>
+         {tabState==='mysource'?(
+            mySource?.map((item: ISource) => {
+              return <Source key={item.memberId} sourceInfo={item} target={'sourceList'} />;
+            })
+         ):(
+            clonedSource?.map((item: ISource) => {
+              return <Source key={item.memberId} sourceInfo={item} target={'sourceList'} />;
+            })
+         )}
+        </GridBox>
       </SourceListWrapper>
     </>
   );

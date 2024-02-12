@@ -33,7 +33,7 @@ const RepertoryPage = () => {
     }
   };
 
-  const BASE_URL = 'http://i10a707.p.ssafy.io:8000';
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
   const memberJoinTest = () => {
     const url = `${BASE_URL}/member/join`;

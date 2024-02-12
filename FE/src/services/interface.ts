@@ -7,7 +7,7 @@ export interface ISource {
   sourceName: string;
   sourceStart: string;
   sourceEnd: string;
-  sourceLength: string;
+  sourceLength: number;
   sourceUrl: string;
   sourceThumbnailUrl: string;
   tagList: List<string>;
