@@ -7,7 +7,7 @@ import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
-import { Community, Member } from '@/types';
+import { CommunityDetail, Member } from '@/types';
 import Video from '@/components/common/Video';
 
 const VideoBox = styled.div`
@@ -31,18 +31,18 @@ const Box = styled.div`
 `;
 
 const CommunityDetailPage = () => {
-  const dance = useLoaderData() as Community;
+  const { feed, followed } = useLoaderData() as CommunityDetail;
   const member: Member = {
-    memberId: dance.memberId,
-    memberName: dance.memberName,
-    memberProfile: dance.memberProfile,
+    memberId: feed.memberId,
+    memberName: feed.memberName,
+    memberProfile: feed.memberProfile,
   };
   return (
     <>
       <VideoBox>
-        <Video src={dance.feedUrl} />
+        <Video src={feed.feedUrl} />
       </VideoBox>
-      <TextLarge>{dance.feedName}</TextLarge>
+      <TextLarge>{feed.feedName}</TextLarge>
       <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
@@ -52,16 +52,14 @@ const CommunityDetailPage = () => {
           >
             <Text.Secondary>구독자 수</Text.Secondary>
           </UserProfile>
+          {/* TODO: 내 동영상은 구독 버튼 가리기 */}
           <Box>
-            <Follow $size="small" $followed={false} memberId={dance.memberId} />
+            <Follow $size="small" $followed={followed} memberId={feed.memberId} />
           </Box>
         </Wrapper>
         <Wrapper>
-          {dance.feedType == 'SOURCE' && (
-            <Download count={dance.downloadCount} />
-          )}
-
-          <Like feed={dance} />
+          {feed.feedType == 'SOURCE' && <Download count={feed.downloadCount} />}
+          <Like feed={feed} />
         </Wrapper>
       </ChannelInfo>
     </>

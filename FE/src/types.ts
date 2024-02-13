@@ -46,6 +46,11 @@ interface Community {
   originId: number;
 }
 
+interface CommunityDetail {
+  feed: Community;
+  followed: boolean;
+}
+
 interface Member {
   memberId: number;
   memberName: string;
@@ -61,4 +66,4 @@ interface Modal {
   prevDance: () => void;
 }
 
-export type { Tag, Source, Community, Member, Modal };
+export type { Tag, Source, Community, CommunityDetail, Member, Modal };
