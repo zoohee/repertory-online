@@ -39,4 +39,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findPublicFeedsByMemberId(Long memberId);
 
     List<Feed> findFeedsByMemberId(Long memberId);
+
+    @Query("SELECT l.likeActive FROM LikeLog l WHERE l.memberId = :memberId AND l.feedId = :feedId ORDER BY timestamp DESC")
+    Boolean findIsLike(Long memberId, Long feedId);
 }

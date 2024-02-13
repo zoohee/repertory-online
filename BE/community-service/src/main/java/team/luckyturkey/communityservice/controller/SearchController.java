@@ -15,13 +15,18 @@ public class SearchController {
 
     @GetMapping("/tag/{keyword}")
     public List<FeedDetailResponse> searchFeedByName(@PathVariable String keyword) {
-        return searchService.searchFeedByName(keyword);
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
+        return searchService.searchFeedByName(keyword, memberId);
     }
 
     @GetMapping("/dancer/{keyword}")
     public List<FeedDetailResponse> searchFeedByDancerName(@PathVariable String keyword) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
 
-        return searchService.searchFeedByDancerName(keyword);
+        return searchService.searchFeedByDancerName(keyword, memberId);
     }
 
 }
