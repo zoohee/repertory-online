@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import Dance from '@/components/dance/Dance';
-import Text from '@/components/common/Text';
+import { Secondary as Text } from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '@/components/common/MenuButton';
 import { Source } from '@/types';
@@ -39,9 +39,7 @@ const SourceItem = ({ source }: Props) => {
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
       <Dance thumbnail={source.sourceThumbnailUrl} title={source.sourceName}>
-        <Text size="s" color="s">
-          {source.tagList.map((tag) => `#${tag.tagName}`).join(' ')}
-        </Text>
+        <Text>{source.tagList.map((tag) => `#${tag.tagName}`).join(' ')}</Text>
       </Dance>
     </ListItem>
   );

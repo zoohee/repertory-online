@@ -5,9 +5,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import Dance from '@/components/dance/Dance';
-import Text from '@/components/common/Text';
+import { Secondary as Text } from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
-import { Menu } from '../common/MenuButton';
+import { Menu } from '@/components/common/MenuButton';
 
 const ListItem = styled.li`
   position: relative;
@@ -34,9 +34,7 @@ const Project = ({ project }) => {
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
       <Dance thumbnail={project.imageUrl} title={project.title}>
-        <Text size="s" color="s">
-          {project.detail}
-        </Text>
+        <Text>{project.detail}</Text>
       </Dance>
     </ListItem>
   );

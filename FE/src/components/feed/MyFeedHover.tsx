@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreButton from '@/components/common/More';
 import MenuBox from '@/components/common/MenuList';
 import MenuButton, { Menu } from '@/components/common/MenuButton';
-import Text from '@/components/common/Text';
+import { L as Text } from '@/components/common/Text';
 
 const Hover = styled.div`
   z-index: 1;
@@ -73,7 +73,7 @@ const MyFeedHover = () => {
         </MenuBox>
       )}
       <Box>
-        <Text size="l" color="p">
+        <Text>
           제목 입니다. 제목 입니다. 제목 입니다. 제목 입니다. sdfa sdfasaa as
           dfasdf asdfafasdfa
         </Text>

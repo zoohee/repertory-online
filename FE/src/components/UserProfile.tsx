@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import URL from '@/url';
 import ProfileImage from '@/components/common/Image';
-import Text, { TextStyle } from '@/components/common/Text';
 import { Member } from '@/types';
 
 const Box = styled.div`
@@ -15,17 +14,17 @@ const Box = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  margin-bottom: 4px;
 `;
 
 interface Props {
   children: React.ReactNode;
   imageSize: number;
   member: Member;
-  textStyle: TextStyle;
+  name: JSX.Element;
 }
 
-const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
-  const marginBottom = textStyle.size === 's' ? '4px' : '8px';
+const UserProfile = ({ children, imageSize, member, name }: Props) => {
   const stopBubbling = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
   };
@@ -47,13 +46,7 @@ const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
           to={`${URL.communityFeed}/${member.memberId}`}
           onClick={stopBubbling}
         >
-          <Text
-            size={textStyle.size}
-            color={textStyle.color}
-            style={{ marginBottom: `${marginBottom}` }}
-          >
-            {member.memberName}
-          </Text>
+          {name}
         </StyledLink>
         {children}
       </Box>

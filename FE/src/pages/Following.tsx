@@ -3,9 +3,14 @@ import styled from 'styled-components';
 
 import UserProfile from '@/components/UserProfile';
 import TabButtons from '@/components/common/Tab';
-import Text, { TextStyle } from '@/components/common/Text';
+import * as Text from '@/components/common/Text';
 import Follow from '@/components/community/Follow';
 import { Member, Tab } from '@/types';
+
+const Detail = styled(Text.M)`
+  color: var(--text-secondary-dark-mode);
+  margin-top: 4px;
+`;
 
 const ListItem = styled.li`
   margin-bottom: 16px;
@@ -29,11 +34,9 @@ const FollowingPage = () => {
             <UserProfile
               imageSize={52}
               member={member}
-              textStyle={new TextStyle('l', 'p')}
+              name={<Text.L>{member.memberName}</Text.L>}
             >
-              <Text size="m" color="s">
-                구독자 수
-              </Text>
+              <Detail>구독자 수</Detail>
             </UserProfile>
             <Follow
               $size="medium"

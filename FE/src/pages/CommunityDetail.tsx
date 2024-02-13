@@ -2,13 +2,17 @@ import styled from 'styled-components';
 import { useLoaderData } from 'react-router-dom';
 
 import UserProfile from '@/components/UserProfile';
-import Text, { TextStyle } from '@/components/common/Text';
+import * as Text from '@/components/common/Text';
 import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
 import { Community, Member } from '@/types';
 import Video from '@/components/common/Video';
+
+const TextLarge = styled(Text.XL)`
+  margin: 16px 0;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,19 +33,15 @@ const CommunityDetailPage = () => {
   return (
     <>
       <Video src={dance.feedUrl} />
-      <Text size="xl" color="p" style={{ margin: '16px 0' }}>
-        {dance.feedName}
-      </Text>
+      <TextLarge>{dance.feedName}</TextLarge>
       <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
             imageSize={40}
             member={member}
-            textStyle={new TextStyle('m', 'p')}
+            name={<Text.M>{member.memberName}</Text.M>}
           >
-            <Text size="s" color="s">
-              구독자 수
-            </Text>
+            <Text.Secondary>구독자 수</Text.Secondary>
           </UserProfile>
           <Box>
             <Follow $size="small" $followed={false} memberId={dance.memberId} />

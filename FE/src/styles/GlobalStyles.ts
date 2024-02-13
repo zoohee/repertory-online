@@ -118,6 +118,7 @@ const GlobalStyles = createGlobalStyle`
       /* font size */
       --font-size-s: 0.8rem;
       --font-size-l: 1.2rem;
+      --font-size-xl: 1.5rem;
 
       /* box shadow */
       --box-shadow: inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.075),
