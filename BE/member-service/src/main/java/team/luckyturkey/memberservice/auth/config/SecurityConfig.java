@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import team.luckyturkey.memberservice.auth.handler.CustomLogoutHandler;
+import team.luckyturkey.memberservice.auth.handler.CustomLogoutSuccessHandler;
 import team.luckyturkey.memberservice.auth.handler.MyAuthenticationFailureHandler;
 import team.luckyturkey.memberservice.auth.handler.MyAuthenticationSuccessHandler;
 import team.luckyturkey.memberservice.auth.jwt.JWTFilter;
@@ -41,6 +42,7 @@ public class SecurityConfig {
     private final MyAuthenticationFailureHandler oAuth2LoginFailureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
     private final CustomLogoutHandler customLogoutHandler;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -106,7 +108,8 @@ public class SecurityConfig {
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //로그아웃 요청 url
                         .addLogoutHandler(customLogoutHandler)
-                        .logoutSuccessUrl("https://repertory.online")); //로그아웃에 성공하면 메인페이지로 이동
+                        .logoutSuccessHandler(customLogoutSuccessHandler));
+//                        .logoutSuccessUrl("https://repertory.online")); //로그아웃에 성공하면 메인페이지로 이동
 
 
 
