@@ -28,6 +28,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Index />,
   },
+  // {
+  //   path: '/test',
+  //   element: <Test />,
+  // },
   {
     path: URL.login,
     element: <Login />,
@@ -39,6 +43,14 @@ const router = createBrowserRouter([
   {
     path: URL.workspace,
     element: <ProjectPage />,
+  },
+  {
+    path: '/secretdoor',
+    element: <Repertory />,
+  },
+  {
+    path: '/secretdoor',
+    element: <Repertory />,
   },
   {
     path: '/',

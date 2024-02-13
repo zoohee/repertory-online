@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
-const VideoTranscoder: React.FC = () => {
+const Test: React.FC = () => {
   const [loaded, setLoaded] = useState(false);
   const ffmpegRef = useRef(new FFmpeg());
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -24,10 +24,10 @@ const VideoTranscoder: React.FC = () => {
         `${baseURL}/ffmpeg-core.wasm`,
         'application/wasm'
       ),
-      workerURL: await toBlobURL(
-        `${baseURL}/ffmpeg-core.worker.js`,
-        'text/javascript'
-      ),
+      // workerURL: await toBlobURL(
+      //   `${baseURL}/ffmpeg-core.worker.js`,
+      //   'text/javascript'
+      // ),
     });
     setLoaded(true);
   };
@@ -37,7 +37,23 @@ const VideoTranscoder: React.FC = () => {
       'https://raw.githubusercontent.com/ffmpegwasm/testdata/master/video-15s.avi';
     const ffmpeg = ffmpegRef.current;
     await ffmpeg.writeFile('input.avi', await fetchFile(videoURL));
-    await ffmpeg.exec(['-i', 'input.avi', 'output.mp4']);
+    trimVideo();
+  };
+
+  const trimVideo = async () => {
+    const ffmpeg = ffmpegRef.current;
+    console.log(`[FFmpeg] : ${ffmpeg} is written`);
+    await ffmpeg.exec([
+      '-i',
+      'input.avi',
+      '-ss',
+      '00:00:05',
+      '-to',
+      '00:00:06',
+      '-f',
+      'mp4',
+      'output.mp4',
+    ]);
     const fileData = await ffmpeg.readFile('output.mp4');
     const data = new Uint8Array(fileData as ArrayBuffer);
     if (videoRef.current) {
@@ -60,4 +76,4 @@ const VideoTranscoder: React.FC = () => {
   );
 };
 
-export default VideoTranscoder;
+export default Test;

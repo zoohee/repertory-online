@@ -10,7 +10,7 @@ export const $axios = () => {
 };
 export const $pose = () => {
   return axios.create({
-    baseURL: import.meta.env.VITE_POSE_BASE_URL,
+    baseURL: import.meta.env.VITE_APP_POSE_URL2,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -24,7 +24,8 @@ export const $auth = () => {
     baseURL: import.meta.env.VITE_APP_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
+      // Refresh: `Bearer ${token}`,
     },
     withCredentials: true,
   });

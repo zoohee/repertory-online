@@ -33,7 +33,7 @@ const RepertoryPage = () => {
     }
   };
 
-  const BASE_URL = 'http://i10a707.p.ssafy.io:8000';
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
   const memberJoinTest = () => {
     const url = `${BASE_URL}/member/join`;
@@ -83,6 +83,24 @@ const RepertoryPage = () => {
       });
   };
 
+  const community_tagSearch_Test = () => {
+    const tagName = 'tag1';
+    const url = `${BASE_URL}/dance/repertory?tag-name${tagName}`;
+    const params = {
+      page: 1,
+      pageSize: 10,
+      tag: tagName,
+    };
+    axios
+      .get(url, { params })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const sourceTest = () => {
     const data = {
       sourceName: 'string',
@@ -92,6 +110,7 @@ const RepertoryPage = () => {
       end: 'string',
     };
     const formData = new FormData();
+    formData.append('sourceThumbnail', img);
     formData.append('sourceVideo', input);
     formData.append(
       'postSource',
@@ -174,6 +193,8 @@ const RepertoryPage = () => {
           </Btn>
         </Wrapper>
         <Wrapper>
+          <Btn onClick={() => com.getFeedVideo(1)}>커뮤니티 동영상 조회</Btn>
+          <Btn onClick={() => com.saveFeed()}>피드 데이터 저장</Btn>
           <Btn onClick={com.getSubscribersCount}>GET/getSubscribersCount</Btn>
           <Btn onClick={() => com.postSubscriber(123)}>POST/postSubscriber</Btn>
           <Btn onClick={() => com.patchFeedLike(123)}>PATCH/patchFeedLike</Btn>
@@ -206,8 +227,29 @@ const RepertoryPage = () => {
           <Btn onClick={com.getSubscribersList}>GET/getSubscribersList</Btn>
         </Wrapper>
         <Wrapper>
-          <Btn onClick={member.postMember}>Join</Btn>
-          <Btn onClick={member.loginMember}>Login</Btn>
+          <Btn
+            onClick={() =>
+              member.postMember({
+                memberName: '김형진',
+                memberLoginId: 'rlagudwls3469',
+                memberPassword: 'SSafy1234!!',
+                memberEmail: 'rlagudwls3469@gmail.com',
+                // memberProfile : 'checkMyProfile'
+              })
+            }
+          >
+            Join
+          </Btn>
+          <Btn
+            onClick={() =>
+              member.loginMember({
+                memberLoginId: 'rlagudwls3469',
+                memberPassword: 'SSafy1234!!',
+              })
+            }
+          >
+            Login
+          </Btn>
           <Btn onClick={project.getProjectsList}>프로젝트 목록 조회</Btn>
           <Btn onClick={() => project.patchProject(1)}>프로젝트 이름 수정</Btn>
           <Btn onClick={() => project.postProject(2)}>프로젝트 생성</Btn>
@@ -216,6 +258,19 @@ const RepertoryPage = () => {
             프로젝트 정보 조회
           </Btn>
           <Btn onClick={poseTest}>포즈 라벨링</Btn>
+          <Btn onClick={community_tagSearch_Test}>
+            [dance]community dance(tag검색)
+          </Btn>
+          <Btn onClick={() => member.getIdValidation('rlagudwls3469')}>
+            rlagudwls3469 중복확인
+          </Btn>
+          <Btn onClick={() => member.getIdValidation('rlagudwls3459')}>
+            rlagudwls3459 중복확인
+          </Btn>
+          <Btn onClick={member.logoutMember}>[member]Logout</Btn>
+          <Btn onClick={member.getMemberInfo}>
+            [member]정보 조회/getMemberInfo
+          </Btn>
         </Wrapper>
       </Container>
       <div>

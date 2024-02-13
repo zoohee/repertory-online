@@ -1,6 +1,6 @@
 import { ChangeEvent, MutableRefObject, useRef } from 'react';
 import styled from 'styled-components';
-
+import { Title } from './Title';
 const HiddenInput = styled.input`
   display: none;
 `;
@@ -16,6 +16,12 @@ const UploadButton = styled.button`
     color: #9a9a9a;
   }
 `;
+
+const ProjectViewWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height : 60vh;
+`
 const UploadZone = styled.div``;
 
 const ProjectView = () => {
@@ -33,12 +39,15 @@ const ProjectView = () => {
   };
   return (
     <>
-      <HiddenInput type='file' ref={fileInput} onChange={handleFileUpload} />
-      <UploadZone>
-        <UploadButton type='button' onClick={handleButtonClick}>
-          +
-        </UploadButton>
-      </UploadZone>
+      <Title title={'Project'} />
+      <ProjectViewWrapper>
+        <HiddenInput type='file' ref={fileInput} onChange={handleFileUpload} />
+        <UploadZone>
+          <UploadButton type='button' onClick={handleButtonClick}>
+            +
+          </UploadButton>
+        </UploadZone>
+      </ProjectViewWrapper>
     </>
   );
 };
