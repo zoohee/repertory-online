@@ -47,49 +47,27 @@ const loginMember = async ({ memberLoginId, memberPassword }: ILoginData) => {
   console.log(refresh);
   localStorage.setItem('token', access);
   localStorage.setItem('refresh', refresh);
-  console.log(DecodeJwt(access));
+  // console.log(DecodeJwt(access));
   return response;
 };
 
 const getIdValidation = async (memberLoginId: string) => {
   const params = {
-    memberLoginId: 'rlagudwls3469',
+    memberLoginId: 'sdfsd',
   };
   const response = await $axios().get('/member/id-validation', { params });
-  console.log(response);
-  console.log(response.data);
-  return response;
-};
-
-// eslint-disable-next-line react-refresh/only-export-components
-const DecodeJwt = (token: string) => {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(
-    window
-      .atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join('')
-  );
-  // const result = JSON.parse(jsonPayload);
-  // console.log(result['memberId']); => memberId
-  return JSON.parse(jsonPayload);
+  return response.status === 204;
 };
 
 const logoutMember = async () => {
-  const response = await $auth().post('/member/logout');
+  const response = await $auth().get('/member/logout');
   console.log(response);
   console.log(localStorage.getItem('token'));
-  // localStorage.removeItem('');
-
   return response;
 };
 
 const getMemberInfo = async () => {
-  const response = await $auth().get('/member/memberinfo/1');
+  const response = await $auth().get('/member/memberinfo/2');
   console.log(response);
   return response;
 };
