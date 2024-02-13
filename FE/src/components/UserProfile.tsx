@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import URL from '@/url';
 import ProfileImage from '@/components/common/Image';
 import Text, { TextStyle } from '@/components/common/Text';
+import { Member } from '@/types';
 
 const Box = styled.div`
   display: flex;
@@ -13,41 +13,48 @@ const Box = styled.div`
   justify-content: center;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   imageSize: number;
-  member: {
-    id: number;
-    name: string;
-    profileImage: string;
-  };
+  member: Member;
   textStyle: TextStyle;
 }
 
 const UserProfile = ({ children, imageSize, member, textStyle }: Props) => {
   const marginBottom = textStyle.size === 's' ? '4px' : '8px';
+  const stopBubbling = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <div style={{ display: 'flex' }}>
-      <Link to={`${URL.communityFeed}/${member.id}`}>
+      <Link
+        to={`${URL.communityFeed}/${member.memberId}`}
+        onClick={stopBubbling}
+      >
         <ProfileImage
           size={imageSize}
           isRound={true}
-          src={member.profileImage}
+          src={member.memberProfile}
         />
       </Link>
       <Box>
-        <Link
-          to={`${URL.communityFeed}/${member.id}`}
-          style={{ textDecorationLine: 'none' }}
+        <StyledLink
+          to={`${URL.communityFeed}/${member.memberId}`}
+          onClick={stopBubbling}
         >
           <Text
             size={textStyle.size}
             color={textStyle.color}
             style={{ marginBottom: `${marginBottom}` }}
           >
-            {member.name}
+            {member.memberName}
           </Text>
-        </Link>
+        </StyledLink>
         {children}
       </Box>
     </div>

@@ -1,5 +1,6 @@
+import styled from 'styled-components';
+
 import TabButtons, { Tab } from '@/components/common/Tab';
-import Wrapper from '@/components/Wrapper';
 import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceGridBox';
 import ProjectItem from '@/components/dance/Project';
@@ -18,17 +19,24 @@ const DUMMY_LIST = [
   },
 ];
 
+const Wrapper = styled.div`
+  margin: 24px 0;
+  padding: 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
 const TABS = [new Tab('My projects', true)];
 
 const ProjectsPage = () => {
   return (
     <>
       <TabButtons tabs={TABS} margin="48px 0 0" />
-      <Wrapper $margin="24px 0">
-        <SearchBar></SearchBar>
-        <Link to='/workspace' style={{ textDecoration: 'none' }} target="_blank" >
-          <CreateButton />
-        </Link>
+      <Wrapper>
+        <SearchBar />
+        <CreateButton to="/workspace" target="_blank" />
       </Wrapper>
       {/* TODO: 프로젝트 생성 버튼 */}
       <ProjectList column={3}>

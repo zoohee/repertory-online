@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
+import Overlay from '@/components/Overlay';
 import { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 
@@ -11,45 +12,18 @@ interface signUpData {
   dancerName: string;
   email: string;
 }
-const FormWrapper = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  transform: translate(-50%, -50%);
-  border-radius: 8px;
-  z-index: 1000;
-  /* width: 400px; */
-  min-height: 300px;
-  align-items: center;
-  justify-content: center;
-`;
-const Overlay = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  /* background: rgba(0, 0, 0, 0.5); */
-  z-index: 999;
-`;
+
 const Wrapper = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   background-color: rgba(23, 23, 23, 0.8);
-  padding: 40px 40px 40px 40px;
+  padding: 48px;
   width: 480px;
   min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-`;
-const Title = styled.div`
-  margin: 30px;
-  font-size: 2rem;
-  color: #fafafa;
 `;
 
 const Msg = styled.div`
@@ -106,40 +80,35 @@ const SignUp = () => {
   }, 500);
 
   return (
-    <>
-      <Overlay>
-        <FormWrapper>
-          <Wrapper>
-            <Title>SignUp</Title>
-            <Input name='ID' action='signup' onChange={onChangeInput} />
-            <Msg>{idMsg}</Msg>
-            <Input
-              name='PASSWORD'
-              action='signup'
-              inputtype='password'
-              onChange={onChangeInput}
-            />
-            <Msg>{pwMsg}</Msg>
-            <Input
-              name='CONFIRM PASSWORD'
-              action='signup'
-              inputtype='password'
-              onChange={onChangeInput}
-            />
-            <Msg>{pwMsg}</Msg>
-            <Input name='DANCER NAME' onChange={onChangeInput} action={''} />
-            <Msg>{nameMsg}</Msg>
-            <Input name='EMAIL' onChange={onChangeInput} action={''} />
-            <Msg>{emailMsg}</Msg>
-            <Button
-              btntype='submit'
-              onClick={onClickSignUp}
-              buttonText={'Sign up'}
-            />
-          </Wrapper>
-        </FormWrapper>
-      </Overlay>
-    </>
+    <Overlay>
+      <Wrapper>
+        <Input name="ID" action="signup" onChange={onChangeInput} />
+        <Msg>{idMsg}</Msg>
+        <Input
+          name="PASSWORD"
+          action="signup"
+          inputtype="password"
+          onChange={onChangeInput}
+        />
+        <Msg>{pwMsg}</Msg>
+        <Input
+          name="CONFIRM PASSWORD"
+          action="signup"
+          inputtype="password"
+          onChange={onChangeInput}
+        />
+        <Msg>{pwMsg}</Msg>
+        <Input name="DANCER NAME" onChange={onChangeInput} action={''} />
+        <Msg>{nameMsg}</Msg>
+        <Input name="EMAIL" onChange={onChangeInput} action={''} />
+        <Msg>{emailMsg}</Msg>
+        <Button
+          btntype="submit"
+          onClick={onClickSignUp}
+          buttonText={'Sign up'}
+        />
+      </Wrapper>
+    </Overlay>
   );
 };
 export default SignUp;

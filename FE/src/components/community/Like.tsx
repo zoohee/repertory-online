@@ -9,7 +9,6 @@ const Button = styled.button`
   flex-direction: column;
   align-items: center;
   margin-left: 16px;
-  background-color: transparent;
 `;
 
 interface Props {

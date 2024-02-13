@@ -1,34 +1,13 @@
 import styled from 'styled-components';
 import { useState, useEffect} from 'react';
 // import { debounce } from 'lodash';
-import Input from '../components/common/Input';
-import Button from '../components/common/Button';
-import { LoginStore } from '@/store/LoginStore';
-import { useNavigate } from 'react-router-dom';
-const FormWrapper = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  transform: translate(-50%, -50%);
-  border-radius: 8px;
-  z-index: 1000;
-  /* width: 400px; */
-  min-height: 300px;
-  align-items: center;
-  justify-content: center;
-`;
-const Overlay = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  /* background: rgba(0, 0, 0, 0.5); */
-  z-index: 999;
-`;
+import { useDispatch } from 'react-redux';
+import Input from '@/components/common/Input';
+import Button from '@/components/common/Button';
+import Overlay from '@/components/Overlay';
+
 const Wrapper = styled.div`
+  padding: 48px;
   box-sizing: border-box;
   border-radius: 8px;
   background-color: rgba(23, 23, 23, 0.8);
@@ -37,11 +16,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-const Title = styled.div`
-  margin: 30px;
-  font-size: 2rem;
-  color: #fafafa;
 `;
 
 const SignUpMsg = styled.div`
@@ -112,39 +86,30 @@ const Login = () => {
     navigate('/');
   }
   return (
-    <>
-      <Overlay>
-        <FormWrapper>
-          <Wrapper>
-            <Title>Login</Title>
-            <Input
-              name='login'
-              action='login'
-              inputtype='normal'
-              onChange={onChangeId}
-            />
-            <Input
-              name='password'
-              action='login'
-              inputtype='password'
-              onChange={onChangePw}
-            />
-            <SignUp>Forgot Password?</SignUp>
-            <Button
-              btntype='submit'
-              buttonText='LOGIN'
-              onClick={onClickLogin}
-            />
-            <Button
-              btntype='google'
-              buttonText='Google Login'
-              onClick={onClickLogin}
-            />
-            <SignUp>Sign up</SignUp>
-          </Wrapper>
-        </FormWrapper>
-      </Overlay>
-    </>
+    <Overlay>
+      <Wrapper>
+        <Input
+          name="login"
+          action="login"
+          inputtype="ID"
+          onChange={onChangeId}
+        />
+        <Input
+          name="password"
+          action="login"
+          inputtype="password"
+          onChange={onChangePw}
+        />
+        <SignUp>Forgot Password?</SignUp>
+        <Button btntype="submit" buttonText="LOGIN" onClick={onClickLogin} />
+        <Button
+          btntype="google"
+          buttonText="Google Login"
+          onClick={onClickLogin}
+        />
+        <SignUp>Sign up</SignUp>
+      </Wrapper>
+    </Overlay>
   );
 };
 

@@ -3,19 +3,26 @@ import { createBrowserRouter } from 'react-router-dom';
 import URL from '@/url';
 
 import Index from '@/pages/Index';
+import Login from '@/pages/Login';
+import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
 import ProjectsPage from '@/pages/Projects';
-import SourcesPage from '@/pages/Sources';
-import CommunityPage from '@/pages/Community';
-import CommunityDetailPage from '@/pages/CommunityDetail';
+import SourcesPage, { sourceLoader } from '@/pages/Sources';
+import CommunityPage, { communityLoader } from '@/pages/Community';
+import CommunityDetailPage, {
+  communityDetailLoader,
+} from '@/pages/CommunityDetail';
 import CommunityLayout from '@/pages/CommunityLayout';
-import CommunityUserFeedPage from '@/pages/CommunityUserFeed';
+import CommunityUserFeedPage, {
+  communityFeedLoader,
+} from '@/pages/CommunityUserFeed';
 import MyfeedPage from '@/pages/MyFeed';
-import FollowingPage from '@/pages/Following';
+import FollowingPage, { followingLoader } from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
-import Repertory from '@/pages/Repertory';
-// import Test from './pages/Test';
-import Login from './pages/Login';
+
+import SourcesContextProvider from '@/store/sources-context';
+import FeedContextProvider from '@/store/feed-context';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,6 +32,14 @@ const router = createBrowserRouter([
   //   path: '/test',
   //   element: <Test />,
   // },
+  {
+    path: URL.login,
+    element: <Login />,
+  },
+  {
+    path: URL.signUp,
+    element: <SignUp />,
+  },
   {
     path: URL.workspace,
     element: <ProjectPage />,
@@ -47,7 +62,12 @@ const router = createBrowserRouter([
       },
       {
         path: URL.sources,
-        element: <SourcesPage />,
+        element: (
+          <SourcesContextProvider>
+            <SourcesPage />
+          </SourcesContextProvider>
+        ),
+        loader: sourceLoader,
       },
       {
         path: URL.community,
@@ -56,14 +76,23 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <CommunityPage />,
+            loader: communityLoader,
           },
           {
-            path: `${URL.communityDetail}/:Id`,
+            path: `${URL.communityDetail}/:feedId`,
             element: <CommunityDetailPage />,
+            loader: ({ params }) =>
+              communityDetailLoader(Number(params.feedId)),
           },
           {
-            path: `${URL.communityFeed}/:userId`,
-            element: <CommunityUserFeedPage />,
+            path: `${URL.communityFeed}/:memberId`,
+            element: (
+              <FeedContextProvider>
+                <CommunityUserFeedPage />
+              </FeedContextProvider>
+            ),
+            loader: ({ params }) =>
+              communityFeedLoader(Number(params.memberId)),
           },
         ],
       },
@@ -74,6 +103,7 @@ const router = createBrowserRouter([
       {
         path: URL.Following,
         element: <FollowingPage />,
+        loader: followingLoader,
       },
     ],
   },

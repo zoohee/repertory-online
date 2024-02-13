@@ -210,13 +210,13 @@ const RepertoryPage = () => {
           </Btn>
           <Btn
             onClick={() =>
-              com.getUserFeed({
-                page: 1,
-                pageSize: 10,
+              com.getCommunityFeed({
+                page: 0,
+                pageSize: 5,
               })
             }
           >
-            GET/getUserFeed
+            커뮤니티 피드 조회
           </Btn>
           <Btn onClick={() => com.feedSetPublic(1234, 0)}>
             GET/feedSetPublic

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import { fontSize } from '@/styles/font';
 import Thumbnail from '@/components/common/Image';
-import Detail from '@/components/Wrapper';
 
 const Box = styled.div`
   width: 100%;
@@ -17,6 +16,14 @@ const Title = styled.div`
   ${fontSize.xl}
 `;
 
+const Detail = styled.div`
+  padding: 0 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
 interface Props {
   children: ReactNode;
   thumbnail: string;
@@ -28,7 +35,7 @@ const Dance = ({ children, thumbnail, title }: Props) => {
     <Box>
       <Thumbnail src={thumbnail}></Thumbnail>
       <Title>{title}</Title>
-      <Detail $margin="0 16px 16px 16px">{children}</Detail>
+      <Detail>{children}</Detail>
     </Box>
   );
 };

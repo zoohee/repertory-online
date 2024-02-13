@@ -8,7 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 0;
+  padding: 40px 0;
 `;
 
 const Aside = styled(Container)`
@@ -19,12 +19,10 @@ const Aside = styled(Container)`
   min-height: calc(100vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-color);
   width: var(--sidebar);
-  justify-content: space-evenly;
 `;
 
 const Logout = styled.button`
   color: var(--rp-grey-500);
-  background-color: transparent;
   border: 0;
 
   &:hover {

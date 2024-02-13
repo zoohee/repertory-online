@@ -66,7 +66,8 @@ const GlobalStyles = createGlobalStyle`
              url('/fonts/YdestreetB.ttf') format('truetype');
     }
     button, input{
-        font-family: 'YdestreetL', sans-serif
+        font-family: 'YdestreetL', sans-serif;
+        background-color: transparent;
     }
     @font-face {
         font-family: 'Pretendard';
@@ -105,6 +106,7 @@ const GlobalStyles = createGlobalStyle`
       --menu-color: var(--rp-grey-700);
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
+      --sidebar-project--width:340px;
       /* button */
       --button-padding: 4px 16px;
       --button-padding-small: 4px 12px;
@@ -122,7 +124,13 @@ const GlobalStyles = createGlobalStyle`
         0 0 0 1px hsla(0, 0%, 0%, 0.05), 0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
         0 0.9px 1.5px hsla(0, 0%, 0%, 0.045), 0 3.5px 6px hsla(0, 0%, 0%, 0.09);
 
-        --sidebar-project--width : 540px;
+      /* text shadow */
+      --text-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.2), 0 6px 24px rgba(0, 0, 0, 0.25);
+
+      /* homepage */
+      --homepage-padding: 48px;
+      --homepage-grid-row-size: 3rem;
     }
     .red {
         color: var(--color-red);

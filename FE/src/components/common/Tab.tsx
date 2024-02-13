@@ -13,7 +13,6 @@ const List = styled.ul`
 const Button = styled.button<{ $clicked: boolean }>`
   ${fontSize.l}
   padding: 16px;
-  background-color: transparent;
   border: 0;
   ${({ $clicked }) => {
     if ($clicked) {
@@ -44,7 +43,7 @@ interface Props {
   children?: ReactNode;
   margin: string;
   tabs: Tab[];
-  onClickTab?: (navName: string) => void;
+  onClickTab?: (tab: Tab) => void;
 }
 
 const Tabs = ({ children, margin, tabs, onClickTab }: Props) => {
@@ -54,7 +53,7 @@ const Tabs = ({ children, margin, tabs, onClickTab }: Props) => {
         $clicked={tab.clicked}
         onClick={() => {
           if (onClickTab) {
-            onClickTab(tab.name);
+            onClickTab(tab);
           }
         }}
       >
