@@ -26,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const CommunityUserFeedPage = () => {
-  const { dances, isModalOpen } = useContext(feedContext);
+  const { dances, modal } = useContext(feedContext);
 
   return (
     <Container>
@@ -48,7 +48,7 @@ const CommunityUserFeedPage = () => {
           </FeedItem>
         ))}
       </DanceGridBox>
-      {isModalOpen && <FeedItemModal />}
+      {modal.isOpen && <FeedItemModal modal={modal} />}
     </Container>
   );
 };

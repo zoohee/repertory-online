@@ -52,4 +52,13 @@ interface Member {
   memberProfile: string;
 }
 
-export type { Tag, Source, Community, Member };
+interface Modal {
+  isOpen: boolean;
+  closeModal: () => void;
+  dances: Community[];
+  index: number;
+  nextDance: () => void;
+  prevDance: () => void;
+}
+
+export type { Tag, Source, Community, Member, Modal };

@@ -1,16 +1,16 @@
-import { useRef, useEffect, useContext } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-import { feedContext } from '@/store/feed-context';
 import Video from '@/components/common/Video';
 import * as Text from '@/components/common/Text';
 import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import URL from '@/url';
+import { Modal } from '@/types';
 
 const Close = styled(CloseIcon)`
   z-index: 100;
@@ -75,7 +75,7 @@ const Content = styled(ColumnBox)`
   }
 `;
 
-const Modal = styled.dialog`
+const Dialog = styled.dialog`
   width: 100%;
   height: 100%;
   padding: 0;
@@ -91,23 +91,26 @@ const Modal = styled.dialog`
   }
 `;
 
-const FeedItemModal = () => {
-  const { isModalOpen, closeModal, prevDance, nextDance, dances, index } =
-    useContext(feedContext);
+interface Props {
+  modal: Modal;
+}
+
+const FeedItemModal = ({ modal }: Props) => {
+  const { isOpen, closeModal, prevDance, nextDance, dances, index } = modal;
 
   const dance = dances[index];
 
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (isModalOpen) {
+    if (isOpen) {
       ref.current?.showModal();
     } else {
       ref.current?.close();
     }
-  }, [isModalOpen]);
+  }, [isOpen]);
 
   return (
-    <Modal ref={ref} onClose={closeModal}>
+    <Dialog ref={ref} onClose={closeModal}>
       <Container>
         <ButtonBox>
           {index !== 0 && (
@@ -121,9 +124,9 @@ const FeedItemModal = () => {
           <Video src={dance.feedUrl} />
           <Wrapper>
             <ColumnBox>
-            <StyledLink to={`${URL.communityDetail}/${dance.feedId}`} >
-              <Text.XL>{dance.feedName}</Text.XL>
-            </StyledLink>
+              <StyledLink to={`${URL.communityDetail}/${dance.feedId}`}>
+                <Text.XL>{dance.feedName}</Text.XL>
+              </StyledLink>
               <Detail>{dance.feedDate}</Detail>
             </ColumnBox>
             <FlexBox>
@@ -142,7 +145,7 @@ const FeedItemModal = () => {
           )}
         </ButtonBox>
       </Container>
-    </Modal>
+    </Dialog>
   );
 };
 
