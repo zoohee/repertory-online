@@ -22,7 +22,7 @@ import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
-
+import RepertoryPage from './pages/Repertory';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -46,11 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/secretdoor',
-    element: <Repertory />,
-  },
-  {
-    path: '/secretdoor',
-    element: <Repertory />,
+    element: <RepertoryPage />,
   },
   {
     path: '/',
