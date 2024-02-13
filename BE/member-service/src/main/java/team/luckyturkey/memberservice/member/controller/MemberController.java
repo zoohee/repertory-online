@@ -83,8 +83,8 @@ public class MemberController {
 
 
     @GetMapping("/id-validation")
-    public ResponseEntity<?> validateMemberLoginId(@RequestBody MemberLoginIdIsExistDto memberLoginIdIsExistDto){
-        if(memberService.memberLoginIdIsExist(memberLoginIdIsExistDto)){
+    public ResponseEntity<?> validateMemberLoginId(@RequestParam String memberLoginId){
+        if(memberService.memberLoginIdIsExist(memberLoginId)){
             return new ResponseEntity<>(HttpStatus.IM_USED);
         }
 
