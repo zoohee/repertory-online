@@ -72,10 +72,9 @@ public class MemberService {
     }
 
     @Transactional
-    public String findMemberLoginId(FindMemberLoginIdDto findMemberLoginIdDto){
-        String loginId = memberRepository.findMemberLoginIdByMemberEmail(findMemberLoginIdDto.getMemberEmail());
+    public String findMemberLoginId(String memberEmail){
 
-        return loginId;
+        return memberRepository.findMemberLoginIdByMemberEmail(memberEmail);
     }
 
     public List<CommunityMemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
