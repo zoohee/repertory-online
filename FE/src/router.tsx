@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import URL from '@/url';
-
 import Index from '@/pages/Index';
 import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
@@ -23,15 +22,16 @@ import ProjectPage from '@/pages/ProjectPage';
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
 import RepertoryPage from './pages/Repertory';
+import Test from './pages/Test';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
   },
-  // {
-  //   path: '/test',
-  //   element: <Test />,
-  // },
+  {
+    path: '/test',
+    element: <Test />,
+  },
   {
     path: URL.login,
     element: <Login />,

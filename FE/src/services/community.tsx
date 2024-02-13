@@ -5,7 +5,7 @@ interface IPage {
 }
 interface IfeedData {
   originId: number;
-  feedType: 0 | 1;
+  feedType: string;
   feedDisable: 0 | 1;
 }
 type IFeedType = 0 | 1;
@@ -112,9 +112,9 @@ const getFeedVideo = async (feedId: number) => {
 // 피드 데이터 저장
 const saveFeed = async () => {
   const feedData: IfeedData = {
-    originId: 123,
-    feedType: 0,
-    feedDisable: 1,
+    originId: 154,
+    feedType: 'SOURCE',
+    feedDisable: 0,
   };
   const response = await $axios().post(`/community/feed`, feedData);
   console.log(response.data);

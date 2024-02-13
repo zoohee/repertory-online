@@ -14,7 +14,7 @@ const patchProject = async (projectId: number) => {
 
 // 프로젝트 생성
 const postProject = async (projectId: number, data: FormData) => {
-  const response = await $axios().post(`/project/${projectId}`, data, {
+  const response = await $axios().post(`/project`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -32,14 +32,18 @@ const getProjectDetail = async (projectId: number) => {
   console.log(response);
 };
 // 포즈 라벨링
-const detectPose = async (formData: FormData) => {
-  const response = await $pose().post(`/pose/pose-detect/`, formData, {
+const detectPose = async (img: File) => {
+  const response = await $pose().post(`/pose/pose-detect/`, img, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'image/jpeg',
     },
   });
   console.log(response);
 };
+// const detectPose = async (img) => {
+//   const response = await $pose().post(`/pose/pose-detect/`,img);
+//   console.log(response);
+// };
 
 export {
   getProjectsList,

@@ -8,8 +8,8 @@ const Test: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const messageRef = useRef<HTMLParagraphElement | null>(null);
 
-  const load = async () => {
-    console.log('hi');
+  // load FFmpeg
+  const LoadFFmpeg = async () => {
     const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     const ffmpeg = ffmpegRef.current;
     ffmpeg.on('log', ({ message }) => {
@@ -47,9 +47,9 @@ const Test: React.FC = () => {
       '-i',
       'input.avi',
       '-ss',
-      '00:00:05',
+      '00:00:05.50',
       '-to',
-      '00:00:06',
+      '00:00:07.40',
       '-f',
       'mp4',
       'output.mp4',
@@ -72,7 +72,7 @@ const Test: React.FC = () => {
       <p>Open Developer Tools (Ctrl+Shift+I) to View Logs</p>
     </>
   ) : (
-    <button onClick={load}>Load ffmpeg-core (~31 MB)</button>
+    <button onClick={LoadFFmpeg}>Load ffmpeg-core (~31 MB)</button>
   );
 };
 

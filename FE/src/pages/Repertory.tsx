@@ -120,11 +120,7 @@ const RepertoryPage = () => {
   };
 
   const poseTest = () => {
-    const formData = new FormData();
-    formData.append('source', img);
-    console.log(formData);
-    console.log(img);
-    project.detectPose(formData);
+    project.detectPose(img);
   };
 
   const repertoryTest = () => {
@@ -148,7 +144,7 @@ const RepertoryPage = () => {
     const formData = new FormData();
     formData.append('projectTitle', 'TestName');
     formData.append('projectThumbnail', img);
-    project.postProject(2, formData);
+    project.postProject(7, formData);
   };
   return (
     <>
