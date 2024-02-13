@@ -10,12 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import team.luckyturkey.memberservice.auth.handler.CustomLogoutHandler;
-import team.luckyturkey.memberservice.auth.handler.LogoutSuccessHandler;
 import team.luckyturkey.memberservice.auth.handler.MyAuthenticationFailureHandler;
 import team.luckyturkey.memberservice.auth.handler.MyAuthenticationSuccessHandler;
 import team.luckyturkey.memberservice.auth.jwt.JWTFilter;
@@ -42,7 +40,6 @@ public class SecurityConfig {
     private final JwtExceptionFilter jwtExceptionFilter;
     private final MyAuthenticationFailureHandler oAuth2LoginFailureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final LogoutSuccessHandler logoutSuccessHandler;
     private final CustomLogoutHandler customLogoutHandler;
 
     @Bean
