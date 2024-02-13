@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 // import { debounce } from 'lodash';
 import { useDispatch } from 'react-redux';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import Overlay from '@/components/Overlay';
+import { LoginStore } from '@/store/LoginStore';
+import { useNavigate } from 'react-router';
 
 const Wrapper = styled.div`
   padding: 48px;
@@ -39,7 +41,7 @@ const SignUp = styled(SignUpMsg)`
 const Login = () => {
   const isLoggedIn = LoginStore((state) => state.isLoggedin);
   useEffect(() => {
-    if (isLoggedIn) BlockAccess()
+    if (isLoggedIn) BlockAccess();
   }, []);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
@@ -48,7 +50,7 @@ const Login = () => {
   const [idValidationMsg, setIdValidationMsg] = useState('');
   const [pwValidationMsg, setPwValidationMsg] = useState('');
 
-  const login = LoginStore((state)=>state.login);
+  const login = LoginStore((state) => state.login);
   const navigate = useNavigate();
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
@@ -65,46 +67,46 @@ const Login = () => {
     setIsPwValid(pwRegex.test(input));
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
   };
-  
-  const onClickLogin = async() => {
+
+  const onClickLogin = async () => {
     const LoginData = {
       memberLoginId: id,
       memberPassword: pw,
     };
-    console.log(`${LoginData} try to login..`)
+    console.log(`${LoginData} try to login..`);
     const success = await login(LoginData);
     console.log(`[Login Status(before)]:${isLoggedIn}`);
     console.log(`[Success?]:${success}`);
     console.log(`[Login Status(after)]:${isLoggedIn}`);
 
-    if(success){
-      navigate('/')
+    if (success) {
+      navigate('/');
     }
   };
 
-  const BlockAccess=()=>{
+  const BlockAccess = () => {
     navigate('/');
-  }
+  };
   return (
     <Overlay>
       <Wrapper>
         <Input
-          name="login"
-          action="login"
-          inputtype="ID"
+          name='login'
+          action='login'
+          inputtype='ID'
           onChange={onChangeId}
         />
         <Input
-          name="password"
-          action="login"
-          inputtype="password"
+          name='password'
+          action='login'
+          inputtype='password'
           onChange={onChangePw}
         />
         <SignUp>Forgot Password?</SignUp>
-        <Button btntype="submit" buttonText="LOGIN" onClick={onClickLogin} />
+        <Button btntype='submit' buttonText='LOGIN' onClick={onClickLogin} />
         <Button
-          btntype="google"
-          buttonText="Google Login"
+          btntype='google'
+          buttonText='Google Login'
           onClick={onClickLogin}
         />
         <SignUp>Sign up</SignUp>

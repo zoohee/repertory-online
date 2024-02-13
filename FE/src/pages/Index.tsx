@@ -34,6 +34,19 @@ const StyledLink = styled(Link)`
   text-shadow: var(--text-shadow);
 
   &:hover {
+    cursor: pointer;
+    color: var(--rp-yellow);
+  }
+`;
+
+const StyledDiv = styled.div`
+  font-family: 'YdestreetB';
+  ${fontSize.l}
+  text-decoration-line: none;
+  text-shadow: var(--text-shadow);
+
+  &:hover {
+    cursor: pointer;
     color: var(--rp-yellow);
   }
 `;
@@ -79,7 +92,7 @@ const ImageBox = styled.div`
 
 export default function HomePage() {
   const isLoggedIn = LoginStore((state) => state.isLoggedin);
-  const logout = LoginStore((state)=> state.logout);
+  const logout = LoginStore((state) => state.logout);
   useEffect(() => {
     console.log(`[Login Status]: ${isLoggedIn ? 'Logged in ' : 'Logged Out'}`);
   }, [isLoggedIn]);
@@ -87,7 +100,11 @@ export default function HomePage() {
     <GridContainer>
       <List>
         <ListItem>
-          <StyledLink to={URL.login}>Log In</StyledLink>
+          {isLoggedIn ? (
+            <StyledDiv onClick={logout}>Logout</StyledDiv>
+          ) : (
+            <StyledLink to={URL.login}>Log In</StyledLink>
+          )}
         </ListItem>
         <ListItem>
           <StyledLink to={URL.signUp}>Sign Up</StyledLink>
@@ -95,7 +112,7 @@ export default function HomePage() {
       </List>
       <Box>
         <InnerBox>
-          <img src="images/logo.svg" alt="logo" />
+          <img src='images/logo.svg' alt='logo' />
           <ul>
             <ListItem>
               <StyledLink to={URL.projects}>Create</StyledLink>
@@ -106,7 +123,7 @@ export default function HomePage() {
           </ul>
         </InnerBox>
         <ImageBox>
-          <img src="images/index.jpg" alt="home" />
+          <img src='images/index.jpg' alt='home' />
         </ImageBox>
       </Box>
     </GridContainer>
