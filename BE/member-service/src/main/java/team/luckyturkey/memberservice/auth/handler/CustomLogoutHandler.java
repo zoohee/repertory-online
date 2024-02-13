@@ -20,7 +20,8 @@ public class CustomLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         //헤더에서 토큰 가져오기
-        String atc= request.getHeader("Authorization");
+        String token = request.getHeader("Authorization");
+        String atc = token.split(" ")[1];
         //헤더에 토큰이 있다면
         if(atc != null){
             // access token을 이용해서 redis에서 토큰 검색
