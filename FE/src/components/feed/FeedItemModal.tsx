@@ -10,7 +10,7 @@ import * as Text from '@/components/common/Text';
 import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import URL from '@/url';
-import { Modal } from '@/types';
+import { Community, Modal } from '@/types';
 
 const Close = styled(CloseIcon)`
   z-index: 100;
@@ -91,11 +91,23 @@ const Dialog = styled.dialog`
   }
 `;
 
+const Title = ({ dance }: { dance: Community }) => {
+  if (dance.feedDisable) {
+    return <Text.XL>{dance.feedName}</Text.XL>;
+  }
+  return (
+    <StyledLink to={`${URL.communityDetail}/${dance.feedId}`}>
+      <Text.XL>{dance.feedName}</Text.XL>
+    </StyledLink>
+  );
+};
+
 interface Props {
   modal: Modal;
+  disable?: boolean;
 }
 
-const FeedItemModal = ({ modal }: Props) => {
+const FeedItemModal = ({ modal, disable }: Props) => {
   const { isOpen, closeModal, prevDance, nextDance, dances, index } = modal;
 
   const dance = dances[index];
@@ -124,16 +136,14 @@ const FeedItemModal = ({ modal }: Props) => {
           <Video src={dance.feedUrl} />
           <Wrapper>
             <ColumnBox>
-              <StyledLink to={`${URL.communityDetail}/${dance.feedId}`}>
-                <Text.XL>{dance.feedName}</Text.XL>
-              </StyledLink>
+              <Title dance={dance} />
               <Detail>{dance.feedDate}</Detail>
             </ColumnBox>
             <FlexBox>
               {dance.feedType === 'SOURCE' && (
                 <Download count={dance.downloadCount} />
               )}
-              <Like feed={dance} />
+              <Like feed={dance} disable={disable} />
             </FlexBox>
           </Wrapper>
         </Content>

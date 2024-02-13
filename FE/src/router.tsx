@@ -22,6 +22,7 @@ import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
+import MyContextProvider from '@/store/my-context';
 
 const router = createBrowserRouter([
   {
@@ -86,7 +87,13 @@ const router = createBrowserRouter([
       },
       {
         path: URL.myFeed,
-        element: <MyfeedPage />,
+        element: (
+          <MyContextProvider>
+            <MyfeedPage />
+          </MyContextProvider>
+        ),
+        // TODO: parameter 추가
+        loader: () => communityFeedLoader(1),
       },
       {
         path: URL.Following,

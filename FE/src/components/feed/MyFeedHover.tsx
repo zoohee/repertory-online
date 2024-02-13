@@ -9,6 +9,8 @@ import MoreButton from '@/components/common/More';
 import MenuBox from '@/components/common/MenuList';
 import MenuButton, { Menu } from '@/components/common/MenuButton';
 import { L as Text } from '@/components/common/Text';
+import Like from '@/components/community/Like';
+import { Community } from '@/types';
 
 const Hover = styled.div`
   z-index: 1;
@@ -20,9 +22,9 @@ const Hover = styled.div`
 
 const Box = styled.div`
   background-color: rgba(30, 30, 32, 0.6);
-  height: calc(var(--font-size-l) * 2);
-  box-sizing: content-box;
-  width: calc(100% - 32px);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   padding: 16px;
   position: absolute;
   bottom: 0;
@@ -33,7 +35,12 @@ const menus = [
   new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
 ];
 
-const MyFeedHover = () => {
+interface Props {
+  feed: Community;
+}
+
+const MyFeedHover = ({ feed }: Props) => {
+  feed.isLiked = true;
   const [clicked, setClicked] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -73,10 +80,8 @@ const MyFeedHover = () => {
         </MenuBox>
       )}
       <Box>
-        <Text>
-          제목 입니다. 제목 입니다. 제목 입니다. 제목 입니다. sdfa sdfasaa as
-          dfasdf asdfafasdfa
-        </Text>
+        <Text>{feed.feedName}</Text>
+        <Like feed={feed} disable />
       </Box>
     </Hover>
   );

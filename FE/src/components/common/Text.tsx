@@ -16,6 +16,7 @@ const S = styled(M)`
 
 const L = styled(M)`
   font-size: var(--font-size-l);
+  line-height: var(--font-size-l);
 `;
 
 const XL = styled(M)`
