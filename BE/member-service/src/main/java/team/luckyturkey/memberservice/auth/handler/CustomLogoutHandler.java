@@ -34,16 +34,12 @@ public class CustomLogoutHandler implements LogoutHandler {
             try {
                 // access token을 이용해서 redis에서 토큰 검색
                 RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
-                // redis에 검색된 토큰이 없다면
-                if(foundTokenInfo == null) {
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
-                    return;
-                }
+                // redis에 검색된 토큰이 없다면 예외 발생
+
                 //토큰이 있으면 검색된 토큰 삭제
                 refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
-                return;
             }
 //
 //            // access token을 이용해서 redis에서 토큰 검색
