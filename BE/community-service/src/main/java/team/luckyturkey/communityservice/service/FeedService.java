@@ -55,9 +55,16 @@ public class FeedService {
     }
 
     // 피드의 상세 정보를 불러 오는 함수
-    public Feed getFeedDetail(Long feedId) {
+    public Feed getFeed(Long feedId) {
         Feed feed = feedRepository.getFeedById(feedId);
         return feedRepository.getFeedById(feedId);
+    }
+
+    public FeedDetailResponse getFeedDetail(Feed feed, Long memberId) {
+        Long originId = feed.getOriginId();
+        OriginDto originDto = getOriginDto(originId, feed.getFeedType());
+        MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
+        return dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
     }
 
     // dance server에서 소스 or 레퍼토리 정보 가져오는 함수

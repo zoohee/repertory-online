@@ -26,7 +26,6 @@ public class LikeService {
 
     @Transactional
     public void insertLikeLog(LikeLog likeLog) {
-        log.info(String.valueOf(likeLog.getId()));
         likeLogRepository.save(likeLog);
     }
 
