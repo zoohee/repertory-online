@@ -22,14 +22,14 @@ const SourcesPage = () => {
 
   return (
     <>
-      <TabButtons tabs={tabs} margin="48px 0 0" onClickTab={selectTab} />
+      <TabButtons tabs={tabs} margin='48px 0 0' onClickTab={selectTab} />
       <Box>
-        <Wrapper $margin="0">
+        <Wrapper $margin='0'>
           <div style={{ display: 'flex' }}>
             <SearchBar></SearchBar>
             <SelectTagButton />
           </div>
-          <CreateButton to="/" />
+          <CreateButton to='/' />
         </Wrapper>
         {isTagOpen && <TagList />}
       </Box>

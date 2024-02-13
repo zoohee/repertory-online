@@ -10,7 +10,7 @@ export const $axios = () => {
 };
 export const $pose = () => {
   return axios.create({
-    baseURL: import.meta.env.VITE_APP_POSE_URL2,
+    baseURL: import.meta.env.VITE_APP_POSE_URL,
     headers: {
       'Content-Type': 'application/json',
     },
