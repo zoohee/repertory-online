@@ -134,10 +134,12 @@ public class MemberController {
     }
 
 
+
     @GetMapping("/search/{keyword}")
     public List<CommunityMemberInfoResponseDto> searchByMemberName(@PathVariable String keyword) {
         return memberService.searchByMemberName(keyword);
     }
+
 
     @GetMapping("/loginsuccess")
     public ResponseEntity<String> handleLoginSuccess(@RequestParam("accessToken") String accessToken) {
@@ -153,8 +155,6 @@ public class MemberController {
                 .header("Authorization", accessToken)
                 .header("Refresh", refreshToken)// 원하는 헤더에 정보를 담아줍니다.
                 .body(responseBody);
-
     }
-
 
 }
