@@ -5,13 +5,13 @@ import Overlay from '@/components/Overlay';
 import { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 
-interface signUpData {
-  id: string;
-  pw: string;
-  confirmPw: string;
-  dancerName: string;
-  email: string;
-}
+// interface signUpData {
+//   id: string;
+//   pw: string;
+//   confirmPw: string;
+//   dancerName: string;
+//   email: string;
+// }
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -43,14 +43,24 @@ const SignUp = () => {
   });
 
   const [idMsg, setIdMsg] = useState('');
-  const [pwMsg, setPwMsg] = useState('');
-  const [nameMsg, setNameMsg] = useState('');
-  const [emailMsg, setEmailMsg] = useState('');
+  const [pwMsg, ] = useState('');
+  const [nameMsg, ] = useState('');
+  const [emailMsg, ] = useState('');
 
   const [isIdValid, setIsIdValid] = useState(false);
-  const [isPwValid, setIsPwValid] = useState(false);
-  const [isNameValid, setIsNameValid] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPwValid, ] = useState(false);
+  const [isNameValid, ] = useState(false);
+  const [isEmailValid, ] = useState(false);
+
+  // const [idMsg, setIdMsg] = useState('');
+  // const [pwMsg, setPwMsg] = useState('');
+  // const [nameMsg, setNameMsg] = useState('');
+  // const [emailMsg, setEmailMsg] = useState('');
+
+  // const [isIdValid, setIsIdValid] = useState(false);
+  // const [isPwValid, setIsPwValid] = useState(false);
+  // const [isNameValid, setIsNameValid] = useState(false);
+  // const [isEmailValid, setIsEmailValid] = useState(false);
 
   useEffect(() => {
     // console.log(idMsg);

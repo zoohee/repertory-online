@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 import Image from '@/components/common/Image';
-import FeedItemModal from '@/components/feed/FeedItemModal';
+// import FeedItemModal from '@/components/feed/FeedItemModal';
 import Lock from '@/components/feed/Lock';
 import Like from '@/components/community/Like';
 
@@ -30,7 +30,9 @@ const Hover = styled.div`
 
 const FeedItem = ({ children }: { children: ReactNode }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [
+    isOpen, 
+    setIsOpen] = useState(false);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -41,7 +43,8 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
   };
 
   const handleClick = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen((prev:boolean) => !prev);
+    console.log(isOpen)
   };
 
   const isPrivate: boolean = true;
@@ -56,12 +59,13 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
         </Box>
       )}
       <Image src="/images/index.jpg"></Image>
-      <FeedItemModal
+      {/* to build */}
+      {/* <FeedItemModal
         open={isOpen}
         onClose={() => {
           setIsOpen(false);
         }}
-      />
+      /> */}
     </ListItem>
   );
 };

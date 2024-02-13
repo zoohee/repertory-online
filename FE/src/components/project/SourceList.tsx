@@ -1,11 +1,11 @@
-import { getMySource, getMySourceClone } from '@/services/dance';
-import { useQuery } from '@tanstack/react-query';
+// import { getMySource, getMySourceClone } from '@/services/dance';
+// import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import Source from './Source';
+// import Source from './Source';
 import { Title } from './Title';
-import { ISource } from '@/services/interface';
+// import { ISource } from '@/services/interface';
 import { SetStateAction, useState } from 'react';
-import Tabs from '../common/Tab';
+// import Tabs from '../common/Tab';
 const SourceListWrapper = styled.div`
   overflow: scroll;
   display: flex;
@@ -46,45 +46,45 @@ const Tab = styled.div`
 const SourceList = () => {
   const [tabState, setTabState] = useState('mysource');
 
-  const { isLoading: isLoadingMySource, data: mySourceData, isError: isErrorMySource, error: mySourceError } = useQuery<ISource[]>({
-    queryKey: ['getMySource', tabState],
-    queryFn: () => tabState === 'mysource' ? getMySource() : getMySourceClone(),
-  });
+  // const { isLoading: isLoadingMySource, data: mySourceData, isError: isErrorMySource, error: mySourceError } = useQuery<ISource[]>({
+  //   queryKey: ['getMySource', tabState],
+  //   queryFn: () => tabState === 'mysource' ? getMySource() : getMySourceClone(),
+  // });
 
   const handleTabClick = (tab: SetStateAction<string>) => {
     setTabState(tab);
   }
   console.log(tabState)
-  let mySource = [];
-  let clonedSource = [];
-  for (let i = 1; i <= 10; i++) {
-    mySource.push({
-      memberId: i,
-      sourceCount: i + 1,
-      sourceId: 1234 + i,
-      sourceName: 'Source' + i,
-      sourceStart: 'pose' + i,
-      sourceEnd: 'pose' + (i + 1),
-      sourceLength: 3 + 0.1 * i,
-      sourceUrl: 'URL' + i,
-      sourceThumbnailUrl: '/images/pinky.jpg',
-      tagList: ['good', 'awesome', 'perfect']
-    });
-  }
-  for (let i = 1; i <= 10; i++) {
-    clonedSource.push({
-      memberId: i,
-      sourceCount: i + 1,
-      sourceId: 1234 + i,
-      sourceName: 'Clone' + i,
-      sourceStart: 'pose' + i,
-      sourceEnd: 'pose' + (i + 1),
-      sourceLength: 3 + 0.1 * i,
-      sourceUrl: 'URL' + i,
-      sourceThumbnailUrl: '/images/mushroom.jpg',
-      tagList: ['good', 'awesome', 'perfect']
-    });
-  }
+  // let mySource = [];
+  // let clonedSource = [];
+  // for (let i = 1; i <= 10; i++) {
+  //   mySource.push({
+  //     memberId: i,
+  //     sourceCount: i + 1,
+  //     sourceId: 1234 + i,
+  //     sourceName: 'Source' + i,
+  //     sourceStart: 'pose' + i,
+  //     sourceEnd: 'pose' + (i + 1),
+  //     sourceLength: 3 + 0.1 * i,
+  //     sourceUrl: 'URL' + i,
+  //     sourceThumbnailUrl: '/images/pinky.jpg',
+  //     tagList: ['good', 'awesome', 'perfect']
+  //   });
+  // }
+  // for (let i = 1; i <= 10; i++) {
+  //   clonedSource.push({
+  //     memberId: i,
+  //     sourceCount: i + 1,
+  //     sourceId: 1234 + i,
+  //     sourceName: 'Clone' + i,
+  //     sourceStart: 'pose' + i,
+  //     sourceEnd: 'pose' + (i + 1),
+  //     sourceLength: 3 + 0.1 * i,
+  //     sourceUrl: 'URL' + i,
+  //     sourceThumbnailUrl: '/images/mushroom.jpg',
+  //     tagList: ['good', 'awesome', 'perfect']
+  //   });
+  // }
 
   // if (isLoading) return <>Loading...</>;
   // if (isError) return <>{error.message}...</>;
@@ -107,7 +107,7 @@ const SourceList = () => {
           </GridBox>
         )} */}
         <GridBox>
-         {tabState==='mysource'?(
+         {/* {tabState==='mysource'?(
             mySource?.map((item: ISource) => {
               return <Source key={item.memberId} sourceInfo={item} target={'sourceList'} />;
             })
@@ -115,7 +115,7 @@ const SourceList = () => {
             clonedSource?.map((item: ISource) => {
               return <Source key={item.memberId} sourceInfo={item} target={'sourceList'} />;
             })
-         )}
+         )} */}
         </GridBox>
       </SourceListWrapper>
     </>

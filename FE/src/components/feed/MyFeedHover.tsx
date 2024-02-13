@@ -65,7 +65,7 @@ const MyFeedHover = () => {
       <MoreButton onClick={handleClickButton} />
       {clicked && (
         <MenuBox>
-          <MenuButton name="공개로 변경">
+          <MenuButton name="공개로 변경" onClick={()=>{}}>
             <LockOpenIcon fontSize="small" />
           </MenuButton>
 

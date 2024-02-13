@@ -19,20 +19,21 @@ const Container = styled.div`
   display: flex;
 `;
 const RepertoryPage = () => {
-  const [input, setInput] = useState();
-  const [img, setImg] = useState();
-  const onVideoUpload = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setInput(event.target.files[0]);
+  const [input, setInput] = useState<File | null>(null);
+  const [img, setImg] = useState<File|string|null>();
+  const onVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setInput(event.target.files[0] as File);
+    } else {
+      setInput(null);
     }
   };
-
-  const onImageUpload = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImg(event.target.files[0]);
+  
+  const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setImg(event.target.files[0] as File);
     }
   };
-
   const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
   const memberJoinTest = () => {
@@ -110,8 +111,8 @@ const RepertoryPage = () => {
       end: 'string',
     };
     const formData = new FormData();
-    formData.append('sourceThumbnail', img);
-    formData.append('sourceVideo', input);
+    if(img) formData.append('sourceThumbnail', img);
+    if(input) formData.append('sourceVideo', input);
     formData.append(
       'postSource',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
@@ -120,7 +121,7 @@ const RepertoryPage = () => {
   };
 
   const poseTest = () => {
-    project.detectPose(img);
+    if(img && img instanceof File) project.detectPose(img);
   };
 
   const repertoryTest = () => {
@@ -134,8 +135,8 @@ const RepertoryPage = () => {
       'postRepertoryRequest',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
     );
-    formData.append('repertoryThumbnail', img);
-    formData.append('repertoryVideo', input);
+    if(img) formData.append('repertoryThumbnail', img);
+    if(input) formData.append('repertoryVideo', input);
 
     dance.postRepertory(formData);
   };
@@ -143,7 +144,7 @@ const RepertoryPage = () => {
   const ProjectTest = () => {
     const formData = new FormData();
     formData.append('projectTitle', 'TestName');
-    formData.append('projectThumbnail', img);
+    if(img) formData.append('projectThumbnail', img);
     project.postProject(7, formData);
   };
   return (
@@ -162,7 +163,7 @@ const RepertoryPage = () => {
           <Btn onClick={() => dance.fetchSourceInfo(123)}>
             POST/fetchSourceInfo
           </Btn>
-          <Btn onClick={() => dance.patchSource(16)}>PATCH/patchSource</Btn>
+          <Btn onClick={() => dance.patchSource()}>PATCH/patchSource</Btn>
           <Btn onClick={() => dance.deleteSource(16)}>DELETE/deleteSource</Btn>
           <Btn onClick={dance.getMySource}>GET/getMySource</Btn>
           <Btn onClick={dance.getMySourceClone}>GET/getMySourceClone</Btn>
@@ -171,7 +172,7 @@ const RepertoryPage = () => {
           </Btn>
           <Btn onClick={dance.getTags}>GET/getTags</Btn>
           <Btn onClick={() => dance.postTag('test')}>POST/postTagTest</Btn>
-          <Btn onClick={() => dance.patchSourceIsAvailable(1234, true)}>
+          <Btn onClick={() => dance.patchSourceIsAvailable()}>
             PATCH/patchSourceIsAvailable
           </Btn>
           <Btn onClick={() => dance.getRepertoryByName('hi')}>
@@ -193,7 +194,7 @@ const RepertoryPage = () => {
           <Btn onClick={() => dance.patchRepertoryIsAvailable(1234, true)}>
             PATCH/patchSourceIsAvailable
           </Btn>
-          <Btn onClick={() => dance.deleteTag(123, 'test')}>
+          <Btn onClick={() => dance.deleteTag('test')}>
             DELETE/delete tag
           </Btn>
         </Wrapper>
@@ -266,10 +267,10 @@ const RepertoryPage = () => {
           <Btn onClick={community_tagSearch_Test}>
             [dance]community dance(tag검색)
           </Btn>
-          <Btn onClick={() => member.getIdValidation('rlagudwls3469')}>
+          <Btn onClick={() => member.getIdValidation()}>
             rlagudwls3469 중복확인
           </Btn>
-          <Btn onClick={() => member.getIdValidation('rlagudwls3459')}>
+          <Btn onClick={() => member.getIdValidation()}>
             rlagudwls3459 중복확인
           </Btn>
           <Btn onClick={member.logoutMember}>[member]Logout</Btn>

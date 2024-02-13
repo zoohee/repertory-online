@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-
+type titleProps = {
+    title : string;
+}
 const TitleWrapper = styled.div`
     height : 5rem;
     width : 100%;
@@ -10,7 +12,7 @@ const TitleWrapper = styled.div`
     text-align:left;
     border-bottom: 0.6rem solid var(--background-color);
 `
-export const Title = ({title})=>{
+export const Title = ({title} : titleProps)=>{
     return(
         <TitleWrapper>
             {title}

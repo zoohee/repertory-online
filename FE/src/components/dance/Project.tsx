@@ -8,10 +8,10 @@ import Dance from '@/components/dance/Dance';
 import Text from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '../common/MenuButton';
-import { Project } from '@/types';
+import { IProject } from '@/types';
 
 interface ProjectProps{
-  project : Project
+  project : IProject
 }
 const ListItem = styled.li`
   position: relative;

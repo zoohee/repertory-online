@@ -51,7 +51,7 @@ const loginMember = async ({ memberLoginId, memberPassword }: ILoginData) => {
   return response;
 };
 
-const getIdValidation = async (memberLoginId: string) => {
+const getIdValidation = async () => {
   const params = {
     memberLoginId: 'sdfsd',
   };

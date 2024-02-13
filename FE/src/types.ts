@@ -49,9 +49,9 @@ interface Member {
   memberProfile: string;
 }
 
-interface Project {
+interface IProject {
   imageUrl : string;
   title : string;
   detail : string;
 }
-export type { Tag, Source, Community, Member,Project };
+export type { Tag, Source, Community, Member,IProject };

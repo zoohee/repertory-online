@@ -1,4 +1,4 @@
-import { List } from 'lodash';
+// import { List } from 'lodash';
 import Image from '../common/Image';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
@@ -24,7 +24,9 @@ const SourceLabel = styled.div`
   background-color: var(--background-color);
 `
 const Source = ({ sourceInfo, target }: sourceProps) => {
-  const [{ isDragging }, drag] = useDrag({
+  const [
+    // { isDragging }
+    , drag] = useDrag({
     type: 'source',
     item: sourceInfo,
     collect: (monitor) => ({

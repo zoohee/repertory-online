@@ -28,7 +28,7 @@ const MyfeedPage = () => {
 
   return (
     <>
-      <TabButtons margin="48px 0 24px" tabs={tabs} onClickTab={handleClickTab} />
+      <TabButtons margin="48px 0 24px" tabs={tabs} onClickTab={()=>handleClickTab} />
       <DanceGridBox column={3}>
         <FeedItem>
           <MyFeedHover />

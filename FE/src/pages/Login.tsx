@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 // import { debounce } from 'lodash';
-import { useDispatch } from 'react-redux';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button';
 import Overlay from '@/components/Overlay';
 import { LoginStore } from '@/store/LoginStore';
 import { useNavigate } from 'react-router';
-
 const Wrapper = styled.div`
   padding: 48px;
   box-sizing: border-box;
@@ -37,20 +35,29 @@ const SignUp = styled(SignUpMsg)`
     cursor: pointer;
   }
 `;
+interface ILoginData {
+  memberLoginId: string;
+  memberPassword: string;
+}
+type LoginFunction = (data: ILoginData) => Promise<boolean>;
 
 const Login = () => {
-  const isLoggedIn = LoginStore((state) => state.isLoggedin);
+  const isLoggedIn = LoginStore((state: { isLoggedin: boolean; }) => state.isLoggedin);
   useEffect(() => {
     if (isLoggedIn) BlockAccess();
   }, []);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
-  const [isIdValid, setIsIdValid] = useState(false);
-  const [isPwValid, setIsPwValid] = useState(false);
+  const [
+    // isIdValid
+    , setIsIdValid] = useState(false);
+  const [
+    // sPwValid
+    , setIsPwValid] = useState(false);
   const [idValidationMsg, setIdValidationMsg] = useState('');
   const [pwValidationMsg, setPwValidationMsg] = useState('');
 
-  const login = LoginStore((state) => state.login);
+  const memberLogin = LoginStore((state) => state.login as LoginFunction);
   const navigate = useNavigate();
   const onChangeId = (e: { target: { value: string } }) => {
     const input = e.target.value;
@@ -63,7 +70,7 @@ const Login = () => {
     const input = e.target.value;
     setPw(input);
     const pwRegex =
-      /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
+      /^(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\-]).*(?=.*[a-zA-Z]).*(?=.*\d).{9,16}$/;
     setIsPwValid(pwRegex.test(input));
     setPwValidationMsg(pwValidationMsg ? '' : 'Invalid Pw');
   };
@@ -74,7 +81,7 @@ const Login = () => {
       memberPassword: pw,
     };
     console.log(`${LoginData} try to login..`);
-    const success = await login(LoginData);
+    const success = await memberLogin(LoginData);
     console.log(`[Login Status(before)]:${isLoggedIn}`);
     console.log(`[Success?]:${success}`);
     console.log(`[Login Status(after)]:${isLoggedIn}`);

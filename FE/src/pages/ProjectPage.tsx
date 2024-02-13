@@ -4,7 +4,7 @@ import ProjectView from '@/components/project/ProjectView';
 import Workbench from '@/components/project/Workbench';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Title } from '@/components/project/Title';
+// import { Title } from '@/components/project/Title';
 const Container = styled.div`
   display: flex;
   align-items: center;

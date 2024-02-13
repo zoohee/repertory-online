@@ -1,14 +1,14 @@
 import {
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
+  // JSXElementConstructor,
+  // Key,
+  // ReactElement,
+  // ReactNode,
+  // ReactPortal,
   useState,
 } from 'react';
 import Source from './Source';
 import { useDrop } from 'react-dnd';
-import { List } from 'lodash';
+// import { List } from 'lodash';
 import styled from 'styled-components';
 import { ISource } from '@/services/interface';
 const Wrapper = styled.div`

@@ -5,7 +5,7 @@ import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceGridBox';
 import ProjectItem from '@/components/dance/Project';
 import CreateButton from '@/components/dance/CreateButton';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 const DUMMY_LIST = [
   {
     imageUrl: 'images/index.jpg',

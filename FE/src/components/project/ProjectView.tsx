@@ -1,4 +1,6 @@
-import { ChangeEvent, MutableRefObject, useRef } from 'react';
+import { ChangeEvent,
+  // MutableRefObject,
+  useRef } from 'react';
 import styled from 'styled-components';
 import { Title } from './Title';
 const HiddenInput = styled.input`

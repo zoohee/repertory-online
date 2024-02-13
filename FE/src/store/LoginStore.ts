@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { loginMember, logoutMember } from '@/services/member';
+import { loginMember,logoutMember } from '@/services/member';
 
 type LoginState = {
   isLoggedin: boolean;
@@ -27,8 +27,8 @@ export const LoginStore = create<LoginState>((set) => ({
   },
 
   logout: async () => {
-    // const response = await logoutMember();
-    // set({ isLoggedin: response.status === 204 });
+    const response = await logoutMember();
+    set({ isLoggedin: response.status === 204 });
     localStorage.removeItem('token');
     localStorage.removeItem('refresh');
     set({ isLoggedin: false });

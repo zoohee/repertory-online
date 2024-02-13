@@ -1,4 +1,6 @@
-import { $axios, $auth } from './config';
+import { $axios,
+    // $auth
+} from './config';
 interface IPage {
   page: number;
   pageSize: number;
@@ -42,7 +44,7 @@ const postSource = async (data: FormData) => {
 };
 
 // 소스 편집 - CORS
-const patchSource = async (sourceId: number) => {
+const patchSource = async () => {
   const params = {
     sourceName: 'patchTest',
     sourceLength: 1234,
@@ -115,7 +117,9 @@ const postTag = async (tag: string) => {
 };
 
 // 태그 삭제
-const deleteTag = async (tagId: number, tagName: string) => {
+const deleteTag = async (
+    // tagId: number,
+    tagName: string) => {
   const response = await $axios().delete(`/dance/tag/${2}`, {
     params: {
       tagName,
@@ -127,8 +131,6 @@ const deleteTag = async (tagId: number, tagName: string) => {
 
 // 소스 공개상태 변경 => CORS
 const patchSourceIsAvailable = async (
-  sourceId: number,
-  isAvailable: boolean
 ) => {
   const params = {
     isAvailable: false,
