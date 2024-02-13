@@ -75,4 +75,8 @@ public class SubscribeService {
     public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
         return memberServiceClient.getFollowingDetailList(followingList);
     }
+
+    public Boolean getIsFollowed(Long myId, Long memberId) {
+        return subscribeRepository.existsByIdIdAndIdFollowingMemberId(myId, memberId);
+    }
 }

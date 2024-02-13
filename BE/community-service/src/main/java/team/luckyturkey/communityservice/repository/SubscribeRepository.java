@@ -15,5 +15,4 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
     void deleteByIdIdAndIdFollowingMemberId(Long memberId, Long selectedMemberId);
     @Query("SELECT s.id.followingMemberId FROM Subscribe s WHERE s.id.id = :memberId")
     List<Long> findFollowingListByIdId(Long memberId);
-
 }
