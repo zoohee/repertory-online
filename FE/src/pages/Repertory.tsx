@@ -20,7 +20,7 @@ const Container = styled.div`
 `;
 const RepertoryPage = () => {
   const [input, setInput] = useState<File | null>(null);
-  const [img, setImg] = useState<File|string|null>();
+  const [img, setImg] = useState<File | string | null>();
   const onVideoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setInput(event.target.files[0] as File);
@@ -28,7 +28,7 @@ const RepertoryPage = () => {
       setInput(null);
     }
   };
-  
+
   const onImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       setImg(event.target.files[0] as File);
@@ -111,8 +111,8 @@ const RepertoryPage = () => {
       end: 'string',
     };
     const formData = new FormData();
-    if(img) formData.append('sourceThumbnail', img);
-    if(input) formData.append('sourceVideo', input);
+    if (img) formData.append('sourceThumbnail', img);
+    if (input) formData.append('sourceVideo', input);
     formData.append(
       'postSource',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
@@ -121,7 +121,7 @@ const RepertoryPage = () => {
   };
 
   const poseTest = () => {
-    if(img && img instanceof File) project.detectPose(img);
+    if (img && img instanceof File) project.detectPose(img);
   };
 
   const repertoryTest = () => {
@@ -135,8 +135,8 @@ const RepertoryPage = () => {
       'postRepertoryRequest',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
     );
-    if(img) formData.append('repertoryThumbnail', img);
-    if(input) formData.append('repertoryVideo', input);
+    if (img) formData.append('repertoryThumbnail', img);
+    if (input) formData.append('repertoryVideo', input);
 
     dance.postRepertory(formData);
   };
@@ -144,7 +144,7 @@ const RepertoryPage = () => {
   const ProjectTest = () => {
     const formData = new FormData();
     formData.append('projectTitle', 'TestName');
-    if(img) formData.append('projectThumbnail', img);
+    if (img) formData.append('projectThumbnail', img);
     project.postProject(7, formData);
   };
   return (
@@ -194,9 +194,7 @@ const RepertoryPage = () => {
           <Btn onClick={() => dance.patchRepertoryIsAvailable(1234, true)}>
             PATCH/patchSourceIsAvailable
           </Btn>
-          <Btn onClick={() => dance.deleteTag('test')}>
-            DELETE/delete tag
-          </Btn>
+          <Btn onClick={() => dance.deleteTag('test')}>DELETE/delete tag</Btn>
         </Wrapper>
         <Wrapper>
           <Btn onClick={() => com.getFeedVideo(1)}>커뮤니티 동영상 조회</Btn>

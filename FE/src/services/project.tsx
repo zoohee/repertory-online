@@ -1,6 +1,8 @@
-import { $axios,
+import {
+  $axios,
   // $auth,
-  $pose } from './config';
+  $pose,
+} from './config';
 
 // 프로젝트 목록 조회
 const getProjectsList = async () => {
@@ -16,7 +18,7 @@ const patchProject = async (projectId: number) => {
 
 // 프로젝트 생성
 const postProject = async (projectId: number, data: FormData) => {
-  console.log(projectId)
+  console.log(projectId);
   const response = await $axios().post(`/project`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
