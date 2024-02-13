@@ -36,6 +36,7 @@ interface Community {
   feedThumbnailUrl: string;
   feedType: string;
   feedUrl: string;
+  isLiked: boolean;
   likeCount: number;
   memberId: number;
   memberName: string;
