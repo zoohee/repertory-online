@@ -3,11 +3,6 @@ import { useLoaderData } from 'react-router-dom';
 
 import { Source, Tab } from '@/types';
 
-const TABS: Tab[] = [
-  new Tab('My Sources', true),
-  new Tab('Cloned Sources', false),
-];
-
 interface SourcesContextType {
   sources: Source[];
   tags: string[];
@@ -17,7 +12,6 @@ interface SourcesContextType {
   isTagOpen: boolean;
   openTag: () => void;
   tabs: Tab[];
-  selectTab: (tab: Tab) => void;
 }
 
 export const sourcesContext = createContext<SourcesContextType>(
@@ -31,34 +25,35 @@ interface Props {
 const SourcesContextProvider = ({ children }: Props) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isTagOpen, setIsTagOpen] = useState(false);
-  const [tabs, setTabs] = useState<Tab[]>(TABS);
 
   const data = useLoaderData() as { mine: Source[]; clone: Source[] };
 
-  const sources = tabs[0].clicked ? data.mine : data.clone;
+  const [mineClicked, setMineClicked] = useState(true);
+  const [cloneClicked, setCloneClicked] = useState(false);
+  const [sources, setSources] = useState<Source[]>(data.mine);
+
+  const clickMine = () => {
+    setSources(data.mine);
+    setMineClicked(true);
+    setCloneClicked(false);
+  };
+
+  const clickClone = () => {
+    setSources(data.clone);
+    setMineClicked(false);
+    setCloneClicked(true);
+  };
+
+  const tabs: Tab[] = [
+    new Tab('My Sources', mineClicked, clickMine),
+    new Tab('Cloned Sources', cloneClicked, clickClone),
+  ];
 
   const tags = [
     ...new Set(
       sources.map((source) => source.tagList.map((tag) => tag.tagName)).flat()
     ),
   ];
-
-  const selectTab = (clickedTab: Tab) => {
-    if (clickedTab.clicked) {
-      return;
-    }
-    setTabs(
-      tabs.map((tab) => {
-        const clicked: boolean = tab.name == clickedTab.name;
-        return {
-          ...tab,
-          clicked,
-        };
-      })
-    );
-    setSelectedTags([]);
-    setIsTagOpen(false);
-  };
 
   const selectTag = (tag: string) => {
     setSelectedTags((prev) => {
@@ -85,7 +80,6 @@ const SourcesContextProvider = ({ children }: Props) => {
     isTagOpen,
     openTag,
     tabs,
-    selectTab,
   };
 
   return (

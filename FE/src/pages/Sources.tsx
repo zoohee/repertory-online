@@ -18,11 +18,11 @@ const Box = styled.div`
 `;
 
 const SourcesPage = () => {
-  const { tabs, selectTab, isTagOpen } = useContext(sourcesContext);
+  const { tabs, isTagOpen } = useContext(sourcesContext);
 
   return (
     <>
-      <TabButtons tabs={tabs} margin="48px 0 0" onClickTab={selectTab} />
+      <TabButtons tabs={tabs} margin="48px 0 0" />
       <Box>
         <Wrapper $margin="0">
           <div style={{ display: 'flex' }}>

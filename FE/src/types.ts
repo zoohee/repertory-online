@@ -20,10 +20,12 @@ interface Source {
 export class Tab {
   name: string;
   clicked: boolean;
+  onClick: () => void;
 
-  constructor(name: string, clicked: boolean) {
+  constructor(name: string, clicked: boolean, onClick: () => void) {
     this.name = name;
     this.clicked = clicked;
+    this.onClick = onClick;
   }
 }
 
