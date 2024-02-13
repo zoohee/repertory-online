@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { fontSize } from '@/styles/font';
 import Wrapper from '@/components/Wrapper';
 
 const List = styled.ul`
@@ -11,7 +10,7 @@ const List = styled.ul`
 `;
 
 const Button = styled.button<{ $clicked: boolean }>`
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   padding: 16px;
   border: 0;
   ${({ $clicked }) => {

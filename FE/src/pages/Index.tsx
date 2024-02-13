@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { memberState } from '@/Redux/Types';
 
-import { fontSize } from '@/styles/font';
 import URL from '@/url';
 
 const GridContainer = styled.div`
@@ -31,7 +30,7 @@ const ListItem = styled.li`
 
 const StyledLink = styled(Link)`
   font-family: 'YdestreetB';
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   text-decoration-line: none;
   text-shadow: var(--text-shadow);
 

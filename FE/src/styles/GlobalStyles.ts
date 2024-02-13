@@ -115,6 +115,10 @@ const GlobalStyles = createGlobalStyle`
 
       --button-square: 36px;
       --button-square-margin: 12px;
+
+      /* font family  */
+      --font-family-primary: 'YdestreetL';
+
       /* font size */
       --font-size-s: 0.8rem;
       --font-size-l: 1.2rem;
