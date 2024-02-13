@@ -26,8 +26,10 @@ import team.luckyturkey.memberservice.service.CustomOAuth2MemberService;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -46,6 +48,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        List<String> exposedHeaders = new ArrayList<>();
+        exposedHeaders.add("Authorization");
+        exposedHeaders.add("Refresh");
         //cors 설정
         http
                 .cors((corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
@@ -64,10 +69,10 @@ public class SecurityConfig {
 
 
 //                        configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
-                        configuration.addExposedHeader("Authorization");
-                        configuration.addExposedHeader("Refresh");
+//                        configuration.addExposedHeader("Authorization");
+//                        configuration.addExposedHeader("Refresh");
 //                        configuration.addAllowedHeader("Refresh");
-//                        configuration.setExposedHeaders(Collections.singletonList("Authorization")); //Authorization 헤더도 허용
+                        configuration.setExposedHeaders(exposedHeaders); //Authorization 헤더도 허용
 //                        configuration.setExposedHeaders(Collections.singletonList("Refresh")); //Refresh 헤더도 허용
                         return configuration;
                     }
