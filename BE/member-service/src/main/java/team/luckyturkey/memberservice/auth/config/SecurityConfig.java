@@ -13,6 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import team.luckyturkey.memberservice.auth.handler.CustomLogoutHandler;
+import team.luckyturkey.memberservice.auth.handler.LogoutSuccessHandler;
+import team.luckyturkey.memberservice.auth.handler.MyAuthenticationFailureHandler;
+import team.luckyturkey.memberservice.auth.handler.MyAuthenticationSuccessHandler;
 import team.luckyturkey.memberservice.auth.jwt.JWTFilter;
 import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
 import team.luckyturkey.memberservice.auth.jwt.JwtExceptionFilter;
@@ -34,6 +39,8 @@ public class SecurityConfig {
     private final JwtExceptionFilter jwtExceptionFilter;
     private final MyAuthenticationFailureHandler oAuth2LoginFailureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final LogoutSuccessHandler logoutSuccessHandler;
+    private final CustomLogoutHandler customLogoutHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -87,10 +94,13 @@ public class SecurityConfig {
                         .userInfoEndpoint((userInfoEndpointConfig) ->
                                 userInfoEndpointConfig.userService(customOAuth2MemberService)));
 
-//        http
-//                .logout()
-//                        .logoutUrl("/logout")
-//                                .addLogoutHandler()
+        http
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //로그아웃 요청 url
+                        .addLogoutHandler(customLogoutHandler)
+                        .logoutSuccessUrl("/")); //로그아웃에 성공하면 메인페이지로 이동
+
+
 
         //인가작업
        http
@@ -117,11 +127,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() { //password를 암호화해서 전송
 
-        return new BCryptPasswordEncoder();
-    }
 
     //AuthenticationManager Bean 등록
     @Bean

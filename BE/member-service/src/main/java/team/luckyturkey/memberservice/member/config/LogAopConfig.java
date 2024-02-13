@@ -22,10 +22,11 @@ public class LogAopConfig {
     private final ThreadLocal<String> traceId = new ThreadLocal<>();
 
     //todo : 경로 변경
-    // org.example.springsecurity_jwt_prac 이하 패키지의 모든 클래스 이하 모든 메서드에 적용
-    @Pointcut("execution(* org.example.springsecurity_jwt_prac..*.*(..))")
-    private void cut() {
+    // team.luckyturkey.memberservice 이하 패키지의 모든 클래스 이하 모든 메서드에 적용
+    @Pointcut("execution(* team.luckyturkey.memberservice..*.*(..)) && !within(*..*Filter)")
+    private void cut(){
     }
+
 
     // Pointcut에 의해 필터링된 경로로 들어오는 경우 메서드 호출 전에 적용
     @Before("cut()")
@@ -47,6 +48,7 @@ public class LogAopConfig {
         // 파라미터 받아오기
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
+            if(arg == null) continue;
             logData.append("\t").append(arg.getClass().getSimpleName()).append(": ").append(arg);
         }
         log.info(logData.toString());

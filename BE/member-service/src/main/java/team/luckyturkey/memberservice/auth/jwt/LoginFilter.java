@@ -70,6 +70,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         CustomMemberDetails customMemberDetails = (CustomMemberDetails) authentication.getPrincipal();
 
+        long memberId = customMemberDetails.getMemberId();
         String memberLoginId = customMemberDetails.getUsername();
 
         //role 값 뽑아내기
@@ -83,7 +84,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         log.info("role = {}", role);
 
         //토큰생성 access+refresh
-        GeneratedToken token = jwtUtil.generateToken(memberLoginId, role);
+        GeneratedToken token = jwtUtil.generateToken(memberId, memberLoginId, role);
 
         String accessToken = token.getAccessToken();
         String refreshToken = token.getRefreshToken();
@@ -91,6 +92,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         log.info("refreshToken = {}", refreshToken);
 
         response.addHeader("Authorization", "Bearer " + accessToken);
+        response.addHeader("Refresh", "Bearer " + refreshToken);
 
     }
 
@@ -98,5 +100,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
         response.setStatus(409);
+
+        //일정 횟수 이상 실패하면 계정을 잠그는 등의 작업을 추가할 수 있음
     }
 }
