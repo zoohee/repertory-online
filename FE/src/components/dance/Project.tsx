@@ -8,7 +8,11 @@ import Dance from '@/components/dance/Dance';
 import Text from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '../common/MenuButton';
+import { Project } from '@/types';
 
+interface ProjectProps{
+  project : Project
+}
 const ListItem = styled.li`
   position: relative;
   cursor: pointer;
@@ -19,7 +23,7 @@ const menus = [
   new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
 ];
 
-const Project = ({ project }) => {
+const Project = ({ project }:ProjectProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
