@@ -28,22 +28,14 @@ public class CustomLogoutHandler implements LogoutHandler {
             RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
             // redis에 검색된 토큰이 없다면
             if(foundTokenInfo == null) {
-                try {
-                    response.sendRedirect("/");
-                    return;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
+                return;
             }
             //토큰이 있으면 검색된 토큰 삭제
             refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
         }
         //토큰이 없으면...? 메인페이지로 리다이렉트
-        try {
-            response.sendRedirect("https://repertory.online");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 405 에러 코드 설정
 //        return 리다이렉트 -> 메인페이지;
     }
 }
