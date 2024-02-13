@@ -26,13 +26,13 @@ const getProjectDetail = async (projectId: number) => {
   console.log(response);
 };
 // 포즈 라벨링
-const detectPose = async (formData: FormData) => {
-  const response = await $pose().post(`/pose/pose-detect`, formData, {
+const detectPose = async (img: File) => {
+  const response = await $pose().post(`/pose/pose-detect/`, img, {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'image/jpeg',
     },
   });
-  console.log(response);
+  console.log(response.data.recommend_pose_name);
 };
 
 export {

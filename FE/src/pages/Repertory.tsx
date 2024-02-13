@@ -104,11 +104,7 @@ const RepertoryPage = () => {
 
   const poseTest = () => {
     if (img) {
-      const formData = new FormData();
-      formData.append('source', img);
-      console.log(formData);
-      console.log(img);
-      project.detectPose(formData);
+      project.detectPose(img);
     } else {
       console.log('No input');
     }
