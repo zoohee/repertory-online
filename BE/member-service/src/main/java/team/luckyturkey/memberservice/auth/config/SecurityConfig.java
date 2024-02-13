@@ -26,6 +26,7 @@ import team.luckyturkey.memberservice.service.CustomOAuth2MemberService;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -61,8 +62,13 @@ public class SecurityConfig {
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
                         configuration.setMaxAge(3600L); //허용을 유지할 시간
 
-                        configuration.setExposedHeaders(Collections.singletonList("Authorization")); //Authorization 헤더도 허용
-                        configuration.setExposedHeaders(Collections.singletonList("Refresh")); //Refresh 헤더도 허용
+
+//                        configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
+                        configuration.addExposedHeader("Authorization");
+                        configuration.addExposedHeader("Refresh");
+//                        configuration.addAllowedHeader("Refresh");
+//                        configuration.setExposedHeaders(Collections.singletonList("Authorization")); //Authorization 헤더도 허용
+//                        configuration.setExposedHeaders(Collections.singletonList("Refresh")); //Refresh 헤더도 허용
                         return configuration;
                     }
                 })));
