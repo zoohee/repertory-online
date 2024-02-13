@@ -15,7 +15,6 @@ import java.util.Optional;
 public class RefreshTokenService {
 //주석
     private final RefreshTokenRepository refreshTokenRepository;
-    private final JWTUtil jwtUtil;
 
     @Transactional //토큰을 redis에 저장
     public void saveTokenInfo(String memberLoginId, String refreshToken, String accessToken) {
@@ -25,10 +24,6 @@ public class RefreshTokenService {
         refreshTokenRepository.save(token);
     }
 
-    @Transactional
-    public boolean verifyAccessToken(String accessToken){
-        return jwtUtil.verifyToken(accessToken);
-    }
 
 //    @Transactional //토큰을 삭제 (로그아웃등)
 //    public void removeRefreshToken(String accessToken) {
