@@ -31,19 +31,33 @@ public class CustomLogoutHandler implements LogoutHandler {
                 response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
                 return;
             }
-
-            // access token을 이용해서 redis에서 토큰 검색
-            RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
-            // redis에 검색된 토큰이 없다면
-            if(foundTokenInfo == null) {
+            try {
+                // access token을 이용해서 redis에서 토큰 검색
+                RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
+                // redis에 검색된 토큰이 없다면
+                if(foundTokenInfo == null) {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
+                    return;
+                }
+                //토큰이 있으면 검색된 토큰 삭제
+                refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
+            } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
                 return;
             }
-            //토큰이 있으면 검색된 토큰 삭제
-            refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
+//
+//            // access token을 이용해서 redis에서 토큰 검색
+//            RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
+//            // redis에 검색된 토큰이 없다면
+//            if(foundTokenInfo == null) {
+//                response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 에러 코드 설정
+//                return;
+//            }
+//            //토큰이 있으면 검색된 토큰 삭제
+//            refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
 
         }else{
-            //토큰이 없으면...? 메인페이지로 리다이렉트
+            //토큰이 없으면...?
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 에러 코드 설정
         }
 
