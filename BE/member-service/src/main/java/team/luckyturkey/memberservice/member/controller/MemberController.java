@@ -92,7 +92,7 @@ public class MemberController {
     }
 
     @GetMapping("/find-id")
-    public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
+    public ResponseEntity<?> findMemberLoginId(@RequestParam FindMemberLoginIdDto findMemberLoginIdDto){
 
         String id = memberService.findMemberLoginId(findMemberLoginIdDto);
         if(id == null){
@@ -102,13 +102,13 @@ public class MemberController {
 
     }
 
-    @GetMapping("/memberinfo/{memberId}")
+    @GetMapping("/memberinfo/{memberId}")//주희꺼
     public MemberInfoResponseDto getMemberInfoById(@PathVariable Long memberId) {
         return memberService.getMemberInfo(memberId);
     }
 
     @GetMapping("/userinfo")
-    public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
+    public ResponseEntity<?> getMemberInfo(@RequestParam MemberInfoRequestDto memberInfoRequestDto){
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
         Member Exist = memberService.getMemberByLoginId(id);
