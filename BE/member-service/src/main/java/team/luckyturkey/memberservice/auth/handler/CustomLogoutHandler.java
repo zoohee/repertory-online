@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
 import team.luckyturkey.memberservice.auth.jwt.RefreshToken;
 import team.luckyturkey.memberservice.service.RefreshTokenService;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class CustomLogoutHandler implements LogoutHandler {
 
     private final RefreshTokenService refreshTokenService;
+    private final JWTUtil jwtUtil;
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         //헤더에서 토큰 가져오기
@@ -25,7 +27,7 @@ public class CustomLogoutHandler implements LogoutHandler {
         //헤더에 토큰이 있다면
         if(atc != null){
             //토큰 검증
-            if(refreshTokenService.verifyAccessToken(atc)){
+            if(!jwtUtil.verifyToken(atc)){ //토큰 검증 실패라면
                 response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
                 return;
             }
