@@ -14,17 +14,17 @@ import MyfeedPage from '@/pages/MyFeed';
 import FollowingPage from '@/pages/Following';
 import ProjectPage from '@/pages/ProjectPage';
 import Repertory from '@/pages/Repertory';
-import Test from './pages/Test';
+// import Test from './pages/Test';
 import Login from './pages/Login';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
   },
-  {
-    path: '/test',
-    element: <Test />,
-  },
+  // {
+  //   path: '/test',
+  //   element: <Test />,
+  // },
   {
     path: URL.workspace,
     element: <ProjectPage />,

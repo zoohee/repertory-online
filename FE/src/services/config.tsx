@@ -24,7 +24,8 @@ export const $auth = () => {
     baseURL: import.meta.env.VITE_APP_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
+      // Refresh: `Bearer ${token}`,
     },
     withCredentials: true,
   });
