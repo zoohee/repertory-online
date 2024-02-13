@@ -16,7 +16,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException, IOException {
         // 인증 실패시 메인 페이지로 이동
         // todo : 어디로 이동할건지 url 맵핑
-        response.sendRedirect("https://repertory.online/");
+        response.sendRedirect("https://www.naver.com");
     }
 
 }

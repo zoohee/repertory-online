@@ -37,6 +37,7 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         String provider = oAuth2User.getAttribute("provider");
         String memberName = oAuth2User.getAttribute("name");
 
+        log.info("provider = {}", provider);
 
         // CustomOAuth2UserService에서 셋팅한 로그인한 회원 존재 여부를 가져온다.
         boolean isExist = Boolean.TRUE.equals(oAuth2User.getAttribute("exist"));
