@@ -27,7 +27,10 @@ export const LoginStore = create<LoginState>((set) => ({
   },
 
   logout: async () => {
-    const response = await logoutMember();
-    set({ isLoggedin: response.status === 204 });
+    // const response = await logoutMember();
+    // set({ isLoggedin: response.status === 204 });
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh');
+    set({ isLoggedin: false });
   },
 }));
