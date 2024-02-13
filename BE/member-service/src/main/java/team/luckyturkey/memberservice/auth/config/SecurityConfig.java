@@ -109,7 +109,7 @@ public class SecurityConfig {
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //로그아웃 요청 url
                         .addLogoutHandler(customLogoutHandler)
-                        .logoutSuccessUrl("/")); //로그아웃에 성공하면 메인페이지로 이동
+                        .logoutSuccessUrl("https://repertory.online")); //로그아웃에 성공하면 메인페이지로 이동
 
 
 
