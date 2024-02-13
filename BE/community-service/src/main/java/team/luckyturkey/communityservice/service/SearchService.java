@@ -13,6 +13,7 @@ import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
+import team.luckyturkey.communityservice.util.DtoBuilder;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,33 +28,23 @@ public class SearchService {
     private final FeedRepository feedRepository;
     private final FeedLikeCacheRepository feedLikeCacheRepository;
     private final MemberServiceClient memberServiceClient;
+    private final DtoBuilder dtoBuilder;
 
-    public List<FeedDetailResponse> searchFeedByName(String keyword) {
+    public List<FeedDetailResponse> searchFeedByName(String keyword, Long memberId) {
         List<OriginDto> sources = danceServiceClient.searchSource(keyword);
         List<OriginDto> repertories = danceServiceClient.searchRepertory(keyword);
         List<FeedDetailResponse> feeds = new ArrayList<>();
 
         // source 정보 가져오기
-        feeds = getFeedDetailByOriginDto(sources, feeds);
+        feeds = getFeedDetailByOriginDto(sources, feeds, memberId);
 
         // repertory 정보 가져오기
-        feeds = getFeedDetailByOriginDto(repertories, feeds);
+        feeds = getFeedDetailByOriginDto(repertories, feeds, memberId);
 
-        feeds.sort((o1, o2) -> {
-            if (o1.getFeedDate() == null && o2.getFeedDate() == null) {
-                return 0;
-            } else if (o1.getFeedDate() == null) {
-                return 1;
-            } else if (o2.getFeedDate() == null) {
-                return -1;
-            }
-            return o2.getFeedDate().compareTo(o1.getFeedDate());
-        });
-
-        return feeds;
+        return sortByFeedDate(feeds);
     }
 
-    public List<FeedDetailResponse> searchFeedByDancerName(String keyword) {
+    public List<FeedDetailResponse> searchFeedByDancerName(String keyword, Long memberId) {
         List<MemberDto> members = memberServiceClient.searchByMemberName(keyword);
         List<Long> ids = members.stream()
                 .map(MemberDto::getMemberId)
@@ -79,10 +70,14 @@ public class SearchService {
                 continue;
             }
 
-            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(originDto, f, memberDto);
+            FeedDetailResponse feedDetailResponse = dtoBuilder.mapFeedDetailResponse(originDto, f, memberDto, memberId);
             feedDetailResponseList.add(feedDetailResponse);
         }
 
+        return sortByFeedDate(feedDetailResponseList);
+    }
+
+    private List<FeedDetailResponse> sortByFeedDate(List<FeedDetailResponse> feedDetailResponseList) {
         feedDetailResponseList.sort((o1, o2) -> {
             if (o1.getFeedDate() == null && o2.getFeedDate() == null) {
                 return 0;
@@ -97,7 +92,7 @@ public class SearchService {
         return feedDetailResponseList;
     }
 
-    private List<FeedDetailResponse> getFeedDetailByOriginDto(List<OriginDto> repertories, List<FeedDetailResponse> feeds) {
+    private List<FeedDetailResponse> getFeedDetailByOriginDto(List<OriginDto> repertories, List<FeedDetailResponse> feeds, Long memberId) {
         for (OriginDto s : repertories) {
             Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
             if (feed == null) { continue; }
@@ -114,28 +109,9 @@ public class SearchService {
             }
 
             // TODO: dance service query -> only public (disable=true)
-            feeds.add(mapFeedDetailResponse(s, feed, memberDto));
+            feeds.add(dtoBuilder.mapFeedDetailResponse(s, feed, memberDto, memberId));
         }
         return feeds;
-    }
-
-    private FeedDetailResponse mapFeedDetailResponse(OriginDto s, Feed feed, MemberDto memberDto) {
-
-        return FeedDetailResponse.builder()
-                .feedId(feed.getId())
-                .feedType(FeedType.SOURCE)
-                .likeCount(feedLikeCacheRepository.findByFeedId(feed.getId()))
-                .downloadCount(feed.getDownloadCount())
-                .feedDisable(feed.getFeedDisable())
-                .originId(s.getOriginId())
-                .memberId(s.getMemberId())
-                .feedName(s.getFeedName())
-                .feedUrl(s.getFeedUrl())
-                .feedThumbnailUrl(s.getFeedThumbnailUrl())
-                .feedDate(s.getFeedDate())
-                .memberName(memberDto.getMemberName())
-                .memberProfile(memberDto.getMemberProfile())
-                .build();
     }
 
 }

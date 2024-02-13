@@ -21,6 +21,7 @@ import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
 import team.luckyturkey.communityservice.repository.SubscribeRepository;
+import team.luckyturkey.communityservice.util.DtoBuilder;
 import team.luckyturkey.communityservice.util.ErrorCode;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class FeedService {
     private final DanceServiceClient danceServiceClient;
     private final MemberServiceClient memberServiceClient;
     private final FeedLikeCacheRepository feedLikeCacheRepository;
+    private final DtoBuilder dtoBuilder;
 
     @Transactional
     public void insertFeed(Feed feed) {
@@ -67,28 +69,15 @@ public class FeedService {
         return originDto;
     }
 
-    public List<FeedDetailResponse> getFeedsAndDetail(List<Feed> feeds) {
+    public List<FeedDetailResponse> getFeedsAndDetail(List<Feed> feeds, Long memberId) {
         List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
         for (Feed feed : feeds) {
             OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
             if (originDto.getFeedName() == null) { continue; }
             MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
 //            if (memberDto.getMemberId() == null) { continue; }
-            FeedDetailResponse feedDetailResponse = FeedDetailResponse.builder()
-                    .feedId(feed.getId())
-                    .feedType(feed.getFeedType())
-                    .likeCount(feed.getLikeCount())
-                    .downloadCount(feed.getDownloadCount())
-                    .feedDisable(feed.getFeedDisable())
-                    .originId(feed.getOriginId())
-                    .memberId(feed.getMemberId())
-                    .feedName(originDto.getFeedName())
-                    .feedUrl(originDto.getFeedUrl())
-                    .feedThumbnailUrl(originDto.getFeedThumbnailUrl())
-                    .feedDate(originDto.getFeedDate())
-                    .memberName(memberDto.getMemberName())
-                    .memberProfile(memberDto.getMemberProfile())
-                    .build();
+
+            FeedDetailResponse feedDetailResponse = dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
             feedDetailResponseList.add(feedDetailResponse);
         }
         return feedDetailResponseList;
@@ -123,11 +112,11 @@ public class FeedService {
     // 멤버 아이디로 피드 리스트 불러오는 함수
     public List<FeedDetailResponse> getFeedsByMemberId(Long memberId) {
         List<Feed> feeds = feedRepository.findPublicFeedsByMemberId(memberId);
-        return getFeedsAndDetail(feeds);
+        return getFeedsAndDetail(feeds, memberId);
     }
 
     public List<FeedDetailResponse> getFeedsByMyId(Long myId) {
         List<Feed> feeds = feedRepository.findFeedsByMemberId(myId);
-        return getFeedsAndDetail(feeds);
+        return getFeedsAndDetail(feeds, myId);
     }
 }

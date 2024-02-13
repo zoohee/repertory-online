@@ -14,6 +14,7 @@ import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
 import team.luckyturkey.communityservice.service.LikeService;
 import team.luckyturkey.communityservice.service.SubscribeService;
+import team.luckyturkey.communityservice.util.DtoBuilder;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ public class FeedController {
     private final FeedService feedService;
     private final LikeService likeService;
     private final MemberServiceClient memberServiceClient;
+    private final DtoBuilder dtoBuilder;
 
     @PostMapping
     public void insertFeed(@RequestBody Feed feed) {
@@ -45,23 +47,27 @@ public class FeedController {
         List<Long> followingList = subscribeService.getFollowingList(memberId);
         List<Feed> feeds = feedService.getFeeds(followingList, page, pageSize);
 
-        return feedService.getFeedsAndDetail(feeds);
+        return feedService.getFeedsAndDetail(feeds, memberId);
     }
 
     @GetMapping("/{page}/{pageSize}")
     public List<FeedDetailResponse> getUserFeedList(@PathVariable("page") int page,
                                                     @PathVariable("pageSize") int pageSize) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
+
         List<Feed> feeds = feedService.getAllFeeds(page, pageSize);
         for (Feed feed : feeds) {
             feed.setLikeCount(likeService.getFeedLikeCount(feed.getId()));
         }
 
-        return feedService.getFeedsAndDetail(feeds);
+        return feedService.getFeedsAndDetail(feeds, memberId);
     }
 
     @GetMapping("/detail/{feedId}")
     public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
-        System.out.println(feedId);
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long memberId = 5678L;
 
         Feed feed = feedService.getFeedDetail(feedId);
         Long originId = feed.getOriginId();
@@ -69,20 +75,7 @@ public class FeedController {
         Long likeCount = likeService.getFeedLikeCount(feedId);
         MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
 
-        return FeedDetailResponse.builder()
-                .feedId(feedId)
-                .feedType(feed.getFeedType())
-                .likeCount(likeCount)
-                .downloadCount(feed.getDownloadCount())
-                .feedDisable(feed.getFeedDisable())
-                .originId(originId)
-                .memberId(originDto.getMemberId())
-                .feedName(originDto.getFeedName())
-                .feedUrl(originDto.getFeedUrl())
-                .feedDate(originDto.getFeedDate())
-                .memberName(memberDto.getMemberName())
-                .memberProfile(memberDto.getMemberProfile())
-                .build();
+        return dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
     }
 
     @PatchMapping("/{feedId}/like")
@@ -93,7 +86,7 @@ public class FeedController {
         LikeLog likeLog = LikeLog.builder()
                 .memberId(memberId)
                 .feedId(feedId)
-                .likeActive(1)
+                .likeActive(true)
                 .timestamp(new Date())
                 .build();
 
@@ -110,7 +103,7 @@ public class FeedController {
         LikeLog likeLog = LikeLog.builder()
                 .memberId(memberId)
                 .feedId(feedId)
-                .likeActive(0)
+                .likeActive(false)
                 .timestamp(new Date())
                 .build();
 
