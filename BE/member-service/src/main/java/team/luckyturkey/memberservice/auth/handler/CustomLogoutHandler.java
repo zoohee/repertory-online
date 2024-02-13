@@ -33,9 +33,11 @@ public class CustomLogoutHandler implements LogoutHandler {
             }
             //토큰이 있으면 검색된 토큰 삭제
             refreshTokenService.deleteRefreshToken(foundTokenInfo.getId());
+
+        }else{
+            //토큰이 없으면...? 메인페이지로 리다이렉트
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 405 에러 코드 설정
         }
-        //토큰이 없으면...? 메인페이지로 리다이렉트
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 405 에러 코드 설정
-//        return 리다이렉트 -> 메인페이지;
+
     }
 }
