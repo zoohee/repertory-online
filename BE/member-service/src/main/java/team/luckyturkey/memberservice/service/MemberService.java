@@ -59,9 +59,14 @@ public class MemberService {
     }
 
 
+//    @Transactional
+//    public Boolean memberLoginIdIsExist(MemberLoginIdIsExistDto memberLoginIdIsExistDto){
+//        return memberRepository.existsByMemberLoginId(memberLoginIdIsExistDto.getMemberLoginId());
+//    }
+
     @Transactional
-    public Boolean memberLoginIdIsExist(MemberLoginIdIsExistDto memberLoginIdIsExistDto){
-        return memberRepository.existsByMemberLoginId(memberLoginIdIsExistDto.getMemberLoginId());
+    public Boolean memberLoginIdIsExist(String memberLoginId){
+        return memberRepository.existsByMemberLoginId(memberLoginId);
     }
 
     @Transactional
