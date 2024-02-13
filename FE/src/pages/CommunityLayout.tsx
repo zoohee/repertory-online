@@ -10,6 +10,7 @@ const FixedBox = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
+  left: calc(var(--sidebar) + var(--sidebar-margin) * 2);
   background-color: var(--background-color);
 `;
 
