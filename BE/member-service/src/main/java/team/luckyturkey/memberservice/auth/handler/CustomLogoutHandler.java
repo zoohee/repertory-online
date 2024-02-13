@@ -24,6 +24,12 @@ public class CustomLogoutHandler implements LogoutHandler {
         String atc = token.split(" ")[1];
         //헤더에 토큰이 있다면
         if(atc != null){
+            //토큰 검증
+            if(refreshTokenService.verifyAccessToken(atc)){
+                response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+                return;
+            }
+
             // access token을 이용해서 redis에서 토큰 검색
             RefreshToken foundTokenInfo = refreshTokenService.findToken(atc);
             // redis에 검색된 토큰이 없다면
@@ -36,7 +42,7 @@ public class CustomLogoutHandler implements LogoutHandler {
 
         }else{
             //토큰이 없으면...? 메인페이지로 리다이렉트
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 405 에러 코드 설정
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 에러 코드 설정
         }
 
     }
