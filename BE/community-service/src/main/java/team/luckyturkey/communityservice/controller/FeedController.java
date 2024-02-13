@@ -5,10 +5,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.communityservice.client.MemberServiceClient;
-import team.luckyturkey.communityservice.dto.MemberDto;
-import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.dto.response.ProfileSubscriberResponse;
+import team.luckyturkey.communityservice.dto.response.RelatedSourcesResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
@@ -65,17 +64,19 @@ public class FeedController {
     }
 
     @GetMapping("/detail/{feedId}")
-    public FeedDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
+    public RelatedSourcesResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
 
-        Feed feed = feedService.getFeedDetail(feedId);
-        Long originId = feed.getOriginId();
-        OriginDto originDto = feedService.getOriginDto(originId, feed.getFeedType());
-        Long likeCount = likeService.getFeedLikeCount(feedId);
-        MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
+        Feed feed = feedService.getFeed(feedId);
+        FeedDetailResponse feedDetailResponse = feedService.getFeedDetail(feed, memberId);
 
-        return dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
+        return RelatedSourcesResponse.builder()
+                .feed(feedDetailResponse)
+                .isFollowed(subscribeService.getIsFollowed(memberId, feed.getMemberId()))
+//                danceClient에서 레퍼토리 소스들 가져오기
+//                .feeds()
+                .build();
     }
 
     @PatchMapping("/{feedId}/like")
@@ -141,6 +142,7 @@ public class FeedController {
 
         return ProfileSubscriberResponse.builder()
                 .memberId(memberId)
+                .memberName(memberServiceClient.getMemberInfo(memberId).getMemberName())
                 .isFollowed(subscribeService.getIsFollowed(myId, memberId))
                 .followerCount(subscribeService.getSubscribersCount(memberId))
                 .build();
