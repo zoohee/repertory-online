@@ -62,7 +62,7 @@ public class SecurityConfig {
                         configuration.setMaxAge(3600L); //허용을 유지할 시간
 
                         configuration.setExposedHeaders(Collections.singletonList("Authorization")); //Authorization 헤더도 허용
-
+                        configuration.setExposedHeaders(Collections.singletonList("Refresh")); //Refresh 헤더도 허용
                         return configuration;
                     }
                 })));
