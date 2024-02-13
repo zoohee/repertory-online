@@ -163,26 +163,12 @@ const getMyRepertory = async ({ page, pageSize }: IPage) => {
 
 // 레퍼토리 저장 - OK
 const postRepertory = async (data: FormData) => {
-  // 저장 예시
-  // const repertoryTest = () => {
-  //     const data = {
-  //       repertoryName: 'test',
-  //       sourceIdList: [123, 234, 345],
-  //     };
-  //     const formData = new FormData();
-  //     formData.append('repertoryThumbnail', img);
-  //     formData.append('repertoryVideo', input);
-  //     formData.append(
-  //       'postRepertoryRequest',
-  //       new Blob([JSON.stringify(data)], { type: 'application/json' })
-  //     );
-  //     dance.postRepertory(formData);
-  //   };
   const response = await $axios().post(`/dance/repertory`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
+  console.log(response.status);
   console.log(response.data);
   return response;
 };

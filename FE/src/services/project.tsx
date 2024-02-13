@@ -5,14 +5,20 @@ const getProjectsList = async () => {
   const response = await $axios().get(`/project`);
   console.log(response);
 };
+
 // 프로젝트 이름 수정
 const patchProject = async (projectId: number) => {
   const response = await $axios().patch(`/project/${projectId}`);
   console.log(response);
 };
+
 // 프로젝트 생성
-const postProject = async (projectId: number) => {
-  const response = await $axios().post(`/project/${projectId}`);
+const postProject = async (projectId: number, data: FormData) => {
+  const response = await $axios().post(`/project/${projectId}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   console.log(response);
 };
 // 프로젝트 삭제
@@ -27,8 +33,7 @@ const getProjectDetail = async (projectId: number) => {
 };
 // 포즈 라벨링
 const detectPose = async (formData: FormData) => {
-  const response = await $pose().post(`/pose/pose-detect/`, formData, {
-  });
+  const response = await $pose().post(`/pose/pose-detect/`, formData, {});
   console.log(response);
 };
 

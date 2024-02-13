@@ -131,15 +131,24 @@ const RepertoryPage = () => {
     const data = {
       repertoryName: 'test',
       sourceIdList: [123, 234, 345],
+      isRepertoryOpen: true,
     };
     const formData = new FormData();
-    formData.append('repertoryThumbnail', img);
-    formData.append('repertoryVideo', input);
     formData.append(
       'postRepertoryRequest',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
     );
+    formData.append('repertoryThumbnail', img);
+    formData.append('repertoryVideo', input);
+
     dance.postRepertory(formData);
+  };
+
+  const ProjectTest = () => {
+    const formData = new FormData();
+    formData.append('projectTitle', 'TestName');
+    formData.append('projectThumbnail', img);
+    project.postProject(2, formData);
   };
   return (
     <>
@@ -252,7 +261,7 @@ const RepertoryPage = () => {
           </Btn>
           <Btn onClick={project.getProjectsList}>프로젝트 목록 조회</Btn>
           <Btn onClick={() => project.patchProject(1)}>프로젝트 이름 수정</Btn>
-          <Btn onClick={() => project.postProject(2)}>프로젝트 생성</Btn>
+          <Btn onClick={ProjectTest}>프로젝트 생성</Btn>
           <Btn onClick={() => project.deleteProject(3)}>프로젝트 삭제</Btn>
           <Btn onClick={() => project.getProjectDetail(4)}>
             프로젝트 정보 조회

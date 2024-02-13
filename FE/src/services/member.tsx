@@ -67,10 +67,13 @@ const logoutMember = async () => {
 };
 
 const getMemberInfo = async () => {
-  const response = await $auth().get('/member/memberinfo/2');
-  console.log(response);
+  const params = {
+    memberLoginId: 'rlagudwls3469',
+  };
+  const response = await $auth().get('/member/userinfo', { params });
   return response;
 };
+
 export {
   postMember,
   loginMember,
