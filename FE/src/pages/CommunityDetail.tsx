@@ -10,6 +10,13 @@ import ChannelInfo from '@/components/Wrapper';
 import { Community, Member } from '@/types';
 import Video from '@/components/common/Video';
 
+const VideoBox = styled.div`
+  width: 100%;
+  video {
+    border-radius: 10px;
+  }
+`;
+
 const TextLarge = styled(Text.XL)`
   margin: 16px 0;
 `;
@@ -32,7 +39,9 @@ const CommunityDetailPage = () => {
   };
   return (
     <>
-      <Video src={dance.feedUrl} />
+      <VideoBox>
+        <Video src={dance.feedUrl} />
+      </VideoBox>
       <TextLarge>{dance.feedName}</TextLarge>
       <ChannelInfo $margin="0">
         <Wrapper>
