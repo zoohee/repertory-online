@@ -1,5 +1,6 @@
 package team.luckyturkey.memberservice.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -11,11 +12,13 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.Status.MemberAuthorityStatus;
 import team.luckyturkey.memberservice.auth.dto.OAuth2Attribute;
+import team.luckyturkey.memberservice.auth.jwt.JWTUtil;
+import team.luckyturkey.memberservice.member.dto.GeneratedToken;
 import team.luckyturkey.memberservice.member.dto.responsedto.GoogleResponse;
 import team.luckyturkey.memberservice.member.dto.responsedto.NaverResponse;
 import team.luckyturkey.memberservice.auth.dto.OAuth2Response;
 import team.luckyturkey.memberservice.member.entity.Member;
-import team.luckyturkey.memberservice.member.repository.OAuthMeberRepository;
+import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -25,14 +28,14 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
 
-    private final OAuthMeberRepository oAuthMeberRepository;
+    private final MemberRepository memberRepository;
+    private final JWTUtil jwtUtil;
 
 
-    public CustomOAuth2MemberService (OAuthMeberRepository oAuthMeberRepository){
-        this.oAuthMeberRepository = oAuthMeberRepository;
-    }
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
@@ -79,8 +82,7 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
         //email을 통해 이미 가입한 회원인지 체크
         //사용자 email 정보를 가져온다
         String memberEmail = oAuth2Response.getEmail();
-//        Member existData = oAuthMeberRepository.findByMemberLoginId(memberLoginId);
-        Optional<Member> existData = Optional.ofNullable(oAuthMeberRepository.findByMemberEmail(memberEmail));
+        Optional<Member> existData = Optional.ofNullable(memberRepository.findByMemberEmail(memberEmail));
 
 
 
@@ -110,19 +112,19 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
             log.info("member = {}", member);
             member.setMemberLoginId(memberLoginId);
             member.setMemberEmail(oAuth2Response.getEmail());
-            member.setMemberRole(MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority());
+            member.setMemberRole(MemberAuthorityStatus.ROLE_REGISTERED_MEMBER.getAuthority());
             member.setMemberProfile(oAuth2Response.getPicture());
             member.setMemberJoinDate(String.valueOf(currentDateTime)); // 수정: 가입 날짜 설정
 
             log.info("member = {}", member);
             //멤버 정보를 db에 저장
-            oAuthMeberRepository.save(member);
-            memberRole = MemberAuthorityStatus.ROLE_SOCIAL_LOGIN_MEMBER.getAuthority();
+            memberRepository.save(member);
+            memberRole = MemberAuthorityStatus.ROLE_REGISTERED_MEMBER.getAuthority();
 
             return new DefaultOAuth2User(
                     // 회원의 권한(회원이 존재하지 않으므로 기본권한인 ROLE_USER를 넣어준다)
                     // 회원속성, 속성이름을 이용해 DefaultOAuth2User 객체를 생성해 반환한다.
-                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
+                    Collections.singleton(new SimpleGrantedAuthority(MemberAuthorityStatus.ROLE_REGISTERED_MEMBER.getAuthority())),
                     memberAttribute, "email");
 
 
@@ -134,8 +136,7 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
             memberAttribute.put("exist", true);
 
 
-
-            //멤버 롤 가져오기
+            // 멤버 롤 가져오기
             memberRole = existData.get().getMemberRole();
 
             if (existData.get().getMemberJoinDate() == null) {
@@ -146,7 +147,8 @@ public class CustomOAuth2MemberService extends DefaultOAuth2UserService {
             existData.get().setMemberProfile(oAuth2Response.getPicture());
 
             // 데이터베이스에 업데이트
-            oAuthMeberRepository.save(existData.get());
+            memberRepository.save(existData.get());
+            //토큰 생성 access+refresh
 
             log.info("login success!!!!!!!!!!!!!!!!!!!!!");
 
