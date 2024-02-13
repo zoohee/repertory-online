@@ -1,6 +1,5 @@
 package team.luckyturkey.communityservice.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,7 @@ import team.luckyturkey.communityservice.client.MemberServiceClient;
 import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
+import team.luckyturkey.communityservice.dto.response.ProfileSubscriberResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
@@ -123,7 +123,7 @@ public class FeedController {
     }
 
     @GetMapping("/profile/{memberId}")
-    public List<FeedDetailResponse> getMyProfile(@PathVariable Long memberId) {
+    public List<FeedDetailResponse> getProfileFeed(@PathVariable Long memberId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long myId = 5678L;
 
@@ -132,6 +132,18 @@ public class FeedController {
         } else {
             return feedService.getFeedsByMemberId(memberId);
         }
+    }
+
+    @GetMapping("/profile/subscriber/{memberId}")
+    public ProfileSubscriberResponse getProfileSubscriber(@PathVariable Long memberId) {
+        // TODO: Request Header jwt에서 memberId 받아 오기
+        Long myId = 5678L;
+
+        return ProfileSubscriberResponse.builder()
+                .memberId(memberId)
+                .isFollowed(subscribeService.getIsFollowed(myId, memberId))
+                .followerCount(subscribeService.getSubscribersCount(memberId))
+                .build();
     }
 
 }
