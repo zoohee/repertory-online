@@ -52,7 +52,7 @@ const CommunityDetailPage = () => {
             <Download count={dance.downloadCount} />
           )}
 
-          <Like liked={false} likeCount={dance.likeCount} />
+          <Like feed={dance} />
         </Wrapper>
       </ChannelInfo>
     </>

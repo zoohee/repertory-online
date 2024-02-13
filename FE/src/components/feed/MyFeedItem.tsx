@@ -1,10 +1,11 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import Image from '@/components/common/Image';
 import FeedItemModal from '@/components/feed/FeedItemModal';
 import Lock from '@/components/feed/Lock';
 import Like from '@/components/community/Like';
+import { Community } from '@/types';
 
 const ListItem = styled.li`
   position: relative;
@@ -28,7 +29,12 @@ const Hover = styled.div`
   width: 100%;
 `;
 
-const FeedItem = ({ children }: { children: ReactNode }) => {
+interface Props {
+  children: React.ReactNode;
+  feed: Community;
+}
+
+const FeedItem = ({ children, feed }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,7 +58,7 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
       {isPrivate && <Lock />}
       {!isHovering && (
         <Box>
-          <Like liked={true} likeCount={123} disable />
+          <Like feed={feed} disable />
         </Box>
       )}
       <Image src="/images/index.jpg"></Image>

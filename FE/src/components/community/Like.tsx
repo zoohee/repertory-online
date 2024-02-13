@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { patchFeedLike, patchFeedNotLike } from '@/services/community';
+import { Community } from '@/types';
 
 const Button = styled.button`
   display: flex;
@@ -12,33 +14,34 @@ const Button = styled.button`
 `;
 
 interface Props {
-  likeCount: number;
-  liked: boolean;
-  // TODO: feedId 추가
+  feed: Community;
   disable?: boolean;
 }
 
-const Like = ({ likeCount, liked, disable }: Props) => {
-  const [isLiked, setIsLiked] = useState(liked);
-  const [count, setCount] = useState(likeCount);
+const Like = ({ feed, disable}: Props) => {
+  const [isLiked, setIsLiked] = useState(feed.isLiked);
+  const [count, setCount] = useState(feed.likeCount);
 
   const handleClick = () => {
     if (disable) {
-      return
+      return;
     }
     if (isLiked) {
-      // TODO: 좋아요 취소 api 보내기
-      setCount((prevCount) => prevCount - 1);
+      patchFeedNotLike(feed.feedId).then(() => {
+        setCount((prevCount) => prevCount - 1);
+        setIsLiked(false);
+      });
     } else {
-      // TODO: 좋아요 api 보내기
-      setCount((prevCount) => prevCount + 1);
+      patchFeedLike(feed.feedId).then(() => {
+        setCount((prevCount) => prevCount + 1);
+        setIsLiked(true);
+      });
     }
-    setIsLiked((prev) => !prev);
   };
 
   return (
     <Button as={disable ? 'div' : 'button'} onClick={handleClick}>
-      {isLiked && <FavoriteIcon className='red' />}
+      {isLiked && <FavoriteIcon className="red" />}
       {!isLiked && <FavoriteBorderIcon />}
       <div>{count}</div>
     </Button>

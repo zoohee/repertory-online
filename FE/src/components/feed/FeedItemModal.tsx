@@ -130,7 +130,7 @@ const FeedItemModal = () => {
               {dance.feedType === 'SOURCE' && (
                 <Download count={dance.downloadCount} />
               )}
-              <Like likeCount={dance.likeCount} liked={dance.isLiked} />
+              <Like feed={dance} />
             </FlexBox>
           </Wrapper>
         </Content>

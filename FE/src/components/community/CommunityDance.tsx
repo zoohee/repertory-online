@@ -1,13 +1,18 @@
+import styled from 'styled-components';
+
 import Dance from '@/components/dance/Dance';
 import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
 import { Secondary as Text, M } from '@/components/common/Text';
 import { Community, Member } from '@/types';
-import styled from 'styled-components';
 
 const Name = styled(M)`
   color: var(--text-secondary-dark-mode);
+`;
+
+const Box = styled.div`
+  display: flex;
 `;
 
 interface Props {
@@ -29,11 +34,10 @@ const CommunityDance = ({ item }: Props) => {
       >
         <Text>{item.feedDate}</Text>
       </UserProfile>
-      <div style={{ display: 'flex' }}>
+      <Box>
         {item.feedType === 'SOURCE' && <Download count={item.downloadCount} />}
-
-        <Like liked={false} likeCount={item.likeCount} disable />
-      </div>
+        <Like feed={item} disable />
+      </Box>
     </Dance>
   );
 };

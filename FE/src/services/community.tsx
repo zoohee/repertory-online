@@ -38,18 +38,14 @@ const deleteSubscriber = async (memberId: number) => {
 
 // 피드 좋아요
 const patchFeedLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/like`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/like`);
   console.log(response);
   return response;
 };
 
 // 피드 좋아요 취소
 const patchFeedNotLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/notlike`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/notlike`);
   console.log(response);
   return response;
 };
