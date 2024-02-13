@@ -92,9 +92,9 @@ public class MemberController {
     }
 
     @GetMapping("/find-id")
-    public ResponseEntity<?> findMemberLoginId(@RequestParam FindMemberLoginIdDto findMemberLoginIdDto){
+    public ResponseEntity<?> findMemberLoginId(@RequestParam String memberEmail){
 
-        String id = memberService.findMemberLoginId(findMemberLoginIdDto);
+        String id = memberService.findMemberLoginId(memberEmail);
         if(id == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -108,10 +108,9 @@ public class MemberController {
     }
 
     @GetMapping("/userinfo")
-    public ResponseEntity<?> getMemberInfo(@RequestParam MemberInfoRequestDto memberInfoRequestDto){
-        String id = memberInfoRequestDto.getMemberLoginId();
+    public ResponseEntity<?> getMemberInfo(@RequestParam String memberLoginId){
         //유저 아이디로 검색해서 있는지부터 확인
-        Member Exist = memberService.getMemberByLoginId(id);
+        Member Exist = memberService.getMemberByLoginId(memberLoginId);
 
         if(Exist == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
