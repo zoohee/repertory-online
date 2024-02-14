@@ -15,7 +15,7 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage, {
   communityFeedLoader,
 } from '@/pages/CommunityUserFeed';
-import MyfeedPage from '@/pages/my-page/MyFeed';
+import MyfeedPage, { myFeedLoader } from '@/pages/my-page/MyFeed';
 import FollowingPage, { followingLoader } from '@/pages/my-page/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
@@ -102,8 +102,7 @@ const router = createBrowserRouter([
             <MyfeedPage />
           </MyContextProvider>
         ),
-        // TODO: parameter 추가
-        loader: () => communityFeedLoader(5678),
+        loader: myFeedLoader,
       },
       {
         path: URL.Following,

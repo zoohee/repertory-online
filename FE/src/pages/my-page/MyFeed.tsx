@@ -23,3 +23,12 @@ const MyfeedPage = () => {
 };
 
 export default MyfeedPage;
+
+import { getFeedList } from '@/services/community';
+
+export const myFeedLoader = async () => {
+  // TODO: 내 멤버 아이디 토큰에서 가져오기
+  const myMemberId = 5678;
+  const response = await getFeedList(myMemberId);
+  return response.data;
+};
