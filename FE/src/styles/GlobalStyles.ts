@@ -136,6 +136,9 @@ const GlobalStyles = createGlobalStyle`
       /* homepage */
       --homepage-padding: 48px;
       --homepage-grid-row-size: 3rem;
+
+      /* menu tab */
+      --menu-tab-margin-top: 48px;
     }
     .red {
         color: var(--color-red);

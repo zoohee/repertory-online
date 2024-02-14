@@ -1,12 +1,15 @@
-import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import Wrapper from '@/components/Wrapper';
 import { Tab } from '@/types';
 
 const List = styled.ul`
-  width: 100%;
   display: flex;
+`;
+
+const Wrapper = styled.nav<{ $margin?: number }>`
+  margin-top: var(--menu-tab-margin-top);
+  ${({ $margin }) => $margin && `margin-bottom: ${$margin}px;`}
+  width: 100%;
   border-bottom: solid 1px var(--rp-grey-300);
 `;
 
@@ -30,12 +33,11 @@ const Button = styled.button<{ $clicked: boolean }>`
 `;
 
 interface Props {
-  children?: ReactNode;
-  margin: string;
+  marginBottom?: number;
   tabs: Tab[];
 }
 
-const Tabs = ({ children, margin, tabs }: Props) => {
+const Tabs = ({ marginBottom, tabs }: Props) => {
   const tabItems = tabs.map((tab, idx) => (
     <li key={idx}>
       <Button $clicked={tab.clicked} onClick={tab.onClick}>
@@ -45,9 +47,8 @@ const Tabs = ({ children, margin, tabs }: Props) => {
   ));
 
   return (
-    <Wrapper as="nav" $margin={margin} style={{ width: '100%' }}>
+    <Wrapper $margin={marginBottom}>
       <List>{tabItems}</List>
-      {children}
     </Wrapper>
   );
 };

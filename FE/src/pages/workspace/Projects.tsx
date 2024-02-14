@@ -34,7 +34,7 @@ const TABS = [new Tab('My projects', true, () => {})];
 const ProjectsPage = () => {
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 0" />
+      <TabButtons tabs={TABS} />
       <Wrapper>
         <SearchBar />
         <CreateButton to="/workspace" target="_blank" />

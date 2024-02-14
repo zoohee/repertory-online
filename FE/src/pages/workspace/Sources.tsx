@@ -22,7 +22,7 @@ const SourcesPage = () => {
 
   return (
     <>
-      <TabButtons tabs={tabs} margin="48px 0 0" />
+      <TabButtons tabs={tabs} />
       <Box>
         <Wrapper $margin='0'>
           <div style={{ display: 'flex' }}>
