@@ -110,6 +110,7 @@ public class CloneServiceImpl implements CloneService{
                 .sourceLength(cloneSource.getSourceLength())
                 .sourceCount(cloneSource.getSourceCount())
                 .sourceUrl(cloneSource.getSourceUrl())
+                .sourceThumbnailUrl(cloneSource.getSourceThumbnailUrl())
                 .tagNameList(cloneSource.getTagName())
                 .build();
     }

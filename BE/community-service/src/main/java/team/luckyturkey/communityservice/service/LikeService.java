@@ -33,9 +33,10 @@ public class LikeService {
     public Long cancelLikeCache(Long feedId) {
         Long likeCount = feedLikeCacheRepository.decreaseLike(feedId);
         if (likeCount < 0) {
+            feedLikeCacheRepository.increaseLike(feedId);
             throw new InvalidDataException(ErrorCode.INTER_SERVER_ERROR);
         }
-        return feedLikeCacheRepository.decreaseLike(feedId);
+        return likeCount;
     }
 
     public Long getFeedLikeCount(Long feedId) {
