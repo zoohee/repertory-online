@@ -16,7 +16,6 @@ public class FeedDetailResponse implements Comparable<FeedDetailResponse> {
     private Long likeCount;
     private Long downloadCount;
     private Boolean feedDisable;
-    private Boolean isLiked;
 
     // originDto
     private Long originId;
@@ -29,6 +28,9 @@ public class FeedDetailResponse implements Comparable<FeedDetailResponse> {
     // dancer
     private String memberName;
     private String memberProfile;
+
+    private Boolean isLiked;
+    private Boolean isDownloaded;
 
 
     @Override

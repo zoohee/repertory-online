@@ -6,10 +6,15 @@ import team.luckyturkey.danceservice.controller.responsedto.CommunityFeedRespons
 import team.luckyturkey.danceservice.controller.responsedto.StandardRepertoryResponse;
 import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
 import team.luckyturkey.danceservice.domain.FeedType;
+import team.luckyturkey.danceservice.domain.document.Repertory;
+import team.luckyturkey.danceservice.domain.entity.Source;
 import team.luckyturkey.danceservice.repository.cache.CacheTagRepository;
+import team.luckyturkey.danceservice.repository.jpa.CloneSourceRepository;
+import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +23,8 @@ public class FeedFacadeServiceImpl implements FeedFacadeService{
     private final CacheTagRepository cacheTagRepository;
     private final SourceService sourceService;
     private final RepertoryService repertoryService;
-
+    private final RepertoryRepository repertoryRepository;
+    private final CloneSourceRepository cloneSourceRepository;
 
     @Override
     public CommunityFeedResponse findFeed(Long originId, FeedType feedType) {
@@ -76,6 +82,26 @@ public class FeedFacadeServiceImpl implements FeedFacadeService{
             response.add(mapCommunityFeedResponse(rr));
         }
         return response;
+    }
+
+    @Override
+    public List<CommunityFeedResponse> getSourceList(Long originId) {
+        Optional<Repertory> repertory = repertoryRepository.findById(originId);
+        List<Long> sourceIdList = repertory.orElseThrow().getSourceList();
+        List<CommunityFeedResponse> response = new ArrayList<>();
+        List<StandardSourceResponse> sourceList = sourceService.getSourceList(sourceIdList);
+
+        for (StandardSourceResponse s : sourceList) {
+            CommunityFeedResponse communityFeedResponse = mapCommunityFeedResponse(s);
+            response.add(communityFeedResponse);
+        }
+
+        return response;
+    }
+
+    @Override
+    public Boolean getIsDownloaded(Long originId, Long memberId) {
+        return cloneSourceRepository.countByOriginIdAndMemberId(originId, memberId) > 0;
     }
 
     private CommunityFeedResponse mapCommunityFeedResponse(StandardSourceResponse sourceResponse){

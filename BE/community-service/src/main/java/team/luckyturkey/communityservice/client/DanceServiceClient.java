@@ -28,4 +28,7 @@ public interface DanceServiceClient {
 
     @GetMapping("/detail/repertory/{keyword}")
     List<OriginDto> searchRepertory(@PathVariable String keyword);
+
+    @GetMapping("/detail/download/{originId}/{memberId}")
+    Boolean getIsDownloaded(@PathVariable Long originId, @PathVariable Long memberId);
 }

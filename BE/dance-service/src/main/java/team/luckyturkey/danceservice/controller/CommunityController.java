@@ -1,5 +1,6 @@
 package team.luckyturkey.danceservice.controller;
 
+import feign.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CommunityController {
 
     private final FeedFacadeService feedFacadeService;
+
     @GetMapping("/{originId}/{feedType}")
     public ResponseEntity<CommunityFeedResponse> getFeed(
             @PathVariable Long originId,
@@ -44,5 +46,16 @@ public class CommunityController {
         return ResponseEntity.ok(response);
     }
 
-    //댄서네임, 동영상 검색 ->
+    @GetMapping("/repertory/{originId}")
+    public ResponseEntity<List<CommunityFeedResponse>> getSourceList(@PathVariable Long originId) {
+        List<CommunityFeedResponse> response = feedFacadeService.getSourceList(originId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/download/{originId}/{memberId}")
+    public ResponseEntity<Boolean> getIsDownloaded(@PathVariable Long originId,
+                                                   @PathVariable Long memberId) {
+        Boolean response = feedFacadeService.getIsDownloaded(originId, memberId);
+        return ResponseEntity.ok(response);
+    }
 }
