@@ -65,8 +65,8 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 
             response.setStatus(HttpServletResponse.SC_OK);
             //리다이렉트 ㄴㄴ
-//            // accessToken을 쿼리스트링에 담는 url을 만들어준다.
-//            String targetUrl = UriComponentsBuilder.fromUriString("http://repertory.online")
+            // accessToken을 쿼리스트링에 담는 url을 만들어준다.
+//            String targetUrl = UriComponentsBuilder.fromUriString("https://repertory.online")
 //                    .queryParam("accessToken", accessToken)
 //                    .build()
 //                    .encode(StandardCharsets.UTF_8)
