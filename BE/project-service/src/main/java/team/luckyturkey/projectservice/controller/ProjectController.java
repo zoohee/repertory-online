@@ -24,7 +24,6 @@ import java.util.List;
 //todo: userid 기반, 해당 사용자의 프로젝트 목록을 모두 가져오는 api 개발 필요
 public class ProjectController {
 
-
     private final ProjectService projectService;
 
     @Deprecated
@@ -33,12 +32,12 @@ public class ProjectController {
         return ResponseEntity.ok("hello");
     }
 
-    @GetMapping
-    public List<Project> getMyProjects() {
+    @GetMapping("/")
+    public ResponseEntity<List<Project>> getMyProjects() {
         // TODO: memberID <- jwt
         Long memberId = 1L;
-
-        return projectService.getProjectList(memberId);
+        List<Project> response = projectService.getProjectList(memberId);
+        return ResponseEntity.ok(response);
     }
 
     /**
@@ -84,11 +83,14 @@ public class ProjectController {
             @RequestPart String projectName,
             @RequestPart MultipartFile projectThumbnail
     ){
+        Long memberId = 1L;
         //todo: user id 삽입 기능 필요
+
         Project project = Project.builder()
                 .projectName(projectName)
                 .projectDate(Instant.now())
                 .sourceList(new ArrayList<>())
+                .memberId(memberId)
                 .build();
 
         Long projectId = projectService.saveProject(project, projectThumbnail);
