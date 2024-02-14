@@ -10,7 +10,7 @@ interface IfeedData {
   feedType: string;
   feedDisable: 0 | 1;
 }
-type IFeedType = 0 | 1;
+
 // 구독자 수 조회 -OK
 const getSubscribersCount = async () => {
   const response = await $axios().get('/community/subscribers');

@@ -222,10 +222,10 @@ const RepertoryPage = () => {
           >
             커뮤니티 피드 조회
           </Btn>
-          <Btn onClick={() => com.feedSetPublic(1234, 0)}>
+          <Btn onClick={() => com.feedSetPublic(1234, 'SOURCE')}>
             GET/feedSetPublic
           </Btn>
-          <Btn onClick={() => com.feedSetPrivate(1234, 0)}>
+          <Btn onClick={() => com.feedSetPrivate(1234, 'SOURCE')}>
             GET/feedSetPrivate
           </Btn>
           <Btn onClick={com.getSubscribersList}>GET/getSubscribersList</Btn>

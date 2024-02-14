@@ -20,7 +20,7 @@ const ListItem = styled.li`
   width: 480px;
 `;
 
-const TABS = [new Tab('Following', true)];
+const TABS = [new Tab('Following', true, () => {})];
 
 const FollowingPage = () => {
   const members = useLoaderData() as Member[];
