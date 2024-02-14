@@ -52,13 +52,18 @@ interface Community {
 
 interface CommunityDetail {
   feed: Community;
-  followed: boolean;
+  profile: Profile;
 }
 
 interface Member {
   memberId: number;
   memberName: string;
   memberProfile: string;
+}
+
+interface Profile extends Member {
+  followed: boolean;
+  followerCount: number;
 }
 
 interface Modal {

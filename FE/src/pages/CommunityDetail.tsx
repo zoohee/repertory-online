@@ -7,7 +7,7 @@ import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
-import { CommunityDetail, Member } from '@/types';
+import { CommunityDetail } from '@/types';
 import Video from '@/components/common/Video';
 
 const VideoBox = styled.div`
@@ -31,12 +31,8 @@ const Box = styled.div`
 `;
 
 const CommunityDetailPage = () => {
-  const { feed, followed } = useLoaderData() as CommunityDetail;
-  const member: Member = {
-    memberId: feed.memberId,
-    memberName: feed.memberName,
-    memberProfile: feed.memberProfile,
-  };
+  const { feed, profile } = useLoaderData() as CommunityDetail;
+
   return (
     <>
       <VideoBox>
@@ -47,16 +43,16 @@ const CommunityDetailPage = () => {
         <Wrapper>
           <UserProfile
             imageSize={40}
-            member={member}
-            name={<Text.M>{member.memberName}</Text.M>}
+            member={profile}
+            name={<Text.M>{profile.memberName}</Text.M>}
           >
-            <Text.Secondary>구독자 수</Text.Secondary>
+            <Text.Secondary>구독자 {profile.followerCount}명</Text.Secondary>
           </UserProfile>
           {/* TODO: 내 동영상은 구독 버튼 가리기 */}
           <Box>
             <Follow
               $size="small"
-              $followed={followed}
+              $followed={profile.followed}
               memberId={feed.memberId}
             />
           </Box>
