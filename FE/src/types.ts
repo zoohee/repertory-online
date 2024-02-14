@@ -90,4 +90,5 @@ export type {
   Member,
   Modal,
   IProject,
+  Profile,
 };

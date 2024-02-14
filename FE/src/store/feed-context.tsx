@@ -1,11 +1,12 @@
 import { createContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-import { Community, Modal } from '@/types';
+import { Community, Profile, Modal } from '@/types';
 
 interface FeedContextType {
   selectDance: (idx: number) => void;
   dances: Community[];
+  profile: Profile;
   openModal: () => void;
   modal: Modal;
 }
@@ -17,7 +18,10 @@ interface Props {
 }
 
 const FeedContextProvider = ({ children }: Props) => {
-  const dances = useLoaderData() as Community[];
+  const { dances, profile } = useLoaderData() as {
+    dances: Community[];
+    profile: Profile;
+  };
   const [index, setIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -57,6 +61,7 @@ const FeedContextProvider = ({ children }: Props) => {
   const value: FeedContextType = {
     selectDance,
     dances,
+    profile,
     openModal,
     modal,
   };
