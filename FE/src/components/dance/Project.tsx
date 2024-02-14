@@ -9,6 +9,7 @@ import { Secondary as Text } from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '@/components/common/MenuButton';
 import { Project } from '@/types';
+import { deriveDaysAgo } from '@/services/util';
 
 const ListItem = styled.li`
   position: relative;
@@ -42,7 +43,7 @@ const ProjectItem = ({ project }: Props) => {
         thumbnail={project.projectThumbnailUrl}
         title={project.projectName}
       >
-        <Text>{project.projectDate}</Text>
+        <Text>{deriveDaysAgo(project.projectDate)}</Text>
       </Dance>
     </ListItem>
   );

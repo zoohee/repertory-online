@@ -6,6 +6,7 @@ import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
 import { Secondary as Text, M } from '@/components/common/Text';
 import { Community, Member } from '@/types';
+import { deriveDaysAgo } from '@/services/util';
 
 const Name = styled(M)`
   color: var(--text-secondary-dark-mode);
@@ -32,7 +33,7 @@ const CommunityDance = ({ item }: Props) => {
         member={member}
         name={<Name>{member.memberName}</Name>}
       >
-        <Text>{item.feedDate}</Text>
+        <Text>{deriveDaysAgo(item.feedDate)}</Text>
       </UserProfile>
       <Box>
         {item.feedType === 'SOURCE' && <Download feed={item} disable />}
