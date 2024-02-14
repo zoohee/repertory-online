@@ -74,7 +74,7 @@ const CommunityDetailPage = () => {
       {feed.feedType == 'SOURCE' && (
         <RelatedVideoTitle>이 소스가 사용된 레퍼토리 영상</RelatedVideoTitle>
       )}
-      <CommunityDanceList dances={sources} />
+      {sources && <CommunityDanceList dances={sources} />}
     </>
   );
 };

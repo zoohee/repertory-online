@@ -4,13 +4,9 @@ import Dance from '@/components/dance/Dance';
 import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
-import { Secondary as Text, M } from '@/components/common/Text';
+import * as Text from '@/components/common/Text';
 import { Community, Member } from '@/types';
 import { deriveDaysAgo } from '@/services/util';
-
-const Name = styled(M)`
-  color: var(--text-secondary-dark-mode);
-`;
 
 const Box = styled.div`
   display: flex;
@@ -31,9 +27,9 @@ const CommunityDance = ({ item }: Props) => {
       <UserProfile
         imageSize={40}
         member={member}
-        name={<Name>{member.memberName}</Name>}
+        name={<Text.M>{member.memberName}</Text.M>}
       >
-        <Text>{deriveDaysAgo(item.feedDate)}</Text>
+        <Text.Secondary>{deriveDaysAgo(item.feedDate)}</Text.Secondary>
       </UserProfile>
       <Box>
         {item.feedType === 'SOURCE' && <Download feed={item} disable />}
