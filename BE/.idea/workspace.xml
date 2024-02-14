@@ -7,10 +7,8 @@
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/util/DtoBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/util/DtoBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/service/RepertoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/service/RepertoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/service/SourceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/service/SourceServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
     </list>

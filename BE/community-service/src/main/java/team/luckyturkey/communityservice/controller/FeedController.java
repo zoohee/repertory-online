@@ -168,12 +168,14 @@ public class FeedController {
     public ProfileSubscriberResponse getProfileSubscriber(@PathVariable Long memberId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long myId = 5678L;
+        MemberDto memberDto = memberServiceClient.getMemberInfo(memberId);
 
         return ProfileSubscriberResponse.builder()
                 .memberId(memberId)
-                .memberName(memberServiceClient.getMemberInfo(memberId).getMemberName())
+                .memberName(memberDto.getMemberName())
                 .isFollowed(subscribeService.getIsFollowed(myId, memberId))
                 .followerCount(subscribeService.getSubscribersCount(memberId))
+                .memberProfile(memberDto.getMemberProfile())
                 .build();
     }
 
