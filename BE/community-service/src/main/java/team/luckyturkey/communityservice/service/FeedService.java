@@ -124,4 +124,9 @@ public class FeedService {
         List<Feed> feeds = feedRepository.findFeedsByMemberId(myId);
         return getFeedsAndDetail(feeds, myId);
     }
+
+    public Feed getFeedByOriginId(Long originId) {
+        return feedRepository.getFeedByOriginId(originId);
+    }
+
 }

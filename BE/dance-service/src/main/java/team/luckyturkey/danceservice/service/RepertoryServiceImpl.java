@@ -14,6 +14,7 @@ import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class RepertoryServiceImpl implements RepertoryService{
                 .isRepertoryOpen(postRepertoryRequest.isRepertoryOpen())
                 .repertoryUrl(repertoryUrl)
                 .repertoryThumbnailUrl(repertoryThumbnailUrl)
+                .repertoryDate(LocalDateTime.now())
                 .build();
 
         // mongo transaction
@@ -141,9 +143,11 @@ public class RepertoryServiceImpl implements RepertoryService{
     private StandardRepertoryResponse repertoryToStandardResponse(Repertory repertory) {
         return StandardRepertoryResponse.builder()
                 .repertoryId(repertory.getId())
+                .memberId(repertory.getMemberId())
                 .repertoryName(repertory.getRepertoryName())
                 .repertoryUrl(repertory.getRepertoryUrl())
                 .repertoryThumbnailUrl(repertory.getRepertoryThumbnailUrl())
+                .repertoryDate(repertory.getRepertoryDate())
                 .build();
     }
 

@@ -12,6 +12,7 @@ import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.jpa.SourceRepertoryRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static jakarta.transaction.Transactional.TxType.REQUIRES_NEW;
@@ -31,7 +32,11 @@ public class RepertoryEventListener {
         for (Long sourceId : sourceIdList) {
             SourceRepertory sourceRepertory = SourceRepertory.builder()
                     .id(new SourceRepertoryPK(savedRepertory.getId(), sourceId))
-                    .source(Source.builder().id(sourceId).build())
+                    .source(Source.builder()
+                            .id(sourceId)
+                            .sourceDate(LocalDateTime.now())
+                            .memberId(savedRepertory.getMemberId())
+                            .build())
                     .build();
 
             sourceRepertoryRepository.save(sourceRepertory);
