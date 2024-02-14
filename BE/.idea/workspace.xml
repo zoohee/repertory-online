@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/dto/MemberDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/dto/MemberDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/dto/response/RelatedSourcesResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/dto/response/FeedRepertoryDetailResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/service/FeedService.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/service/FeedService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/util/DtoBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/util/DtoBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/responsedto/CloneSourceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/responsedto/CloneSourceResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/domain/entity/CloneSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/domain/entity/CloneSource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/dto/response/MemberInfoResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/dto/response/MemberInfoResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/dto/responsedto/MemberInfoResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/member/dto/responsedto/MemberInfoResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/service/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +51,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/community-service">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -67,52 +81,60 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2brYi9SMaxdcxh8szgBeG0YZTib" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build apigateway-service.executor": "Run",
-    "Gradle.Build community-service.executor": "Run",
-    "Gradle.Build dance-service.executor": "Run",
-    "Gradle.Build discovery-service.executor": "Run",
-    "Gradle.Build member-service.executor": "Run",
-    "Gradle.Build project-service.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ApigatewayServiceApplication (1).executor": "Run",
-    "Spring Boot.ApigatewayServiceApplication.executor": "Run",
-    "Spring Boot.CommunityServiceApplication.executor": "Run",
-    "Spring Boot.DanceServiceApplication.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.MemberServiceApplication.executor": "Run",
-    "Spring Boot.ProjectServiceApplication.executor": "Run",
-    "git-widget-placeholder": "BE/dance",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/SSAFY/Documents/GitHub/S10P12A707/BE/community-service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15415987",
-    "project.structure.side.proportion": "0.34566474",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build apigateway-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build community-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build dance-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build discovery-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build member-service.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build project-service.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApigatewayServiceApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApigatewayServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CommunityServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DanceServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MemberServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProjectServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;BE/community&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Documents/GitHub/S10P12A707/BE/project-service/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15415987&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.34566474&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\project-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\member-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\community-service\src\main\resources" />
       <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\java\team\luckyturkey\danceservice\controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -132,7 +154,29 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ApigatewayServiceApplication (1)">
+  <component name="RunManager" selected="Spring Boot.DiscoveryServiceApplication">
+    <configuration name="Tests in 'community-service'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/community-service" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ApigatewayServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="apigateway-service.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.apigatewayservice.ApigatewayServiceApplication" />
@@ -186,6 +230,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.Tests in 'community-service'" />
       <item itemvalue="Spring Boot.MemberServiceApplication" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.ProjectServiceApplication" />
@@ -196,6 +241,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ApigatewayServiceApplication (1)" />
+        <item itemvalue="Gradle.Tests in 'community-service'" />
       </list>
     </recent_temporary>
   </component>

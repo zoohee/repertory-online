@@ -75,7 +75,7 @@ public class MemberService {
                 Member member = optionalMember.get();
                 CommunityMemberInfoResponseDto memberInfoResponseDto = CommunityMemberInfoResponseDto
                         .builder()
-                        .memberId(member.getId())
+                        .memberId(id)
                         .memberProfile(member.getMemberProfile())
                         .memberName(member.getMemberName())
                         .build();
@@ -95,6 +95,7 @@ public class MemberService {
         MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto();
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
+            memberInfoResponseDto.setMemberId(member.getId());
             memberInfoResponseDto.setMemberName(member.getMemberName());
             memberInfoResponseDto.setMemberProfile(member.getMemberProfile());
 
