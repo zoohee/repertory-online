@@ -23,7 +23,7 @@ public class Project {
 
     private String projectName;
     private Instant projectDate;
-    private Long userId;
+    private Long memberId;
     private List<Long> sourceList;
 
     @Setter

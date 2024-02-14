@@ -11,6 +11,7 @@ import team.luckyturkey.projectservice.document.Project;
 import team.luckyturkey.projectservice.exception.EmptyResultException;
 import team.luckyturkey.projectservice.repository.project.ProjectRepository;
 import team.luckyturkey.projectservice.util.ErrorCode;
+import team.luckyturkey.projectservice.util.S3Uploader;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final S3Uploader s3Uploader;
 
     @Override
     public void updateProjectSourceList(Long projectId, List<Long> sourceIdList) {
@@ -45,8 +47,13 @@ public class ProjectServiceImpl implements ProjectService {
          * project.setProjectThumbnailUrl(url);
          * */
 
+        // S3 UPLOAD FILE
+//        String sourceUrl = s3Uploader.uploadFile(project);
+        String projectThumbnailUrl = s3Uploader.uploadFile(projectThumbnail);
+
         //this is for test
-        project.setProjectThumbnailUrl(projectThumbnail.getName());
+        project.setProjectThumbnailUrl(projectThumbnailUrl);
+
 
         return projectRepository.saveWithSequence(project).getId();
     }
