@@ -14,6 +14,10 @@ interface Source {
   sourceStart: string;
   sourceThumbnailUrl: string;
   sourceUrl: string;
+  tagNameList: string[];
+}
+
+interface MySource extends Source {
   tagList: Tag[];
 }
 
@@ -66,4 +70,12 @@ interface Modal {
   prevDance: () => void;
 }
 
-export type { Tag, Source, Community, CommunityDetail, Member, Modal };
+export type {
+  Tag,
+  Source,
+  MySource,
+  Community,
+  CommunityDetail,
+  Member,
+  Modal,
+};

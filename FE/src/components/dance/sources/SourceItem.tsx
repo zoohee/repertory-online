@@ -39,7 +39,7 @@ const SourceItem = ({ source }: Props) => {
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
       <Dance thumbnail={source.sourceThumbnailUrl} title={source.sourceName}>
-        <Text>{source.tagList.map((tag) => `#${tag.tagName}`).join(' ')}</Text>
+        <Text>{source.tagNameList.map((tag) => `#${tag}`).join(' ')}</Text>
       </Dance>
     </ListItem>
   );

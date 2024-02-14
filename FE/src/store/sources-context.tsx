@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-import { Source, Tab } from '@/types';
+import { Source, MySource, Tab } from '@/types';
 
 interface SourcesContextType {
   sources: Source[];
@@ -26,20 +26,31 @@ const SourcesContextProvider = ({ children }: Props) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isTagOpen, setIsTagOpen] = useState(false);
 
-  const data = useLoaderData() as { mine: Source[]; clone: Source[] };
+  const { mine, clone } = useLoaderData() as {
+    mine: MySource[];
+    clone: Source[];
+  };
+
+  mine.forEach((source) => {
+    source.tagNameList = source.tagList.map((tag) => tag.tagName);
+  });
 
   const [mineClicked, setMineClicked] = useState(true);
   const [cloneClicked, setCloneClicked] = useState(false);
-  const [sources, setSources] = useState<Source[]>(data.mine);
+  const [sources, setSources] = useState<Source[]>(mine);
 
   const clickMine = () => {
-    setSources(data.mine);
+    setSources(mine);
+    setIsTagOpen(false);
+    setSelectedTags([]);
     setMineClicked(true);
     setCloneClicked(false);
   };
 
   const clickClone = () => {
-    setSources(data.clone);
+    setSources(clone);
+    setIsTagOpen(false);
+    setSelectedTags([]);
     setMineClicked(false);
     setCloneClicked(true);
   };
@@ -49,11 +60,7 @@ const SourcesContextProvider = ({ children }: Props) => {
     new Tab('Cloned Sources', cloneClicked, clickClone),
   ];
 
-  const tags = [
-    ...new Set(
-      sources.map((source) => source.tagList.map((tag) => tag.tagName)).flat()
-    ),
-  ];
+  const tags = [...new Set(sources.map((source) => source.tagNameList).flat())];
 
   const selectTag = (tag: string) => {
     setSelectedTags((prev) => {
