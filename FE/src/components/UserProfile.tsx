@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import URL from '@/url';
-import ProfileImage from '@/components/common/Image';
+import ProfileImage from '@/components/common/ImageSquare';
 import { Member } from '@/types';
 
 const Box = styled.div`

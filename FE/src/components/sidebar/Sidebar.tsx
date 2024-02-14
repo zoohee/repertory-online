@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import ProfileImage from '@/components/common/Image';
+import ProfileImage from '@/components/common/ImageSquare';
 import Navigation from '@/components/sidebar/Navigation';
 
 const Container = styled.div`
@@ -32,12 +32,12 @@ const Logout = styled.button`
 
 const SideBar = () => {
   return (
-    <Aside as='aside'>
-      <Link to='/'>
-        <img src='/images/logo.svg' alt='logo' style={{ height: '52px' }} />
+    <Aside as="aside">
+      <Link to="/">
+        <img src="/images/logo.svg" alt="logo" style={{ height: '52px' }} />
       </Link>
       <Container>
-        <ProfileImage size={160} isRound={true} src='/images/index.jpg' />
+        <ProfileImage size={160} isRound={true} src="/images/index.jpg" />
         <div style={{ margin: '16px' }}>loginUserName</div>
         <Logout>Log Out</Logout>
       </Container>

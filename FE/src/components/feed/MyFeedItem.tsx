@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import Image from '@/components/common/Image';
+import Image from '@/components/common/ImageSquare';
 import LockIcon from '@/components/feed/Lock';
 import { Community } from '@/types';
 import MyFeedHover from '@/components/feed/MyFeedHover';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
 
-import Image from '@/components/common/Image';
+import Image from '@/components/common/ImageSquare';
 import * as Text from '@/components/common/Text';
 import Follow from '@/components/community/Follow';
 import DanceGridBox from '@/components/dance/DanceGridBox';

@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import Image from '@/components/common/Image';
+import Image from '@/components/common/ImageSquare';
 import { feedContext } from '@/store/feed-context';
 
 const Box = styled.li`

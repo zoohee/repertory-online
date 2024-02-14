@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
 const ImageContainer = styled.div<{ $size?: number; $isRound?: boolean }>`
+  aspect-ratio: 1 / 1;
   ${({ $size }) => {
     if ($size) {
       return css`
         height: ${$size}px;
         width: ${$size}px;
-        aspect-ratio: 1 / 1;
       `;
     }
     return css`
