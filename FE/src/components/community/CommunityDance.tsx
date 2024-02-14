@@ -35,7 +35,7 @@ const CommunityDance = ({ item }: Props) => {
         <Text>{item.feedDate}</Text>
       </UserProfile>
       <Box>
-        {item.feedType === 'SOURCE' && <Download count={item.downloadCount} />}
+        {item.feedType === 'SOURCE' && <Download feed={item} disable />}
         <Like feed={item} disable />
       </Box>
     </Dance>

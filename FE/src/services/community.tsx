@@ -52,9 +52,7 @@ const patchFeedNotLike = async (feedId: number) => {
 
 // 소스 클론
 const postSourceClone = async (feedId: number) => {
-  const response = await $axios().post(`/community/source/${feedId}/clone`, {
-    feedId: feedId,
-  });
+  const response = await $axios().post(`/community/source/${feedId}/clone`);
   console.log(response);
   return response;
 };

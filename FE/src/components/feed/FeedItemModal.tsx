@@ -141,7 +141,7 @@ const FeedItemModal = ({ modal, disable }: Props) => {
             </ColumnBox>
             <FlexBox>
               {dance.feedType === 'SOURCE' && (
-                <Download count={dance.downloadCount} />
+                <Download feed={dance} disable={disable} />
               )}
               <Like feed={dance} disable={disable} />
             </FlexBox>

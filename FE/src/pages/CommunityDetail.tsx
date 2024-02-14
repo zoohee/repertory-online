@@ -54,11 +54,15 @@ const CommunityDetailPage = () => {
           </UserProfile>
           {/* TODO: 내 동영상은 구독 버튼 가리기 */}
           <Box>
-            <Follow $size="small" $followed={followed} memberId={feed.memberId} />
+            <Follow
+              $size="small"
+              $followed={followed}
+              memberId={feed.memberId}
+            />
           </Box>
         </Wrapper>
         <Wrapper>
-          {feed.feedType == 'SOURCE' && <Download count={feed.downloadCount} />}
+          {feed.feedType == 'SOURCE' && <Download feed={feed} />}
           <Like feed={feed} />
         </Wrapper>
       </ChannelInfo>
