@@ -18,7 +18,7 @@ interface Props {
   disable?: boolean;
 }
 
-const Like = ({ feed, disable}: Props) => {
+const Like = ({ feed, disable }: Props) => {
   const [isLiked, setIsLiked] = useState(feed.isLiked);
   const [count, setCount] = useState(feed.likeCount);
 
@@ -43,7 +43,7 @@ const Like = ({ feed, disable}: Props) => {
     <Button as={disable ? 'div' : 'button'} onClick={handleClick}>
       {isLiked && <FavoriteIcon className="red" />}
       {!isLiked && <FavoriteBorderIcon />}
-      <div>{count}</div>
+      <div>{count < 0 ? 0 : count}</div>
     </Button>
   );
 };
