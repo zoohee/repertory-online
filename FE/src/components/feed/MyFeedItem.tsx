@@ -8,10 +8,6 @@ import MyFeedHover from '@/components/feed/MyFeedHover';
 
 const ListItem = styled.li`
   position: relative;
-  aspect-ratio: 1 / 1;
-  & > div {
-    height: 100%;
-  }
 `;
 
 interface Props {

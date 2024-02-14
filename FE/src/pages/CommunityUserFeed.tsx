@@ -6,7 +6,6 @@ import * as Text from '@/components/common/Text';
 import Follow from '@/components/community/Follow';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/CommunityFeedItem';
-import CommunityHover from '@/components/feed/CommunityHover';
 import { feedContext } from '@/store/feed-context';
 import FeedItemModal from '@/components/feed/FeedItemModal';
 
@@ -43,9 +42,7 @@ const CommunityUserFeedPage = () => {
       </Wrapper>
       <DanceGridBox column={3}>
         {dances.map((dance, idx) => (
-          <FeedItem key={dance.feedId} index={idx} src={dance.feedThumbnailUrl}>
-            <CommunityHover likeCount={dance.likeCount} />
-          </FeedItem>
+          <FeedItem key={dance.feedId} index={idx} feed={dance} />
         ))}
       </DanceGridBox>
       {modal.isOpen && <FeedItemModal modal={modal} />}
