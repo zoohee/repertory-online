@@ -93,7 +93,7 @@ const router = createBrowserRouter([
           </MyContextProvider>
         ),
         // TODO: parameter 추가
-        loader: () => communityFeedLoader(1),
+        loader: () => communityFeedLoader(5678),
       },
       {
         path: URL.Following,

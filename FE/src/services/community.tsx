@@ -78,7 +78,7 @@ const getCommunityFeed = async ({ page, pageSize }: IPage) => {
 };
 
 // 유저 피드 공개
-const feedSetPublic = async (originId: number, feedType: IFeedType) => {
+const feedSetPublic = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,
@@ -88,7 +88,7 @@ const feedSetPublic = async (originId: number, feedType: IFeedType) => {
   return response;
 };
 // 유저 피드 비공개
-const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
+const feedSetPrivate = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,

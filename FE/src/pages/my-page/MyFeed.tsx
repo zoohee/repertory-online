@@ -16,7 +16,7 @@ const MyfeedPage = () => {
       <DanceGridBox column={3}>
         {dances.map((dance, idx) => (
           <FeedItem key={dance.feedId} feed={dance} index={idx}>
-            <MyFeedHover feed={dance} />
+            <MyFeedHover key={dance.feedId} feed={dance} />
           </FeedItem>
         ))}
       </DanceGridBox>
