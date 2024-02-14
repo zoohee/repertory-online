@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 const GridBox = styled.ul<{ $column: number }>`
-  padding: 0 16px;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(

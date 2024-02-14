@@ -13,7 +13,6 @@ import TagList from '@/components/dance/sources/TagList';
 
 const Box = styled.div`
   margin: 24px 0;
-  padding: 0 12px;
   width: 100%;
 `;
 

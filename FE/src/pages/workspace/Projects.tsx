@@ -10,7 +10,6 @@ import CreateButton from '@/components/dance/CreateButton';
 
 const Wrapper = styled.div`
   margin: 24px 0;
-  padding: 0 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
