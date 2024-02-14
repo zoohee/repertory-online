@@ -13,12 +13,12 @@ import team.luckyturkey.danceservice.domain.document.Repertory;
 import team.luckyturkey.danceservice.event.RepertoryDeletedEvent;
 import team.luckyturkey.danceservice.event.RepertorySavedEvent;
 import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryRepository;
+import team.luckyturkey.danceservice.util.S3Uploader;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo: S3 should be integreted
 //todo: when repertory is open status -> send request to community service to add row to feed table?
 @Service
 @RequiredArgsConstructor
@@ -26,9 +26,7 @@ public class RepertoryServiceImpl implements RepertoryService{
 
     private final RepertoryRepository repertoryRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
-
-    @Value("${test.environment.repertoryUrl}")
-    private String TEST_URL;
+    private final S3Uploader s3Uploader;
 
 
     //todo: how to notify failure to controller
@@ -41,9 +39,8 @@ public class RepertoryServiceImpl implements RepertoryService{
             Long memberId
     ) {
 
-        //todo: should get from s3
-        String repertoryUrl = TEST_URL + repertoryVideo.getName();
-        String repertoryThumbnailUrl = TEST_URL + repertoryThumbnailVideo.getName();
+        String repertoryUrl = s3Uploader.uploadFile(repertoryVideo);
+        String repertoryThumbnailUrl = s3Uploader.uploadFile(repertoryThumbnailVideo);
 
         Repertory repertory = Repertory.builder()
                 .repertoryName(postRepertoryRequest.getRepertoryName())
@@ -96,8 +93,9 @@ public class RepertoryServiceImpl implements RepertoryService{
     @Transactional
     @Override
     public StandardRepertoryResponse modifyRepertoryVideo(Long repertoryId, MultipartFile repertoryVideo) {
-        //todo: should get from s3
-        String modifiedVideoUrl = TEST_URL + "/modified/" + repertoryVideo.getName();
+        // TODO: s3 기존 객체 삭제 구현
+//        String repertoryUrl = s3Uploader.uploadFile(repertoryVideo);
+        String modifiedVideoUrl = s3Uploader.uploadFile(repertoryVideo);
 
         Repertory modifiedRepertory = repertoryRepository.findAndUpdateVideoUrl(repertoryId, modifiedVideoUrl);
         return repertoryToStandardResponse(modifiedRepertory);
