@@ -16,8 +16,8 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage, {
   communityFeedLoader,
 } from '@/pages/CommunityUserFeed';
-import MyfeedPage from '@/pages/MyFeed';
-import FollowingPage, { followingLoader } from '@/pages/Following';
+import MyfeedPage from '@/pages/my-page/MyFeed';
+import FollowingPage, { followingLoader } from '@/pages/my-page/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
