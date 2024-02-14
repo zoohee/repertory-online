@@ -25,6 +25,6 @@ public interface SourceRepository extends JpaRepository<Source, Long> {
     Optional<Source> findByIdWithDetailAndTag(Long sourceId);
 
 
-    @Query("select s from Source s where s.id in :sourceIdList")
+    @Query("select s from Source s join fetch s.sourceDetail where s.id in :sourceIdList")
     List<Source> findByIdIn(List<Long> sourceIdList);
 }

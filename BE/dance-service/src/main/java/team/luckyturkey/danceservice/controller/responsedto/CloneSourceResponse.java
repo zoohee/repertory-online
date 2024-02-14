@@ -19,5 +19,6 @@ public class CloneSourceResponse {
     private int sourceLength;
     private int sourceCount;
     private String sourceUrl;
+    private String sourceThumbnailUrl;
     private List<String> tagNameList;
 }

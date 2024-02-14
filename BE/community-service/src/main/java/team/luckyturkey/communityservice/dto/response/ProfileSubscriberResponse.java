@@ -12,4 +12,5 @@ public class ProfileSubscriberResponse {
     private String memberName;
     private int followerCount;
     private boolean isFollowed;
+    private String memberProfile;
 }

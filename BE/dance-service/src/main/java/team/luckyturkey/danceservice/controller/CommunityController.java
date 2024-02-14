@@ -46,7 +46,7 @@ public class CommunityController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/repertory/{originId}")
+    @GetMapping("/repertory/source/{originId}")
     public ResponseEntity<List<CommunityFeedResponse>> getSourceList(@PathVariable Long originId) {
         List<CommunityFeedResponse> response = feedFacadeService.getSourceList(originId);
         return ResponseEntity.ok(response);

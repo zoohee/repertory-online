@@ -33,6 +33,7 @@ public class CloneSource {
     private LocalDateTime cloneDate;
     @Convert(converter = StringListConverter.class)
     private List<String> tagName;
+    private String sourceThumbnail;
 
     public String getSourceName() {
         return this.cloneSourceDetail.getSourceName();
@@ -56,6 +57,10 @@ public class CloneSource {
 
     public String getSourceUrl(){
         return this.source.getSourceUrl();
+    }
+
+    public String getSourceThumbnailUrl() {
+        return this.source.getSourceThumbnailUrl();
     }
 // todo
 //    public List<Tag> getTagList(){
