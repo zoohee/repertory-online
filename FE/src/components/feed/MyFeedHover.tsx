@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
 import LockIcon from '@mui/icons-material/Lock';
@@ -13,13 +13,14 @@ import { L as Text } from '@/components/common/Text';
 import Like from '@/components/community/Like';
 import { Community } from '@/types';
 import { feedSetPublic, feedSetPrivate } from '@/services/community';
+import { myContext } from '@/store/my-context';
 
 const Hover = styled.div`
   z-index: 1;
   width: 100%;
   height: 100%;
   cursor: pointer;
-  position: relative;
+  position: absolute;
 `;
 
 const Box = styled.div`
@@ -38,33 +39,40 @@ const Delete = styled(DeleteIcon)`
 
 interface Props {
   feed: Community;
+  index: number;
+  isPrivate: boolean;
+  lock: () => void;
+  unlock: () => void;
 }
 
-const MyFeedHover = ({ feed }: Props) => {
+const MyFeedHover = ({ feed, index, isPrivate, lock, unlock }: Props) => {
   feed.isLiked = true;
-  const [isPrivate, setPrivate] = useState(feed.feedDisable);
+  const { openModal, selectDance } = useContext(myContext);
   const [menuClicked, setMenuClicked] = useState(false);
 
-  const toggleMenu = (e: React.MouseEvent<HTMLElement>) => {
+  const toggleMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setMenuClicked((prev) => !prev);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleClick = () => {
     if (menuClicked) {
-      toggleMenu(e);
+      setMenuClicked(false);
+    } else {
+      selectDance(index);
+      openModal();
     }
   };
 
   const setFeedPrivate = () => {
     feedSetPrivate(feed.originId, feed.feedType).then(() => {
-      setPrivate(false);
+      lock();
     });
   };
 
   const setFeedPublic = () => {
     feedSetPublic(feed.originId, feed.feedType).then(() => {
-      setPrivate(false);
+      unlock();
     });
   };
 
