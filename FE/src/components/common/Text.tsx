@@ -1,18 +1,6 @@
 import styled from 'styled-components';
 
-import { fontSize } from '@/styles/font';
-
-export class TextStyle {
-  size: string;
-  color: string;
-
-  constructor(size: string, color: string) {
-    this.size = size;
-    this.color = color;
-  }
-}
-
-const Text = styled.div<TextStyle>`
+const M = styled.div`
   max-height: 100%;
   max-width: 100%;
   text-overflow: ellipsis;
@@ -20,29 +8,24 @@ const Text = styled.div<TextStyle>`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  ${({ size }) => {
-    if (size === 's') {
-      return fontSize.s;
-    }
-    if (size === 'l') {
-      return fontSize.l;
-    }
-    if (size === 'xl') {
-      return fontSize.xl;
-    }
-    return fontSize.m;
-  }};
-
-  color: ${({ color }) => {
-    if (color === 'r') {
-      return 'var(--color-red)';
-    }
-    if (color === 's') {
-      return 'var(--text-secondary-dark-mode)';
-    }
-    return 'var(--text-primary-dark-mode)';
-  }};
 `;
 
-export default Text;
+const S = styled(M)`
+  font-size: var(--font-size-s);
+`;
+
+const L = styled(M)`
+  font-size: var(--font-size-l);
+  line-height: var(--font-size-l);
+`;
+
+const XL = styled(M)`
+  font-size: var(--font-size-xl);
+  line-height: var(--font-size-xl);
+`;
+
+const Secondary = styled(S)`
+  color: var(--text-secondary-dark-mode);
+`;
+
+export { M, S, L, XL, Secondary };

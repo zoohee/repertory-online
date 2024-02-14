@@ -40,27 +40,21 @@ const deleteSubscriber = async (memberId: number) => {
 
 // 피드 좋아요
 const patchFeedLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/like`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/like`);
   console.log(response);
   return response;
 };
 
 // 피드 좋아요 취소
 const patchFeedNotLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/notlike`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/notlike`);
   console.log(response);
   return response;
 };
 
 // 소스 클론
 const postSourceClone = async (feedId: number) => {
-  const response = await $axios().post(`/community/source/${feedId}/clone`, {
-    feedId: feedId,
-  });
+  const response = await $axios().post(`/community/source/${feedId}/clone`);
   console.log(response);
   return response;
 };
@@ -86,7 +80,7 @@ const getCommunityFeed = async ({ page, pageSize }: IPage) => {
 };
 
 // 유저 피드 공개
-const feedSetPublic = async (originId: number, feedType: IFeedType) => {
+const feedSetPublic = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,
@@ -96,7 +90,7 @@ const feedSetPublic = async (originId: number, feedType: IFeedType) => {
   return response;
 };
 // 유저 피드 비공개
-const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
+const feedSetPrivate = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,

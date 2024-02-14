@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import TabButtons, { Tab } from '@/components/common/Tab';
+import { Tab } from '@/types';
+import TabButtons from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceGridBox';
 import ProjectItem from '@/components/dance/Project';
@@ -28,7 +29,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const TABS = [new Tab('My projects', true)];
+const TABS = [new Tab('My projects', true, () => {})];
 
 const ProjectsPage = () => {
   return (

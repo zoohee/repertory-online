@@ -15,14 +15,17 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage, {
   communityFeedLoader,
 } from '@/pages/CommunityUserFeed';
-import MyfeedPage from '@/pages/MyFeed';
-import FollowingPage, { followingLoader } from '@/pages/Following';
+import MyfeedPage from '@/pages/my-page/MyFeed';
+import FollowingPage, { followingLoader } from '@/pages/my-page/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
+import MyContextProvider from '@/store/my-context';
+
 import RepertoryPage from './pages/Repertory';
 import Test from './pages/Test';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -94,7 +97,13 @@ const router = createBrowserRouter([
       },
       {
         path: URL.myFeed,
-        element: <MyfeedPage />,
+        element: (
+          <MyContextProvider>
+            <MyfeedPage />
+          </MyContextProvider>
+        ),
+        // TODO: parameter 추가
+        loader: () => communityFeedLoader(5678),
       },
       {
         path: URL.Following,

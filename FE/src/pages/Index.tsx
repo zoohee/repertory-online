@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fontSize } from '@/styles/font';
 import { LoginStore } from '@/store/LoginStore';
 import URL from '@/url';
 
@@ -29,7 +28,7 @@ const ListItem = styled.li`
 
 const StyledLink = styled(Link)`
   font-family: 'YdestreetB';
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   text-decoration-line: none;
   text-shadow: var(--text-shadow);
 
@@ -41,7 +40,7 @@ const StyledLink = styled(Link)`
 
 const StyledDiv = styled.div`
   font-family: 'YdestreetB';
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   text-decoration-line: none;
   text-shadow: var(--text-shadow);
 

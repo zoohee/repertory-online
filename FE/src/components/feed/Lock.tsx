@@ -9,7 +9,7 @@ const Box = styled.span`
   cursor: default;
   position: absolute;
   top: var(--button-square-margin);
-  left: var(--button-square-margin);
+  right: var(--button-square-margin);
   z-index: 5;
   display: flex;
   justify-content: center;

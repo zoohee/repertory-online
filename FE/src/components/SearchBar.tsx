@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { primaryFont, secondaryFont } from '@/styles/font';
-
 const Wrapper = styled.div`
   height: var(--searchbar-height);
   width: var(--searchbar-width);
@@ -17,7 +15,6 @@ const Wrapper = styled.div`
 const Input = styled.input`
   width: 100%;
   margin: 4px 8px;
-  ${secondaryFont.light}
   font-size: 1rem;
   border: 0;
 
@@ -26,7 +23,7 @@ const Input = styled.input`
   }
 
   &::placeholder {
-    ${primaryFont.light}
+    font-family: var(--font-family-primary);
   }
 `;
 

@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 
-import Text from '@/components/common/Text';
-import { ReactNode } from 'react';
+import { S } from '@/components/common/Text';
+
+const Text = styled(S)<{ $name: string }>`
+  ${({ $name }) => {
+    if ($name === '삭제') {
+      return 'color: var(--color-red);';
+    }
+  }}
+`;
 
 const ListItem = styled.li`
   width: 100%;
@@ -36,20 +43,17 @@ export class Menu {
 }
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   name: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const MenuButton = ({ children, name, onClick }: Props) => {
-  const textColor = name === '삭제' ? 'r' : 'p';
   return (
     <ListItem>
       <Button onClick={onClick}>
         <IconBox>{children}</IconBox>
-        <Text size="s" color={textColor}>
-          {name}
-        </Text>
+        <Text $name={name}>{name}</Text>
       </Button>
     </ListItem>
   );
