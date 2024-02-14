@@ -8,6 +8,7 @@ import {
 const getProjectsList = async () => {
   const response = await $axios().get(`/project`);
   console.log(response);
+  return response;
 };
 
 // 프로젝트 이름 수정

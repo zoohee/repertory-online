@@ -34,12 +34,11 @@ const TABS = [new Tab('My projects', true, () => {})];
 const ProjectsPage = () => {
   return (
     <>
-      <TabButtons tabs={TABS} margin='48px 0 0' />
+      <TabButtons tabs={TABS} margin="48px 0 0" />
       <Wrapper>
         <SearchBar />
-        <CreateButton to='/workspace' target='_blank' />
+        <CreateButton to="/workspace" target="_blank" />
       </Wrapper>
-      {/* TODO: 프로젝트 생성 버튼 */}
       <ProjectList column={3}>
         {DUMMY_LIST.map((item, idx) => {
           return <ProjectItem key={idx} project={item} />;
@@ -50,3 +49,10 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+
+import { getProjectsList } from '@/services/project';
+
+export const projectsLoader = async () => {
+  const response = await getProjectsList();
+  return response.data;
+};

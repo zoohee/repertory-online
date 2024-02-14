@@ -5,7 +5,7 @@ import Index from '@/pages/Index';
 import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
-import ProjectsPage from '@/pages/workspace/Projects';
+import ProjectsPage, { projectsLoader } from '@/pages/workspace/Projects';
 import SourcesPage, { sourceLoader } from '@/pages/workspace/Sources';
 import CommunityPage, { communityLoader } from '@/pages/Community';
 import CommunityDetailPage, {
@@ -58,6 +58,7 @@ const router = createBrowserRouter([
       {
         path: URL.projects,
         element: <ProjectsPage />,
+        loader: projectsLoader,
       },
       {
         path: URL.sources,
