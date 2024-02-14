@@ -14,6 +14,5 @@ public class MemberInfoResponseDto {
     private String memberJoinDate;
     private String memberProfile;
     private String memberRole;
-    
 }
 
