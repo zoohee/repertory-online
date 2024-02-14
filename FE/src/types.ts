@@ -62,6 +62,7 @@ interface Community {
 interface CommunityDetail {
   feed: Community;
   profile: Profile;
+  sources: Community[];
 }
 
 interface Member {
