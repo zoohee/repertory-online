@@ -6,7 +6,7 @@ import {
 
 // 프로젝트 목록 조회
 const getProjectsList = async () => {
-  const response = await $axios().get(`/project`);
+  const response = await $axios().get(`/project/`);
   console.log(response);
   return response;
 };

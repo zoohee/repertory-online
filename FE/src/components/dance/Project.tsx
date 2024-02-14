@@ -8,11 +8,8 @@ import Dance from '@/components/dance/Dance';
 import { Secondary as Text } from '@/components/common/Text';
 import DanceHover from '@/components/dance/DanceHover';
 import { Menu } from '@/components/common/MenuButton';
-import { IProject } from '@/types';
+import { Project } from '@/types';
 
-interface ProjectProps{
-  project : IProject
-}
 const ListItem = styled.li`
   position: relative;
   cursor: pointer;
@@ -23,7 +20,11 @@ const menus = [
   new Menu('삭제', <DeleteIcon fontSize="small" className="red" />, () => {}),
 ];
 
-const Project = ({ project }:ProjectProps) => {
+interface Props {
+  project: Project;
+}
+
+const ProjectItem = ({ project }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -37,11 +38,14 @@ const Project = ({ project }:ProjectProps) => {
   return (
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {isHovering && <DanceHover menus={menus} />}
-      <Dance thumbnail={project.imageUrl} title={project.title}>
-        <Text>{project.detail}</Text>
+      <Dance
+        thumbnail={project.projectThumbnailUrl}
+        title={project.projectName}
+      >
+        <Text>{project.projectDate}</Text>
       </Dance>
     </ListItem>
   );
 };
 
-export default Project;
+export default ProjectItem;

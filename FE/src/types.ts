@@ -1,3 +1,12 @@
+interface Project {
+  id: number;
+  memberId: number;
+  projectDate: string;
+  projectName: string;
+  projectThumbnailUrl: string;
+  // sourceList
+}
+
 interface Tag {
   tagId: number;
   memberId: number;
@@ -82,6 +91,7 @@ interface IProject {
 }
 
 export type {
+  Project,
   Tag,
   Source,
   MySource,
