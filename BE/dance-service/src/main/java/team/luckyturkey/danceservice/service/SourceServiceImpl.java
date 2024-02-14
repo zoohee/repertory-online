@@ -56,10 +56,6 @@ public class SourceServiceImpl implements SourceService{
     private final CommunityApi communityApi;
     private final S3Uploader s3Uploader;
 
-    @Value("${test.environment.sourceUrl}")
-    private String TEST_SOURCE_URL;
-
-
     @Override
     public List<StandardSourceResponse> getMySourceList(Long memberId) {
         List<Source> sourceList = sourceRepository.findByMemberId(memberId);

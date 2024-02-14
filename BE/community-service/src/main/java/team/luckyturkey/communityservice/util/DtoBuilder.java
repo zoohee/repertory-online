@@ -38,7 +38,7 @@ public class DtoBuilder {
 
         return FeedDetailResponse.builder()
                 .feedId(feed.getId())
-                .feedType(FeedType.SOURCE)
+                .feedType(feed.getFeedType())
                 .likeCount(feedLikeCacheRepository.findByFeedId(feed.getId()))
                 .downloadCount(feed.getDownloadCount())
                 .feedDisable(feed.getFeedDisable())
