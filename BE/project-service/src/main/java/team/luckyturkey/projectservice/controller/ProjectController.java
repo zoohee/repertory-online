@@ -16,6 +16,7 @@ import team.luckyturkey.projectservice.service.ProjectService;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,6 +31,14 @@ public class ProjectController {
     @GetMapping("/test")
     public ResponseEntity<String> test(){
         return ResponseEntity.ok("hello");
+    }
+
+    @GetMapping
+    public List<Project> getMyProjects() {
+        // TODO: memberID <- jwt
+        Long memberId = 1L;
+
+        return projectService.getProjectList(memberId);
     }
 
     /**
