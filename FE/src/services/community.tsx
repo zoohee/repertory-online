@@ -1,6 +1,7 @@
-import { $axios,
-  // $auth 
-}from './config';
+import {
+  $axios,
+  // $auth
+} from './config';
 interface IPage {
   page: number;
   pageSize: number;
@@ -114,9 +115,9 @@ const getFeedVideo = async (feedId: number) => {
 // 피드 데이터 저장
 const saveFeed = async () => {
   const feedData: IfeedData = {
-    originId: 154,
-    feedType: 'SOURCE',
-    feedDisable: 0,
+    originId: 29,
+    feedType: 'REPERTORY',
+    feedDisable: 1,
   };
   const response = await $axios().post(`/community/feed`, feedData);
   console.log(response.data);

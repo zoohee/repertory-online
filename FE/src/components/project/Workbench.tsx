@@ -14,11 +14,15 @@ import { ISource } from '@/services/interface';
 const Wrapper = styled.div`
   background-color: red;
   width: 100%;
-  height: 50%;
+  height: 100%;
   display: flex;
-  overflow: scroll;
+  overflow-x: auto;
 `;
-const Workbench = () => {
+const Btn = styled.button``;
+interface WorkbenchProps {
+  concatVideos: (videos: Array<ISource>) => Promise<void>;
+}
+const Workbench = (props: WorkbenchProps) => {
   const [sources, setSources] = useState<ISource[]>([]);
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: 'source',
@@ -34,16 +38,21 @@ const Workbench = () => {
   console.log('Is over: ', isOver); // 로깅
   console.log('Can drop: ', canDrop); // 로깅
   console.log(sources); // 로깅
-  
+
   return (
-        <Wrapper ref={drop}>
-          {
-            // 드롭한 아이템들을 리스트로 출력
-            sources.map((item: ISource, index) => {
-              return <Source sourceInfo={item} target={'workbench'} key={index}/>;
-            })
-          }
-        </Wrapper>
+    <>
+      <Btn onClick={() => props.concatVideos(sources)}>CONCAT</Btn>
+      <Wrapper ref={drop}>
+        {
+          // 드롭한 아이템들을 리스트로 출력
+          sources.map((item: ISource, index) => {
+            return (
+              <Source sourceInfo={item} target={'workbench'} key={index} />
+            );
+          })
+        }
+      </Wrapper>
+    </>
   );
 };
 

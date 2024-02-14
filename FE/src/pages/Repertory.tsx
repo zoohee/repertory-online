@@ -126,8 +126,8 @@ const RepertoryPage = () => {
 
   const repertoryTest = () => {
     const data = {
-      repertoryName: 'test',
-      sourceIdList: [123, 234, 345],
+      repertoryName: 'sfsdfsdf',
+      sourceIdList: [2],
       isRepertoryOpen: true,
     };
     const formData = new FormData();
