@@ -8,7 +8,9 @@ import FeedItem from '@/components/feed/MyFeedItem';
 import FeedItemModal from '@/components/feed/FeedItemModal';
 import Filter from '@/components/feed/Filter';
 
-const Box = styled.div`
+const FilterBox = styled.div`
+  margin-bottom: 12px;
+  height: 2rem;
   width: 100%;
   position: relative;
 `;
@@ -18,10 +20,10 @@ const MyfeedPage = () => {
 
   return (
     <>
-      <Box>
+      <TabButtons marginBottom={12} tabs={tabs} />
+      <FilterBox>
         <Filter />
-        <TabButtons marginBottom={24} tabs={tabs} />
-      </Box>
+      </FilterBox>
       <DanceGridBox column={3}>
         {dances.map((dance, idx) => (
           <FeedItem key={dance.feedId} feed={dance} index={idx} />

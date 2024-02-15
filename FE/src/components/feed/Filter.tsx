@@ -6,15 +6,14 @@ import { myContext } from '@/store/my-context';
 const Menu = styled.div`
   position: absolute;
   z-index: 2;
-  top: calc(var(--menu-tab-margin-top) + 8px);
-  right: 16px;
-  background-color: var(--rp-grey-800);
+  right: 12px;
   display: flex;
   flex-direction: column;
   width: 5.5rem;
 `;
 
 const Box = styled.div`
+  background-color: var(--rp-grey-800);
   margin-top: 4px;
   border-radius: var(--border-radius-small);
   box-shadow: var(--box-shadow);

@@ -68,6 +68,7 @@ const GlobalStyles = createGlobalStyle`
     button, input{
         font-family: 'YdestreetL', sans-serif;
         background-color: transparent;
+        white-space: nowrap;
     }
     @font-face {
         font-family: 'Pretendard';

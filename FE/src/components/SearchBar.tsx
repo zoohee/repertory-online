@@ -3,13 +3,16 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Wrapper = styled.div`
   height: var(--searchbar-height);
-  width: var(--searchbar-width);
   background-color: var(--background-color);
   display: flex;
   align-items: center;
   padding: 4px;
   box-shadow: var(--box-shadow);
   border-radius: 5px;
+
+  @media (min-width: 1045px) {
+    width: var(--searchbar-width);
+  }
 `;
 
 const Input = styled.input`
