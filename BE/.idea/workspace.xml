@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="" />
+    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/service/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/util/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project-service/src/main/java/team/luckyturkey/projectservice/service/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/community-service.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/dance-service.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/dance-service.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/project-service.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/project-service.test.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/CommunityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/CloneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/CloneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/RepertoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/RepertoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/java/team/luckyturkey/danceservice/controller/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/auth/handler/MyAuthenticationFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/java/team/luckyturkey/memberservice/auth/handler/MyAuthenticationFailureHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/project-service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-service/src/main/java/team/luckyturkey/projectservice/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/project-service/src/main/java/team/luckyturkey/projectservice/controller/ProjectController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,8 +71,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -250,7 +273,8 @@
       <workItem from="1707283618336" duration="9057000" />
       <workItem from="1707303909590" duration="8817000" />
       <workItem from="1707895789089" duration="5292000" />
-      <workItem from="1707967202285" duration="7897000" />
+      <workItem from="1707967202285" duration="9490000" />
+      <workItem from="1707998820010" duration="6423000" />
     </task>
     <servers />
   </component>

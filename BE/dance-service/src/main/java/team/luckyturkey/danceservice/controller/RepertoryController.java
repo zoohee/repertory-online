@@ -10,6 +10,7 @@ import team.luckyturkey.danceservice.controller.requestdto.PatchRepertoryStatusR
 import team.luckyturkey.danceservice.controller.requestdto.PostRepertoryRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardRepertoryResponse;
 import team.luckyturkey.danceservice.service.RepertoryService;
+import team.luckyturkey.danceservice.util.JwtUtil;
 
 import java.util.List;
 
@@ -19,20 +20,25 @@ import java.util.List;
 public class RepertoryController {
 
     private final RepertoryService repertoryService;
+    private final JwtUtil jwtUtil;
 
-    //todo: should get memberId from token
-    @Value("${test.environment.memberId}")
-    private Long TEST_MEMBER_ID;
+//    //todo: should get memberId from token :done
+//    @Value("${test.environment.memberId}")
+//    private Long TEST_MEMBER_ID;
 
     @PostMapping
     public ResponseEntity<StandardRepertoryResponse> postRepertory(
             @RequestPart PostRepertoryRequest postRepertoryRequest,
             @RequestPart MultipartFile repertoryVideo,
-            @RequestPart MultipartFile repertoryThumbnail
+            @RequestPart MultipartFile repertoryThumbnail,
+            @RequestHeader("Authorization") final String accessToken
     ) {
 
-        //todo: should get memberId from token
-        Long memberId = TEST_MEMBER_ID;
+        //todo: should get memberId from token :done
+
+        String atc = accessToken.split(" ")[1];
+
+        Long memberId = jwtUtil.getMemberId(atc);
 
         StandardRepertoryResponse response = repertoryService.saveRepertory(postRepertoryRequest, repertoryVideo, repertoryThumbnail, memberId);
         return ResponseEntity.ok(response);
@@ -41,9 +47,12 @@ public class RepertoryController {
     @Operation(description = "요청한 사용자가 가진 repertory 배열을 반환합니다")
     @GetMapping("/mine")
     public ResponseEntity<List<StandardRepertoryResponse>> getRepertoryList(
+            @RequestHeader("Authorization") final String accessToken
     ){
-        //todo: should get memberId from token
-        Long memberId = TEST_MEMBER_ID;
+        //todo: should get memberId from token :done
+        String atc = accessToken.split(" ")[1];
+
+        Long memberId = jwtUtil.getMemberId(atc);
 
         List<StandardRepertoryResponse> response = repertoryService.getRepertoryList(memberId);
         return ResponseEntity.ok(response);
