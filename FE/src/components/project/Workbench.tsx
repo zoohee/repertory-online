@@ -14,13 +14,18 @@ import { ISource } from '@/services/interface';
 const Wrapper = styled.div`
   background-color: red;
   width: 100%;
-  height: 100%;
+  height: 80%;
   display: flex;
   overflow-x: auto;
 `;
 const Btn = styled.button``;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 interface WorkbenchProps {
-  concatVideos: (videos: Array<ISource>) => Promise<void>;
+  concatVideos: (videos: ISource[]) => Promise<void>;
 }
 const Workbench = (props: WorkbenchProps) => {
   const [sources, setSources] = useState<ISource[]>([]);
@@ -35,23 +40,25 @@ const Workbench = (props: WorkbenchProps) => {
       canDrop: monitor.canDrop(),
     }),
   });
-  console.log('Is over: ', isOver); // 로깅
-  console.log('Can drop: ', canDrop); // 로깅
+  // console.log('Is over: ', isOver); // 로깅
+  // console.log('Can drop: ', canDrop); // 로깅
   console.log(sources); // 로깅
 
   return (
     <>
-      <Btn onClick={() => props.concatVideos(sources)}>CONCAT</Btn>
-      <Wrapper ref={drop}>
-        {
-          // 드롭한 아이템들을 리스트로 출력
-          sources.map((item: ISource, index) => {
-            return (
-              <Source sourceInfo={item} target={'workbench'} key={index} />
-            );
-          })
-        }
-      </Wrapper>
+      <Container>
+        <Btn onClick={() => props.concatVideos(sources)}>CONCAT</Btn>
+        <Wrapper ref={drop}>
+          {
+            // 드롭한 아이템들을 리스트로 출력
+            sources.map((item: ISource, index) => {
+              return (
+                <Source sourceInfo={item} target={'workbench'} key={index} />
+              );
+            })
+          }
+        </Wrapper>
+      </Container>
     </>
   );
 };

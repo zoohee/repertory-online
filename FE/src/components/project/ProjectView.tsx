@@ -5,17 +5,27 @@ import {
   useRef,
 } from 'react';
 import styled from 'styled-components';
-import { Title } from './Title';
+// import { Title } from './Title';
+const Title = styled.div`
+  height: auto;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.8rem;
+  color: white;
+  text-align: left;
+  display: flex;
+  border-bottom: 0.6rem solid var(--background-color);
+`;
+const TitleName = styled.div`
+  width: 100%;
+`;
 const HiddenInput = styled.input`
   display: none;
 `;
 const UploadButton = styled.button`
+  margin-top: 0.15rem;
   background: transparent;
-  width: 300px;
-  height: 200px;
-  border: 4px dotted white;
-  font-size: 3rem;
-
+  font-size: 1rem;
   &:hover {
     /* border-color: #9a9a9a; */
     color: #9a9a9a;
@@ -26,21 +36,31 @@ interface ITrimSection {
   end: number;
 }
 const ProjectViewWrapper = styled.div`
+  /* background-color: red; */
   display: flex;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
   height: 60vh;
 `;
+// const TitleWrapper = styled.div`
+//   width: 100%;
+//   display: flex;
+// `;
 const UploadZone = styled.div``;
-const VideoWrapper = styled.div`
-  height: 80%; // 부모 컴포넌트의 높이에 맞춤
-  display: flex;
-  align-items: center; // 수직 정렬
-  justify-content: center; // 수평 정렬
-`;
+// const VideoWrapper = styled.div`
+//   z-index: 3000;
+//   background-color: red;
+//   width: 100%;
+//   height: 100%; // 부모 컴포넌트의 높이에 맞춤
+//   display: flex;
+//   align-items: center; // 수직 정렬
+//   justify-content: center; // 수평 정렬
+// `;
 
 const StyledVideo = styled.video`
-  max-height: 100%; // VideoWrapper의 높이를 넘지 않도록
-  width: auto; // 원본 비디오의 비율 유지
+  height: 86%;
+  width: 100%;
 `;
 interface Props {
   setVideo: React.Dispatch<React.SetStateAction<File | null>>;
@@ -80,58 +100,25 @@ const ProjectView = (props: Props) => {
   };
   return (
     <>
-      <Title title={'Project'} />
       <HiddenInput type='file' onChange={handleFileUpload} ref={fileInput} />
       <ProjectViewWrapper>
-        {props.videoRef.current ? (
-          <>
-            <UploadZone>
-              <UploadButton type='button' onClick={handleButtonClick}>
-                +
-              </UploadButton>
-            </UploadZone>
-          </>
-        ) : (
-          <>
-            <VideoWrapper>
-              <StyledVideo
-                ref={props.videoRef}
-                autoPlay
-                controls
-                onLoadedData={(event) => event.currentTarget.play()}
-              ></StyledVideo>
-            </VideoWrapper>
-            <button
-              onClick={() => props.trimVideo({ start: 10000, end: 11000 })}
-            >
-              Trim Video
-            </button>
-            <TmpTimeLine>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((minute) => (
-                <button onClick={() => handleGoTo(minute)}>{minute}</button>
-              ))}
-            </TmpTimeLine>
-            <button
-              onClick={() => {
-                if (props.videoRef.current) {
-                  props.videoRef.current.play();
-                }
-              }}
-            >
-              Play
-            </button>
-            <button
-              onClick={() => {
-                if (props.videoRef.current) {
-                  props.videoRef.current.pause();
-                }
-              }}
-            >
-              Pause
-            </button>
-          </>
-        )}
+        <Title>
+          <TitleName>Project</TitleName>
+          <UploadButton type='button' onClick={handleButtonClick}>
+            Upload
+          </UploadButton>
+        </Title>
+        <StyledVideo
+          ref={props.videoRef}
+          autoPlay
+          controls
+          onLoadedData={(event) => event.currentTarget.play()}
+        ></StyledVideo>
       </ProjectViewWrapper>
+
+      <button onClick={() => props.trimVideo({ start: 3000, end: 11000 })}>
+        TR
+      </button>
     </>
   );
 };
