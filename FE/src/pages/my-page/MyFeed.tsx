@@ -1,17 +1,27 @@
 import { useContext } from 'react';
+import styled from 'styled-components';
 
 import { myContext } from '@/store/my-context';
 import TabButtons from '@/components/common/Tab';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/MyFeedItem';
 import FeedItemModal from '@/components/feed/FeedItemModal';
+import Filter from '@/components/feed/Filter';
+
+const Box = styled.div`
+  width: 100%;
+  position: relative;
+`;
 
 const MyfeedPage = () => {
   const { tabs, dances, modal } = useContext(myContext);
 
   return (
     <>
-      <TabButtons margin="48px 0 24px" tabs={tabs} />
+      <Box>
+        <Filter />
+        <TabButtons marginBottom={24} tabs={tabs} />
+      </Box>
       <DanceGridBox column={3}>
         {dances.map((dance, idx) => (
           <FeedItem key={dance.feedId} feed={dance} index={idx} />
