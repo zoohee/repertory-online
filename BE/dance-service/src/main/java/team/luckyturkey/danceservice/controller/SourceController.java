@@ -23,6 +23,7 @@ import java.util.List;
 @RequestMapping("/source")
 public class SourceController {
 
+    // TODO: jwt token
     @Value("${test.environment.memberId}")
     private Long TEST_MEMBER_ID;
 

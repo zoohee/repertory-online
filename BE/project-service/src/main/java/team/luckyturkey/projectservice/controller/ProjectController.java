@@ -1,5 +1,6 @@
 package team.luckyturkey.projectservice.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,9 @@ public class ProjectController {
 
     @Deprecated
     @GetMapping("/test")
-    public ResponseEntity<String> test(){
-        return ResponseEntity.ok("hello");
+    public ResponseEntity<String> test(HttpServletRequest request){
+        Long memberId = Long.parseLong(request.getHeader("memberId"));
+        return ResponseEntity.ok(memberId.toString());
     }
 
     @GetMapping("/")
@@ -86,7 +88,8 @@ public class ProjectController {
             @RequestPart MultipartFile projectThumbnail,
             @RequestHeader("Authorization") final String accessToken
     ){
-        String atc = accesstoken.split(" ")[1];
+
+        String atc = accessToken.split(" ")[1];
 
         Project project = Project.builder()
                 .userId(jwtUtil.getMemberId(atc))

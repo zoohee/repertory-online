@@ -95,7 +95,7 @@ public class SearchService {
     private List<FeedDetailResponse> getFeedDetailByOriginDto(List<OriginDto> repertories, List<FeedDetailResponse> feeds, Long memberId) {
         for (OriginDto s : repertories) {
             Feed feed = feedRepository.getFeedByOriginId(s.getOriginId());
-            if (feed == null) { continue; }
+            if (feed == null || feed.getFeedDisable()) { continue; }
 
             // 이미 존재하는 feedId인지 확인
             boolean isExist = feeds.stream().anyMatch(f -> Objects.equals(f.getFeedId(), feed.getId()));
@@ -108,6 +108,7 @@ public class SearchService {
                 continue;
             }
 
+            System.out.println(memberDto.toString());
             // TODO: dance service query -> only public (disable=true)
             feeds.add(dtoBuilder.mapFeedDetailResponse(s, feed, memberDto, memberId));
         }

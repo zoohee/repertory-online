@@ -14,10 +14,10 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class JwtUtil {
 
-    private final SecretKey secretKey;
+    private SecretKey secretKey;
 
     @Autowired
-    public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
+    public JwtUtil(@Value("${spring.jwt.secret}") String secret) {
 
         //객체변수로 암호화
         secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
