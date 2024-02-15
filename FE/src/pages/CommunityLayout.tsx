@@ -3,11 +3,15 @@ import { useNavigate, Outlet } from 'react-router-dom';
 
 import SearchBar from '@/components/SearchBar';
 import URL from '@/url';
+import SearchFilter from '@/components/feed/SearchFilter';
 
 const FixedBox = styled.div`
   z-index: 10;
   padding: var(--searchbar-community-padding) 0;
   width: calc(100vw - var(--sidebar) - var(--sidebar-margin));
+  height: calc(
+    var(--searchbar-height) + var(--searchbar-community-padding) * 2
+  );
   display: flex;
   justify-content: center;
   position: fixed;
@@ -32,6 +36,7 @@ const CommunityLayout = () => {
   return (
     <>
       <FixedBox>
+        <SearchFilter />
         <SearchBar search={search} />
       </FixedBox>
       <Container>
