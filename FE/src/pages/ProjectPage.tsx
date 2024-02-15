@@ -43,25 +43,22 @@ const EditWrapper = styled(Container)`
 
 const ViewWarpper = styled.div`
   border-radius: 10px;
-  min-height: calc(64vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-color);
   width: 100%;
   min-width: calc(100vw - var(--sidebar-project--width));
   display: flex;
-  height: calc(60vh - var(--sidebar-margin) * 2);
+  height: calc(82vh - var(--sidebar-margin) * 2);
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 `;
 
 const WorkbenchWarpper = styled.div`
   margin-top: 10px;
   border-radius: 10px;
-  min-height: calc(36vh - var(--sidebar-margin) * 2);
+  min-height: calc(20vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-color);
   width: calc(100vw - var(--sidebar-project--width));
   width: 100%;
-  height: calc(30vh - var(--sidebar-margin) * 2);
   justify-content: space-evenly;
   flex-direction: column;
 `;
@@ -71,17 +68,19 @@ const ProjectPage: React.FC = () => {
   const ffmpegRef = useRef(new FFmpeg());
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const VideoRefList = useRef<HTMLVideoElement[]>([]);
   const messageRef = useRef<HTMLParagraphElement | null>(null);
 
   if (loaded) console.log('ffmpeg loaded!');
   useEffect(() => {
     load();
   }, []);
+
+  // Load FFmpeg
   const load = async () => {
     const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     const ffmpeg = ffmpegRef.current;
     ffmpeg.on('log', ({ message }) => {
+      console.log(message);
       if (messageRef.current) {
         messageRef.current.innerHTML = message;
       }
@@ -102,8 +101,13 @@ const ProjectPage: React.FC = () => {
     setLoaded(true);
   };
 
-  // get source (file =>(startMilliseconds, endMilliseconds))
+  // Get source (file =>(startMilliseconds, endMilliseconds))
   const trimVideo = async ({ start, end }: ITrimSection) => {
+    console.log(
+      `trim ${formatMilliSecondsToTimeString(
+        start
+      )} to ${formatMilliSecondsToTimeString(end)}`
+    );
     const ffmpeg = ffmpegRef.current;
     if (!videoFile) {
       console.log('no file');
@@ -111,7 +115,9 @@ const ProjectPage: React.FC = () => {
     }
     await ffmpeg.writeFile('input.avi', await fetchFile(videoFile));
     console.log(`[FFmpeg] : ${ffmpeg} is written`);
-    // copy codec => super fast..
+
+    console.log(formatMilliSecondsToTimeString(start));
+    console.log(formatMilliSecondsToTimeString(end));
     await ffmpeg.exec([
       '-i',
       'input.avi',
@@ -129,72 +135,91 @@ const ProjectPage: React.FC = () => {
     ]);
 
     const fileData = await ffmpeg.readFile('output.mp4');
+
+    // to video
     const data = new Uint8Array(fileData as ArrayBuffer);
     if (videoRef.current) {
       videoRef.current.src = URL.createObjectURL(
         new Blob([data.buffer], { type: 'video/mp4' })
       );
+      console.log(videoRef.current.src);
       // append to list
-      VideoRefList.current.push(videoRef.current);
-      console.log(VideoRefList.current);
+      // VideoRefList.current.push(videoRef.current);
+      // console.log(VideoRefList.current);
     }
   };
 
   // concat video
   const ConcatVideos = async (videos: Array<ISource>) => {
     const ffmpeg = ffmpegRef.current;
-    let concatFiles = '';
-    console.log(videos.length);
-    for (let i = 0; i < videos.length; i++) {
-      console.log(videos[i].sourceUrl);
+    let fileList = '';
+
+    // Create a promise for each video file
+    const promises = videos.map(async (video, i) => {
+      // Fetch and write the original file
       await ffmpeg.writeFile(
-        `concat_input${i}.mp4`,
-        await fetchFile(videos[i].sourceUrl)
+        `original${i}.mp4`,
+        await fetchFile(video.sourceUrl)
       );
+
+      // Transcode the file to ensure consistent codecs, using the ultrafast preset
       await ffmpeg.exec([
         '-i',
-        `concat_input${i}.mp4`,
+        `original${i}.mp4`,
         '-c:v',
         'libx264',
+        '-preset',
+        'ultrafast',
+        '-b:v',
+        '300k',
+        '-b:a',
+        '64k', // Lower audio bitrate
         '-vf',
-        'scale=-1:720', // Keep aspect ratio and resize the video to height of 720
+        'scale=-1:480',
+        '-r',
+        '12',
         '-c:a',
         'aac',
-        '-f',
-        'mpegts',
-        `transcoded${i}.ts`,
+        '-strict',
+        '-2',
+        '-y',
+        `input${i}.mp4`,
       ]);
+      fileList += `file 'input${i}.mp4'\n`;
+    });
 
-      concatFiles += `transcoded${i}.ts|`;
-      console.log(videos[i].sourceUrl);
-    }
-    concatFiles = concatFiles.slice(0, -1);
-    console.log(concatFiles);
+    // Wait for all promises to complete
+    await Promise.all(promises);
+
+    // Write the list to a file
+    await ffmpeg.writeFile('filelist.txt', fileList);
+
+    // Use the concat protocol
     await ffmpeg.exec([
+      '-f',
+      'concat',
+      '-safe',
+      '0',
       '-i',
-      `concat:${concatFiles}`,
+      'filelist.txt',
       '-c',
       'copy',
-      '-bsf:a',
-      'aac_adtstoasc',
-      'concat_output.mp4',
+      '-y',
+      'output.mp4',
     ]);
 
-    const fileData = await ffmpeg.readFile('concat_output.mp4');
+    const fileData = await ffmpeg.readFile('output.mp4');
     const data = new Uint8Array(fileData as ArrayBuffer);
     if (videoRef.current) {
-      console.log('videoRef hi');
       videoRef.current.src = URL.createObjectURL(
         new Blob([data.buffer], { type: 'video/mp4' })
       );
-      console.log(videoRef.current);
-      // append to list
-      // VideoRefList.current.push(videoRef.current);
-      // console.log(VideoRefList.current);
+      console.log(videoRef.current.src);
     } else {
       console.log('bye');
     }
   };
+
   return (
     <>
       <DndProvider backend={HTML5Backend}>
@@ -206,7 +231,7 @@ const ProjectPage: React.FC = () => {
           <EditWrapper>
             <ViewWarpper>
               {/* video display */}
-              <p ref={messageRef}></p>
+              {/* <p ref={messageRef}></p> */}
               <ProjectView
                 setVideo={setVideoFile}
                 videoRef={videoRef}
@@ -215,7 +240,9 @@ const ProjectPage: React.FC = () => {
             </ViewWarpper>
             <WorkbenchWarpper>
               {/* workbench */}
-              <Workbench concatVideos={ConcatVideos}></Workbench>
+              <Workbench
+                concatVideos={(sources) => ConcatVideos(sources)}
+              ></Workbench>
             </WorkbenchWarpper>
           </EditWrapper>
         </Container>

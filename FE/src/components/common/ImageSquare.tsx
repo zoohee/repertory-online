@@ -37,7 +37,7 @@ interface Props {
 const Image = ({ size, src, isRound }: Props) => {
   return (
     <ImageContainer $size={size} $isRound={isRound}>
-      <img src={src} alt="image" crossOrigin="anonymous" />
+      <img src={src} alt='image' crossOrigin='anonymous' />
     </ImageContainer>
   );
 };
