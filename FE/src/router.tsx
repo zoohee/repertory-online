@@ -5,8 +5,8 @@ import Index from '@/pages/Index';
 import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
 import SidebarLayout from '@/pages/SidebarLayout';
-import ProjectsPage from '@/pages/Projects';
-import SourcesPage, { sourceLoader } from '@/pages/Sources';
+import ProjectsPage, { projectsLoader } from '@/pages/workspace/Projects';
+import SourcesPage, { sourceLoader } from '@/pages/workspace/Sources';
 import CommunityPage, { communityLoader } from '@/pages/Community';
 import CommunityDetailPage, {
   communityDetailLoader,
@@ -15,14 +15,21 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage, {
   communityFeedLoader,
 } from '@/pages/CommunityUserFeed';
-import MyfeedPage from '@/pages/MyFeed';
-import FollowingPage, { followingLoader } from '@/pages/Following';
+import CommunitySearch, {
+  communitySearchLoader,
+} from '@/pages/CommunitySearch';
+import MyfeedPage, { myFeedLoader } from '@/pages/my-page/MyFeed';
+import FollowingPage, { followingLoader } from '@/pages/my-page/Following';
 import ProjectPage from '@/pages/ProjectPage';
 
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
+import MyContextProvider from '@/store/my-context';
+import ProjectContextProvider from '@/store/project-context';
+
 import RepertoryPage from './pages/Repertory';
 import Test from './pages/Test';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -54,7 +61,12 @@ const router = createBrowserRouter([
     children: [
       {
         path: URL.projects,
-        element: <ProjectsPage />,
+        element: (
+          <ProjectContextProvider>
+            <ProjectsPage />
+          </ProjectContextProvider>
+        ),
+        loader: projectsLoader,
       },
       {
         path: URL.sources,
@@ -90,11 +102,25 @@ const router = createBrowserRouter([
             loader: ({ params }) =>
               communityFeedLoader(Number(params.memberId)),
           },
+          {
+            path: `${URL.communitySearch}`,
+            element: <CommunitySearch />,
+          },
+          {
+            path: `${URL.communitySearch}/:keyword`,
+            element: <CommunitySearch />,
+            loader: ({ params }) => communitySearchLoader(params.keyword),
+          },
         ],
       },
       {
         path: URL.myFeed,
-        element: <MyfeedPage />,
+        element: (
+          <MyContextProvider>
+            <MyfeedPage />
+          </MyContextProvider>
+        ),
+        loader: myFeedLoader,
       },
       {
         path: URL.Following,

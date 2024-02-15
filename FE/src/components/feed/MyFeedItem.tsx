@@ -1,38 +1,23 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import Image from '@/components/common/Image';
-// import FeedItemModal from '@/components/feed/FeedItemModal';
-import Lock from '@/components/feed/Lock';
-import Like from '@/components/community/Like';
+import Image from '@/components/common/ImageSquare';
+import LockIcon from '@/components/feed/Lock';
+import { Community } from '@/types';
+import MyFeedHover from '@/components/feed/MyFeedHover';
 
 const ListItem = styled.li`
   position: relative;
-  aspect-ratio: 1 / 1;
-  & > div {
-    height: 100%;
-  }
 `;
 
-const Box = styled.span`
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  z-index: 2;
-  text-shadow: 0 1px 2px var(--rp-grey-500);
-`;
+interface Props {
+  feed: Community;
+  index: number;
+}
 
-const Hover = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-`;
-
-const FeedItem = ({ children }: { children: ReactNode }) => {
+const FeedItem = ({ feed, index }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [
-    isOpen, 
-    setIsOpen] = useState(false);
+  const [isPrivate, setPrivate] = useState(feed.feedDisable);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -42,30 +27,27 @@ const FeedItem = ({ children }: { children: ReactNode }) => {
     setIsHovering(false);
   };
 
-  const handleClick = () => {
-    setIsOpen((prev:boolean) => !prev);
-    console.log(isOpen)
+  const lock = () => {
+    setPrivate(true);
   };
 
-  const isPrivate: boolean = true;
+  const unlock = () => {
+    setPrivate(false);
+  };
 
   return (
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      {isHovering && <Hover onClick={handleClick}>{children}</Hover>}
-      {isPrivate && <Lock />}
-      {!isHovering && (
-        <Box>
-          <Like liked={true} likeCount={123} disable />
-        </Box>
+      {isHovering && (
+        <MyFeedHover
+          feed={feed}
+          index={index}
+          isPrivate={isPrivate}
+          lock={lock}
+          unlock={unlock}
+        />
       )}
-      <Image src="/images/index.jpg"></Image>
-      {/* to build */}
-      {/* <FeedItemModal
-        open={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      /> */}
+      {isPrivate && !isHovering && <LockIcon />}
+      <Image src={feed.feedThumbnailUrl}></Image>
     </ListItem>
   );
 };

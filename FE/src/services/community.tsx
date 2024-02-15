@@ -11,7 +11,7 @@ interface IfeedData {
   feedType: string;
   feedDisable: 0 | 1;
 }
-type IFeedType = 0 | 1;
+
 // 구독자 수 조회 -OK
 const getSubscribersCount = async () => {
   const response = await $axios().get('/community/subscribers');
@@ -41,27 +41,21 @@ const deleteSubscriber = async (memberId: number) => {
 
 // 피드 좋아요
 const patchFeedLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/like`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/like`);
   console.log(response);
   return response;
 };
 
 // 피드 좋아요 취소
 const patchFeedNotLike = async (feedId: number) => {
-  const response = await $axios().patch(`/community/source/${feedId}/notlike`, {
-    feedId: feedId,
-  });
+  const response = await $axios().patch(`/community/feed/${feedId}/notlike`);
   console.log(response);
   return response;
 };
 
 // 소스 클론
 const postSourceClone = async (feedId: number) => {
-  const response = await $axios().post(`/community/source/${feedId}/clone`, {
-    feedId: feedId,
-  });
+  const response = await $axios().post(`/community/source/${feedId}/clone`);
   console.log(response);
   return response;
 };
@@ -87,7 +81,7 @@ const getCommunityFeed = async ({ page, pageSize }: IPage) => {
 };
 
 // 유저 피드 공개
-const feedSetPublic = async (originId: number, feedType: IFeedType) => {
+const feedSetPublic = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,
@@ -97,7 +91,7 @@ const feedSetPublic = async (originId: number, feedType: IFeedType) => {
   return response;
 };
 // 유저 피드 비공개
-const feedSetPrivate = async (originId: number, feedType: IFeedType) => {
+const feedSetPrivate = async (originId: number, feedType: string) => {
   const data = {
     originId: originId,
     feedType: feedType,
@@ -130,8 +124,21 @@ const getSubscribersList = async () => {
   return response;
 };
 // 유저 피드 프로필 조회
-const getFeedProfile = async (memberId: number) => {
+const getFeedList = async (memberId: number) => {
   const response = await $axios().get(`/community/feed/profile/${memberId}`);
+  console.log(response.data);
+  return response;
+};
+const getFeedProfile = async (memberId: number) => {
+  const response = await $axios().get(
+    `/community/feed/profile/subscriber/${memberId}`
+  );
+  console.log(response.data);
+  return response;
+};
+// 동영상 검색
+const getFeedSearch = async (keyword: string) => {
+  const response = await $axios().get(`/community/search/tag/${keyword}`);
   console.log(response.data);
   return response;
 };
@@ -150,5 +157,7 @@ export {
   getFeedVideo,
   saveFeed,
   getSubscribersList,
+  getFeedList,
   getFeedProfile,
+  getFeedSearch,
 };

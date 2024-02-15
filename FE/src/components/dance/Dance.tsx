@@ -1,8 +1,7 @@
-import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { fontSize } from '@/styles/font';
-import Thumbnail from '@/components/common/Image';
+import { XL } from '@/components/common/Text';
+import Thumbnail from '@/components/common/ImageSquare';
 
 const Box = styled.div`
   width: 100%;
@@ -11,9 +10,8 @@ const Box = styled.div`
   overflow: hidden;
 `;
 
-const Title = styled.div`
+const Title = styled(XL)`
   margin: 16px;
-  ${fontSize.xl}
 `;
 
 const Detail = styled.div`
@@ -25,7 +23,7 @@ const Detail = styled.div`
 `;
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   thumbnail: string;
   title: string;
 }

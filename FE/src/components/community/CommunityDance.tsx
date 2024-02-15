@@ -1,9 +1,16 @@
+import styled from 'styled-components';
+
 import Dance from '@/components/dance/Dance';
 import Like from '@/components/community/Like';
 import Download from '@/components/community/Download';
 import UserProfile from '@/components/UserProfile';
-import Text, { TextStyle } from '@/components/common/Text';
+import * as Text from '@/components/common/Text';
 import { Community, Member } from '@/types';
+import { deriveDaysAgo } from '@/services/util';
+
+const Box = styled.div`
+  display: flex;
+`;
 
 interface Props {
   item: Community;
@@ -20,17 +27,14 @@ const CommunityDance = ({ item }: Props) => {
       <UserProfile
         imageSize={40}
         member={member}
-        textStyle={new TextStyle('s', 's')}
+        name={<Text.M>{member.memberName}</Text.M>}
       >
-        <Text size="s" color="s">
-          {item.feedDate}
-        </Text>
+        <Text.Secondary>{deriveDaysAgo(item.feedDate)}</Text.Secondary>
       </UserProfile>
-      <div style={{ display: 'flex' }}>
-        {item.feedType === 'SOURCE' && <Download count={item.downloadCount} />}
-
-        <Like liked={false} likeCount={item.likeCount} disable />
-      </div>
+      <Box>
+        {item.feedType === 'SOURCE' && <Download feed={item} disable />}
+        <Like feed={item} disable />
+      </Box>
     </Dance>
   );
 };

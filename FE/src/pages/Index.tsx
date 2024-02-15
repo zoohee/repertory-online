@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { fontSize } from '@/styles/font';
 import { LoginStore } from '@/store/LoginStore';
 import URL from '@/url';
 
@@ -29,7 +28,7 @@ const ListItem = styled.li`
 
 const StyledLink = styled(Link)`
   font-family: 'YdestreetB';
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   text-decoration-line: none;
   text-shadow: var(--text-shadow);
 
@@ -41,7 +40,7 @@ const StyledLink = styled(Link)`
 
 const StyledDiv = styled.div`
   font-family: 'YdestreetB';
-  ${fontSize.l}
+  font-size: var(--font-size-l);
   text-decoration-line: none;
   text-shadow: var(--text-shadow);
 
@@ -99,31 +98,44 @@ export default function HomePage() {
   return (
     <GridContainer>
       <List>
-        <ListItem>
-          {isLoggedIn ? (
+        {isLoggedIn && (
+          <ListItem>
             <StyledDiv onClick={logout}>Logout</StyledDiv>
-          ) : (
-            <StyledLink to={URL.login}>Log In</StyledLink>
-          )}
+          </ListItem>
+        )}
+        {/* <ListItem>
+          <StyledLink to={URL.login}>Log In</StyledLink>
         </ListItem>
         <ListItem>
           <StyledLink to={URL.signUp}>Sign Up</StyledLink>
-        </ListItem>
+        </ListItem> */}
       </List>
       <Box>
         <InnerBox>
-          <img src='images/logo.svg' alt='logo' />
-          <ul>
-            <ListItem>
-              <StyledLink to={URL.projects}>Create</StyledLink>
-            </ListItem>
-            <ListItem>
-              <StyledLink to={URL.community}>Community</StyledLink>
-            </ListItem>
-          </ul>
+          <img src="images/logo.svg" alt="logo" />
+          {isLoggedIn && (
+            <ul>
+              <ListItem>
+                <StyledLink to={URL.projects}>Create</StyledLink>
+              </ListItem>
+              <ListItem>
+                <StyledLink to={URL.community}>Community</StyledLink>
+              </ListItem>
+            </ul>
+          )}
+          {!isLoggedIn && (
+            <ul>
+              <ListItem>
+                <StyledLink to={URL.login}>Log In</StyledLink>
+              </ListItem>
+              <ListItem>
+                <StyledLink to={URL.signUp}>Sign Up</StyledLink>
+              </ListItem>
+            </ul>
+          )}
         </InnerBox>
         <ImageBox>
-          <img src='images/index.jpg' alt='home' />
+          <img src="images/index.jpg" alt="home" />
         </ImageBox>
       </Box>
     </GridContainer>

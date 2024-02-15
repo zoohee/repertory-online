@@ -12,7 +12,7 @@ const SourceList = () => {
       return sources;
     }
     return sources.filter((source) =>
-      source.tagList.some((tag) => selectedTags.includes(tag.tagName))
+      source.tagNameList.some((tag) => selectedTags.includes(tag))
     );
   };
 
