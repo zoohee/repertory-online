@@ -14,7 +14,10 @@ export const DecodeJwt = (token: string) => {
   // console.log(result['memberId']); => memberId
   return JSON.parse(jsonPayload);
 };
-export const formatMilliSecondsToTimeString = (ms: number) => {
+export const formatMilliSecondsToTimeString = (
+  ms: number,
+  format?: 'minute' | 'hour'
+) => {
   const totalSeconds = Math.floor(ms / 1000);
   const totalMinutes = Math.floor(totalSeconds / 60);
   const totalHours = Math.floor(totalMinutes / 60);
@@ -22,10 +25,18 @@ export const formatMilliSecondsToTimeString = (ms: number) => {
   const seconds = totalSeconds % 60;
   const minutes = totalMinutes % 60;
   const hours = totalHours;
-  const formattedMilliseconds = ('00' + milliseconds).slice(-3);
+
+  const formattedMilliseconds = ('00' + milliseconds).slice(-2);
   const formattedSeconds = ('00' + seconds).slice(-2);
   const formattedMinutes = ('00' + minutes).slice(-2);
   const formattedHours = ('00' + hours).slice(-2);
 
-  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+  switch (format) {
+    case 'minute':
+      return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    case 'hour':
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+    default:
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+  }
 };
