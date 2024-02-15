@@ -7,6 +7,7 @@ import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/MyFeedItem';
 import FeedItemModal from '@/components/feed/FeedItemModal';
 import Filter from '@/components/feed/Filter';
+import { decodeJwt } from '@/services/util';
 
 const FilterBox = styled.div`
   margin-bottom: 12px;
@@ -39,8 +40,10 @@ export default MyfeedPage;
 import { getFeedList } from '@/services/community';
 
 export const myFeedLoader = async () => {
-  // TODO: 내 멤버 아이디 토큰에서 가져오기
-  const myMemberId = 5678;
+  const myMemberId = decodeJwt();
+  if (myMemberId === -1) {
+    return [];
+  }
   const response = await getFeedList(myMemberId);
   return response.data;
 };
