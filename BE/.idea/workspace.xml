@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BE.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/discovery-service.main.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Config/FilterConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Filter/AuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/JWT/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Status/MemberAuthorityStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -264,7 +250,7 @@
       <workItem from="1707283618336" duration="9057000" />
       <workItem from="1707303909590" duration="8817000" />
       <workItem from="1707895789089" duration="5292000" />
-      <workItem from="1707967202285" duration="7352000" />
+      <workItem from="1707967202285" duration="7897000" />
     </task>
     <servers />
   </component>
