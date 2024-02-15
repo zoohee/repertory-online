@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import team.luckyturkey.communityservice.config.OpenFeignConfig;
 import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
 import java.util.List;
 
-@FeignClient(name = "member", url = "${api.member.url}")
+@FeignClient(name = "member", url = "${api.member.url}", configuration = OpenFeignConfig.class)
 public interface MemberServiceClient {
     @GetMapping("/following")
     List<SubscriberResponse> getFollowingDetailList(@RequestParam List<Long> followingList);

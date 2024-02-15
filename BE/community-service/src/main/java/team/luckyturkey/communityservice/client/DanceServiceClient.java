@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import team.luckyturkey.communityservice.config.OpenFeignConfig;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
@@ -14,7 +15,7 @@ import team.luckyturkey.communityservice.entity.FeedType;
 
 import java.util.List;
 
-@FeignClient(name="dance", url = "${api.dance.url}")
+@FeignClient(name="dance", url = "${api.dance.url}", configuration = OpenFeignConfig.class)
 public interface DanceServiceClient {
 
     @GetMapping("/detail/{originId}/{feedType}")

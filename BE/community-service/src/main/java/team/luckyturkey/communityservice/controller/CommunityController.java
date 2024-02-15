@@ -5,17 +5,14 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
-import team.luckyturkey.communityservice.service.FeedService;
-import team.luckyturkey.communityservice.service.JwtUtil;
-import team.luckyturkey.communityservice.service.LikeService;
-import team.luckyturkey.communityservice.service.SubscribeService;
+import team.luckyturkey.communityservice.service.*;
 
 @RestController
 @RequiredArgsConstructor
 public class CommunityController {
 
     private final SubscribeService subscribeService;
-    private final LikeService likeService;
+    private final TokenService tokenService;
     private final FeedService feedService;
     private final JwtUtil jwtUtil;
 
@@ -29,7 +26,7 @@ public class CommunityController {
         // TODO: Request Header jwt에서 memberId 받아 오기 :done
 
         String atc = accessToken.split(" ")[1];
-
+        tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
         Long selectedMemberId = data.get("selectedMemberId");
 
@@ -40,6 +37,7 @@ public class CommunityController {
     public int getSubscribersCount( @RequestHeader("Authorization") final String accessToken ) {
         // TODO: Request Header jwt에서 memberId 받아 오기 :done
         String atc = accessToken.split(" ")[1];
+        tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
         return subscribeService.getSubscribersCount(memberId);
     }
@@ -48,6 +46,7 @@ public class CommunityController {
     public void unsubscribe(@RequestBody Map<String, Long> data, @RequestHeader("Authorization") final String accessToken) {
         // TODO: Request Header jwt에서 memberId 받아 오기 :done
         String atc = accessToken.split(" ")[1];
+        tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
         Long selectedMemberId = data.get("selectedMemberId");
 
@@ -58,6 +57,7 @@ public class CommunityController {
     public List<SubscriberResponse> getFollowingList(@RequestHeader("Authorization") final String accessToken) {
         // TODO: Request Header jwt에서 memberId 받아 오기 :done
         String atc = accessToken.split(" ")[1];
+        tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
 
         List<Long> followingList = subscribeService.getFollowingList(memberId);
@@ -68,7 +68,7 @@ public class CommunityController {
     public void cloneSource(@PathVariable("feedId") Long feedId, @RequestHeader("Authorization") final String accessToken) {
         // TODO: Request Header jwt에서 memberId 받아 오기 :done
         String atc = accessToken.split(" ")[1];
-
+        tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
 
         feedService.cloneSource(feedId, memberId);
