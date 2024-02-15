@@ -25,7 +25,7 @@ const SourcesPage = () => {
       <Box>
         <Wrapper $margin='0'>
           <div style={{ display: 'flex' }}>
-            <SearchBar></SearchBar>
+            <SearchBar search={() => {}} />
             <SelectTagButton />
           </div>
           <CreateButton to='/' />

@@ -12,6 +12,7 @@ interface SourcesContextType {
   isTagOpen: boolean;
   openTag: () => void;
   tabs: Tab[];
+  removeSource: (id: number) => void;
 }
 
 export const sourcesContext = createContext<SourcesContextType>(
@@ -78,6 +79,10 @@ const SourcesContextProvider = ({ children }: Props) => {
     });
   };
 
+  const removeSource = (id: number) => {
+    setSources((prev) => prev.filter((source) => source.sourceId !== id));
+  };
+
   const value: SourcesContextType = {
     sources,
     tags,
@@ -87,6 +92,7 @@ const SourcesContextProvider = ({ children }: Props) => {
     isTagOpen,
     openTag,
     tabs,
+    removeSource,
   };
 
   return (
