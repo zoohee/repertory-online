@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Hover = styled.div`
+  position: absolute;
   width: 100%;
   height: 100%;
   aspect-ratio: 1 / 1;
@@ -20,12 +21,13 @@ const LikeCount = styled.div`
 `;
 
 interface Props {
+  onClick: () => void;
   likeCount: number;
 }
 
-const CommunityHover = ({ likeCount }: Props) => {
+const CommunityHover = ({ onClick, likeCount }: Props) => {
   return (
-    <Hover>
+    <Hover onClick={onClick}>
       <FavoriteIcon />
       <LikeCount>{likeCount}</LikeCount>
     </Hover>

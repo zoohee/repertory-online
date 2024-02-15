@@ -1,12 +1,7 @@
 import { createContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
-import { Source, Tab } from '@/types';
-
-const TABS: Tab[] = [
-  new Tab('My Sources', true),
-  new Tab('Cloned Sources', false),
-];
+import { Source, MySource, Tab } from '@/types';
 
 interface SourcesContextType {
   sources: Source[];
@@ -17,7 +12,7 @@ interface SourcesContextType {
   isTagOpen: boolean;
   openTag: () => void;
   tabs: Tab[];
-  selectTab: (tab: Tab) => void;
+  removeSource: (id: number) => void;
 }
 
 export const sourcesContext = createContext<SourcesContextType>(
@@ -31,34 +26,42 @@ interface Props {
 const SourcesContextProvider = ({ children }: Props) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isTagOpen, setIsTagOpen] = useState(false);
-  const [tabs, setTabs] = useState<Tab[]>(TABS);
 
-  const data = useLoaderData() as { mine: Source[]; clone: Source[] };
+  const { mine, clone } = useLoaderData() as {
+    mine: MySource[];
+    clone: Source[];
+  };
 
-  const sources = tabs[0].clicked ? data.mine : data.clone;
+  mine.forEach((source) => {
+    source.tagNameList = source.tagList.map((tag) => tag.tagName);
+  });
 
-  const tags = [
-    ...new Set(
-      sources.map((source) => source.tagList.map((tag) => tag.tagName)).flat()
-    ),
+  const [mineClicked, setMineClicked] = useState(true);
+  const [cloneClicked, setCloneClicked] = useState(false);
+  const [sources, setSources] = useState<Source[]>(mine);
+
+  const clickMine = () => {
+    setSources(mine);
+    setIsTagOpen(false);
+    setSelectedTags([]);
+    setMineClicked(true);
+    setCloneClicked(false);
+  };
+
+  const clickClone = () => {
+    setSources(clone);
+    setIsTagOpen(false);
+    setSelectedTags([]);
+    setMineClicked(false);
+    setCloneClicked(true);
+  };
+
+  const tabs: Tab[] = [
+    new Tab('My Sources', mineClicked, clickMine),
+    new Tab('Cloned Sources', cloneClicked, clickClone),
   ];
 
-  const selectTab = (clickedTab: Tab) => {
-    if (clickedTab.clicked) {
-      return;
-    }
-    setTabs(
-      tabs.map((tab) => {
-        const clicked: boolean = tab.name == clickedTab.name;
-        return {
-          ...tab,
-          clicked,
-        };
-      })
-    );
-    setSelectedTags([]);
-    setIsTagOpen(false);
-  };
+  const tags = [...new Set(sources.map((source) => source.tagNameList).flat())];
 
   const selectTag = (tag: string) => {
     setSelectedTags((prev) => {
@@ -76,6 +79,10 @@ const SourcesContextProvider = ({ children }: Props) => {
     });
   };
 
+  const removeSource = (id: number) => {
+    setSources((prev) => prev.filter((source) => source.sourceId !== id));
+  };
+
   const value: SourcesContextType = {
     sources,
     tags,
@@ -85,7 +92,7 @@ const SourcesContextProvider = ({ children }: Props) => {
     isTagOpen,
     openTag,
     tabs,
-    selectTab,
+    removeSource,
   };
 
   return (

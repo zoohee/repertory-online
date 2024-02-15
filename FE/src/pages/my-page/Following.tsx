@@ -3,9 +3,14 @@ import styled from 'styled-components';
 
 import UserProfile from '@/components/UserProfile';
 import TabButtons from '@/components/common/Tab';
-import Text, { TextStyle } from '@/components/common/Text';
+import * as Text from '@/components/common/Text';
 import Follow from '@/components/community/Follow';
 import { Member, Tab } from '@/types';
+
+const Detail = styled(Text.M)`
+  color: var(--text-secondary-dark-mode);
+  margin-top: 4px;
+`;
 
 const ListItem = styled.li`
   margin-bottom: 16px;
@@ -15,25 +20,23 @@ const ListItem = styled.li`
   width: 480px;
 `;
 
-const TABS = [new Tab('Following', true)];
+const TABS = [new Tab('Following', true, () => {})];
 
 const FollowingPage = () => {
   const members = useLoaderData() as Member[];
 
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 32px" />
+      <TabButtons tabs={TABS} marginBottom={32} />
       <ul>
         {members.map((member) => (
           <ListItem key={member.memberId}>
             <UserProfile
               imageSize={52}
               member={member}
-              textStyle={new TextStyle('l', 'p')}
+              name={<Text.L>{member.memberName}</Text.L>}
             >
-              <Text size="m" color="s">
-                구독자 수
-              </Text>
+              <Detail>구독자 수</Detail>
             </UserProfile>
             <Follow
               $size="medium"

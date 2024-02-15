@@ -13,20 +13,19 @@ import TagList from '@/components/dance/sources/TagList';
 
 const Box = styled.div`
   margin: 24px 0;
-  padding: 0 12px;
   width: 100%;
 `;
 
 const SourcesPage = () => {
-  const { tabs, selectTab, isTagOpen } = useContext(sourcesContext);
+  const { tabs, isTagOpen } = useContext(sourcesContext);
 
   return (
     <>
-      <TabButtons tabs={tabs} margin='48px 0 0' onClickTab={selectTab} />
+      <TabButtons tabs={tabs} />
       <Box>
         <Wrapper $margin='0'>
           <div style={{ display: 'flex' }}>
-            <SearchBar></SearchBar>
+            <SearchBar search={() => {}} />
             <SelectTagButton />
           </div>
           <CreateButton to='/' />

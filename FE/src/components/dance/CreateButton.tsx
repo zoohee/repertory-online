@@ -12,6 +12,7 @@ const Button = styled(Link)`
   align-items: center;
   height: 36px;
   text-decoration: none;
+  white-space: nowrap;
 `;
 
 interface Props {

@@ -1,3 +1,12 @@
+interface Project {
+  id: number;
+  memberId: number;
+  projectDate: string;
+  projectName: string;
+  projectThumbnailUrl: string;
+  // sourceList
+}
+
 interface Tag {
   tagId: number;
   memberId: number;
@@ -14,16 +23,22 @@ interface Source {
   sourceStart: string;
   sourceThumbnailUrl: string;
   sourceUrl: string;
+  tagNameList: string[];
+}
+
+interface MySource extends Source {
   tagList: Tag[];
 }
 
 export class Tab {
   name: string;
   clicked: boolean;
+  onClick: () => void;
 
-  constructor(name: string, clicked: boolean) {
+  constructor(name: string, clicked: boolean, onClick: () => void) {
     this.name = name;
     this.clicked = clicked;
+    this.onClick = onClick;
   }
 }
 
@@ -36,11 +51,19 @@ interface Community {
   feedThumbnailUrl: string;
   feedType: string;
   feedUrl: string;
+  isDownloaded: boolean;
+  isLiked: boolean;
   likeCount: number;
   memberId: number;
   memberName: string;
   memberProfile: string;
   originId: number;
+}
+
+interface CommunityDetail {
+  feed: Community;
+  profile: Profile;
+  sources: Community[];
 }
 
 interface Member {
@@ -49,9 +72,35 @@ interface Member {
   memberProfile: string;
 }
 
-interface IProject {
-  imageUrl : string;
-  title : string;
-  detail : string;
+interface Profile extends Member {
+  followed: boolean;
+  followerCount: number;
 }
-export type { Tag, Source, Community, Member,IProject };
+
+interface Modal {
+  isOpen: boolean;
+  closeModal: () => void;
+  dances: Community[];
+  index: number;
+  nextDance: () => void;
+  prevDance: () => void;
+}
+
+interface IProject {
+  imageUrl: string;
+  title: string;
+  detail: string;
+}
+
+export type {
+  Project,
+  Tag,
+  Source,
+  MySource,
+  Community,
+  CommunityDetail,
+  Member,
+  Modal,
+  IProject,
+  Profile,
+};

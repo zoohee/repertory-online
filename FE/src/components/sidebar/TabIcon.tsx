@@ -9,8 +9,8 @@ const IconBox = styled.div`
 const TabIcon = ({ open }: { open?: boolean }) => {
   return (
     <IconBox>
-      {!open && <KeyboardArrowRightIcon />}
-      {open && <KeyboardArrowDownIcon />}
+      {!open && <KeyboardArrowRightIcon fontSize='small' />}
+      {open && <KeyboardArrowDownIcon fontSize='small' />}
     </IconBox>
   );
 };
