@@ -28,17 +28,16 @@ import MyContextProvider from '@/store/my-context';
 import ProjectContextProvider from '@/store/project-context';
 
 import RepertoryPage from './pages/Repertory';
-import Test from './pages/Test';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
   },
-  {
-    path: '/test',
-    element: <Test />,
-  },
+  // {
+  //   path: '/test',
+  //   element: <Test />,
+  // },
   {
     path: URL.login,
     element: <Login />,
