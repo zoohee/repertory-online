@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/BE.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/discovery-service.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Config/FilterConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Filter/AuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/JWT/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apigateway-service/src/main/java/team/luckyturkey/apigatewayservice/Status/MemberAuthorityStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apigateway-service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/apigateway-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/java/team/luckyturkey/communityservice/controller/FeedController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/community-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/dance-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/member-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +62,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -101,10 +108,10 @@
     &quot;Spring Boot.MemberServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ProjectServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BE/community&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;BE/gatewayFilter&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/SSAFY/Documents/GitHub/S10P12A707/BE/project-service/src/main/resources&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/S10P12A707/BE&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -125,6 +132,9 @@
       <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\resources" />
       <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\community-service\src\main\resources" />
       <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\java\team\luckyturkey\danceservice\controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\S10P12A707\BE\member-service\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="team.luckyturkey.danceservice.controller.responsedto" />
@@ -253,6 +263,8 @@
       <workItem from="1707282964036" duration="86000" />
       <workItem from="1707283618336" duration="9057000" />
       <workItem from="1707303909590" duration="8817000" />
+      <workItem from="1707895789089" duration="5292000" />
+      <workItem from="1707967202285" duration="7352000" />
     </task>
     <servers />
   </component>
