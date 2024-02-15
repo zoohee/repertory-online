@@ -30,7 +30,7 @@ interface DialogProps {
   children: ReactNode;
 }
 
-export const Dialog = ({ open, onClose, children }: DialogProps) => {
+export const Dialog = ({ open, children }: DialogProps) => {
   if (!open) return null;
 
   return ReactDOM.createPortal(

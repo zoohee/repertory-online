@@ -19,14 +19,21 @@ export const $pose = () => {
 };
 
 export const $auth = () => {
-  const token = localStorage.getItem('token');
-  return axios.create({
+  const instance = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: token,
-      // Refresh: `Bearer ${token}`,
     },
     withCredentials: true,
   });
+
+  instance.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  });
+
+  return instance;
 };
