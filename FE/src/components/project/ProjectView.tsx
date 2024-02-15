@@ -12,12 +12,40 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import SaveIcon from '@mui/icons-material/Save';
+import { Dialog } from './Dialog';
+import Image from '../common/Image';
+import * as dance from '@/services/dance';
 // import { Title } from './Title';
 const Tmp = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-between;
 `;
+const FlexWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+// const ModalOverlay = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+// const ModalBox = styled.div`
+//   background-color: white;
+//   padding: 20px;
+//   border-radius: 10px;
+//   width: 500px;
+//   max-width 100%;
+// `;
+
 const PleaseUploadFile = styled.div`
   margin-top: 20%;
   margin-bottom: -22%;
@@ -164,16 +192,13 @@ const EndTimeButton = styled.button<{ isActive: boolean }>`
     cursor: pointer;
   }
 `;
-const Tmp2 = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
 const Time = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  padding-right: 24px;
+  padding-left: 24px;
 `;
 const ProjectViewWrapper = styled.div`
   /* background-color: red; */
@@ -194,8 +219,10 @@ const ProjectView = (props: Props) => {
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [open, setOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-
+  const [images, setImages] = useState({ start: '', middle: '', end: '' });
+  const [video, setVideo] = useState<File | null>(null);
   useEffect(() => {
     const video = props.videoRef.current;
 
@@ -260,16 +287,12 @@ const ProjectView = (props: Props) => {
       props.videoRef.current.pause();
     }
   };
-  // const handleGoTo = (seconds: number) => {
-  //   if (props.videoRef.current) {
-  //     props.videoRef.current.currentTime = seconds;
-  //   }
-  // };
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     pauseVideo();
     if (props.videoRef.current) {
       props.videoRef.current.src = '';
+      props.setVideo(null);
       props.videoRef.current.load();
     }
     console.log('upload');
@@ -280,6 +303,81 @@ const ProjectView = (props: Props) => {
         props.videoRef.current.src = URL.createObjectURL(file);
       }
     }
+  };
+
+  const captureImage = async (
+    video: HTMLVideoElement,
+    time: number
+  ): Promise<File> => {
+    video.currentTime = time;
+    await new Promise((r) => setTimeout(r, 200));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    }
+
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    const data = atob(dataUrl.split(',')[1]);
+    const mime = dataUrl.split(';')[0].split(':')[1];
+    const buf = new ArrayBuffer(data.length);
+    const arr = new Uint8Array(buf);
+    for (let i = 0; i < data.length; i++) {
+      arr[i] = data.charCodeAt(i);
+    }
+    const blob = new Blob([arr], { type: mime });
+    const file = new File([blob], 'capture.jpg', { type: 'image/jpeg' });
+
+    return file;
+  };
+
+  const saveImages = async (videoRef: React.RefObject<HTMLVideoElement>) => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      const duration = video.duration;
+      const startTime = 0;
+      const middleTime = duration / 2;
+      const endTime = duration;
+
+      const startImage = await captureImage(video, startTime);
+      const middleImage = await captureImage(video, middleTime);
+      const endImage = await captureImage(video, endTime);
+
+      console.log(startImage, middleImage, endImage);
+      setImages({
+        start: URL.createObjectURL(startImage),
+        middle: URL.createObjectURL(middleImage),
+        end: URL.createObjectURL(endImage),
+      });
+      setOpen(true);
+    }
+  };
+
+  const UploadSource = () => {
+    const data = {
+      sourceName: 'MySource',
+      sourceLength: duration,
+      tagNameList: ['tag1', 'tag2'],
+      start: 'string',
+      end: 'string',
+    };
+    const formData = new FormData();
+    formData.append('sourceThumbnail', image.start);
+    formData.append('sourceVideo', props.video);
+    formData.append(
+      'postSource',
+      new Blob([JSON.stringify(data)], { type: 'application/json' })
+    );
+    dance.postSource(formData);
+  };
+
+  // TRButton 클릭 이벤트
+  const onTRButtonClick = () => {
+    saveImages(props.videoRef);
   };
   return (
     <>
@@ -299,11 +397,26 @@ const ProjectView = (props: Props) => {
             onClick={() => {
               if (props.videoRef.current === null) {
                 alert('Upload Video First!');
+              } else {
+                setOpen(true);
               }
             }}
           >
             <SaveIcon />
           </TitleButton>
+          <Dialog open={open} onClose={() => setOpen(false)}>
+            <p>Save Source</p>
+            <FlexWrapper>
+              <Image src={images.start} size={140} />
+              <Image src={images.middle} size={140} />
+              <Image src={images.end} size={140} />
+            </FlexWrapper>
+            <input type='text' placeholder='Name' value='MySource' />
+            <input type='text' placeholder='Length' value={duration} />
+            <input type='text' placeholder='Start' />
+            <input type='text' placeholder='End' />
+            <button onClick={() => setOpen(false)}>Close</button>
+          </Dialog>
         </Title>
         {props.videoRef.current?.src === '' && (
           <PleaseUploadFile>Upload File First</PleaseUploadFile>
@@ -335,6 +448,7 @@ const ProjectView = (props: Props) => {
         </Time>
 
         <Tmp>
+          <button onClick={onTRButtonClick}>Ready</button>
           <StartTimeButton
             isActive={startTime > 0}
             onClick={() => {
@@ -383,7 +497,7 @@ const ProjectView = (props: Props) => {
             }}
             disabled={startTime === 0 || endTime === 0}
           >
-            TR
+            TRIM
           </TRButton>
         </Tmp>
       </ProjectViewWrapper>

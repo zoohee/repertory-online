@@ -34,7 +34,7 @@ const EditWrapper = styled(Container)`
   z-index: 10;
   margin-right: 10px;
   border-radius: 10px;
-  min-height: calc(100vh - var(--sidebar-margin) * 3);
+  min-height: calc(100vh - var(--sidebar-margin));
   width: calc(100vw - var(--sidebar-margin) * 3);
   min-width: calc(100vw - var(--sidebar-project--width));
   justify-content: space-evenly;
@@ -68,7 +68,6 @@ const ProjectPage: React.FC = () => {
   const ffmpegRef = useRef(new FFmpeg());
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const VideoRefList = useRef<HTMLVideoElement[]>([]);
   const messageRef = useRef<HTMLParagraphElement | null>(null);
 
   if (loaded) console.log('ffmpeg loaded!');
@@ -216,6 +215,8 @@ const ProjectPage: React.FC = () => {
         new Blob([data.buffer], { type: 'video/mp4' })
       );
       console.log(videoRef.current.src);
+    } else {
+      console.log('bye');
     }
   };
 
