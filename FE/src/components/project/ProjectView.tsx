@@ -158,7 +158,7 @@ const Time = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 4px;
+  padding: 10px;
 `;
 const ProjectViewWrapper = styled.div`
   /* background-color: red; */
@@ -302,6 +302,7 @@ const ProjectView = (props: Props) => {
         />
         <Time>
           <p>{formatMilliSecondsToTimeString(currentTime * 1000, 'minute')}</p>
+
           <p>{formatMilliSecondsToTimeString(duration * 1000, 'minute')}</p>
         </Time>
 
