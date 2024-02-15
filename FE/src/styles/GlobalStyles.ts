@@ -107,7 +107,8 @@ const GlobalStyles = createGlobalStyle`
       --menu-color: var(--rp-grey-700);
       --menu-hover-color: var(--rp-grey-600);
       --menu-button-size: 2rem;
-      --sidebar-project--width:340px;
+      --sidebar-project--width:620px;
+      --sidebar-project--width-sm:400px;
       /* button */
       --button-padding: 4px 16px;
       --button-padding-small: 4px 12px;
@@ -144,6 +145,24 @@ const GlobalStyles = createGlobalStyle`
     .red {
         color: var(--color-red);
     }
+
+    /* 스크롤바 스타일 */
+    ::-webkit-scrollbar {
+        width: 6px; /* 스크롤바 너비 */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; /* 스크롤바 배경색 */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888; /* 스크롤바 색상 */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; /* 스크롤바를 마우스로 가리킬 때의 색상 */
+    }
+
 
 `;
 export default GlobalStyles;
