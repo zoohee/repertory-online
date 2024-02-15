@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import team.luckyturkey.projectservice.controller.requestdto.PatchProjectRequestDto;
 import team.luckyturkey.projectservice.controller.requestdto.ProjectUpdateRequestDto;
 import team.luckyturkey.projectservice.document.Project;
+import team.luckyturkey.projectservice.service.JwtUtil;
 import team.luckyturkey.projectservice.service.ProjectService;
 
 import java.time.Instant;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final JwtUtil jwtUtil;
 
     @Deprecated
     @GetMapping("/test")
@@ -81,12 +83,13 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<Long> postProject(
             @RequestPart String projectName,
-            @RequestPart MultipartFile projectThumbnail
+            @RequestPart MultipartFile projectThumbnail,
+            @RequestHeader("Authorization") final String accessToken
     ){
-        Long memberId = 1L;
-        //todo: user id 삽입 기능 필요
+        String atc = accesstoken.split(" ")[1];
 
         Project project = Project.builder()
+                .userId(jwtUtil.getMemberId(atc))
                 .projectName(projectName)
                 .projectDate(Instant.now())
                 .sourceList(new ArrayList<>())

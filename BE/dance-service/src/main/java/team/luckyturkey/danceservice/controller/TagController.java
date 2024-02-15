@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.danceservice.controller.requestdto.PostTagRequest;
 import team.luckyturkey.danceservice.controller.responsedto.StandardTagResponse;
 import team.luckyturkey.danceservice.service.TagService;
+import team.luckyturkey.danceservice.util.JwtUtil;
 
 import java.util.List;
 
@@ -17,33 +18,41 @@ import java.util.List;
 public class TagController {
 
     private final TagService tagService;
+    private final JwtUtil jwtUtil;
 
     /**
-     * todo: get user id from jwt
+     * todo: get user id from jwt :done
      * */
-    @Value("${test.environment.memberId}")
-    private Long TEST_MEMBER_ID;
+//    @Value("${test.environment.memberId}")
+//    private Long TEST_MEMBER_ID;
 
     @PostMapping
     public ResponseEntity<Long> postTag(
-            @RequestBody PostTagRequest postTagRequest
+            @RequestBody PostTagRequest postTagRequest,
+            @RequestHeader("Authorization") final String accessToken
     ){
         /**
-         * todo: get user id from jwt
+         * todo: get user id from jwt :done
          * */
-        Long tagId = tagService.saveTag(postTagRequest, TEST_MEMBER_ID);
+        String atc = accessToken.split(" ")[1];
+
+        Long memberId = jwtUtil.getMemberId(atc);
+        Long tagId = tagService.saveTag(postTagRequest, memberId);
         return ResponseEntity.ok(tagId);
     }
 
     @GetMapping
     public ResponseEntity<List<StandardTagResponse>> getTagList(
-
+            @RequestHeader("Authorization") final String accessToken
     ){
         /**
          * this is only for dummy
-         * todo: get user id from jwt
+         * todo: get user id from jwt :done
          * */
-        List<StandardTagResponse> tagList = tagService.getTagList(TEST_MEMBER_ID);
+        String atc = accessToken.split(" ")[1];
+
+        Long memberId = jwtUtil.getMemberId(atc);
+        List<StandardTagResponse> tagList = tagService.getTagList(memberId);
         return ResponseEntity.ok(tagList);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.danceservice.controller.requestdto.PostCloneRequest;
 import team.luckyturkey.danceservice.controller.responsedto.CloneSourceResponse;
 import team.luckyturkey.danceservice.service.CloneService;
+import team.luckyturkey.danceservice.util.JwtUtil;
 
 import java.util.List;
 
@@ -16,10 +17,11 @@ import java.util.List;
 public class CloneController {
 
     private final CloneService cloneService;
+    private final JwtUtil jwtUtil;
 
-    //todo: should get memberId from token
-    @Value("${test.environment.memberId}")
-    private Long TEST_MEMBER_ID;
+
+//    @Value("${test.environment.memberId}")
+//    private Long TEST_MEMBER_ID;
 
     @PostMapping
     public ResponseEntity<Void> cloneSource(
@@ -30,8 +32,11 @@ public class CloneController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CloneSourceResponse>> getCloneSources (){
-        Long memberId = TEST_MEMBER_ID;
+    public ResponseEntity<List<CloneSourceResponse>> getCloneSources (@RequestHeader("Authorization") final String accessToken){
+        //todo: should get memberId from token :done
+        String atc = accessToken.split(" ")[1];
+
+        Long memberId = jwtUtil.getMemberId(atc);
 
         List<CloneSourceResponse> response = cloneService.getCloneSourceList(memberId);
         return ResponseEntity.ok(response);
