@@ -93,7 +93,7 @@ const GlobalStyles = createGlobalStyle`
       --sidebar-nav-hover: var(--rp-grey-600);
       --sidebar-nav-active: var(--rp-grey-500);
       --sidebar-nav-height: 2.8rem;
-      --sidebar-nav-padding: 12px;
+      --sidebar-nav-padding: 1rem;
       --text-primary-dark-mode: #f1f1f1;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;

@@ -7,6 +7,8 @@ import url from '@/url';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
   flex-grow: 1;
   justify-content: space-around;
 `;
@@ -15,7 +17,8 @@ const Nav = styled.nav<{ $tabCount: number }>`
   height: ${({ $tabCount }) =>
     `calc(var(--sidebar-nav-height) * ${$tabCount})`};
   width: 100%;
-  padding: 0 16px;
+  padding: 0 24px;
+  font-size: var(--font-size-s);
 `;
 
 const WORKSPACE = [
