@@ -15,6 +15,9 @@ import CommunityLayout from '@/pages/CommunityLayout';
 import CommunityUserFeedPage, {
   communityFeedLoader,
 } from '@/pages/CommunityUserFeed';
+import CommunitySearch, {
+  communitySearchLoader,
+} from '@/pages/CommunitySearch';
 import MyfeedPage, { myFeedLoader } from '@/pages/my-page/MyFeed';
 import FollowingPage, { followingLoader } from '@/pages/my-page/Following';
 import ProjectPage from '@/pages/ProjectPage';
@@ -93,6 +96,15 @@ const router = createBrowserRouter([
             ),
             loader: ({ params }) =>
               communityFeedLoader(Number(params.memberId)),
+          },
+          {
+            path: `${URL.communitySearch}`,
+            element: <CommunitySearch />,
+          },
+          {
+            path: `${URL.communitySearch}/:keyword`,
+            element: <CommunitySearch />,
+            loader: ({ params }) => communitySearchLoader(params.keyword),
           },
         ],
       },

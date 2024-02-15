@@ -136,6 +136,12 @@ const getFeedProfile = async (memberId: number) => {
   console.log(response.data);
   return response;
 };
+// 동영상 검색
+const getFeedSearch = async (keyword: string) => {
+  const response = await $axios().get(`/community/search/tag/${keyword}`);
+  console.log(response.data);
+  return response;
+};
 
 export {
   getSubscribersCount,
@@ -153,4 +159,5 @@ export {
   getSubscribersList,
   getFeedList,
   getFeedProfile,
+  getFeedSearch,
 };

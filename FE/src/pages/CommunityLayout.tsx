@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { Outlet } from 'react-router';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import SearchBar from '@/components/SearchBar';
+import URL from '@/url';
 
 const FixedBox = styled.div`
   z-index: 10;
@@ -23,10 +24,15 @@ const Container = styled.div`
 `;
 
 const CommunityLayout = () => {
+  const navigate = useNavigate();
+  const search = (keyword: string) => {
+    navigate(`${URL.communitySearch}/${keyword}`);
+  };
+
   return (
     <>
       <FixedBox>
-        <SearchBar />
+        <SearchBar search={search} />
       </FixedBox>
       <Container>
         <Outlet />

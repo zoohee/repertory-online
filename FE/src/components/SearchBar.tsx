@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -45,12 +46,26 @@ const Button = styled.button`
   }
 `;
 
-const SearchBar = () => {
+interface Props {
+  search: (keyword: string) => void;
+}
+
+const SearchBar = ({ search }: Props) => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    if (!ref.current || !ref.current.value) {
+      return;
+    }
+    search(ref.current.value);
+    ref.current.value = '';
+  };
+
   return (
     <Wrapper>
       {/* TODO: 검색 기준 넣기 */}
-      <Input type="text" placeholder="search" />
-      <Button>
+      <Input type="text" placeholder="search" ref={ref} />
+      <Button onClick={handleClick}>
         <SearchIcon />
       </Button>
     </Wrapper>
