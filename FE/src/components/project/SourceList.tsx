@@ -2,7 +2,7 @@ import { getMySource, getMySourceClone } from '@/services/dance';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import Source from './Source';
-import { Title } from './Title';
+// import { Title } from './Title';
 import { ISource } from '@/services/interface';
 import { SetStateAction, useState } from 'react';
 // import Tabs from '../common/Tab';
@@ -10,6 +10,16 @@ const SourceListWrapper = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+`;
+const Title = styled.div`
+  height: 5rem;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.8rem;
+  color: white;
+  text-align: left;
+  display: flex;
+  border-bottom: 0.6rem solid var(--background-color);
 `;
 const GridBox = styled.ul`
   padding: 0 16px;
@@ -95,7 +105,7 @@ const SourceList = () => {
   if (isError) return <>{error.message}...</>;
   return (
     <>
-      <Title title={'Source'} />
+      <Title>Source</Title>
       <TabWapper>
         <Tab onClick={() => handleTabClick('mysource')}>My Source</Tab>
         <Tab onClick={() => handleTabClick('clonedsource')}>Clone Source</Tab>
