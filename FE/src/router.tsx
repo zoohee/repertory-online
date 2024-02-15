@@ -25,6 +25,7 @@ import ProjectPage from '@/pages/ProjectPage';
 import SourcesContextProvider from '@/store/sources-context';
 import FeedContextProvider from '@/store/feed-context';
 import MyContextProvider from '@/store/my-context';
+import ProjectContextProvider from '@/store/project-context';
 
 import RepertoryPage from './pages/Repertory';
 import Test from './pages/Test';
@@ -60,7 +61,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: URL.projects,
-        element: <ProjectsPage />,
+        element: (
+          <ProjectContextProvider>
+            <ProjectsPage />
+          </ProjectContextProvider>
+        ),
         loader: projectsLoader,
       },
       {

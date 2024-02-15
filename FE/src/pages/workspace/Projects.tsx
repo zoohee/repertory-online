@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import { useLoaderData } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { Project, Tab } from '@/types';
+import { Tab } from '@/types';
 import TabButtons from '@/components/common/Tab';
 import SearchBar from '@/components/SearchBar';
 import ProjectList from '@/components/dance/DanceGridBox';
-import ProjectItem from '@/components/dance/Project';
+import ProjectItem from '@/components/dance/projects/ProjectItem';
 import CreateButton from '@/components/dance/CreateButton';
+import { projectContext } from '@/store/project-context';
 
 const Wrapper = styled.div`
   margin: 24px 0;
@@ -19,13 +20,13 @@ const Wrapper = styled.div`
 const TABS = [new Tab('My projects', true, () => {})];
 
 const ProjectsPage = () => {
-  const projects = useLoaderData() as Project[];
+  const { projects } = useContext(projectContext);
 
   return (
     <>
       <TabButtons tabs={TABS} />
       <Wrapper>
-        <SearchBar />
+        <SearchBar search={() => {}} />
         <CreateButton to="/workspace" target="_blank" />
       </Wrapper>
       <ProjectList column={3}>

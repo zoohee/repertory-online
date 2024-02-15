@@ -31,6 +31,7 @@ const postProject = async (projectId: number, data: FormData) => {
 const deleteProject = async (projectId: number) => {
   const response = await $axios().delete(`/project/${projectId}`);
   console.log(response);
+  return response;
 };
 // 선택한 프로젝트 정보 조회
 const getProjectDetail = async (projectId: number) => {
