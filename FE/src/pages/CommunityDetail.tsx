@@ -36,6 +36,14 @@ const Box = styled.div`
   margin-left: 24px;
 `;
 
+const NoContent = styled(Text.M)`
+  color: var(--text-secondary-dark-mode);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+`;
+
 const CommunityDetailPage = () => {
   const { feed, profile, sources } = useLoaderData() as CommunityDetail;
 
@@ -75,6 +83,9 @@ const CommunityDetailPage = () => {
         <RelatedVideoTitle>이 소스가 사용된 레퍼토리 영상</RelatedVideoTitle>
       )}
       {sources && <CommunityDanceList dances={sources} />}
+      {(sources === null || sources.length === 0) && (
+        <NoContent>관련 영상이 없습니다.</NoContent>
+      )}
     </>
   );
 };
