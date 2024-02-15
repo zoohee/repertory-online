@@ -92,11 +92,11 @@ public class ProjectController {
         String atc = accessToken.split(" ")[1];
 
         Project project = Project.builder()
-                .userId(jwtUtil.getMemberId(atc))
+                .memberId(jwtUtil.getMemberId(atc))
                 .projectName(projectName)
                 .projectDate(Instant.now())
                 .sourceList(new ArrayList<>())
-                .memberId(memberId)
+//                .memberId(memberId)
                 .build();
 
         Long projectId = projectService.saveProject(project, projectThumbnail);
