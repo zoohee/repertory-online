@@ -26,7 +26,7 @@ export const formatMilliSecondsToTimeString = (
   const minutes = totalMinutes % 60;
   const hours = totalHours;
 
-  const formattedMilliseconds = ('00' + milliseconds).slice(-2);
+  const formattedMilliseconds = ('00' + milliseconds).slice(-3);
   const formattedSeconds = ('00' + seconds).slice(-2);
   const formattedMinutes = ('00' + minutes).slice(-2);
   const formattedHours = ('00' + hours).slice(-2);

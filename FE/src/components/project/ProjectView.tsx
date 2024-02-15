@@ -11,13 +11,24 @@ import { formatMilliSecondsToTimeString } from '@/util';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import SaveIcon from '@mui/icons-material/Save';
 // import { Title } from './Title';
 const Tmp = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-between;
 `;
-
+const PleaseUploadFile = styled.div`
+  margin-top: 20%;
+  margin-bottom: -22%;
+  height: auto;
+  font-size: 1.7rem;
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+`;
 const ClearButton = styled.button<{ isDisabled: boolean }>`
   color: ${(props) => (props.isDisabled ? 'grey' : 'white')};
 `;
@@ -45,8 +56,10 @@ const TitleName = styled.div`
 const HiddenInput = styled.input`
   display: none;
 `;
-const UploadButton = styled.button`
+const TitleButton = styled.button`
   margin-top: 0.15rem;
+  margin-left: 1.2rem;
+  margin-right: 0.3rem;
   background: transparent;
   font-size: 1rem;
   &:hover {
@@ -60,7 +73,7 @@ const StyledVideo = styled.video`
   width: 100%;
 `;
 const StyledSlider = styled.input<SliderProps>`
-  width: 100%;
+  width: 95%;
   height: 100%;
   background: #ffffff;
   border-radius: 0.5rem;
@@ -76,16 +89,17 @@ const StyledSlider = styled.input<SliderProps>`
     border-radius: 1.3px;
   }
   &::-webkit-slider-thumb {
-    height: 60px;
+    height: 36px;
     width: 4px;
-    border-radius: 5px;
+    border-radius: 6px;
     background: #515151;
     cursor: pointer;
     -webkit-appearance: none;
   }
   &::-moz-range-track {
     width: 100%;
-    height: 30px;
+    height: 36px;
+    width: 4px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
     border-radius: 1.3px;
@@ -94,9 +108,10 @@ const StyledSlider = styled.input<SliderProps>`
   &::-moz-range-thumb {
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
     border: 1px solid #000000;
-    height: 30px;
-    width: 10px;
-    border-radius: 3px;
+    height: 36px;
+    width: 4px;
+
+    border-radius: 1.3px;
     background: #ffffff;
     cursor: pointer;
   }
@@ -276,10 +291,23 @@ const ProjectView = (props: Props) => {
       <ProjectViewWrapper>
         <Title>
           <TitleName>Project</TitleName>
-          <UploadButton type='button' onClick={handleButtonClick}>
+          <TitleButton type='button' onClick={handleButtonClick}>
             <FileUploadIcon />
-          </UploadButton>
+          </TitleButton>
+          <TitleButton
+            type='button'
+            onClick={() => {
+              if (props.videoRef.current === null) {
+                alert('Upload Video First!');
+              }
+            }}
+          >
+            <SaveIcon />
+          </TitleButton>
         </Title>
+        {props.videoRef.current?.src === '' && (
+          <PleaseUploadFile>Upload File First</PleaseUploadFile>
+        )}
         <StyledVideo
           ref={props.videoRef}
           // autoPlay
