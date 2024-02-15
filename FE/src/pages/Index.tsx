@@ -98,31 +98,44 @@ export default function HomePage() {
   return (
     <GridContainer>
       <List>
-        <ListItem>
-          {isLoggedIn ? (
+        {isLoggedIn && (
+          <ListItem>
             <StyledDiv onClick={logout}>Logout</StyledDiv>
-          ) : (
-            <StyledLink to={URL.login}>Log In</StyledLink>
-          )}
+          </ListItem>
+        )}
+        {/* <ListItem>
+          <StyledLink to={URL.login}>Log In</StyledLink>
         </ListItem>
         <ListItem>
           <StyledLink to={URL.signUp}>Sign Up</StyledLink>
-        </ListItem>
+        </ListItem> */}
       </List>
       <Box>
         <InnerBox>
-          <img src='images/logo.svg' alt='logo' />
-          <ul>
-            <ListItem>
-              <StyledLink to={URL.projects}>Create</StyledLink>
-            </ListItem>
-            <ListItem>
-              <StyledLink to={URL.community}>Community</StyledLink>
-            </ListItem>
-          </ul>
+          <img src="images/logo.svg" alt="logo" />
+          {isLoggedIn && (
+            <ul>
+              <ListItem>
+                <StyledLink to={URL.projects}>Create</StyledLink>
+              </ListItem>
+              <ListItem>
+                <StyledLink to={URL.community}>Community</StyledLink>
+              </ListItem>
+            </ul>
+          )}
+          {!isLoggedIn && (
+            <ul>
+              <ListItem>
+                <StyledLink to={URL.login}>Log In</StyledLink>
+              </ListItem>
+              <ListItem>
+                <StyledLink to={URL.signUp}>Sign Up</StyledLink>
+              </ListItem>
+            </ul>
+          )}
         </InnerBox>
         <ImageBox>
-          <img src='images/index.jpg' alt='home' />
+          <img src="images/index.jpg" alt="home" />
         </ImageBox>
       </Box>
     </GridContainer>
