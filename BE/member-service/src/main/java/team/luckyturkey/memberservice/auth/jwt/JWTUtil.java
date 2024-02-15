@@ -63,8 +63,8 @@ public class JWTUtil {
     //AccessToken 생성
     public String generateAccessToken(Long memberId, String memberLoginId, String memberRole) {
 
-        long tokenPeriod = 1000L * 60L * 10L; // 10분
-
+//        long tokenPeriod = 1000L * 60L * 10L; // 10분
+        long tokenPeriod = 1000L * 60L * 60L * 24L * 14; // 2주
         return Jwts.builder()
                 .claim("memberId", memberId)
                 .claim("memberLoginId", memberLoginId) //멤버 이름
