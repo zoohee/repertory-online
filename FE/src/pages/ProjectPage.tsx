@@ -34,7 +34,7 @@ const EditWrapper = styled(Container)`
   z-index: 10;
   margin-right: 10px;
   border-radius: 10px;
-  min-height: calc(100vh - var(--sidebar-margin));
+  min-height: calc(100vh - var(--sidebar-margin) * 3);
   width: calc(100vw - var(--sidebar-margin) * 3);
   min-width: calc(100vw - var(--sidebar-project--width));
   justify-content: space-evenly;
@@ -43,25 +43,22 @@ const EditWrapper = styled(Container)`
 
 const ViewWarpper = styled.div`
   border-radius: 10px;
-  min-height: calc(64vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-color);
   width: 100%;
   min-width: calc(100vw - var(--sidebar-project--width));
   display: flex;
-  height: calc(60vh - var(--sidebar-margin) * 2);
+  height: calc(82vh - var(--sidebar-margin) * 2);
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 `;
 
 const WorkbenchWarpper = styled.div`
   margin-top: 10px;
   border-radius: 10px;
-  min-height: calc(36vh - var(--sidebar-margin) * 2);
+  min-height: calc(20vh - var(--sidebar-margin) * 2);
   background-color: var(--sidebar-color);
   width: calc(100vw - var(--sidebar-project--width));
   width: 100%;
-  height: calc(30vh - var(--sidebar-margin) * 2);
   justify-content: space-evenly;
   flex-direction: column;
 `;
@@ -107,6 +104,11 @@ const ProjectPage: React.FC = () => {
 
   // Get source (file =>(startMilliseconds, endMilliseconds))
   const trimVideo = async ({ start, end }: ITrimSection) => {
+    console.log(
+      `trim ${formatMilliSecondsToTimeString(
+        start
+      )} to ${formatMilliSecondsToTimeString(end)}`
+    );
     const ffmpeg = ffmpegRef.current;
     if (!videoFile) {
       console.log('no file');
@@ -114,7 +116,9 @@ const ProjectPage: React.FC = () => {
     }
     await ffmpeg.writeFile('input.avi', await fetchFile(videoFile));
     console.log(`[FFmpeg] : ${ffmpeg} is written`);
-    // copy codec => super fast..
+
+    console.log(formatMilliSecondsToTimeString(start));
+    console.log(formatMilliSecondsToTimeString(end));
     await ffmpeg.exec([
       '-i',
       'input.avi',
@@ -139,9 +143,10 @@ const ProjectPage: React.FC = () => {
       videoRef.current.src = URL.createObjectURL(
         new Blob([data.buffer], { type: 'video/mp4' })
       );
+      console.log(videoRef.current.src);
       // append to list
-      VideoRefList.current.push(videoRef.current);
-      console.log(VideoRefList.current);
+      // VideoRefList.current.push(videoRef.current);
+      // console.log(VideoRefList.current);
     }
   };
 
@@ -211,8 +216,6 @@ const ProjectPage: React.FC = () => {
         new Blob([data.buffer], { type: 'video/mp4' })
       );
       console.log(videoRef.current.src);
-    } else {
-      console.log('bye');
     }
   };
 

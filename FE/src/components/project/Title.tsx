@@ -4,7 +4,7 @@ type titleProps = {
   title: string;
 };
 const TitleWrapper = styled.div`
-  height: 5rem;
+  height: 3rem;
   width: 100%;
   padding: 1.5rem;
   font-size: 1.8rem;
