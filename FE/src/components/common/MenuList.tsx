@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-const List = styled.menu`
+const List = styled.ul`
   display: flex;
   flex-direction: column;
   border-radius: var(--border-radius-small);

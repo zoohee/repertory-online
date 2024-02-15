@@ -1,39 +1,11 @@
-import { useNavigate, useLoaderData } from 'react-router-dom';
-import styled from 'styled-components';
+import { useLoaderData } from 'react-router-dom';
 
-import DanceGridBox from '@/components/dance/DanceGridBox';
-import CommunityDance from '@/components/community/CommunityDance';
+import CommunityDanceList from '@/components/community/CommunityDanceList';
 import { Community } from '@/types';
-import URL from '@/url';
-
-const ListContainer = styled.li`
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 const CommunityPage = () => {
-  const communityDanceList = useLoaderData() as Community[];
-
-  const navigate = useNavigate();
-
-  const navigateHandler = (id: number) => {
-    navigate(`${URL.communityDetail}/${id}`);
-  };
-
-  return (
-    <>
-      <DanceGridBox column={3}>
-        {communityDanceList.map((item) => {
-          return (
-            <ListContainer key={item.feedId} onClick={() => navigateHandler(item.feedId)}>
-              <CommunityDance item={item} />
-            </ListContainer>
-          );
-        })}
-      </DanceGridBox>
-    </>
-  );
+  const dances = useLoaderData() as Community[];
+  return <CommunityDanceList dances={dances} />;
 };
 
 export default CommunityPage;
@@ -41,6 +13,6 @@ export default CommunityPage;
 import { getCommunityFeed } from '@/services/community';
 
 export const communityLoader = async () => {
-  const response = await getCommunityFeed({ page: 0, pageSize: 5 });
+  const response = await getCommunityFeed({ page: 0, pageSize: 100 });
   return response.data;
-}
+};

@@ -9,6 +9,11 @@ interface MyContextType {
   openModal: () => void;
   modal: Modal;
   tabs: Tab[];
+  selectAll: () => void;
+  selectPublic: () => void;
+  selectPrivate: () => void;
+  filter: string;
+  setFilterName: (name: string) => void;
 }
 
 export const myContext = createContext({} as MyContextType);
@@ -28,11 +33,14 @@ const MyContextProvider = ({ children }: Props) => {
 
   const [dances, setDances] = useState(feed);
 
+  const [filter, setFilter] = useState('Filter');
+
   const clickFeed = () => {
     setDances(feed);
     setFeedClicked(true);
     setSourceClicked(false);
     setRepertoryClicked(false);
+    setFilter('Filter');
   };
 
   const clickSource = () => {
@@ -40,6 +48,7 @@ const MyContextProvider = ({ children }: Props) => {
     setFeedClicked(false);
     setSourceClicked(true);
     setRepertoryClicked(false);
+    setFilter('Filter');
   };
 
   const clickRepertory = () => {
@@ -47,6 +56,7 @@ const MyContextProvider = ({ children }: Props) => {
     setFeedClicked(false);
     setSourceClicked(false);
     setRepertoryClicked(true);
+    setFilter('Filter');
   };
 
   const [index, setIndex] = useState(0);
@@ -66,6 +76,40 @@ const MyContextProvider = ({ children }: Props) => {
     if (index > 0) {
       setIndex((prev) => prev - 1);
     }
+  };
+
+  const selectAll = () => {
+    if (sourceClicked) {
+      setDances(source);
+    } else if (repertoryClicked) {
+      setDances(repertory);
+    } else {
+      setDances(feed);
+    }
+  };
+
+  const selectPublic = () => {
+    let items = feed;
+    if (sourceClicked) {
+      items = source;
+    } else if (repertoryClicked) {
+      items = repertory;
+    }
+    setDances(items.filter((item) => !item.feedDisable));
+  };
+
+  const selectPrivate = () => {
+    let items = feed;
+    if (sourceClicked) {
+      items = source;
+    } else if (repertoryClicked) {
+      items = repertory;
+    }
+    setDances(items.filter((item) => item.feedDisable));
+  };
+
+  const setFilterName = (name: string) => {
+    setFilter(name);
   };
 
   const openModal = () => {
@@ -97,6 +141,11 @@ const MyContextProvider = ({ children }: Props) => {
     openModal,
     modal,
     tabs,
+    selectAll,
+    selectPublic,
+    selectPrivate,
+    filter,
+    setFilterName,
   };
 
   return <myContext.Provider value={value}>{children}</myContext.Provider>;

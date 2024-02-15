@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
 
-import Image from '@/components/common/Image';
+import Image from '@/components/common/ImageSquare';
 import * as Text from '@/components/common/Text';
 import Follow from '@/components/community/Follow';
 import DanceGridBox from '@/components/dance/DanceGridBox';
 import FeedItem from '@/components/feed/CommunityFeedItem';
-import CommunityHover from '@/components/feed/CommunityHover';
 import { feedContext } from '@/store/feed-context';
 import FeedItemModal from '@/components/feed/FeedItemModal';
 
@@ -20,32 +19,30 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ $size: number }>`
   display: flex;
-  margin: 24px 0;
+  margin: ${({ $size }) => $size}px 0;
 `;
 
 const CommunityUserFeedPage = () => {
-  const { dances, modal } = useContext(feedContext);
+  const { dances, profile, modal } = useContext(feedContext);
 
   return (
     <Container>
-      <Image size={240} src="/images/index.jpg" isRound={true} />
-      <div style={{ margin: '24px 0' }}>
-        <Text.XL>Dancer Name</Text.XL>
-      </div>
-      <Follow $size="medium" $followed={false} memberId={123} />
-      <Wrapper>
-        <Text.M>게시물</Text.M>
-        <TextMargin>{123}</TextMargin>
-        <TextMargin>팔로워</TextMargin>
-        <Text.M>{123}</Text.M>
+      <Image size={240} src={profile.memberProfile} isRound={true} />
+      <Wrapper $size={24}>
+        <Text.XL>{profile.memberName}</Text.XL>
+      </Wrapper>
+      <Follow $size="medium" $followed={profile.followed} memberId={123} />
+      <Wrapper $size={40}>
+        <Text.M>POST</Text.M>
+        <TextMargin>{dances.length}</TextMargin>
+        <TextMargin>FOLLOW</TextMargin>
+        <Text.M>{profile.followerCount}</Text.M>
       </Wrapper>
       <DanceGridBox column={3}>
         {dances.map((dance, idx) => (
-          <FeedItem key={dance.feedId} index={idx} src={dance.feedThumbnailUrl}>
-            <CommunityHover likeCount={dance.likeCount} />
-          </FeedItem>
+          <FeedItem key={dance.feedId} index={idx} feed={dance} />
         ))}
       </DanceGridBox>
       {modal.isOpen && <FeedItemModal modal={modal} />}
@@ -55,9 +52,10 @@ const CommunityUserFeedPage = () => {
 
 export default CommunityUserFeedPage;
 
-import { getFeedProfile } from '@/services/community';
+import { getFeedProfile, getFeedList } from '@/services/community';
 
 export const communityFeedLoader = async (memberId: number) => {
-  const response = await getFeedProfile(memberId);
-  return response.data;
+  const profile = (await getFeedProfile(memberId)).data;
+  const dances = (await getFeedList(memberId)).data;
+  return { dances, profile };
 };

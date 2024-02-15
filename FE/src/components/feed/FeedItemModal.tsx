@@ -11,6 +11,7 @@ import Download from '@/components/community/Download';
 import Like from '@/components/community/Like';
 import URL from '@/url';
 import { Community, Modal } from '@/types';
+import { deriveDaysAgo } from '@/services/util';
 
 const Close = styled(CloseIcon)`
   z-index: 100;
@@ -137,7 +138,7 @@ const FeedItemModal = ({ modal, disable }: Props) => {
           <Wrapper>
             <ColumnBox>
               <Title dance={dance} />
-              <Detail>{dance.feedDate}</Detail>
+              <Detail>{deriveDaysAgo(dance.feedDate)}</Detail>
             </ColumnBox>
             <FlexBox>
               {dance.feedType === 'SOURCE' && (

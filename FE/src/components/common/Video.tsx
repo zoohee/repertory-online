@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Player = styled.video`
   width: 100%;
-  max-height: calc(100vh * 0.5);
+  aspect-ratio: 16 / 9;
+  /* max-height: calc(100vh * 0.5); */
   background-color: black;
 `;
 

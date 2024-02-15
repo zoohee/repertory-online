@@ -30,22 +30,10 @@ const IconBox = styled.div`
   margin-right: 8px;
 `;
 
-export class Menu {
-  name: string;
-  icon: JSX.Element;
-  request: () => void;
-
-  constructor(name: string, icon: JSX.Element, request: () => void) {
-    this.name = name;
-    this.icon = icon;
-    this.request = request;
-  }
-}
-
 interface Props {
   children: React.ReactNode;
   name: string;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick: () => void;
 }
 
 const MenuButton = ({ children, name, onClick }: Props) => {

@@ -68,6 +68,7 @@ const GlobalStyles = createGlobalStyle`
     button, input{
         font-family: 'YdestreetL', sans-serif;
         background-color: transparent;
+        white-space: nowrap;
     }
     @font-face {
         font-family: 'Pretendard';
@@ -93,7 +94,7 @@ const GlobalStyles = createGlobalStyle`
       --sidebar-nav-hover: var(--rp-grey-600);
       --sidebar-nav-active: var(--rp-grey-500);
       --sidebar-nav-height: 2.8rem;
-      --sidebar-nav-padding: 12px;
+      --sidebar-nav-padding: 0.8rem;
       --text-primary-dark-mode: #f1f1f1;
       --text-secondary-dark-mode: #aaa;
       --text-secondary: #606060;
@@ -136,6 +137,9 @@ const GlobalStyles = createGlobalStyle`
       /* homepage */
       --homepage-padding: 48px;
       --homepage-grid-row-size: 3rem;
+
+      /* menu tab */
+      --menu-tab-margin-top: 48px;
     }
     .red {
         color: var(--color-red);

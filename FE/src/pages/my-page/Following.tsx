@@ -27,7 +27,7 @@ const FollowingPage = () => {
 
   return (
     <>
-      <TabButtons tabs={TABS} margin="48px 0 32px" />
+      <TabButtons tabs={TABS} marginBottom={32} />
       <ul>
         {members.map((member) => (
           <ListItem key={member.memberId}>

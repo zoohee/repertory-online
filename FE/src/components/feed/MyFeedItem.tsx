@@ -1,34 +1,23 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import Image from '@/components/common/Image';
-import Lock from '@/components/feed/Lock';
+import Image from '@/components/common/ImageSquare';
+import LockIcon from '@/components/feed/Lock';
 import { Community } from '@/types';
-import { myContext } from '@/store/my-context';
+import MyFeedHover from '@/components/feed/MyFeedHover';
 
 const ListItem = styled.li`
   position: relative;
-  aspect-ratio: 1 / 1;
-  & > div {
-    height: 100%;
-  }
-`;
-
-const Hover = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
 `;
 
 interface Props {
-  children: React.ReactNode;
   feed: Community;
   index: number;
 }
 
-const FeedItem = ({ children, feed, index }: Props) => {
+const FeedItem = ({ feed, index }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
-  const { openModal, selectDance } = useContext(myContext);
+  const [isPrivate, setPrivate] = useState(feed.feedDisable);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -38,15 +27,26 @@ const FeedItem = ({ children, feed, index }: Props) => {
     setIsHovering(false);
   };
 
-  const handleClick = () => {
-    selectDance(index);
-    openModal();
+  const lock = () => {
+    setPrivate(true);
+  };
+
+  const unlock = () => {
+    setPrivate(false);
   };
 
   return (
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      {isHovering && <Hover onClick={handleClick}>{children}</Hover>}
-      {feed.feedDisable && !isHovering && <Lock />}
+      {isHovering && (
+        <MyFeedHover
+          feed={feed}
+          index={index}
+          isPrivate={isPrivate}
+          lock={lock}
+          unlock={unlock}
+        />
+      )}
+      {isPrivate && !isHovering && <LockIcon />}
       <Image src={feed.feedThumbnailUrl}></Image>
     </ListItem>
   );

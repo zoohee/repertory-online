@@ -7,6 +7,7 @@ const URL = {
   community: '/community',
   communityDetail: '/community',
   communityFeed: '/community/member',
+  communitySearch: '/community/search',
   myFeed: '/mypage/feed',
   Following: 'mypage/following',
 };

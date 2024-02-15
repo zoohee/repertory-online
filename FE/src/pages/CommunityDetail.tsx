@@ -9,6 +9,7 @@ import Follow from '@/components/community/Follow';
 import ChannelInfo from '@/components/Wrapper';
 import { CommunityDetail } from '@/types';
 import Video from '@/components/common/Video';
+import CommunityDanceList from '@/components/community/CommunityDanceList';
 
 const VideoBox = styled.div`
   width: 100%;
@@ -17,8 +18,13 @@ const VideoBox = styled.div`
   }
 `;
 
-const TextLarge = styled(Text.XL)`
-  margin: 16px 0;
+const Title = styled(Text.XL)`
+  margin: 1rem 0;
+`;
+
+const RelatedVideoTitle = styled(Text.L)`
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const Wrapper = styled.div`
@@ -30,15 +36,23 @@ const Box = styled.div`
   margin-left: 24px;
 `;
 
+const NoContent = styled(Text.M)`
+  color: var(--text-secondary-dark-mode);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+`;
+
 const CommunityDetailPage = () => {
-  const { feed, profile } = useLoaderData() as CommunityDetail;
+  const { feed, profile, sources } = useLoaderData() as CommunityDetail;
 
   return (
     <>
       <VideoBox>
         <Video src={feed.feedUrl} />
       </VideoBox>
-      <TextLarge>{feed.feedName}</TextLarge>
+      <Title>{feed.feedName}</Title>
       <ChannelInfo $margin="0">
         <Wrapper>
           <UserProfile
@@ -62,6 +76,16 @@ const CommunityDetailPage = () => {
           <Like feed={feed} />
         </Wrapper>
       </ChannelInfo>
+      {feed.feedType == 'REPERTORY' && (
+        <RelatedVideoTitle>이 레퍼토리에 사용된 소스 영상</RelatedVideoTitle>
+      )}
+      {feed.feedType == 'SOURCE' && (
+        <RelatedVideoTitle>이 소스가 사용된 레퍼토리 영상</RelatedVideoTitle>
+      )}
+      {sources && <CommunityDanceList dances={sources} />}
+      {(sources === null || sources.length === 0) && (
+        <NoContent>관련 영상이 없습니다.</NoContent>
+      )}
     </>
   );
 };

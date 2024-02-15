@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 import Dance from '@/components/dance/Dance';
 import { Secondary as Text } from '@/components/common/Text';
-import DanceHover from '@/components/dance/sources/SourceHover';
-import { Source } from '@/types';
+import DanceHover from '@/components/dance/projects/ProjectHover';
+import { Project } from '@/types';
+import { deriveDaysAgo } from '@/services/util';
 
 const ListItem = styled.li`
   position: relative;
@@ -12,10 +13,10 @@ const ListItem = styled.li`
 `;
 
 interface Props {
-  source: Source;
+  project: Project;
 }
 
-const SourceItem = ({ source }: Props) => {
+const ProjectItem = ({ project }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
 
   const handleMouseOver = () => {
@@ -28,12 +29,15 @@ const SourceItem = ({ source }: Props) => {
 
   return (
     <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      {isHovering && <DanceHover id={source.sourceId} />}
-      <Dance thumbnail={source.sourceThumbnailUrl} title={source.sourceName}>
-        <Text>{source.tagNameList.map((tag) => `#${tag}`).join(' ')}</Text>
+      {isHovering && <DanceHover id={project.id} />}
+      <Dance
+        thumbnail={project.projectThumbnailUrl}
+        title={project.projectName}
+      >
+        <Text>{deriveDaysAgo(project.projectDate)}</Text>
       </Dance>
     </ListItem>
   );
 };
 
-export default SourceItem;
+export default ProjectItem;

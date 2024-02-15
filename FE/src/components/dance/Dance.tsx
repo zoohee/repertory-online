@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { XL } from '@/components/common/Text';
-import Thumbnail from '@/components/common/Image';
+import Thumbnail from '@/components/common/ImageSquare';
 
 const Box = styled.div`
   width: 100%;

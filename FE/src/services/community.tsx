@@ -1,6 +1,7 @@
-import { $axios,
-  // $auth 
-}from './config';
+import {
+  $axios,
+  // $auth
+} from './config';
 interface IPage {
   page: number;
   pageSize: number;
@@ -123,8 +124,21 @@ const getSubscribersList = async () => {
   return response;
 };
 // 유저 피드 프로필 조회
-const getFeedProfile = async (memberId: number) => {
+const getFeedList = async (memberId: number) => {
   const response = await $axios().get(`/community/feed/profile/${memberId}`);
+  console.log(response.data);
+  return response;
+};
+const getFeedProfile = async (memberId: number) => {
+  const response = await $axios().get(
+    `/community/feed/profile/subscriber/${memberId}`
+  );
+  console.log(response.data);
+  return response;
+};
+// 동영상 검색
+const getFeedSearch = async (keyword: string) => {
+  const response = await $axios().get(`/community/search/tag/${keyword}`);
   console.log(response.data);
   return response;
 };
@@ -143,5 +157,7 @@ export {
   getFeedVideo,
   saveFeed,
   getSubscribersList,
+  getFeedList,
   getFeedProfile,
+  getFeedSearch,
 };

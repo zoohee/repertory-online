@@ -20,15 +20,14 @@ interface Props {
 
 const Download = ({ feed, disable }: Props) => {
   const [count, setCount] = useState(feed.downloadCount);
-  // TODO: 다운로드 여부 추가
-  const [downloaded, setDownloaded] = useState(false);
+  const [downloaded, setDownloaded] = useState(feed.isDownloaded);
   const blocked = downloaded || disable;
   const handleClick = () => {
     if (blocked) {
       return;
     }
     postSourceClone(feed.feedId).then(() => {
-      setCount(count + 1);
+      setCount((prev) => prev + 1);
       setDownloaded(true);
     });
   };
@@ -37,7 +36,7 @@ const Download = ({ feed, disable }: Props) => {
     <Button as={blocked ? 'div' : 'button'} onClick={handleClick}>
       {!downloaded && <FileDownloadIcon />}
       {downloaded && <FileDownloadDoneIcon />}
-      <div>{feed.downloadCount}</div>
+      <div>{count}</div>
     </Button>
   );
 };

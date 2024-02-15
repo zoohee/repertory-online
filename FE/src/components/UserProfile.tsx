@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import URL from '@/url';
-import ProfileImage from '@/components/common/Image';
+import ProfileImage from '@/components/common/ImageSquare';
 import { Member } from '@/types';
 
 const Box = styled.div`
+  display: flex;
+`;
+
+const InnerBox = styled(Box)`
   display: flex;
   flex-direction: column;
   margin-left: 8px;
@@ -30,7 +34,7 @@ const UserProfile = ({ children, imageSize, member, name }: Props) => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <Box>
       <Link
         to={`${URL.communityFeed}/${member.memberId}`}
         onClick={stopBubbling}
@@ -41,7 +45,7 @@ const UserProfile = ({ children, imageSize, member, name }: Props) => {
           src={member.memberProfile}
         />
       </Link>
-      <Box>
+      <InnerBox>
         <StyledLink
           to={`${URL.communityFeed}/${member.memberId}`}
           onClick={stopBubbling}
@@ -49,8 +53,8 @@ const UserProfile = ({ children, imageSize, member, name }: Props) => {
           {name}
         </StyledLink>
         {children}
-      </Box>
-    </div>
+      </InnerBox>
+    </Box>
   );
 };
 

@@ -1,30 +1,21 @@
 import { useState, useContext } from 'react';
 import styled from 'styled-components';
 
-import Image from '@/components/common/Image';
+import Image from '@/components/common/ImageSquare';
 import { feedContext } from '@/store/feed-context';
+import { Community } from '@/types';
+import CommunityHover from '@/components/feed/CommunityHover';
 
-const Box = styled.li`
+const ListItem = styled.li`
   position: relative;
-  aspect-ratio: 1 / 1;
-  & > div {
-    height: 100%;
-  }
-`;
-
-const Hover = styled.div`
-  position: absolute;
-  height: 100%;
-  width: 100%;
 `;
 
 interface Props {
-  children: React.ReactNode;
   index: number;
-  src: string;
+  feed: Community;
 }
 
-const FeedItem = ({ children, index, src }: Props) => {
+const FeedItem = ({ index, feed }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const { selectDance, openModal } = useContext(feedContext);
 
@@ -42,10 +33,12 @@ const FeedItem = ({ children, index, src }: Props) => {
   };
 
   return (
-    <Box onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      {isHovering && <Hover onClick={handleClick}>{children}</Hover>}
-      <Image src={src}></Image>
-    </Box>
+    <ListItem onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+      {isHovering && (
+        <CommunityHover onClick={handleClick} likeCount={feed.likeCount} />
+      )}
+      <Image src={feed.feedThumbnailUrl}></Image>
+    </ListItem>
   );
 };
 

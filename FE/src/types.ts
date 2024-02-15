@@ -1,3 +1,12 @@
+interface Project {
+  id: number;
+  memberId: number;
+  projectDate: string;
+  projectName: string;
+  projectThumbnailUrl: string;
+  // sourceList
+}
+
 interface Tag {
   tagId: number;
   memberId: number;
@@ -42,6 +51,7 @@ interface Community {
   feedThumbnailUrl: string;
   feedType: string;
   feedUrl: string;
+  isDownloaded: boolean;
   isLiked: boolean;
   likeCount: number;
   memberId: number;
@@ -53,6 +63,7 @@ interface Community {
 interface CommunityDetail {
   feed: Community;
   profile: Profile;
+  sources: Community[];
 }
 
 interface Member {
@@ -82,6 +93,7 @@ interface IProject {
 }
 
 export type {
+  Project,
   Tag,
   Source,
   MySource,
@@ -90,4 +102,5 @@ export type {
   Member,
   Modal,
   IProject,
+  Profile,
 };
