@@ -91,16 +91,17 @@ const ProjectView = (props: Props) => {
       const file = event.target.files[0];
       props.setVideo(file);
       if (props.videoRef.current) {
-        console.log('initial ref');
-        props.videoRef.current.srcObject = new Blob([file], {
-          type: file.type,
-        });
+        props.videoRef.current.src = URL.createObjectURL(file);
       }
     }
   };
   return (
     <>
-      <HiddenInput type='file' onChange={handleFileUpload} ref={fileInput} />
+      <HiddenInput
+        type='file'
+        onChange={(e) => handleFileUpload(e)}
+        ref={fileInput}
+      />
       <ProjectViewWrapper>
         <Title>
           <TitleName>Project</TitleName>
@@ -111,7 +112,7 @@ const ProjectView = (props: Props) => {
         <StyledVideo
           ref={props.videoRef}
           autoPlay
-          controls
+          // controls
           onLoadedData={(event) => event.currentTarget.play()}
         ></StyledVideo>
       </ProjectViewWrapper>

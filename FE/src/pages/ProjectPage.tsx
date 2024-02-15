@@ -78,6 +78,8 @@ const ProjectPage: React.FC = () => {
   useEffect(() => {
     load();
   }, []);
+
+  // Load FFmpeg
   const load = async () => {
     const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
     const ffmpeg = ffmpegRef.current;
@@ -103,7 +105,7 @@ const ProjectPage: React.FC = () => {
     setLoaded(true);
   };
 
-  // get source (file =>(startMilliseconds, endMilliseconds))
+  // Get source (file =>(startMilliseconds, endMilliseconds))
   const trimVideo = async ({ start, end }: ITrimSection) => {
     const ffmpeg = ffmpegRef.current;
     if (!videoFile) {
@@ -130,6 +132,8 @@ const ProjectPage: React.FC = () => {
     ]);
 
     const fileData = await ffmpeg.readFile('output.mp4');
+
+    // to video
     const data = new Uint8Array(fileData as ArrayBuffer);
     if (videoRef.current) {
       videoRef.current.src = URL.createObjectURL(
