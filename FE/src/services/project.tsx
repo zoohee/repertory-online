@@ -1,26 +1,22 @@
-import {
-  $axios,
-  // $auth,
-  $pose,
-} from './config';
+import { $auth, $pose } from './config';
 
 // 프로젝트 목록 조회
 const getProjectsList = async () => {
-  const response = await $axios().get(`/project/`);
+  const response = await $auth().get(`/project/`);
   console.log(response);
   return response;
 };
 
 // 프로젝트 이름 수정
 const patchProject = async (projectId: number) => {
-  const response = await $axios().patch(`/project/${projectId}`);
+  const response = await $auth().patch(`/project/${projectId}`);
   console.log(response);
 };
 
 // 프로젝트 생성
 const postProject = async (projectId: number, data: FormData) => {
   console.log(projectId);
-  const response = await $axios().post(`/project`, data, {
+  const response = await $auth().post(`/project`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -29,13 +25,13 @@ const postProject = async (projectId: number, data: FormData) => {
 };
 // 프로젝트 삭제
 const deleteProject = async (projectId: number) => {
-  const response = await $axios().delete(`/project/${projectId}`);
+  const response = await $auth().delete(`/project/${projectId}`);
   console.log(response);
   return response;
 };
 // 선택한 프로젝트 정보 조회
 const getProjectDetail = async (projectId: number) => {
-  const response = await $axios().get(`/project/${projectId}`);
+  const response = await $auth().get(`/project/${projectId}`);
   console.log(response);
 };
 // 포즈 라벨링
@@ -46,6 +42,7 @@ const detectPose = async (img: File) => {
     },
   });
   console.log(response);
+  return response;
 };
 // const detectPose = async (img) => {
 //   const response = await $pose().post(`/pose/pose-detect/`,img);

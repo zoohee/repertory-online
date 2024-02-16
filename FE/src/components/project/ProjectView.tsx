@@ -13,8 +13,9 @@ import PauseIcon from '@mui/icons-material/Pause';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import SaveIcon from '@mui/icons-material/Save';
 import { Dialog } from './Dialog';
-import Image from '../common/Image';
+import ImageSquare from '../common/ImageSquare';
 import * as dance from '@/services/dance';
+import * as project from '@/services/project';
 // import { Title } from './Title';
 const Tmp = styled.div`
   width: 80%;
@@ -222,6 +223,14 @@ const ProjectView = (props: Props) => {
   const [open, setOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState({ start: '', middle: '', end: '' });
+  const [imageFiles, setImageFiles] = useState({
+    start: File,
+    middle: File,
+    end: File,
+  });
+
+  const [startPose, setStartPose] = useState('');
+  const [endPose, setEndPose] = useState('');
   const [video, setVideo] = useState<File | null>(null);
   useEffect(() => {
     const video = props.videoRef.current;
@@ -353,6 +362,12 @@ const ProjectView = (props: Props) => {
         middle: URL.createObjectURL(middleImage),
         end: URL.createObjectURL(endImage),
       });
+
+      setImageFiles({
+        start: startImage,
+        middle: middleImage,
+        end: endImage,
+      });
       setOpen(true);
     }
   };
@@ -366,8 +381,11 @@ const ProjectView = (props: Props) => {
       end: 'string',
     };
     const formData = new FormData();
-    formData.append('sourceThumbnail', image.start);
-    formData.append('sourceVideo', props.video);
+    if (props.videoRef.current) {
+      formData.append('sourceThumbnail', images.start);
+      formData.append('sourceVideo', props.videoRef.current.src);
+    }
+
     formData.append(
       'postSource',
       new Blob([JSON.stringify(data)], { type: 'application/json' })
@@ -375,9 +393,33 @@ const ProjectView = (props: Props) => {
     dance.postSource(formData);
   };
 
+  const DetectPose = () => {
+    project
+      .detectPose(
+        new File([images.start], 'start.jpeg', {
+          type: 'text/plain',
+          lastModified: Date.now(),
+        })
+      )
+      .then((res) => {
+        setStartPose(res.data);
+      });
+    project
+      .detectPose(
+        new File([images.end], 'end.jpeg', {
+          type: 'text/plain',
+          lastModified: Date.now(),
+        })
+      )
+      .then((res) => {
+        setStartPose(res.data);
+      });
+  };
+
   // TRButton 클릭 이벤트
   const onTRButtonClick = () => {
     saveImages(props.videoRef);
+    DetectPose();
   };
   return (
     <>
@@ -407,14 +449,14 @@ const ProjectView = (props: Props) => {
           <Dialog open={open} onClose={() => setOpen(false)}>
             <p>Save Source</p>
             <FlexWrapper>
-              <Image src={images.start} size={140} />
-              <Image src={images.middle} size={140} />
-              <Image src={images.end} size={140} />
+              <ImageSquare src={images.start} size={140} />
+              <ImageSquare src={images.middle} size={140} />
+              <ImageSquare src={images.end} size={140} />
             </FlexWrapper>
             <input type='text' placeholder='Name' value='MySource' />
             <input type='text' placeholder='Length' value={duration} />
-            <input type='text' placeholder='Start' />
-            <input type='text' placeholder='End' />
+            <input type='text' placeholder='Start' value={startPose} />
+            <input type='text' placeholder='End' value={endPose} />
             <button onClick={() => setOpen(false)}>Close</button>
           </Dialog>
         </Title>
