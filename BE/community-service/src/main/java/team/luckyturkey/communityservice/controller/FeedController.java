@@ -5,9 +5,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import team.luckyturkey.communityservice.client.MemberServiceClient;
+import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
 import team.luckyturkey.communityservice.dto.response.ProfileSubscriberResponse;
-import team.luckyturkey.communityservice.dto.response.RelatedSourcesResponse;
+import team.luckyturkey.communityservice.dto.response.FeedRepertoryDetailResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.FeedService;
@@ -44,7 +45,7 @@ public class FeedController {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
         List<Long> followingList = subscribeService.getFollowingList(memberId);
-        List<Feed> feeds = feedService.getFeeds(followingList, page, pageSize);
+        List<Feed> feeds = feedService.getFollowingFeeds(followingList, page, pageSize);
 
         return feedService.getFeedsAndDetail(feeds, memberId);
     }
@@ -56,25 +57,29 @@ public class FeedController {
         Long memberId = 5678L;
 
         List<Feed> feeds = feedService.getAllFeeds(page, pageSize);
-        for (Feed feed : feeds) {
-            feed.setLikeCount(likeService.getFeedLikeCount(feed.getId()));
-        }
 
         return feedService.getFeedsAndDetail(feeds, memberId);
     }
 
     @GetMapping("/detail/{feedId}")
-    public RelatedSourcesResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
+    public FeedRepertoryDetailResponse getFeedDetail(@PathVariable("feedId") Long feedId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;
 
         Feed feed = feedService.getFeed(feedId);
         FeedDetailResponse feedDetailResponse = feedService.getFeedDetail(feed, memberId);
+        MemberDto memberDto = memberServiceClient.getMemberInfo(feedDetailResponse.getMemberId());
+        ProfileSubscriberResponse profileSubscriberResponse = ProfileSubscriberResponse.builder()
+                .memberId(feedDetailResponse.getMemberId())
+                .memberName(memberDto.getMemberName())
+                .followerCount(subscribeService.getSubscribersCount(feed.getMemberId()))
+                .isFollowed(subscribeService.getIsFollowed(memberId, memberDto.getMemberId()))
+                .build();
 
-        return RelatedSourcesResponse.builder()
+        // repertory 기준
+        return FeedRepertoryDetailResponse.builder()
                 .feed(feedDetailResponse)
-                .isFollowed(subscribeService.getIsFollowed(memberId, feed.getMemberId()))
-//                danceClient에서 레퍼토리 소스들 가져오기
+                .profile(profileSubscriberResponse)
 //                .feeds()
                 .build();
     }
@@ -115,12 +120,12 @@ public class FeedController {
 
     @PostMapping("/disable")
     public void setFeedPublic(@RequestBody Feed feed) {
-        feedService.setFeedPublic(feed, true);
+        feedService.setFeedPublic(feed, false);
     }
 
     @PatchMapping("/disable")
     public void setFeedPrivate(@RequestBody Feed feed) {
-        feedService.setFeedPublic(feed, false);
+        feedService.setFeedPublic(feed, true);
     }
 
     @GetMapping("/profile/{memberId}")

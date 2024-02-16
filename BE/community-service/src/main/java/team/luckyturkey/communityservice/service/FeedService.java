@@ -48,9 +48,8 @@ public class FeedService {
     }
 
     // 구독한 사람들의 피드를 최신순으로 불러 오는 함수
-    public List<Feed> getFeeds(List<Long> followingList, int pageNumber, int pageSize) {
+    public List<Feed> getFollowingFeeds(List<Long> followingList, int pageNumber, int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-
         return feedRepository.findFeedsByFollowingList(followingList, pageable);
     }
 
@@ -81,8 +80,7 @@ public class FeedService {
         for (Feed feed : feeds) {
             OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
             if (originDto.getFeedName() == null) { continue; }
-            MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
-//            if (memberDto.getMemberId() == null) { continue; }
+            MemberDto memberDto = memberServiceClient.getMemberInfo(originDto.getMemberId());
 
             FeedDetailResponse feedDetailResponse = dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
             feedDetailResponseList.add(feedDetailResponse);
