@@ -14,6 +14,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import team.luckyturkey.memberservice.member.dto.CustomMemberDetails;
 import team.luckyturkey.memberservice.member.entity.Member;
+import team.luckyturkey.memberservice.member.repository.MemberRepository;
+import team.luckyturkey.memberservice.member.repository.RefreshTokenRepository;
+import team.luckyturkey.memberservice.service.RefreshTokenService;
 
 import java.io.IOException;
 

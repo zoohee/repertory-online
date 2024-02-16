@@ -102,11 +102,11 @@ public class MemberController {
 
     }
 
-    @GetMapping("/following")
-    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
-        System.out.println(followingList);
-        return memberService.getFollowingMemberInfo(followingList);
-    }
+//    @GetMapping("/following")
+//    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+//        System.out.println(followingList);
+//        return memberService.getFollowingMemberInfo(followingList);
+//    }
 
     @GetMapping("/memberinfo/{memberId}")//주희꺼
     public MemberInfoResponseDto getMemberInfoById(@PathVariable Long memberId) {

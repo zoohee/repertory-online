@@ -30,7 +30,6 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-<<<<<<< HEAD
     public Member getMemberByLoginId(String memberLoginId){
 
         return memberRepository.findByMemberLoginId(memberLoginId);
@@ -77,23 +76,26 @@ public class MemberService {
         return memberRepository.findMemberLoginIdByMemberEmail(memberEmail);
     }
 
+//    public List<CommunityMemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
+//        List<CommunityMemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
+//        for (Long id : followingList) {
+//            Optional<Member> optionalMember = memberRepository.findById(id);
+//            if (optionalMember.isPresent()) {
+//                Member member = optionalMember.get();
+//                CommunityMemberInfoResponseDto memberInfoResponseDto = new CommunityMemberInfoResponseDto();
+//                memberInfoResponseDto.setMemberName(member.getMemberName());
+//                memberInfoResponseDto.setMemberProfile(member.getMemberProfile());
+//                followingMemberInfoList.add(memberInfoResponseDto);
+//            } else {
+//                throw new RuntimeException("Member not found for id: " + id);
+//            }
+//        }
+//        return followingMemberInfoList;
+//    }
+
+
     public List<CommunityMemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
         List<CommunityMemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
-        for (Long id : followingList) {
-            Member m = memberRepository.findById(id);
-            if (m != null) {
-                MemberInfoResponseDto memberInfoResponseDto = new MemberInfoResponseDto();
-                memberInfoResponseDto.setMemberName(m.getMemberName());
-                memberInfoResponseDto.setMemberProfile(m.getMemberProfile());
-                followingMemberInfoList.add(memberInfoResponseDto);
-            } else {
-                throw new RuntimeException();
-            }
-        }
-        return followingMemberInfoList;
-=======
-    public List<MemberInfoResponseDto> getFollowingMemberInfo(List<Long> followingList) {
-        List<MemberInfoResponseDto> followingMemberInfoList = new ArrayList<>();
         for (Long id : followingList) {
             Optional<Member> optionalMember = memberRepository.findById(id);
 
@@ -129,7 +131,7 @@ public class MemberService {
 //            throw new RuntimeException();
         }
         return memberInfoResponseDto;
->>>>>>> 3695e407 (Feat: get FeedsAndDetail with MemberService)
+
     }
 
     public List<CommunityMemberInfoResponseDto> searchByMemberName(String keyword) {

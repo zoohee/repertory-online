@@ -1,13 +1,12 @@
 package team.luckyturkey.memberservice.member.dto.responsedto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @ToString
-@Getter
+@Getter @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommunityMemberInfoResponseDto {
     private Long memberId;
     private String memberName;

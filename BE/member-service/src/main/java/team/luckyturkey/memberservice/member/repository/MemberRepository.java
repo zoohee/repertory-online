@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import team.luckyturkey.memberservice.member.dto.responsedto.CommunityMemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
+
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> { // JPA 레포지토리 상속받고, 엔티티와 id의 레퍼런스 타입 입력받기
