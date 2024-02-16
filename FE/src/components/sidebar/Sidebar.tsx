@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ProfileImage from '@/components/common/ImageSquare';
 import Navigation from '@/components/sidebar/Navigation';
 import { S } from '@/components/common/Text';
+import { Member } from '@/types';
 
 const Text = styled(S)`
   margin: 1rem;
@@ -66,7 +67,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const SideBar = () => {
+interface Props {
+  member: Member;
+}
+
+const SideBar = ({ member }: Props) => {
   return (
     <Aside as="aside">
       <Box>
@@ -75,8 +80,8 @@ const SideBar = () => {
         </StyledLink>
       </Box>
       <Profile>
-        <ProfileImage size={144} isRound={true} src="/images/index.jpg" />
-        <Text>loginUserName</Text>
+        <ProfileImage size={144} isRound={true} src={member.memberProfile} />
+        <Text>{member.memberName}</Text>
         <Logout>Log Out</Logout>
       </Profile>
       <Navigation />

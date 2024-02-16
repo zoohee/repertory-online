@@ -4,7 +4,7 @@ import URL from '@/url';
 import Index from '@/pages/Index';
 import Login from '@/pages/Login';
 import SignUp from '@/pages/SignUp';
-import SidebarLayout from '@/pages/SidebarLayout';
+import SidebarLayout, { sidebarLoader } from '@/pages/SidebarLayout';
 import ProjectsPage, { projectsLoader } from '@/pages/workspace/Projects';
 import SourcesPage, { sourceLoader } from '@/pages/workspace/Sources';
 import CommunityPage, { communityLoader } from '@/pages/Community';
@@ -57,6 +57,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <SidebarLayout />,
+    loader: sidebarLoader,
     children: [
       {
         path: URL.projects,

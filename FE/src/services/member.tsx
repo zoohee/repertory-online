@@ -74,10 +74,16 @@ const getMemberInfo = async () => {
   return response;
 };
 
+const getUserInfo = async (memberId: number) => {
+  const response = await $auth().get(`/member/memberinfo/${memberId}`);
+  return response;
+};
+
 export {
   postMember,
   loginMember,
   getIdValidation,
   logoutMember,
   getMemberInfo,
+  getUserInfo,
 };
