@@ -150,6 +150,7 @@ public class MemberController {
         return memberService.searchByMemberName(keyword);
     }
 
+
     @GetMapping("/loginsuccess")
     public ResponseEntity<String> handleLoginSuccess(@RequestParam("accessToken") String accessToken) {
         // accessToken을 파라미터에서 받아옵니다.
@@ -164,8 +165,13 @@ public class MemberController {
                 .header("Authorization", accessToken)
                 .header("Refresh", refreshToken)// 원하는 헤더에 정보를 담아줍니다.
                 .body(responseBody);
+<<<<<<< HEAD
 
     }
 
 
+=======
+    }
+
+>>>>>>> 37adfbaf (Feat : login, logout, refresh token, SocialLogin, join)
 }
