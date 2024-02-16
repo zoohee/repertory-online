@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/apigateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/apigateway-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/community-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/community-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/community-service_main.iml" filepath="$PROJECT_DIR$/.idea/modules/community-service_main.iml" group="community-service" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dance-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dance-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dance-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dance-service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/member-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/member-service.main.iml" />

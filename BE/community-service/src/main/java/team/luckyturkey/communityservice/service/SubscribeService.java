@@ -3,7 +3,7 @@ package team.luckyturkey.communityservice.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import team.luckyturkey.communityservice.client.MemberServiceClient;
+
 import team.luckyturkey.communityservice.dto.response.SubscriberResponse;
 import team.luckyturkey.communityservice.entity.Subscribe;
 import team.luckyturkey.communityservice.entity.SubscribePK;
@@ -22,7 +22,6 @@ import java.util.List;
 public class SubscribeService {
 
     private final SubscribeRepository subscribeRepository;
-    private final MemberServiceClient memberServiceClient;
 
     public int getSubscribersCount(Long followingMemberId) {
         int subscribersCount = subscribeRepository.countByIdFollowingMemberId(followingMemberId);
@@ -72,7 +71,7 @@ public class SubscribeService {
     }
 
     // TODO: member service에서 유저 정보 받아오기
-    public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
-        return memberServiceClient.getFollowingDetailList(followingList);
-    }
+//    public List<SubscriberResponse> getFollowingDetailList(List<Long> followingList) {
+//        return memberServiceClient.getFollowingDetailList(followingList);
+//    }
 }
