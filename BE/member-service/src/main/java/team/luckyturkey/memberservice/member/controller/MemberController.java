@@ -1,4 +1,4 @@
-package team.luckyturkey.memberservice.member.controller;
+package team.luckyturkey.memberservice.controller;
 
 import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
@@ -99,6 +99,7 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+<<<<<<< HEAD
     @GetMapping("/find-id")
     public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
 
@@ -112,6 +113,18 @@ public class MemberController {
 
     @GetMapping("/userinfo")
     public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
+=======
+    @GetMapping("/following")
+    public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
+        System.out.println(followingList);
+        return memberService.getFollowingMemberInfo(followingList);
+    }
+
+    @GetMapping("/memberinfo/{memberId}")
+    public MemberInfoResponseDto getMemberInfo(@PathVariable Long memberId) {
+        return memberService.getMemberInfo(memberId);
+    }
+>>>>>>> 3695e407 (Feat: get FeedsAndDetail with MemberService)
 
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
