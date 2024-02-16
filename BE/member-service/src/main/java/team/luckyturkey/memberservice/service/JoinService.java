@@ -1,6 +1,8 @@
 package team.luckyturkey.memberservice.service;
 
 
+import java.util.Date;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import team.luckyturkey.memberservice.Status.JoinRequestStatus;
@@ -10,23 +12,15 @@ import team.luckyturkey.memberservice.member.entity.Member;
 import team.luckyturkey.memberservice.member.repository.MemberRepository;
 
 @Service
+@RequiredArgsConstructor
 public class JoinService {
-
-
     //주입
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    public JoinService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
-
-        this.memberRepository = memberRepository;//초기화
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-
-    }
 
     //회원가입 진행 메서드 작성
     public JoinRequestStatus joinProcess(JoinRequestDto joinDTO){
         //앞단에서 날라오는 DTO를 받아야함
-
 
         String memberLoginId = joinDTO.getMemberLoginId();
         String memberPassword = joinDTO.getMemberPassword();
@@ -55,7 +49,7 @@ public class JoinService {
         //유저 롤 일단 나중에 고치기
         data.setMemberRole(MemberAuthorityStatus.ROLE_REGISTERED_MEMBER.getAuthority());
         //유저 네임과 패스워드를 요청받아서 넣을거임
-
+        data.setMemberJoinDate(new Date().toString());
 
         memberRepository.save(data);
         return JoinRequestStatus.JOIN_SUCCESS;
