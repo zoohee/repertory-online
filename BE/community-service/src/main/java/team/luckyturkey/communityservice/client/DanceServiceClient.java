@@ -9,7 +9,7 @@ import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
 import team.luckyturkey.communityservice.entity.FeedType;
 
-@FeignClient(name = "${api.dance.url}")
+@FeignClient(name="dance", url = "${api.dance.url}")
 public interface DanceServiceClient {
 
     @GetMapping("/detail/{originId}/{feedType}")

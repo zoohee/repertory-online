@@ -78,7 +78,7 @@ public class CommunityController {
         return likeService.insertLikeCache(feedId);
     }
 
-    @DeleteMapping("/source/{feedId}/like")
+    @PatchMapping("/source/{feedId}/notlike")
     public Long cancelLikeSource(@PathVariable("feedId") Long feedId) {
         // TODO: Request Header jwt에서 memberId 받아 오기
         Long memberId = 5678L;

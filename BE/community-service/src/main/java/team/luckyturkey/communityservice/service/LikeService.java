@@ -33,4 +33,8 @@ public class LikeService {
     public Long cancelLikeCache(Long feedId) {
         return feedLikeCacheRepository.decreaseLike(feedId);
     }
+
+    public Long getFeedLikeCount(Long feedId) {
+        return feedLikeCacheRepository.findByFeedId(feedId);
+    }
 }
