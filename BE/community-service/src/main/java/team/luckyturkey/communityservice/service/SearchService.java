@@ -16,6 +16,7 @@ import team.luckyturkey.communityservice.repository.FeedRepository;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -50,6 +51,50 @@ public class SearchService {
         });
 
         return feeds;
+    }
+
+    public List<FeedDetailResponse> searchFeedByDancerName(String keyword) {
+        List<MemberDto> members = memberServiceClient.searchByMemberName(keyword);
+        List<Long> ids = members.stream()
+                .map(MemberDto::getMemberId)
+                .toList();
+
+        List<Feed> feeds = feedRepository.findFeedsByMembers(ids);
+        List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
+
+        for (Feed f : feeds) {
+            OriginDto originDto = danceServiceClient.getOriginDetail(f.getOriginId(), f.getFeedType());
+            if (originDto.getOriginId() == null) { continue; }
+
+            // 이미 존재하는 feedId인지 확인
+            boolean isExist = feedDetailResponseList
+                    .stream()
+                    .anyMatch(feed -> Objects.equals(f.getId(), feed.getFeedId()));
+            if (isExist) {
+                continue;
+            }
+
+            MemberDto memberDto = memberServiceClient.getMemberInfo(f.getMemberId());
+            if (memberDto == null) {
+                continue;
+            }
+
+            FeedDetailResponse feedDetailResponse = mapFeedDetailResponse(originDto, f, memberDto);
+            feedDetailResponseList.add(feedDetailResponse);
+        }
+
+        feedDetailResponseList.sort((o1, o2) -> {
+            if (o1.getFeedDate() == null && o2.getFeedDate() == null) {
+                return 0;
+            } else if (o1.getFeedDate() == null) {
+                return 1;
+            } else if (o2.getFeedDate() == null) {
+                return -1;
+            }
+            return o2.getFeedDate().compareTo(o1.getFeedDate());
+        });
+
+        return feedDetailResponseList;
     }
 
     private List<FeedDetailResponse> getFeedDetailByOriginDto(List<OriginDto> repertories, List<FeedDetailResponse> feeds) {

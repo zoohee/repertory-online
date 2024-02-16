@@ -14,6 +14,10 @@ import java.util.List;
 public interface MemberServiceClient {
     @GetMapping("/following")
     List<SubscriberResponse> getFollowingDetailList(@RequestParam List<Long> followingList);
+
     @GetMapping("/memberinfo/{memberId}")
     MemberDto getMemberInfo(@PathVariable Long memberId);
+
+    @GetMapping("/search/{keyword}")
+    List<MemberDto> searchByMemberName(@PathVariable String keyword);
 }

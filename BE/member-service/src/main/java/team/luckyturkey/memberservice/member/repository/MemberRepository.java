@@ -1,6 +1,8 @@
 package team.luckyturkey.memberservice.member.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import team.luckyturkey.memberservice.member.dto.responsedto.CommunityMemberInfoResponseDto;
 import team.luckyturkey.memberservice.member.entity.Member;
 import java.util.Optional;
 
@@ -19,4 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> { // JPA ë
 
     String findMemberLoginIdByMemberEmail(String memberEmail);
 
+    @Query("select m from Member m where m.memberName like %:keyword%")
+    List<Member> findByMemberNameLike(String keyword);
 }
