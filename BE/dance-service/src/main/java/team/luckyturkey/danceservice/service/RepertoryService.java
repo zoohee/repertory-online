@@ -15,7 +15,9 @@ public interface RepertoryService {
 
     Long modifyRepertoryStatus(Long repertoryId, PatchRepertoryStatusRequest patchRepertoryStatusRequest);
 
-    List<StandardRepertoryResponse> searchByName(String keyword);
+    List<StandardRepertoryResponse> searchRepertory(String keyword);
 
     StandardRepertoryResponse getRepertory(Long repertoryId);
+
+    List<StandardRepertoryResponse> getRepertoriesBySources(List<Long> sourceIdList);
 }

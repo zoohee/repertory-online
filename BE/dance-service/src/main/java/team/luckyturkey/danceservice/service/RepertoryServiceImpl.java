@@ -16,7 +16,6 @@ import team.luckyturkey.danceservice.repository.nosql.repertory.RepertoryReposit
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 //todo: S3 should be integreted
 //todo: when repertory is open status -> send request to community service to add row to feed table?
@@ -110,7 +109,7 @@ public class RepertoryServiceImpl implements RepertoryService{
     }
 
     @Override
-    public List<StandardRepertoryResponse> searchByName(String keyword) {
+    public List<StandardRepertoryResponse> searchRepertory(String keyword) {
         List<Repertory> repertoryList = repertoryRepository.findByRepertoryNameContaining(keyword);
         List<StandardRepertoryResponse> response = new ArrayList<>();
 
@@ -126,6 +125,17 @@ public class RepertoryServiceImpl implements RepertoryService{
                                             .orElseThrow(() -> new IllegalArgumentException("no such repertory"));
 
         return repertoryToStandardResponse(repertory);
+    }
+
+    @Override
+    public List<StandardRepertoryResponse> getRepertoriesBySources(List<Long> sourceIdList) {
+        List<Repertory> repertoryList = repertoryRepository.findAllById(sourceIdList);
+        List<StandardRepertoryResponse> responseList = new ArrayList<>();
+
+        for(Repertory source: repertoryList) {
+            responseList.add(repertoryToStandardResponse(source));
+        }
+        return responseList;
     }
 
     private StandardRepertoryResponse repertoryToStandardResponse(Repertory repertory) {

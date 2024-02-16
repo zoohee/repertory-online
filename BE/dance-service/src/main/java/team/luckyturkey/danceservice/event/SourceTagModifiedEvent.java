@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
-
 @Getter
 @AllArgsConstructor
-public class SourceDisabledEvent {
-    private List<String> tagNameList;
+public class SourceTagModifiedEvent {
+
+    private List<String> addedTagList;
+    private List<String> deletedTagList;
     private Long memberId;
     private Long sourceId;
 }

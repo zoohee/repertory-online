@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import team.luckyturkey.danceservice.domain.entity.id.CloneSourceDetailPK;
 
-@ToString
+@ToString(exclude = {"cloneSource"})
 @Entity
 @Getter
 @Builder

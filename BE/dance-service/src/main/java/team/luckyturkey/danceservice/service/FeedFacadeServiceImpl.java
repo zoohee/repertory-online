@@ -6,11 +6,16 @@ import team.luckyturkey.danceservice.controller.responsedto.CommunityFeedRespons
 import team.luckyturkey.danceservice.controller.responsedto.StandardRepertoryResponse;
 import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
 import team.luckyturkey.danceservice.domain.FeedType;
+import team.luckyturkey.danceservice.repository.cache.CacheTagRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FeedFacadeServiceImpl implements FeedFacadeService{
-    private final TagService tagService;
+
+    private final CacheTagRepository cacheTagRepository;
     private final SourceService sourceService;
     private final RepertoryService repertoryService;
 
@@ -32,6 +37,46 @@ public class FeedFacadeServiceImpl implements FeedFacadeService{
         return response;
     }
 
+    @Override
+    public List<CommunityFeedResponse> searchSourceWithKeyword(String keyword) {
+
+        // tag -> source
+        List<Long> sourceIdList = cacheTagRepository.findByTag(keyword);
+
+        // source %like%
+        List<StandardSourceResponse> sourceResponseList = sourceService.searchSource(keyword);
+
+        sourceResponseList.addAll(sourceService.getSourceList(sourceIdList));
+        sourceIdList.addAll(sourceResponseList.stream()
+                .map(StandardSourceResponse::getSourceId)
+                .toList());
+
+        // source -> repertory
+        List<StandardRepertoryResponse> repertoryResponseList = repertoryService.getRepertoriesBySources(sourceIdList);
+
+        // repertory %like
+        repertoryResponseList.addAll(repertoryService.searchRepertory(keyword));
+
+        List<CommunityFeedResponse> response = new ArrayList<>();
+        for(StandardSourceResponse sr: sourceResponseList){
+            response.add(mapCommunityFeedResponse(sr));
+        }
+        for(StandardRepertoryResponse rr: repertoryResponseList){
+            response.add(mapCommunityFeedResponse(rr));
+        }
+        return response;
+    }
+
+    @Override
+    public List<CommunityFeedResponse> searchRepertoryWithKeyword(String keyword) {
+
+        List<StandardRepertoryResponse> repertoryResponses = repertoryService.searchRepertory(keyword);
+        List<CommunityFeedResponse> response = new ArrayList<>();
+        for(StandardRepertoryResponse rr: repertoryResponses){
+            response.add(mapCommunityFeedResponse(rr));
+        }
+        return response;
+    }
 
     private CommunityFeedResponse mapCommunityFeedResponse(StandardSourceResponse sourceResponse){
         return CommunityFeedResponse.builder()

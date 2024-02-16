@@ -10,6 +10,8 @@ import team.luckyturkey.danceservice.controller.responsedto.CommunityFeedRespons
 import team.luckyturkey.danceservice.domain.FeedType;
 import team.luckyturkey.danceservice.service.FeedFacadeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/detail")
 @RequiredArgsConstructor
@@ -24,4 +26,22 @@ public class CommunityController {
         CommunityFeedResponse response = feedFacadeService.findFeed(originId, feedType);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/source/{keyword}")
+    public ResponseEntity<List<CommunityFeedResponse>> searchSource(
+            @PathVariable String keyword
+    ) {
+        List<CommunityFeedResponse> response = feedFacadeService.searchSourceWithKeyword(keyword);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/repertory/{keyword}")
+    public ResponseEntity<List<CommunityFeedResponse>> searchRepertory(
+            @PathVariable String keyword
+    ){
+        List<CommunityFeedResponse> response = feedFacadeService.searchRepertoryWithKeyword(keyword);
+        return ResponseEntity.ok(response);
+    }
+
+    //댄서네임, 동영상 검색 ->
 }

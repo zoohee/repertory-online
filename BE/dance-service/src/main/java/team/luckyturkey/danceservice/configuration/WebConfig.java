@@ -11,6 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter((Converter<String, FeedType>) source -> FeedType.fromValue(Integer.parseInt(source)));
+        registry.addConverter(new Converter<String, FeedType>() {
+            @Override
+            public FeedType convert(String source) {
+                return FeedType.fromValue(Integer.parseInt(source));
+            }
+        });
     }
 }
