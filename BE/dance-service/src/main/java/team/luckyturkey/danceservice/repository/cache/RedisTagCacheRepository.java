@@ -85,13 +85,24 @@ public class RedisTagCacheRepository implements CacheTagRepository, Initializing
         return result;
     }
 
+    /***
+     * senario: user updates tags to sourceId (including saving new source)
+     * @param tagNameList
+     * @param userId
+     * @param sourceId
+     */
     @Override
-    public void addSourceId(String tag, Long userId, Long sourceId) {
-        List<Long> sourceIdList = opsHash.get(tag, userId);
-        if(sourceIdList == null) sourceIdList = new ArrayList<>();
+    public void updateSource(List<String> tagNameList, Long userId, Long sourceId) {
+        redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
+            for(String tagName : tagNameList) {
+                List<Long> sourceIdList = opsHash.get(tagName, userId);
+                if (sourceIdList == null) sourceIdList = new ArrayList<>();
 
-        sourceIdList.add(sourceId);
-        opsHash.put(tag, userId, sourceIdList);
+                sourceIdList.add(sourceId);
+                opsHash.put(tagName, userId, sourceIdList);
+            }
+            return null;
+        });
     }
 
     @Override

@@ -1,0 +1,91 @@
+package team.luckyturkey.danceservice.service;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import team.luckyturkey.danceservice.controller.requestdto.PostCloneRequest;
+import team.luckyturkey.danceservice.controller.responsedto.StandardSourceResponse;
+import team.luckyturkey.danceservice.domain.entity.CloneSource;
+import team.luckyturkey.danceservice.domain.entity.CloneSourceDetail;
+import team.luckyturkey.danceservice.domain.entity.Source;
+import team.luckyturkey.danceservice.domain.entity.Tag;
+import team.luckyturkey.danceservice.repository.jpa.CloneSourceRepository;
+import team.luckyturkey.danceservice.repository.jpa.SourceRepository;
+import team.luckyturkey.danceservice.repository.jpa.TagRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+@RequiredArgsConstructor
+public class CloneServiceImpl implements CloneService{
+
+    private final CloneSourceRepository cloneSourceRepository;
+    private final SourceRepository sourceRepository;
+    private final TagRepository tagRepository;
+
+
+    @Transactional
+    @Override
+    public StandardSourceResponse clone(PostCloneRequest postCloneRequest) {
+        Long sourceId = postCloneRequest.getOriginId();
+        Long memberId = postCloneRequest.getMemberId();
+
+        Source source = sourceRepository.findById(sourceId)
+                            .orElseThrow(() -> new IllegalArgumentException("source not exist"));
+
+        List<Tag> tagList = source.getTagList();
+        modifyTagList(tagList, memberId);
+
+        CloneSource cloneSource = CloneSource.builder()
+                .source(source)
+                .memberId(memberId)
+                .cloneDate(LocalDateTime.now())
+                .build();
+
+        CloneSourceDetail cloneSourceDetail = CloneSourceDetail.builder()
+                .sourceName(source.getSourceName())
+                .sourceLength(source.getSourceLength())
+                .sourceCount(0)
+                .sourceStart(source.getSourceStart())
+                .sourceEnd(source.getSourceEnd())
+                .build();
+
+        cloneSource.setCloneSourceDetail(cloneSourceDetail);
+        cloneSourceDetail.setCloneSource(cloneSource);
+        CloneSource savedCloneSource = cloneSourceRepository.save(cloneSource);
+
+        return mapToStandardResponse(savedCloneSource);
+    }
+
+    private void modifyTagList(List<Tag> tagList, Long memberId){
+        Set<String> tagNameSet = tagRepository.findTagNameByMemberId(memberId);
+
+        for(Tag tag: tagList){
+            if(tagNameSet.contains(tag.getTagName())) continue;
+
+            Tag newTag = Tag.builder()
+                    .tagName(tag.getTagName())
+                    .memberId(memberId)
+                    .build();
+
+            tagRepository.save(newTag);
+        }
+    }
+
+    private StandardSourceResponse mapToStandardResponse(CloneSource cloneSource){
+        return StandardSourceResponse.builder()
+                .sourceId(cloneSource.getId())
+                .memberId(cloneSource.getMemberId())
+                .sourceName(cloneSource.getSourceName())
+                .sourceStart(cloneSource.getSourceStart())
+                .sourceEnd(cloneSource.getSourceEnd())
+                .sourceLength(cloneSource.getSourceLength())
+                .sourceCount(cloneSource.getSourceCount())
+                .sourceUrl(cloneSource.getSourceUrl())
+                .tagList(null)
+                .build();
+    }
+}
