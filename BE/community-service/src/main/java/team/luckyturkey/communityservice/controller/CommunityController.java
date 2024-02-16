@@ -49,6 +49,7 @@ public class CommunityController {
         tokenService.setToken(atc);
         Long memberId = jwtUtil.getMemberId(atc);
         Long selectedMemberId = data.get("selectedMemberId");
+        
 
         subscribeService.unsubscribe(memberId, selectedMemberId);
     }
