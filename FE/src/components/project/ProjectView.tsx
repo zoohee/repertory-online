@@ -394,25 +394,26 @@ const ProjectView = (props: Props) => {
   };
 
   const DetectPose = () => {
+    console.log('DETECT');
     project
       .detectPose(
         new File([images.start], 'start.jpeg', {
-          type: 'text/plain',
-          lastModified: Date.now(),
+          type: 'image/jpeg',
         })
       )
       .then((res) => {
         setStartPose(res.data);
+        console.log(res.data);
       });
     project
       .detectPose(
         new File([images.end], 'end.jpeg', {
-          type: 'text/plain',
-          lastModified: Date.now(),
+          type: 'image/jpeg',
         })
       )
       .then((res) => {
         setStartPose(res.data);
+        console.log(res.data);
       });
   };
 
