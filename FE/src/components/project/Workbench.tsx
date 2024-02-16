@@ -12,13 +12,14 @@ import { useDrop } from 'react-dnd';
 import styled from 'styled-components';
 import { ISource } from '@/services/interface';
 const Wrapper = styled.div`
-  background-color: red;
   width: 100%;
   height: 80%;
   display: flex;
   overflow-x: auto;
 `;
-const Btn = styled.button``;
+const Btn = styled.button`
+  background-color: transparent;
+`;
 
 const Container = styled.div`
   display: flex;

@@ -61,8 +61,6 @@ const getIdValidation = async () => {
 
 const logoutMember = async () => {
   const response = await $auth().get('/member/logout');
-  console.log(response);
-  console.log(localStorage.getItem('token'));
   return response;
 };
 
