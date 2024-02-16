@@ -25,7 +25,7 @@ interface Props {
 const MyContextProvider = ({ children }: Props) => {
   const feed = useLoaderData() as Community[];
   const source = feed.filter((item) => item.feedType === 'SOURCE');
-  const repertory = feed.filter((item) => item.feedType === 'REPETORY');
+  const repertory = feed.filter((item) => item.feedType === 'REPERTORY');
 
   const [feedClicked, setFeedClicked] = useState(true);
   const [sourceClicked, setSourceClicked] = useState(false);
