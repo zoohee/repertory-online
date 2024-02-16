@@ -41,8 +41,8 @@ const Workbench = (props: WorkbenchProps) => {
       canDrop: monitor.canDrop(),
     }),
   });
-  // console.log('Is over: ', isOver); // 로깅
-  // console.log('Can drop: ', canDrop); // 로깅
+  console.log('Is over: ', isOver); // 로깅
+  console.log('Can drop: ', canDrop); // 로깅
   console.log(sources); // 로깅
 
   return (
