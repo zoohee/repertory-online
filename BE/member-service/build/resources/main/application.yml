@@ -1,0 +1,39 @@
+server:
+  port: 0
+  servlet:
+    context-path: /member
+  host: localhost
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://${server.host}:8761/eureka
+
+spring:
+  profiles:
+    include: oauth
+  application:
+    name: member
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://repertory.online:3407/member?characterEncoding=UTF-8&serverTimezone=UTC
+    username: lucky
+    password: turkey707
+  jwt: #jwt secret Key 다른 서버와 항상 같게 유지되어야함
+    secret: djklsfjisdojuihfeuibjshjkbuibihuigtyfrtxdfzxdfsawrsesxdfxdfqafxdrzd
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+redis:
+  host: repertory.online
+  port: 6379
+  password: luckyTurkey

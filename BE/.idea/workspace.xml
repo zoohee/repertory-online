@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/apigateway-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/community-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/dance-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/discovery-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/member-service">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/project-service">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/community-service">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2brYi9SMaxdcxh8szgBeG0YZTib" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build apigateway-service.executor": "Run",
+    "Gradle.Build community-service.executor": "Run",
+    "Gradle.Build dance-service.executor": "Run",
+    "Gradle.Build discovery-service.executor": "Run",
+    "Gradle.Build member-service.executor": "Run",
+    "Gradle.Build project-service.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ApigatewayServiceApplication (1).executor": "Run",
+    "Spring Boot.ApigatewayServiceApplication.executor": "Run",
+    "Spring Boot.CommunityServiceApplication.executor": "Run",
+    "Spring Boot.DanceServiceApplication.executor": "Run",
+    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
+    "Spring Boot.MemberServiceApplication.executor": "Run",
+    "Spring Boot.ProjectServiceApplication.executor": "Run",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "dev/BE",
+    "jdk.selected.JAVA_MODULE": "17",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/dev/S10P12A707/BE",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15415987",
+    "project.structure.side.proportion": "0.34566474",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "project.propCompiler",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\project-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\member-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\community-service\src\main\resources" />
+      <recent name="C:\Users\SSAFY\Documents\GitHub\S10P12A707\BE\dance-service\src\main\java\team\luckyturkey\danceservice\controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\S10P12A707\BE\member-service\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="team.luckyturkey.danceservice.controller.responsedto" />
+      <recent name="team.luckyturkey.danceservice.util" />
+      <recent name="team.luckyturkey.projectservice.exception" />
+      <recent name="team.luckyturkey.projectservice.controller.responsedto" />
+      <recent name="team.luckyturkey.projectservice.util" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DiscoveryServiceApplication">
+    <configuration name="Tests in 'community-service'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/community-service" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApigatewayServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="apigateway-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.apigatewayservice.ApigatewayServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="team.luckyturkey.apigatewayservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommunityServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="community-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.communityservice.CommunityServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DanceServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dance-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.danceservice.DanceServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiscoveryServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="discovery-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.discoveryservice.DiscoveryServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MemberServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="member-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.memberservice.MemberServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProjectServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="project-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="team.luckyturkey.projectservice.ProjectServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.Tests in 'community-service'" />
+      <item itemvalue="Spring Boot.MemberServiceApplication" />
+      <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
+      <item itemvalue="Spring Boot.ProjectServiceApplication" />
+      <item itemvalue="Spring Boot.DanceServiceApplication" />
+      <item itemvalue="Spring Boot.CommunityServiceApplication" />
+      <item itemvalue="Spring Boot.ApigatewayServiceApplication (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ApigatewayServiceApplication (1)" />
+        <item itemvalue="Gradle.Tests in 'community-service'" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-ebaef533" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4a2fbae5-7704-4f83-b007-ddabee40219b" name="Changes" comment="" />
+      <created>1706974790603</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706974790603</updated>
+      <workItem from="1706974793487" duration="66639000" />
+      <workItem from="1707282964036" duration="86000" />
+      <workItem from="1707283618336" duration="9057000" />
+      <workItem from="1707303909590" duration="8817000" />
+      <workItem from="1707895789089" duration="5292000" />
+      <workItem from="1707967202285" duration="9490000" />
+      <workItem from="1707998820010" duration="6423000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

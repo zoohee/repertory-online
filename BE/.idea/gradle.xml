@@ -5,6 +5,7 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/apigateway-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/apigateway-service" />
@@ -13,6 +14,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/community-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/community-service" />
@@ -21,17 +23,10 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/dance-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/dance-service" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/discovery-service" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/discovery-service" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -45,6 +40,24 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/project-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/project-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/member-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/member-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/project-service" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/project-service" />

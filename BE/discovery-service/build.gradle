@@ -30,6 +30,16 @@ dependencyManagement {
 	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+	useJUnitPlatform() // useJUnitPlatform 설정
 }
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'team.luckyturkey.discoveryservice.DiscoveryServiceApplication',
+				'Class-Path': configurations.runtimeClasspath.files.collect { 'lib/' + it.name }.join(' ')
+		)
+	}
+}
+

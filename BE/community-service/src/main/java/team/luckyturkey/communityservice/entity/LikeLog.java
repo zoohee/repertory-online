@@ -21,6 +21,6 @@ public class LikeLog {
     private Long id;
     private Long memberId;
     private Long feedId;
-    private int likeActive;
+    private Boolean likeActive;
     private Date timestamp;
 }

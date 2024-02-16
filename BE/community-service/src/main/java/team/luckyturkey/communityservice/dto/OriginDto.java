@@ -2,6 +2,7 @@ package team.luckyturkey.communityservice.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter @Setter
@@ -13,5 +14,6 @@ public class OriginDto {
     private Long memberId;
     private String feedName;
     private String feedUrl;
-    private Date feedDate;
+    private String feedThumbnailUrl;
+    private LocalDateTime feedDate;
 }

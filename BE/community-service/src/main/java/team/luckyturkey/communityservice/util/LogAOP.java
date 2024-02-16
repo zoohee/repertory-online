@@ -45,6 +45,7 @@ public class LogAOP {
         // 파라미터 받아오기
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
+            if (arg == null) { continue; }
             logData.append("\t").append(arg.getClass().getSimpleName()).append(": ").append(arg);
         }
         log.info(logData.toString());
