@@ -37,7 +37,12 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     return chain.filter(exchange);
                 }
 
-                // 헤더에 토큰이 있는지 확인
+                if (exchange.getRequest().getPath().toString().equals("/member/id-validation")) {
+                    return chain.filter(exchange);
+                }
+
+
+            // 헤더에 토큰이 있는지 확인
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     // 인증 헤더가 없을 때 예외 발생
                     throw new RuntimeException("인증 헤더가 없습니다");
