@@ -91,12 +91,8 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6b429d28 (Chore: resolve merge conflicts and edit application.yml)
     @GetMapping("/find-id")
-    public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
+    public ResponseEntity<?> findMemberLoginId(@RequestParam FindMemberLoginIdDto findMemberLoginIdDto){
 
         String id = memberService.findMemberLoginId(findMemberLoginIdDto);
         if(id == null){
@@ -112,14 +108,13 @@ public class MemberController {
         return memberService.getFollowingMemberInfo(followingList);
     }
 
-    @GetMapping("/memberinfo/{memberId}")
+    @GetMapping("/memberinfo/{memberId}")//주희꺼
     public MemberInfoResponseDto getMemberInfoById(@PathVariable Long memberId) {
         return memberService.getMemberInfo(memberId);
     }
 
     @GetMapping("/userinfo")
-    public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
-
+    public ResponseEntity<?> getMemberInfo(@RequestParam MemberInfoRequestDto memberInfoRequestDto){
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
         Member Exist = memberService.getMemberByLoginId(id);
@@ -165,13 +160,7 @@ public class MemberController {
                 .header("Authorization", accessToken)
                 .header("Refresh", refreshToken)// 원하는 헤더에 정보를 담아줍니다.
                 .body(responseBody);
-<<<<<<< HEAD
 
     }
 
-
-=======
-    }
-
->>>>>>> 37adfbaf (Feat : login, logout, refresh token, SocialLogin, join)
 }
