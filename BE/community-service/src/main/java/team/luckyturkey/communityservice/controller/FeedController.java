@@ -44,6 +44,7 @@ public class FeedController {
         for (Feed feed : feeds) {
             feed.setLikeCount(likeService.getFeedLikeCount(feed.getId()));
         }
+
         return feedService.getFeedsAndDetail(feeds);
     }
 
