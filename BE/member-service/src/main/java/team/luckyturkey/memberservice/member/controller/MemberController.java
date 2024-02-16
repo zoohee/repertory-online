@@ -100,6 +100,9 @@ public class MemberController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6b429d28 (Chore: resolve merge conflicts and edit application.yml)
     @GetMapping("/find-id")
     public ResponseEntity<?> findMemberLoginId(@RequestBody FindMemberLoginIdDto findMemberLoginIdDto){
 
@@ -111,9 +114,6 @@ public class MemberController {
 
     }
 
-    @GetMapping("/userinfo")
-    public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
-=======
     @GetMapping("/following")
     public List<MemberInfoResponseDto> getFollowingMemberInfo(@RequestParam List<Long> followingList) {
         System.out.println(followingList);
@@ -121,10 +121,12 @@ public class MemberController {
     }
 
     @GetMapping("/memberinfo/{memberId}")
-    public MemberInfoResponseDto getMemberInfo(@PathVariable Long memberId) {
+    public MemberInfoResponseDto getMemberInfoById(@PathVariable Long memberId) {
         return memberService.getMemberInfo(memberId);
     }
->>>>>>> 3695e407 (Feat: get FeedsAndDetail with MemberService)
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> getMemberInfo(@RequestBody MemberInfoRequestDto memberInfoRequestDto){
 
         String id = memberInfoRequestDto.getMemberLoginId();
         //유저 아이디로 검색해서 있는지부터 확인
