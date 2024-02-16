@@ -1,9 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import SideBar from '@/components/sidebar/Sidebar';
+import { Member } from '@/types';
 
 const Container = styled.div`
   display: flex;
@@ -42,6 +43,8 @@ const MenuButton = styled.button`
 `;
 
 const SidebarLayout = () => {
+  const member = useLoaderData() as Member;
+
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => {
     setSidebarOpen((prev) => !prev);
@@ -52,7 +55,7 @@ const SidebarLayout = () => {
       <MenuButton>
         <MenuIcon onClick={toggleSidebar} />
       </MenuButton>
-      {sidebarOpen && <SideBar />}
+      {sidebarOpen && <SideBar member={member} />}
       <Main $open={sidebarOpen}>
         <Outlet />
       </Main>
@@ -61,3 +64,15 @@ const SidebarLayout = () => {
 };
 
 export default SidebarLayout;
+
+import { getUserInfo } from '@/services/member';
+import { decodeJwt } from '@/services/util';
+
+export const sidebarLoader = async () => {
+  const myMemberId = decodeJwt();
+  if (myMemberId === -1) {
+    return {};
+  }
+  const response = await getUserInfo(myMemberId);
+  return response.data;
+};

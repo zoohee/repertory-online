@@ -13,7 +13,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import SaveIcon from '@mui/icons-material/Save';
 import { Dialog } from './Dialog';
-import ImageSquare from '../common/ImageSquare';
+import Image from '@/components/common/ImageSquare';
 import * as dance from '@/services/dance';
 import * as project from '@/services/project';
 // import { Title } from './Title';
@@ -425,18 +425,18 @@ const ProjectView = (props: Props) => {
   return (
     <>
       <HiddenInput
-        type='file'
+        type="file"
         onChange={(e) => handleFileUpload(e)}
         ref={fileInput}
       />
       <ProjectViewWrapper>
         <Title>
           <TitleName>Project</TitleName>
-          <TitleButton type='button' onClick={handleButtonClick}>
+          <TitleButton type="button" onClick={handleButtonClick}>
             <FileUploadIcon />
           </TitleButton>
           <TitleButton
-            type='button'
+            type="button"
             onClick={() => {
               if (props.videoRef.current === null) {
                 alert('Upload Video First!');
@@ -454,10 +454,10 @@ const ProjectView = (props: Props) => {
               <ImageSquare src={images.middle} size={140} />
               <ImageSquare src={images.end} size={140} />
             </FlexWrapper>
-            <input type='text' placeholder='Name' value='MySource' />
-            <input type='text' placeholder='Length' value={duration} />
-            <input type='text' placeholder='Start' value={startPose} />
-            <input type='text' placeholder='End' value={endPose} />
+            <input type="text" placeholder="Name" value="MySource" />
+            <input type="text" placeholder="Length" value={duration} />
+            <input type="text" placeholder="Start" />
+            <input type="text" placeholder="End" />
             <button onClick={() => setOpen(false)}>Close</button>
           </Dialog>
         </Title>
@@ -474,9 +474,9 @@ const ProjectView = (props: Props) => {
         ></StyledVideo>
 
         <StyledSlider
-          type='range'
-          min='0'
-          step='0.1'
+          type="range"
+          min="0"
+          step="0.1"
           max={duration}
           value={currentTime}
           onChange={handleTimeChange}
