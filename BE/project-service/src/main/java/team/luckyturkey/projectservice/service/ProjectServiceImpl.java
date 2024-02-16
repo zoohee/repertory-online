@@ -1,13 +1,20 @@
 package team.luckyturkey.projectservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import team.luckyturkey.projectservice.document.Project;
+import team.luckyturkey.projectservice.exception.EmptyResultException;
 import team.luckyturkey.projectservice.repository.project.ProjectRepository;
+import team.luckyturkey.projectservice.util.ErrorCode;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
@@ -46,7 +53,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void deleteProject(Long projectId) {
-        projectRepository.deleteById(projectId);
+        try {
+            projectRepository.deleteById(projectId);
+        } catch (Exception e) {
+            throw new EmptyResultException(ErrorCode.NOT_FOUND);
+        }
     }
 
     @Override

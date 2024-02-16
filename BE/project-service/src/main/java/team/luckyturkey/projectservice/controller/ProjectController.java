@@ -91,6 +91,7 @@ public class ProjectController {
     public ResponseEntity<Long> deleteProject(
             @PathVariable Long projectId
     ){
+        // TODO: 아이디 없을 때 Exception 처리
         projectService.deleteProject(projectId);
         return ResponseEntity.ok(projectId);
     }
