@@ -49,20 +49,3 @@ spring:
           uri: lb://MEMBER
           predicates:
             - Path=/member/**
-
-springdoc:
-  enable-native-support: true
-  api-docs:
-    enabled: true
-    path: /api-docs
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-    config-url: /v3/api-docs/swagger-config
-    urls:
-      - url: /community/v3/api-docs
-        name: Community
-
-openapi:
-  service:
-    url: http://repertory.online:8000

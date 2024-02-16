@@ -10,6 +10,8 @@
         </processorPath>
         <module name="apigateway-service.main" />
         <module name="community-service_main" />
+        <module name="member-service.main" />
+        <module name="member-service.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
