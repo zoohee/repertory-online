@@ -55,4 +55,4 @@ redis:
 #  host: repertory.online #배포시 ec2주소 사용
   host: localhost
   port: 6379
-#  password: lucky
+#  password: test
