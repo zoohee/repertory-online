@@ -12,6 +12,8 @@
         <module name="community-service_main" />
         <module name="member-service.main" />
         <module name="member-service.test" />
+        <module name="dance-service.test" />
+        <module name="dance-service.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
