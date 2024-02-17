@@ -1,6 +1,5 @@
 // import { List } from 'lodash';
 import Image from '../common/ImageSquare';
-import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 import { ISource } from '@/services/interface';
 interface BoxProps {
@@ -25,21 +24,9 @@ const SourceLabel = styled.div`
   background-color: var(--background-color);
 `;
 const Source = ({ sourceInfo, target }: sourceProps) => {
-  const [
-    ,
-    // { isDragging }
-    drag,
-  ] = useDrag({
-    type: 'source',
-    item: sourceInfo,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
-
   return (
     <>
-      <Box ref={drag} width={100}>
+      <Box width={100}>
         <Image size={100} src={sourceInfo.sourceThumbnailUrl} />
         {target === 'sourceList' && (
           <SourceLabel>
