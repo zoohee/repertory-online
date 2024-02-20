@@ -17,6 +17,16 @@ import ImageSquare from '../common/ImageSquare';
 import * as dance from '@/services/dance';
 import * as project from '@/services/project';
 // import { Title } from './Title';
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
+interface ITrimSection {
+  start: number;
+  end: number;
+}
+interface SliderProps {
+  startTime: number;
+  endTime: number;
+  duration: number;
+}
 const Tmp = styled.div`
   width: 80%;
   display: flex;
@@ -87,7 +97,7 @@ const StyledVideo = styled.video`
 const StyledSlider = styled.input<SliderProps>`
   margin-top: 10px;
   width: 95%;
-  height: 70%;
+  height: 5%;
   background: #808080;
   border-radius: 0.5rem;
   overflow: hidden;
@@ -149,15 +159,6 @@ const StyledSlider = styled.input<SliderProps>`
     background-color: #ff8181;
   }
 `;
-interface ITrimSection {
-  start: number;
-  end: number;
-}
-interface SliderProps {
-  startTime: number;
-  endTime: number;
-  duration: number;
-}
 
 const StartTimeButton = styled.button<{ isActive: boolean }>`
   color: ${(props) => (props.isActive ? '#a7a7ff' : 'white')};
@@ -191,6 +192,7 @@ const ProjectViewWrapper = styled.div`
 interface Props {
   setVideo: React.Dispatch<React.SetStateAction<File | null>>;
   videoRef: React.RefObject<HTMLVideoElement>;
+  videoRefOrg: React.RefObject<HTMLVideoElement>;
   trimVideo: (trimSection: ITrimSection) => Promise<void>;
 }
 const ProjectView = (props: Props) => {
@@ -202,6 +204,7 @@ const ProjectView = (props: Props) => {
   const [open, setOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState({ start: '', middle: '', end: '' });
+  const [orgVideo, setOrgVideo] = useState('');
   const [imageFiles, setImageFiles] = useState<{
     start: File | null;
     middle: File | null;
@@ -285,6 +288,7 @@ const ProjectView = (props: Props) => {
     if (props.videoRef.current) {
       props.videoRef.current.src = '';
       props.setVideo(null);
+      setOrgVideo('');
       props.videoRef.current.load();
     }
     console.log('upload');
@@ -293,10 +297,17 @@ const ProjectView = (props: Props) => {
       props.setVideo(file);
       if (props.videoRef.current) {
         props.videoRef.current.src = URL.createObjectURL(file);
+        setOrgVideo(URL.createObjectURL(file));
       }
     }
   };
-
+  const setOriginVideo = () => {
+    if (props.videoRef.current) {
+      props.videoRef.current.src = orgVideo;
+    } else {
+      alert('Naaaah!');
+    }
+  };
   const captureImage = async (
     video: HTMLVideoElement,
     time: number
@@ -421,6 +432,9 @@ const ProjectView = (props: Props) => {
       <ProjectViewWrapper>
         <Title>
           <TitleName>Project</TitleName>
+          <TitleButton type='button' onClick={setOriginVideo}>
+            <HistoryRoundedIcon />
+          </TitleButton>
           <TitleButton type='button' onClick={handleButtonClick}>
             <FileUploadIcon />
           </TitleButton>

@@ -68,6 +68,7 @@ const ProjectPage: React.FC = () => {
   const ffmpegRef = useRef(new FFmpeg());
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoRefOrg = useRef<HTMLVideoElement | null>(null);
   const messageRef = useRef<HTMLParagraphElement | null>(null);
 
   if (loaded) console.log('ffmpeg loaded!');
@@ -235,6 +236,7 @@ const ProjectPage: React.FC = () => {
               <ProjectView
                 setVideo={setVideoFile}
                 videoRef={videoRef}
+                videoRefOrg={videoRefOrg}
                 trimVideo={trimVideo}
               />
             </ViewWarpper>
