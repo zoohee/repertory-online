@@ -17,6 +17,16 @@ import ImageSquare from '../common/ImageSquare';
 import * as dance from '@/services/dance';
 import * as project from '@/services/project';
 // import { Title } from './Title';
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
+interface ITrimSection {
+  start: number;
+  end: number;
+}
+interface SliderProps {
+  startTime: number;
+  endTime: number;
+  duration: number;
+}
 const Tmp = styled.div`
   width: 80%;
   display: flex;
@@ -81,11 +91,14 @@ const TitleButton = styled.button`
 const StyledVideo = styled.video`
   height: 70%;
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `;
 const StyledSlider = styled.input<SliderProps>`
+  margin-top: 10px;
   width: 95%;
-  height: 100%;
-  background: #ffffff;
+  min-height: 16px;
+  background: #808080;
   border-radius: 0.5rem;
   overflow: hidden;
   outline: none;
@@ -96,13 +109,13 @@ const StyledSlider = styled.input<SliderProps>`
     width: 100%;
     /* height: 30px; */
     cursor: pointer;
-    border-radius: 1.3px;
+    border-radius: 6px;
   }
   &::-webkit-slider-thumb {
-    height: 36px;
+    height: 40px;
     width: 4px;
     border-radius: 6px;
-    background: #515151;
+    background: #524242;
     cursor: pointer;
     -webkit-appearance: none;
   }
@@ -111,17 +124,12 @@ const StyledSlider = styled.input<SliderProps>`
     height: 36px;
     width: 4px;
     cursor: pointer;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border-radius: 1.3px;
-    border: 0.2px solid #010101;
+    border-radius: 6px;
   }
   &::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    border: 1px solid #000000;
-    height: 36px;
+    height: 40px;
     width: 4px;
-
-    border-radius: 1.3px;
+    border-radius: 6px;
     background: #ffffff;
     cursor: pointer;
   }
@@ -134,32 +142,23 @@ const StyledSlider = styled.input<SliderProps>`
     position: absolute; // 가상 요소를 절대 위치로 설정
     top: 0;
     bottom: 0;
-    width: 4px; // 세로선의 너비를 2px로 설정
+    width: 3px; // 세로선의 너비를 2px로 설정
   }
 
   &::before {
     left: ${(props) =>
       (props.startTime / props.duration) *
       100}%; // 시작 시간에 해당하는 위치로 설정
-    background-color: #0000a7;
+    background-color: #a1a1ff;
   }
 
   &::after {
     left: ${(props) =>
       (props.endTime / props.duration) *
       100}%; // 종료 시간에 해당하는 위치로 설정세로선의 색상을 파란색으로 설정
-    background-color: #ff6161;
+    background-color: #ff8181;
   }
 `;
-interface ITrimSection {
-  start: number;
-  end: number;
-}
-interface SliderProps {
-  startTime: number;
-  endTime: number;
-  duration: number;
-}
 
 const StartTimeButton = styled.button<{ isActive: boolean }>`
   color: ${(props) => (props.isActive ? '#a7a7ff' : 'white')};
@@ -193,6 +192,7 @@ const ProjectViewWrapper = styled.div`
 interface Props {
   setVideo: React.Dispatch<React.SetStateAction<File | null>>;
   videoRef: React.RefObject<HTMLVideoElement>;
+  videoRefOrg: React.RefObject<HTMLVideoElement>;
   trimVideo: (trimSection: ITrimSection) => Promise<void>;
 }
 const ProjectView = (props: Props) => {
@@ -204,10 +204,15 @@ const ProjectView = (props: Props) => {
   const [open, setOpen] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState({ start: '', middle: '', end: '' });
-  const [imageFiles, setImageFiles] = useState({
-    start: File,
-    middle: File,
-    end: File,
+  const [orgVideo, setOrgVideo] = useState('');
+  const [imageFiles, setImageFiles] = useState<{
+    start: File | null;
+    middle: File | null;
+    end: File | null;
+  }>({
+    start: null,
+    middle: null,
+    end: null,
   });
 
   const [startPose, setStartPose] = useState('');
@@ -283,6 +288,7 @@ const ProjectView = (props: Props) => {
     if (props.videoRef.current) {
       props.videoRef.current.src = '';
       props.setVideo(null);
+      setOrgVideo('');
       props.videoRef.current.load();
     }
     console.log('upload');
@@ -291,10 +297,17 @@ const ProjectView = (props: Props) => {
       props.setVideo(file);
       if (props.videoRef.current) {
         props.videoRef.current.src = URL.createObjectURL(file);
+        setOrgVideo(URL.createObjectURL(file));
       }
     }
   };
-
+  const setOriginVideo = () => {
+    if (props.videoRef.current) {
+      props.videoRef.current.src = orgVideo;
+    } else {
+      alert('Naaaah!');
+    }
+  };
   const captureImage = async (
     video: HTMLVideoElement,
     time: number
@@ -337,18 +350,18 @@ const ProjectView = (props: Props) => {
       const middleImage = await captureImage(video, middleTime);
       const endImage = await captureImage(video, endTime);
 
-      console.log(startImage, middleImage, endImage);
+      setImageFiles({
+        start: startImage,
+        middle: middleImage,
+        end: endImage,
+      });
+
       setImages({
         start: URL.createObjectURL(startImage),
         middle: URL.createObjectURL(middleImage),
         end: URL.createObjectURL(endImage),
       });
 
-      setImageFiles({
-        start: imageFiles.start,
-        middle: imageFiles.middle,
-        end: imageFiles.end,
-      });
       setOpen(true);
     }
   };
@@ -375,32 +388,39 @@ const ProjectView = (props: Props) => {
   };
 
   const DetectPose = () => {
-    project
-      .detectPose(
-        new File([images.start], 'start.jpeg', {
-          type: 'text/plain',
-          lastModified: Date.now(),
-        })
-      )
-      .then((res) => {
+    if (imageFiles.start instanceof File) {
+      project.detectPose(imageFiles.start).then((res) => {
         setStartPose(res.data);
+        console.log(res.data);
       });
-    project
-      .detectPose(
-        new File([images.end], 'end.jpeg', {
-          type: 'text/plain',
-          lastModified: Date.now(),
-        })
-      )
-      .then((res) => {
+    }
+    if (imageFiles.end instanceof File) {
+      project.detectPose(imageFiles.end).then((res) => {
         setEndPose(res.data);
+        console.log(res.data);
       });
+    }
   };
-
   // TRButton 클릭 이벤트
-  const onTRButtonClick = () => {
+  // const onTRButtonClick = async () => {
+  //   saveImages(props.videoRef);
+  //   await DetectPose();
+  // };
+
+  const Trim = async () => {
+    props.trimVideo({ start: startTime * 1000, end: endTime * 1000 });
     saveImages(props.videoRef);
-    DetectPose();
+    await DetectPose();
+    setStartTime(0);
+    setEndTime(0);
+    pauseVideo();
+  };
+  const handleOpenDialog = async () => {
+    if (props.videoRef.current === null) {
+      alert('Upload Video First!');
+    } else {
+      setOpen(true);
+    }
   };
   return (
     <>
@@ -412,19 +432,13 @@ const ProjectView = (props: Props) => {
       <ProjectViewWrapper>
         <Title>
           <TitleName>Project</TitleName>
+          <TitleButton type='button' onClick={setOriginVideo}>
+            <HistoryRoundedIcon />
+          </TitleButton>
           <TitleButton type='button' onClick={handleButtonClick}>
             <FileUploadIcon />
           </TitleButton>
-          <TitleButton
-            type='button'
-            onClick={() => {
-              if (props.videoRef.current === null) {
-                alert('Upload Video First!');
-              } else {
-                setOpen(true);
-              }
-            }}
-          >
+          <TitleButton type='button' onClick={handleOpenDialog}>
             <SaveIcon />
           </TitleButton>
           <Dialog open={open} onClose={() => setOpen(false)}>
@@ -455,26 +469,8 @@ const ProjectView = (props: Props) => {
           onTimeUpdate={handleTimeUpdate} // 비디오 재생 시간이 변경될 때마다 호출
           onLoadedMetadata={handleDurationChange} // 비디오 메타데이터가 로드되면 호출
         ></StyledVideo>
-
-        <StyledSlider
-          type='range'
-          min='0'
-          step='0.1'
-          max={duration}
-          value={currentTime}
-          onChange={handleTimeChange}
-          startTime={startTime} // startTime 상태를 전달
-          endTime={endTime}
-          duration={duration} // endTime 상태를 전달
-        />
-        <Time>
-          <p>{formatMilliSecondsToTimeString(currentTime * 1000, 'minute')}</p>
-
-          <p>{formatMilliSecondsToTimeString(duration * 1000, 'minute')}</p>
-        </Time>
-
         <Tmp>
-          <button onClick={onTRButtonClick}>Ready</button>
+          {/* <button onClick={onTRButtonClick}>Ready</button> */}
           <StartTimeButton
             isActive={startTime > 0}
             onClick={() => {
@@ -512,20 +508,28 @@ const ProjectView = (props: Props) => {
 
           <TRButton
             isDisabled={startTime === 0 || endTime === 0}
-            onClick={() => {
-              props.trimVideo({
-                start: startTime * 1000,
-                end: endTime * 1000,
-              });
-              setStartTime(0);
-              setEndTime(0);
-              pauseVideo();
-            }}
+            onClick={Trim}
             disabled={startTime === 0 || endTime === 0}
           >
             TRIM
           </TRButton>
         </Tmp>
+        <StyledSlider
+          type='range'
+          min='0'
+          step='0.1'
+          max={duration}
+          value={currentTime}
+          onChange={handleTimeChange}
+          startTime={startTime} // startTime 상태를 전달
+          endTime={endTime}
+          duration={duration} // endTime 상태를 전달
+        />
+        <Time>
+          <p>{formatMilliSecondsToTimeString(currentTime * 1000, 'minute')}</p>
+
+          <p>{formatMilliSecondsToTimeString(duration * 1000, 'minute')}</p>
+        </Time>
       </ProjectViewWrapper>
     </>
   );
