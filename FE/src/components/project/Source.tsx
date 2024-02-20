@@ -44,24 +44,11 @@ const Popup = styled.div`
   border: 1px solid black;
 `;
 const Source = ({ sourceInfo, target }: sourceProps) => {
-  const [
-    ,
-    // { isDragging }
-    drag,
-  ] = useDrag({
-    type: 'source',
-    item: sourceInfo,
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
-
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
       <Box
-        ref={drag}
         width={160}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
