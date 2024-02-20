@@ -18,8 +18,6 @@ import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.service.*;
 import team.luckyturkey.communityservice.util.DtoBuilder;
 
-import javax.lang.model.util.Elements;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/feed")
@@ -32,18 +30,11 @@ public class FeedController {
     private final DanceServiceClient danceServiceClient;
     private final DtoBuilder dtoBuilder;
     private final JwtUtil jwtUtil;
-    private final TokenService tokenService;
 
     @PostMapping
     public void insertFeed(@RequestBody Feed feed, @RequestHeader("Authorization") final String accessToken) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
-
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
         feed.setMemberId(memberId);
-        feed.setLikeCount(0L);
-        feed.setDownloadCount(0L);
 
         feedService.insertFeed(feed);
     }
@@ -54,10 +45,7 @@ public class FeedController {
             @PathVariable("pageSize") int pageSize,
             @RequestHeader("Authorization") final String accessToken
     ) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
         List<Long> followingList = subscribeService.getFollowingList(memberId);
         List<Feed> feeds = feedService.getFollowingFeeds(followingList, page, pageSize);
 
@@ -70,10 +58,7 @@ public class FeedController {
             @PathVariable("pageSize") int pageSize,
             @RequestHeader("Authorization") final String accessToken
     ) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         List<Feed> feeds = feedService.getAllFeeds(page, pageSize);
 
@@ -84,10 +69,7 @@ public class FeedController {
     public FeedRepertoryDetailResponse getFeedDetail(
             @PathVariable("feedId") Long feedId,
             @RequestHeader("Authorization") final String accessToken) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         Feed feed = feedService.getFeed(feedId);
 
@@ -129,10 +111,7 @@ public class FeedController {
             @PathVariable("feedId") Long feedId,
             @RequestHeader("Authorization") final String accessToken
     ) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         LikeLog likeLog = LikeLog.builder()
                 .memberId(memberId)
@@ -151,10 +130,7 @@ public class FeedController {
             @PathVariable("feedId") Long feedId,
             @RequestHeader("Authorization") final String accessToken
     ) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long memberId = jwtUtil.getMemberId(atc);
+        Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         LikeLog likeLog = LikeLog.builder()
                 .memberId(memberId)
@@ -180,10 +156,7 @@ public class FeedController {
 
     @GetMapping("/profile/{memberId}")
     public List<FeedDetailResponse> getProfileFeed(@PathVariable Long memberId, @RequestHeader("Authorization") final String accessToken) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done but 확인 필요
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long myId = jwtUtil.getMemberId(atc);
+        Long myId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         if (myId.equals(memberId)) {
             return feedService.getFeedsByMyId(myId);
@@ -197,10 +170,7 @@ public class FeedController {
             @PathVariable Long memberId,
             @RequestHeader("Authorization") final String accessToken
     ) {
-        // TODO: Request Header jwt에서 memberId 받아 오기 :done myId 이게 맞나!
-        String atc = accessToken.split(" ")[1];
-        tokenService.setToken(atc);
-        Long myId = jwtUtil.getMemberId(atc);
+        Long myId = jwtUtil.extractMemberIdFromToken(accessToken);
         MemberDto memberDto = memberServiceClient.getMemberInfo(memberId);
 
         return ProfileSubscriberResponse.builder()
