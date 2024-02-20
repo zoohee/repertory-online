@@ -8,14 +8,18 @@ import org.springframework.stereotype.Component;
 import team.luckyturkey.communityservice.client.DanceServiceClient;
 import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
+import team.luckyturkey.communityservice.dto.response.FeedResponse;
 import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
+import team.luckyturkey.communityservice.dto.response.ProfileSubscriberResponse;
 import team.luckyturkey.communityservice.entity.Feed;
-import team.luckyturkey.communityservice.entity.FeedType;
+import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
+import team.luckyturkey.communityservice.service.SubscribeService;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -25,8 +29,9 @@ public class DtoBuilder {
     private final FeedLikeCacheRepository feedLikeCacheRepository;
     private final FeedRepository feedRepository;
     private final DanceServiceClient danceServiceClient;
+    private final SubscribeService subscribeService;
 
-    public FeedDetailResponse mapFeedDetailResponse(OriginDto s, Feed feed, MemberDto memberDto, Long memberId) {
+    public FeedResponse mapFeedResponse(OriginDto s, Feed feed, MemberDto memberDto, Long memberId) {
         Pageable pageable = PageRequest.of(0, 1);
         List<Boolean> isLikedList = feedRepository.findIsLike(memberId, feed.getId(), pageable);
         Boolean isLiked = false;
@@ -36,7 +41,7 @@ public class DtoBuilder {
         Boolean isDownloaded = danceServiceClient.getIsDownloaded(s.getOriginId(), memberId);
 
 
-        return FeedDetailResponse.builder()
+        return FeedResponse.builder()
                 .feedId(feed.getId())
                 .feedType(feed.getFeedType())
                 .likeCount(feedLikeCacheRepository.findByFeedId(feed.getId()))
@@ -54,4 +59,47 @@ public class DtoBuilder {
                 .memberProfile(memberDto.getMemberProfile())
                 .build();
     }
+
+    public ProfileSubscriberResponse mapProfileSubscriberResponse(Long memberId,
+                                                                  FeedResponse feedResponse,
+                                                                  MemberDto memberDto) {
+        return ProfileSubscriberResponse.builder()
+                .memberId(feedResponse.getMemberId())
+                .memberName(memberDto.getMemberName())
+                .followerCount(subscribeService.getSubscribersCount(memberDto.getMemberId()))
+                .isFollowed(subscribeService.getIsFollowed(memberId, memberDto.getMemberId()))
+                .memberProfile(memberDto.getMemberProfile())
+                .build();
+    }
+
+    public FeedDetailResponse mapFeedDetailResponse(FeedResponse feedResponse,
+                                              ProfileSubscriberResponse profileSubscriberResponse,
+                                              List<FeedResponse> sources) {
+
+        return FeedDetailResponse.builder()
+                .feed(feedResponse)
+                .profile(profileSubscriberResponse)
+                .sources(sources)
+                .build();
+    }
+
+    public LikeLog buildLikeLog(Long memberId, Long feedId, Boolean likeActive) {
+        return LikeLog.builder()
+                .memberId(memberId)
+                .feedId(feedId)
+                .likeActive(likeActive)
+                .timestamp(new Date())
+                .build();
+    }
+
+    public ProfileSubscriberResponse mapProfileSubscriberResponseById(Long myId, Long memberId, MemberDto memberDto) {
+        return ProfileSubscriberResponse.builder()
+                .memberId(memberId)
+                .memberName(memberDto.getMemberName())
+                .isFollowed(subscribeService.getIsFollowed(myId, memberId))
+                .memberProfile(memberDto.getMemberProfile())
+                .build();
+    }
+
+
 }

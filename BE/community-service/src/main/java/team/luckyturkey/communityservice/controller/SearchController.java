@@ -2,7 +2,7 @@ package team.luckyturkey.communityservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
+import team.luckyturkey.communityservice.dto.response.FeedResponse;
 import team.luckyturkey.communityservice.service.JwtUtil;
 import team.luckyturkey.communityservice.service.SearchService;
 import java.util.List;
@@ -16,14 +16,16 @@ public class SearchController {
     private final JwtUtil jwtUtil;
 
     @GetMapping("/tag/{keyword}")
-    public List<FeedDetailResponse> searchFeedByName(@PathVariable String keyword, @RequestHeader("Authorization") final String accessToken) {
+    public List<FeedResponse> searchFeedByName(@PathVariable String keyword,
+                                               @RequestHeader("Authorization") final String accessToken) {
         Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         return searchService.searchFeedByName(keyword, memberId);
     }
 
     @GetMapping("/dancer/{keyword}")
-    public List<FeedDetailResponse> searchFeedByDancerName(@PathVariable String keyword, @RequestHeader("Authorization") final String accessToken) {
+    public List<FeedResponse> searchFeedByDancerName(@PathVariable String keyword,
+                                                     @RequestHeader("Authorization") final String accessToken) {
         Long memberId = jwtUtil.extractMemberIdFromToken(accessToken);
 
         return searchService.searchFeedByDancerName(keyword, memberId);

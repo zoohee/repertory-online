@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.luckyturkey.communityservice.client.DanceServiceClient;
@@ -12,18 +11,17 @@ import team.luckyturkey.communityservice.client.MemberServiceClient;
 import team.luckyturkey.communityservice.dto.MemberDto;
 import team.luckyturkey.communityservice.dto.OriginDto;
 import team.luckyturkey.communityservice.dto.request.SourceCloneRequest;
-import team.luckyturkey.communityservice.dto.response.FeedDetailResponse;
+import team.luckyturkey.communityservice.dto.response.FeedResponse;
 import team.luckyturkey.communityservice.entity.Feed;
 import team.luckyturkey.communityservice.entity.FeedType;
-import team.luckyturkey.communityservice.entity.LikeLog;
 import team.luckyturkey.communityservice.exception.NotExistsException;
 import team.luckyturkey.communityservice.exception.NullException;
 import team.luckyturkey.communityservice.repository.FeedLikeCacheRepository;
 import team.luckyturkey.communityservice.repository.FeedRepository;
-import team.luckyturkey.communityservice.repository.SubscribeRepository;
 import team.luckyturkey.communityservice.util.DtoBuilder;
 import team.luckyturkey.communityservice.util.ErrorCode;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +57,11 @@ public class FeedService {
         return feedRepository.getFeedById(feedId);
     }
 
-    public FeedDetailResponse getFeedDetail(Feed feed, Long memberId) {
+    public FeedResponse getFeedDetail(Feed feed, Long memberId) {
         Long originId = feed.getOriginId();
         OriginDto originDto = getOriginDto(originId, feed.getFeedType());
         MemberDto memberDto = memberServiceClient.getMemberInfo(feed.getMemberId());
-        return dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
+        return dtoBuilder.mapFeedResponse(originDto, feed, memberDto, memberId);
     }
 
     // dance server에서 소스 or 레퍼토리 정보 가져오는 함수
@@ -75,17 +73,17 @@ public class FeedService {
         return originDto;
     }
 
-    public List<FeedDetailResponse> getFeedsAndDetail(List<Feed> feeds, Long memberId) {
-        List<FeedDetailResponse> feedDetailResponseList = new ArrayList<>();
+    public List<FeedResponse> getFeedsAndDetail(List<Feed> feeds, Long memberId) {
+        List<FeedResponse> feedResponseList = new ArrayList<>();
         for (Feed feed : feeds) {
             OriginDto originDto = danceServiceClient.getOriginDetail(feed.getOriginId(), feed.getFeedType());
             if (originDto.getFeedName() == null) { continue; }
             MemberDto memberDto = memberServiceClient.getMemberInfo(originDto.getMemberId());
 
-            FeedDetailResponse feedDetailResponse = dtoBuilder.mapFeedDetailResponse(originDto, feed, memberDto, memberId);
-            feedDetailResponseList.add(feedDetailResponse);
+            FeedResponse feedResponse = dtoBuilder.mapFeedResponse(originDto, feed, memberDto, memberId);
+            feedResponseList.add(feedResponse);
         }
-        return feedDetailResponseList;
+        return feedResponseList;
     }
 
     public List<Feed> getAllFeeds(int pageNumber, int pageSize) {
@@ -115,12 +113,12 @@ public class FeedService {
     }
 
     // 멤버 아이디로 피드 리스트 불러오는 함수
-    public List<FeedDetailResponse> getFeedsByMemberId(Long memberId) {
+    public List<FeedResponse> getFeedsByMemberId(Long memberId) {
         List<Feed> feeds = feedRepository.findPublicFeedsByMemberId(memberId);
         return getFeedsAndDetail(feeds, memberId);
     }
 
-    public List<FeedDetailResponse> getFeedsByMyId(Long myId) {
+    public List<FeedResponse> getFeedsByMyId(Long myId) {
         List<Feed> feeds = feedRepository.findFeedsByMemberId(myId);
         return getFeedsAndDetail(feeds, myId);
     }
@@ -129,4 +127,16 @@ public class FeedService {
         return feedRepository.getFeedByOriginId(originId);
     }
 
+    public List<FeedResponse> getSources(Long memberId, Feed feed, MemberDto memberDto) {
+        List<OriginDto> originDtoList = danceServiceClient.getSourceList(feed.getOriginId());
+
+        List<FeedResponse> sources = new ArrayList<>();
+        for (OriginDto o : originDtoList) {
+            Feed sourceFeed = feedRepository.getFeedByOriginId(o.getOriginId());
+            FeedResponse s = dtoBuilder.mapFeedResponse(o, sourceFeed, memberDto, memberId);
+            sources.add(s);
+        }
+
+        return sources;
+    }
 }
