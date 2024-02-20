@@ -221,32 +221,30 @@ const ProjectPage: React.FC = () => {
 
   return (
     <>
-      <DndProvider backend={HTML5Backend}>
-        <Container>
-          <SourceWrapper>
-            {/* source list */}
-            <SourceList />
-          </SourceWrapper>
-          <EditWrapper>
-            <ViewWarpper>
-              {/* video display */}
-              {/* <p ref={messageRef}></p> */}
-              <ProjectView
-                setVideo={setVideoFile}
-                videoRef={videoRef}
-                videoRefOrg={videoRefOrg}
-                trimVideo={trimVideo}
-              />
-            </ViewWarpper>
-            <WorkbenchWarpper>
-              {/* workbench */}
-              <Workbench
-                concatVideos={(sources) => ConcatVideos(sources)}
-              ></Workbench>
-            </WorkbenchWarpper>
-          </EditWrapper>
-        </Container>
-      </DndProvider>
+      <Container>
+        <SourceWrapper>
+          {/* source list */}
+          <SourceList />
+        </SourceWrapper>
+        <EditWrapper>
+          <ViewWarpper>
+            {/* video display */}
+            {/* <p ref={messageRef}></p> */}
+            <ProjectView
+              setVideo={setVideoFile}
+              videoRef={videoRef}
+              videoRefOrg={videoRefOrg}
+              trimVideo={trimVideo}
+            />
+          </ViewWarpper>
+          <WorkbenchWarpper>
+            {/* workbench */}
+            <Workbench
+              concatVideos={(sources) => ConcatVideos(sources)}
+            ></Workbench>
+          </WorkbenchWarpper>
+        </EditWrapper>
+      </Container>
     </>
   );
 };

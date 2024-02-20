@@ -33,7 +33,7 @@ const Workbench = (props: WorkbenchProps) => {
     <>
       <Container>
         <Btn onClick={() => props.concatVideos(sources)}>CONCAT</Btn>
-        <Wrapper ref={drop}>
+        <Wrapper>
           {
             // 드롭한 아이템들을 리스트로 출력
             sources.map((item: ISource, index) => {
