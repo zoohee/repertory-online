@@ -1,6 +1,5 @@
 // import { List } from 'lodash';
 import Image from '../common/ImageSquare';
-import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 import { ISource } from '@/services/interface';
 import { useState } from 'react';

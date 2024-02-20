@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import SourceList from '@/components/project/SourceList';
 import ProjectView from '@/components/project/ProjectView';
 import Workbench from '@/components/project/Workbench';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import React, { useState, useRef, useEffect } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
