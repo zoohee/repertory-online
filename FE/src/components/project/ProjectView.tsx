@@ -97,7 +97,7 @@ const StyledVideo = styled.video`
 const StyledSlider = styled.input<SliderProps>`
   margin-top: 10px;
   width: 95%;
-  height: 5%;
+  min-height: 16px;
   background: #808080;
   border-radius: 0.5rem;
   overflow: hidden;
